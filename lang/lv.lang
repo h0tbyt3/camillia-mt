@@ -1,0 +1,886 @@
+# Camillia language file (issue #99)
+# code: lv
+# name: Latviešu
+#
+# One translation per line: the English exactly as it appears in the source,
+# a TAB, then the translation. Escape a newline as \n, a tab as \t, a backslash
+# as \\. Keep every %d / %s / %u ... in the same order and of the same type as the
+# English -- a line whose placeholders differ is ignored on the device and the
+# English is shown. Mesh terms that are names (LongFast, MQTT, LoRa) stay as they
+# are. Lines are kept sorted by the English, for review; the build sorts anyway.
+# First draft: review by a native speaker welcome (see docs/TRANSLATING.md).
+#
+# Compiled in by tools/gen_lang_builtin.py.
+  %s via %s (%.0f dB)\n	  %s caur %s (%.0f dB)\n
+  CONFIRM?	  APSTIPRINĀT?
+  Humid  %.1f %%	  Mitr.  %.1f %%
+  Press  %.1f hPa	  Spied. %.1f hPa
+  lock	  aizsargāts
+  open	  atvērts
+ (no card)	 (nav kartes)
+ (not sharing location)	 (atrašanās vieta netiek kopīgota)
+ (unchanged)	 (nemainīts)
+ - %s available	 - pieejama %s
+ - check failed	 - pārbaude neizdevās
+ - check unavailable	 - pārbaude nav pieejama
+ - checking...	 - pārbauda...
+ - saving to %s	 - saglabā uz %s
+ - up to date	 - aktuāla
+! TX failed	! Sūtīšana neizdevās
+! TX failed (node id)	! Sūtīšana neizdevās (mezgla id)
+%d %s %d	%d. %s %d
+%d chans  %s msgs  %s%s	%d kan.  %s ziņ.  %s%s
+%d chans  %s msgs  %s%s  (+%s off-list)	%d kan.  %s ziņ.  %s%s  (+%s ārpus saraksta)
+%d node(s), %d report(s)	%d mezgl., %d atskaites
+%d%s  %s\nFeels %d%s, humidity %d%%\nWind %s %d %s%s%s	%d%s  %s\nJūtas kā %d%s, mitrums %d%%\nVējš %s %d %s%s%s
+%luh ago	pirms %lu st.
+%lum ago	pirms %lu min.
+%lus ago	pirms %lu s
+%s   -   %u match%s so far	%s   -   %u atbilst.%.0s līdz šim
+%s  (current)	%s  (pašreizējais)
+%s (this node)	%s (šis mezgls)
+%s - WiFi off	%s - WiFi izsl.
+%s - rebooting...	%s - restartē...
+%s - saved	%s - saglabāts
+%s = Back   C = Clear   F = Filter	%s = Atpakaļ   C = Notīrīt   F = Filtrs
+%s = Back   green=SNR  pink=RSSI	%s = Atpakaļ   zaļš=SNR  rozā=RSSI
+%s = Back   teal=ChUtil  orange=AirTx	%s = Atpakaļ   zilzaļš=ChUtil  oranžs=AirTx
+%s = Close	%s = Aizvērt
+%s returns to the live list.\nIf it is full, the oldest non-favorite is archived to make room.	%s atgriežas aktīvajā sarakstā.\nJa tas ir pilns, vecākais neizlases mezgls tiek arhivēts, lai atbrīvotu vietu.
+%s to close Help	%s aizver Palīdzību
+%s will be removed from the node list.	%s tiks noņemts no mezglu saraksta.
+%s x%u\nClock: %u MHz\nRevision: %u\nUptime: %luh %02lum %02lus\nLoop rate: %lu /s\nBattery: %u%% %.3fV	%s x%u\nTakts: %u MHz\nRevīzija: %u\nDarbības laiks: %luh %02lum %02lus\nCikli: %lu /s\nAkumulators: %u%% %.3fV
+%s%.2f, %.2f (rounded)	%s%.2f, %.2f (noapaļots)
+%s%lu min ago - %.2f, %.2f (rounded)	%spirms %lu min - %.2f, %.2f (noapaļots)
+%s.\n\nNothing can arrive until the bridge has a broker session. Fix it in Config (or web config) and this list fills in on its own.	%s.\n\nNekas nepienāks, kamēr tiltam nav sesijas ar starpnieku. Izlabojiet to Iestatījumos (vai tīmekļa iestatījumos), un šis saraksts aizpildīsies pats.
+%s: %d node(s) heard	%s: dzirdēti mezgli %d
+%s: %d on preset (%lus)	%s: %d uz priekšiestatījuma (%lus)
+%s=Scroll  A=Actions  %s=List	%s=Ritināt  A=Darbības  %s=Saraksts
+%s\n%.1f km - brg %03d %s\n%s\nyou %dm - peer %dm - %.0f MHz	%s\n%.1f km - azimuts %03d %s\n%s\njūs %dm - otrs %dm - %.0f MHz
+%s\n%lu min old	%s\npirms %lu min
+%s\nIn use - will switch to the next configured WiFi network, or AP mode if none is available	%s\nLietošanā - pārslēgsies uz nākamo iestatīto WiFi tīklu vai AP režīmu, ja tāda nav
+%s\nMessage history will be erased	%s\nZiņu vēsture tiks dzēsta
+%s\nType %06u then Enter on the keyboard	%s\nIevadiet %06u un tad Enter tastatūrā
+%u of %d	%u no %d
+%u sec	%u s
+(A)nnounce	P(a)ziņot
+(B)eacons	Bākas (B)
+(C)FG   (D)M   (N)odes   Too(l)s   (A)ctions	(C)FG   (D)M   Mezgli (N)   Rīki (L)   Darbības (A)
+(C)FG  C(h)an  (D)M  (N)odes  Too(l)s  (A)ct	(C)FG  Kanāls (H)  (D)M  Mezgli (N)  Rīki (L)  Darb. (A)
+(D) Direct Messages\n(C) Configuration\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(H) Channel selector\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(D) Tiešās ziņas\n(C) Iestatījumi\n(N) Mezgli\n(L) Rīki (Live, grafiki)\n(A) Kanāla darbības\n(H) Kanāla izvēle\n(P) Palīdzība (šis ekrāns)\n(E) Emoji\n(Space) Rakstīt/Atbildēt\n(Enter) Pāriet uz ziņām
+(D)iscovery	Atklāšana (D)
+(F)avorite	Izlase (F)
+(H) Home dashboard\n(C) Chat (again: channels)\n(F) Configuration\n(D) Direct Messages\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(H) Sākuma panelis\n(C) Tērzēšana (vēlreiz: kanāli)\n(F) Iestatījumi\n(D) Tiešās ziņas\n(N) Mezgli\n(L) Rīki (Live, grafiki)\n(A) Kanāla darbības\n(P) Palīdzība (šis ekrāns)\n(E) Emoji\n(Space) Rakstīt/Atbildēt\n(Enter) Pāriet uz ziņām
+(H)ome (C)hat C(f)g (D)M (N)odes Too(l)s	Sākums (H) Tērz. (C) Iest. (F) (D)M Mezgli (N) Rīki (L)
+(L)ocate	(L)okalizēt
+(L)ocation: %s	Atrašanās vieta (L): %s
+(M)ute	Apklusināt (M)
+(R)eply	Atbildēt (R)
+(W)eather	Laikapstākļi (W)
+(Y)es	Jā (Y)
+(no name)	(bez vārda)
+(not set)	(nav iestatīts)
+(nothing)	(nekas)
+(unknown)	(nezināms)
+(unnamed)	(bez nosaukuma)
+, gusts %d	, brāzmas %d
+1 hour	1 stunda
+12-hour	12 stundu
+15 sec	15 s
+2 hours	2 stundas
+24-hour	24 stundu
+30 sec	30 s
+4-char short name (ABCD)	4 rakstzīmju īsais vārds (ABCD)
+5 min on that preset. This node hears nothing on its own while it runs, and finds only meshes sharing your primary channel key.	5 min uz šī priekšiestatījuma. Kamēr tas darbojas, šis mezgls nedzird neko no sava tīkla un atrod tikai tīklus ar jūsu galvenā kanāla atslēgu.
+5 sec	5 s
+6 hours	6 stundas
+? hops	? lēcieni
+ACK from %s. Waiting for reply...	ACK no %s. Gaida atbildi...
+ACKed, no reply (%lus)	ACK saņemts, atbildes nav (%lus)
+AP mode cannot be removed	AP režīmu nevar noņemt
+AP mode selected	Izvēlēts AP režīms
+AP mode selected - enable WiFi first	Izvēlēts AP režīms - vispirms ieslēdziet WiFi
+AP mode: %s	AP režīms: %s
+ARCHIVED %s\n\n%s\nShort: %s\nID: !%08lX\n\nLast heard: %s\n%s\n\n%sNot on the live list. Restore it to message,\nfavorite or trace it.	ARHIVĒTS %s\n\n%s\nĪsais: %s\nID: !%08lX\n\nPēdējoreiz dzirdēts: %s\n%s\n\n%sNav aktīvajā sarakstā. Atjaunojiet to, lai rakstītu,\npievienotu izlasei vai izsekotu.
+Act	Darb.
+Action Result	Rezultāts
+Action: %s	Darbība: %s
+Actions	Darbības
+All	Visi
+All live traffic will be erased	Visa tiešraides datplūsma tiks dzēsta
+All live traffic will be erased, including lines hidden by the filter	Visa tiešraides datplūsma tiks dzēsta, arī filtra paslēptās rindas
+Already %s.	Jau %s.
+Already on that preset	Jau uz šī priekšiestatījuma
+Analyzing terrain...	Analizē reljefu...
+Announce	Paziņot
+Antenna: %s	Antena: %s
+Any key / %s = Close	Jebkurš taustiņš / %s = Aizvērt
+Apply	Lietot
+Apr	apr
+April	aprīlis
+Archive Dropped Nodes: %s	Arhivēt izspiestos mezglus: %s
+Archive Dropped Nodes: %s%s	Arhivēt izspiestos mezglus: %s%s
+Asks first, then reboots.	Vispirms jautā, tad restartē.
+Asks first, then reboots. Only nodes on the same preset can hear each other.	Vispirms jautā, tad restartē. Viens otru dzird tikai mezgli uz tā paša priekšiestatījuma.
+Aug	aug
+August	augusts
+Auto-update gave up on %s after %u failed installs	Automātiskā atjaunināšana atteicās no %s pēc %u neveiksmīgām instalācijām
+BT Keyboard failed to start (low memory)	BT tastatūra nepalaidās (maz atmiņas)
+BT Keyboard off	BT tastatūra izsl.
+BT Keyboard on - connecting to %s	BT tastatūra iesl. - savieno ar %s
+BT Keyboard on - use Pair to choose one	BT tastatūra iesl. - izvēlieties ar Savienot pārī
+BT Keyboard turned off.\n\nWeb Config and the Bluetooth keyboard share one radio and cannot run at the same time.\n\nTurn Web Config off to use the keyboard again.	BT tastatūra izslēgta.\n\nTīmekļa iestatījumi un Bluetooth tastatūra izmanto vienu radio un nevar darboties vienlaikus.\n\nIzslēdziet tīmekļa iestatījumus, lai atkal lietotu tastatūru.
+BT Keyboard: %s	BT tastatūra: %s
+BT Keyboard: Off	BT tastatūra: Izsl.
+Back	Atpakaļ
+Back = Cancel	Atpakaļ = Atcelt
+Battery Calibration	Akumulatora kalibrēšana
+Battery Calibration: %s	Akumulatora kalibrēšana: %s
+Battery Calibration: Off	Akumulatora kalibrēšana: Izsl.
+Battery Display: %s	Akumulatora rādīšana: %s
+Battery critical - shedding load	Akumulators kritisks - samazina slodzi
+Battery empty	Akumulators tukšs
+Battery low	Akumulators zems
+Battery trim: %s	Akumulatora korekcija: %s
+Battery: %.0f%%\nVoltage: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%	Akumulators: %.0f%%\nSpriegums: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%
+Battery\nVoltage\nChUtil\nAirTx\nTemp\nHumidity\nPressure	Akumulators\nSpriegums\nChUtil\nAirTx\nTemp.\nMitrums\nSpiediens
+Beacons	Bākas
+Bksp=Back  solid=ChUtil  dash=AirTx	Bksp=Atpakaļ  nepārtraukta=ChUtil  raustīta=AirTx
+Bksp=Back  solid=SNR  dash=RSSI	Bksp=Atpakaļ  nepārtraukta=SNR  raustīta=RSSI
+Bksp=Close	Bksp=Aizvērt
+Blink Flashes (Channel): %u	Mirgojumu skaits (kanāls): %u
+Blink Flashes (DM): %u	Mirgojumu skaits (DM): %u
+Blocked @ %.1f km, %dm over sight	Bloķēts pie %.1f km, %dm virs redzamības līnijas
+Blue	Zils
+Bluetooth Keyboard	Bluetooth tastatūra
+Bottom buttons: Chats, DM, Nodes, Tools, Config, Help.	Apakšējās pogas: Tērzēšanas, DM, Mezgli, Rīki, Iestatījumi, Palīdzība.
+Bottom buttons: Home, Chats, DM, Nodes, Tools, Config, Help.\nHome is the dashboard; Chats is the messages, and its icon\nblinks when a channel has something unread.	Apakšējās pogas: Sākums, Tērzēšanas, DM, Mezgli, Rīki, Iestatījumi, Palīdzība.\nSākums ir panelis; Tērzēšanas ir ziņas, un to ikona\nmirgo, kad kanālā ir kas nelasīts.
+Brightness	Spilgtums
+Brightness: %u%%	Spilgtums: %u%%
+Brightness: %u%%  Lock: %u%%	Spilgtums: %u%%  Bloķēšana: %u%%
+Brown	Brūns
+Bubbles	Burbuļi
+C = Clear   %s = Back	C = Notīrīt   %s = Atpakaļ
+C = Clear   F = Filter	C = Notīrīt   F = Filtrs
+C:Cfg H:Ch D:DM N:Node L:Tools A:Act	C:Iest H:Kan D:DM N:Mezgl L:Rīki A:Darb
+CHANNEL UTIL	KANĀLA NOSLODZE
+CHANNEL UTILIZATION (%)	KANĀLA NOSLODZE (%)
+Can't resolve the weather server.\nCheck the address and DNS.	Nevar atrisināt laikapstākļu serveri.\nPārbaudiet adresi un DNS.
+Cancel	Atcelt
+Cancelled after removing %u file%s. The rest were left alone - run the scan again to see what is still there.	Atcelts pēc %u failu%.0s noņemšanas. Pārējais netika aizskarts - palaidiet pārbaudi vēlreiz, lai redzētu, kas palicis.
+Cannot send: no node id	Nevar nosūtīt: nav mezgla id
+Card formatted.\n\nWrite your configuration back to it as /camillia/config.yaml?	Karte formatēta.\n\nIerakstīt iestatījumus atpakaļ kā /camillia/config.yaml?
+ChUtil  cur %s  avg %.1f%%  max %.1f%%   n=%d\nAirTx   cur %s  avg %.1f%%  max %.1f%%   n=%d	ChUtil  tag %s  vid %.1f%%  maks %.1f%%   n=%d\nAirTx   tag %s  vid %.1f%%  maks %.1f%%   n=%d
+ChUtil  cur --  avg --  max --   n=0\nAirTx   cur --  avg --  max --   n=0	ChUtil  tag --  vid --  maks --   n=0\nAirTx   tag --  vid --  maks --   n=0
+Channel	Kanāls
+Channel %d	Kanāls %d
+Channel %d  %s	Kanāls %d  %s
+Channel Actions\n%s	Kanāla darbības\n%s
+Channel Configuration	Kanāla iestatījumi
+Channel Key	Kanāla atslēga
+Channel Message LED	Kanāla ziņu LED
+Channel Message LED: %s	Kanāla ziņu LED: %s
+Channel Name	Kanāla nosaukums
+Channel blink: %u flash%s	Kanāla mirgošana: %u reizes%.0s
+Channel busy (%.0f%%) - not sweeping	Kanāls aizņemts (%.0f%%) - bez pārmeklēšanas
+Channels	Kanāli
+Chat Colors: %s	Tērzēšanas krāsas: %s
+Chat Names	Vārdi tērzēšanā
+Chat Names: %s	Vārdi tērzēšanā: %s
+Chat Names: %s%s	Vārdi tērzēšanā: %s%s
+Chat Style	Tērzēšanas stils
+Chat Style: %s	Tērzēšanas stils: %s
+Chat Style: %s%s	Tērzēšanas stils: %s%s
+Chat Type	Tērzēšanas veids
+Chat Type: %s	Tērzēšanas veids: %s
+Chat Type: %s%s	Tērzēšanas veids: %s%s
+Chat colors reassigned	Tērzēšanas krāsas piešķirtas no jauna
+Checking %u of %u   %u%%	Pārbauda %u no %u   %u%%
+Chirpy	Čivināšana
+Choose WiFi	Izvēlēties WiFi
+Choose WiFi or Finish	Izvēlieties WiFi vai Pabeigt
+Choose WiFi: %s	Izvēlēties WiFi: %s
+Choose WiFi: (none)	Izvēlēties WiFi: (nav)
+Classic	Klasisks
+Clear	Notīrīt
+Clear Messages	Notīrīt ziņas
+Clear Nodes (All)	Notīrīt mezglus (visus)
+Clear Nodes (Keep Favorites)	Notīrīt mezglus (paturēt izlasi)
+Clear by %dm at tightest	Brīvs %dm šaurākajā vietā
+Clear entire live feed?	Notīrīt visu tiešraides plūsmu?
+Cleared %d nodes, kept %d favorites - rebooting...	Notīrīti %d mezgli, paturēti %d izlases - restartē...
+Cleared (%d report(s)) - rebuilding from traffic	Notīrīts (%d atskaites) - atjauno no datplūsmas
+Clock Format: %s	Pulksteņa formāts: %s
+Clock set from web config	Pulkstenis iestatīts no tīmekļa iestatījumiem
+Clock set: %04d-%02d-%02d %02d:%02d	Pulkstenis iestatīts: %04d-%02d-%02d %02d:%02d
+Close	Aizvērt
+Configuration	Iestatījumi
+Configuration exported to /camillia/config.yaml.\n\nThe card is formatted and holds nothing else. Chat history, the node database and any map tiles were on the old filesystem and are gone.	Iestatījumi eksportēti uz /camillia/config.yaml.\n\nKarte ir formatēta un neko citu nesatur. Tērzēšanas vēsture, mezglu datubāze un kartes flīzes bija vecajā failu sistēmā un ir zudušas.
+Configured WiFi is empty	Iestatītais WiFi ir tukšs
+Confirm Chat Style	Apstiprināt tērzēšanas stilu
+Confirm?	Apstiprināt?
+Connect	Savienot
+Connect to WiFi before enabling VNC	Pirms VNC ieslēgšanas savienojieties ar WiFi
+Connect: %s	Savienot: %s
+Connecting to %s...	Savieno ar %s...
+Connecting to broker...	Savieno ar starpnieku...
+Connection failed: %s	Savienojums neizdevās: %s
+Conversation deleted	Saruna dzēsta
+Conversations	Sarunas
+Could not reach the weather server.	Neizdevās sasniegt laikapstākļu serveri.
+Could not remove every file. Check storage and retry.	Neizdevās noņemt visus failus. Pārbaudiet krātuvi un mēģiniet vēlreiz.
+Counting files on the card...	Skaita failus kartē...
+Counting files... %u found	Skaita failus... atrasti %u
+Custom	Pielāgots
+Custom (%u B)	Pielāgots (%u B)
+Cyan	Ciāns
+DIRECT MESSAGES	TIEŠĀS ZIŅAS
+DISTANCE UNKNOWN	ATTĀLUMS NEZINĀMS
+DM blink: %u flash%s	DM mirgošana: %u reizes%.0s
+DMs	DM
+Date unavailable	Datums nav pieejams
+Day	Diena
+Dec	dec
+December	decembris
+Default	Noklusējums
+Default (%u)	Noklusējums (%u)
+Default +%u	Noklusējums +%u
+Del(e)te	Dzēst (E)
+Delete	Dzēst
+Delete WiFi?	Dzēst WiFi?
+Delete conversation?	Dzēst sarunu?
+Delete failed	Dzēšana neizdevās
+Delete node?	Dzēst mezglu?
+Delivery details not recorded: received before this boot, or too many messages ago.	Piegādes dati nav reģistrēti: saņemts pirms šīs palaišanas vai pirms pārāk daudzām ziņām.
+Detail Map	Detalizēta karte
+Device Info	Ierīces informācija
+Device switched off last time: battery empty	Ierīce pēdējoreiz izslēdzās: tukšs akumulators
+Direct Message LED	Tiešo ziņu LED
+Direct Message LED: %s	Tiešo ziņu LED: %s
+Discovery	Atklāšana
+Do not remove the card	Neizņemiet karti
+Elevation data too sparse\nfor this path.	Augstuma dati šim maršrutam\nir pārāk reti.
+Elevation fetch failed (%d).\nCheck the server URL - it must be http://	Augstuma iegūšana neizdevās (%d).\nPārbaudiet servera URL - tam jābūt http://
+Enable WiFi first	Vispirms ieslēdziet WiFi
+Enc	Šifr.
+Encrypted	Šifrēts
+Encryption	Šifrēšana
+Enter password, then tap Connect	Ievadiet paroli un pieskarieties Savienot
+Enter this node's long name.	Ievadiet šī mezgla garo vārdu.
+Enter=Connect  Backspace=Back	Enter=Savienot  Backspace=Atpakaļ
+Enter=Info  A=Actions  Bksp=Edit/Exit  %s=Back	Enter=Info  A=Darbības  Bksp=Rediģēt/Iziet  %s=Atpakaļ
+Enter=Info  A=Actions  Space=Filter  %s=Back	Enter=Info  A=Darbības  Space=Filtrs  %s=Atpakaļ
+Enter=Next	Enter=Tālāk
+Enter=Next    Bksp(empty)=Back	Enter=Tālāk    Bksp(tukšs)=Atpakaļ
+Enter=Next   Bksp(empty)=Back	Enter=Tālāk   Bksp(tukšs)=Atpakaļ
+Enter=OK  %s=Erase/Back	Enter=OK  %s=Dzēst/Atpakaļ
+Enter=OK  Bksp=Erase  %s=Back	Enter=OK  Bksp=Dzēst  %s=Atpakaļ
+Enter=Save  Tab=Field  %s=Erase/Back	Enter=Saglabāt  Tab=Lauks  %s=Dzēst/Atpakaļ
+Enter=Send   %s=Cancel	Enter=Sūtīt   %s=Atcelt
+Enter=Send  Bksp(empty)=Cancel	Enter=Sūtīt  Bksp(tukšs)=Atcelt
+Enter=Send  Esc=Cancel  Bksp=Del	Enter=Sūtīt  Esc=Atcelt  Bksp=Dzēst
+Environment	Vide
+Errors	Kļūdas
+Examined %u file%s. Nothing matching Windows malware was found.\n\nThis reads names and file headers, not contents, so it is a good sign rather than a guarantee.	Pārbaudīti faili: %u%.0s. Nekas līdzīgs Windows ļaunprogrammatūrai netika atrasts.\n\nTiek lasīti nosaukumi un failu galvenes, nevis saturs, tāpēc tā ir laba zīme, nevis garantija.
+Export Config	Eksportēt iestatījumus
+Export FAILED (no SD?)	Eksports NEIZDEVĀS (nav SD?)
+Export FAILED. The card formatted, but the configuration could not be written back to it - try Export from the Config screen.	Eksports NEIZDEVĀS. Karte tika formatēta, bet iestatījumus neizdevās ierakstīt atpakaļ - mēģiniet Eksportēt Iestatījumu ekrānā.
+Exported to /camillia/config.yaml	Eksportēts uz /camillia/config.yaml
+Extra Large	Ļoti liels
+Factory Reset	Rūpnīcas iestatījumi
+Factory reset - rebooting...	Rūpnīcas iestatījumi - restartē...
+Favorite	Izlase
+Feb	feb
+February	februāris
+Feels %d%s   Hum %d%%\nWind %d %s %s\nGusting %d %s	Jūtas %d%s   Mitr. %d%%\nVējš %d %s %s\nBrāzmas %d %s
+Feels like   %d%s\nHumidity     %d%%\nWind         %d %s from %s\nGusting      %d %s	Jūtas kā     %d%s\nMitrums      %d%%\nVējš         %d %s no %s\nBrāzmas      %d %s
+Fetching...	Iegūst...
+Filter	Filtrs
+Filter Nodes	Filtrēt mezglus
+Filter: %s	Filtrs: %s
+Finish	Pabeigt
+Firmware Update	Programmaparatūras atjauninājums
+Firmware Update Check	Atjauninājuma pārbaude
+Firmware Update: Install %s	Atjauninājums: instalēt %s
+Font Size	Fonta lielums
+Font Size: %s	Fonta lielums: %s
+Font Size: %s%s	Fonta lielums: %s%s
+Forget	Aizmirst
+Format FAILED, and the card could not be remounted.\n\nReboot the device, or format the card on a PC.	Formatēšana NEIZDEVĀS, un karti neizdevās atkal pievienot.\n\nRestartējiet ierīci vai formatējiet karti datorā.
+Format FAILED. The card was left as it was and is still mounted.\n\nFormatting it on a PC is the reliable way out.	Formatēšana NEIZDEVĀS. Karte palika nemainīta un joprojām ir pievienota.\n\nFormatēšana datorā ir uzticams risinājums.
+Format the SD card?\n\nThis erases EVERYTHING on it - chat and DM history, the node database, map tiles and your saved configuration - not just the files the scan matched.\n\nIt cannot be undone.	Formatēt SD karti?\n\nTas izdzēš VISU tajā - tērzēšanas un DM vēsturi, mezglu datubāzi, kartes flīzes un saglabātos iestatījumus - ne tikai pārbaudes atrastos failus.\n\nTo nevar atsaukt.
+Formatting SD Card	Formatē SD karti
+Found %d network(s)	Atrasti tīkli: %d
+Found %u file%s matching Windows malware:\n	Faili, kas līdzīgi Windows ļaunprogrammatūrai: %u%.0s\n
+Freq: %.3f MHz	Frekv: %.3f MHz
+Fri	pk
+From: %s	No: %s
+Full node name when known	Pilns mezgla vārds, ja zināms
+GPS disabled (using default coordinates)	GPS izslēgts (noklusējuma koordinātas)
+GPS enabled (hardware)	GPS ieslēgts (aparatūra)
+GPS: Disabled (Default Coords)	GPS: Izsl. (noklus. koord.)
+GPS: Enabled (Hardware)	GPS: Iesl. (aparatūra)
+Gateway: not known	Vārteja: nezināma
+Grazes terrain - F1=%dm	Skar reljefu - F1=%dm
+Green	Zaļš
+HEARD ABOUT	ZIŅOJA CITI
+Heard %s ago   %u seen, ~%s apart	Dzirdēts pirms %s   redzēts %u reizes, ik ~%s
+Heard %s ago   1 seen	Dzirdēts pirms %s   redzēts 1 reizi
+Help	Palīdzība
+High	Augsts
+Hops	Lēcieni
+Hops: %d of %d	Lēcieni: %d no %d
+Hour	Stunda
+I(g)nore	I(g)norēt
+Identity	Identitāte
+Ignore	Ignorēt
+Import Config	Importēt iestatījumus
+Import FAILED (no file?)	Imports NEIZDEVĀS (nav faila?)
+Import failed - enter a name	Imports neizdevās - ievadiet vārdu
+Imported OK - rebooting...	Imports OK - restartē...
+Install now? The device reboots to update.	Instalēt tagad? Ierīce atjaunināšanai restartēsies.
+Invalid base64 key	Nederīga base64 atslēga
+Invalid date/time	Nederīgs datums/laiks
+Invert Scrolling: %s	Apgriezta ritināšana: %s
+J/K = Scroll   %s = Close	J/K = Ritināt   %s = Aizvērt
+J/K = Scroll   Bksp = Close	J/K = Ritināt   Bksp = Aizvērt
+J/K = Select   Space = Compose   Enter = Focus   D = Delete	J/K = Izvēlēties   Space = Rakstīt   Enter = Fokuss   D = Dzēst
+Jan	jan
+January	janvāris
+Jul	jūl
+July	jūlijs
+Jun	jūn
+June	jūnijs
+Just announced. Try again in %us.	Tikko paziņots. Mēģiniet vēlreiz pēc %us.
+Key	Atslēga
+Keyboard Blink: %s	Tastatūras mirgošana: %s
+Keyboard Light	Tastatūras apgaismojums
+Keyboard Light: %s	Tastatūras apgaismojums: %s
+Keyboard blink: %s	Tastatūras mirgošana: %s
+Keyboard light %s	Tastatūras apgaismojums %s
+Keyboard light %s - after a power cycle	Tastatūras apgaismojums %s - pēc izslēgšanas un ieslēgšanas
+Keyboard light off	Tastatūras apgaismojums izsl.
+L/R=Change   Enter=Save   %s=Back	K/L=Mainīt   Enter=Saglabāt   %s=Atpakaļ
+LINE OF SIGHT	REDZAMĪBAS LĪNIJA
+LIVE	TIEŠRAIDE
+LONGEST SILENT	VISILGĀK KLUSĒJOŠIE
+Landscape	Ainava
+Language	Valoda
+Language: %s	Valoda: %s
+Large	Liels
+Last heard	Pēdējoreiz dzirdēts
+Last heard\nSNR\nHops\nChannel\nSigned	Pēdējoreiz dzirdēts\nSNR\nLēcieni\nKanāls\nParakstīts
+Leave blank to clear	Atstājiet tukšu, lai notīrītu
+Light reminds for %s	Gaisma atgādina %s
+Light reminds until read	Gaisma atgādina līdz izlasīšanai
+Lime	Laima
+Link	Saite
+Listening   %d sender%s heard	Klausās   dzirdēti sūtītāji: %d%.0s
+Listening: off	Klausīšanās: izsl.
+Live	Tiešraide
+Live Filter	Tiešraides filtrs
+Live feed cleared	Tiešraides plūsma notīrīta
+Loading map...	Ielādē karti...
+Loc	Vieta
+Locate	Lokalizēt
+Locate: %s	Lokalizēt: %s
+Location	Atrašanās vieta
+Location Precision	Atrašanās vietas precizitāte
+Location Precision: %s	Atrašanās vietas precizitāte: %s
+Location rounded to %s	Atrašanās vieta noapaļota līdz %s
+Location sent exactly	Atrašanās vieta nosūtīta precīzi
+Location sharing off (no position sent)	Atrašanās vietas kopīgošana izsl. (pozīcija netiek sūtīta)
+Location sharing on	Atrašanās vietas kopīgošana iesl.
+Location: %s	Atrašanās vieta: %s
+Lock Screen Off	Ekrāns izsl. bloķējot
+Lock Screen Off: %s	Ekrāns izsl. bloķējot: %s
+Lock Screen: %s	Bloķēšanas ekrāns: %s
+Lock screen	Bloķēšanas ekrāns
+Lock screen stays on	Bloķēšanas ekrāns paliek ieslēgts
+Long	Garš
+Long name	Garais vārds
+Long name cannot be empty	Garais vārds nevar būt tukšs
+Long name: %s\nEnter a short name (up to 4 chars).	Garais vārds: %s\nIevadiet īso vārdu (līdz 4 rakstzīmēm).
+Long: %s	Garš: %s
+Looking for keyboards...	Meklē tastatūras...
+Low	Zems
+ME (ACK)	ES (ACK)
+MQTT Bridge: %s	MQTT tilts: %s
+MQTT Bridge: %s - rebooting...	MQTT tilts: %s - restartē...
+MQTT Bridge: Off (WiFi off)	MQTT tilts: Izsl. (WiFi izsl.)
+MQTT Scan Settings	MQTT meklēšanas iestatījumi
+MQTT bridge is off	MQTT tilts ir izslēgts
+Map (loading)	Karte (ielādē)
+Map (off)	Karte (izsl.)
+Map memory unavailable	Kartei nav atmiņas
+Map unavailable	Karte nav pieejama
+Mar	mar
+March	marts
+Match the voltage to a meter reading.\nPercent comes from the fuel gauge and does not change.	Pielāgojiet spriegumu mērinstrumenta rādījumam.\nProcenti nāk no uzlādes mērītāja un nemainās.
+Match the voltage to a meter reading.\nPercent follows it. 0% = uncalibrated.	Pielāgojiet spriegumu mērinstrumenta rādījumam.\nProcenti tam seko. 0% = nekalibrēts.
+May	mai
+Medium	Vidējs
+Mesh Beacons is off.\n\nTurn it on in Config (or under Modules in web config) to decode beacons from other meshes. Receive-only: nothing is transmitted, and an offer is never applied to your radio.	Tīkla bākas ir izslēgtas.\n\nIeslēdziet tās Iestatījumos (vai sadaļā Moduļi tīmekļa iestatījumos), lai atšifrētu citu tīklu bākas. Tikai uztveršana: nekas netiek raidīts, un piedāvājums nekad netiek piemērots jūsu radio.
+Mesh Beacons: %s	Tīkla bākas: %s
+Mesh beacons: %s	Tīkla bākas: %s
+Message (I)nfo	Ziņas (i)nfo
+Message Actions	Ziņas darbības
+Message Info	Ziņas info
+Messages	Ziņas
+Messages cleared - rebooting...	Ziņas notīrītas - restartē...
+Metric	Metriskā
+Minute	Minūte
+Modem preset	Modema priekšiestatījums
+Mon	pr
+Month	Mēnesis
+Move  Enter=Apply  %s=Back	Pārvietot  Enter=Lietot  %s=Atpakaļ
+Move  Enter=Apply  %s=Cancel	Pārvietot  Enter=Lietot  %s=Atcelt
+Move  Enter=Change  %s=Cancel	Pārvietot  Enter=Mainīt  %s=Atcelt
+Move  Enter=Edit  %s=Back	Pārvietot  Enter=Rediģēt  %s=Atpakaļ
+Move  Enter=OK  %s=Cancel	Pārvietot  Enter=OK  %s=Atcelt
+Move  Enter=Open  %s=Back	Pārvietot  Enter=Atvērt  %s=Atpakaļ
+Move  Enter=Pick  %s=Back	Pārvietot  Enter=Izvēlēties  %s=Atpakaļ
+Move  Enter=Scan  %s=Cancel	Pārvietot  Enter=Meklēt  %s=Atcelt
+Move • Enter=Add • %s=Close	Pārvietot • Enter=Pievienot • %s=Aizvērt
+Move • Enter=Insert • %s=Close	Pārvietot • Enter=Ievietot • %s=Aizvērt
+Move • Enter=React • %s=Close	Pārvietot • Enter=Reaģēt • %s=Aizvērt
+Move • Enter=Send • %s=Close	Pārvietot • Enter=Sūtīt • %s=Aizvērt
+Move=Adjust  Enter=Save  %s=Cancel	Pārvietot=Regulēt  Enter=Saglabāt  %s=Atcelt
+Move=Adjust  Space=Toggle  Enter=Save  %s=Cancel	Pārvietot=Regulēt  Space=Pārslēgt  Enter=Saglabāt  %s=Atcelt
+Move=Preview  Enter=OK  %s=Cancel	Pārvietot=Priekšskatīt  Enter=OK  %s=Atcelt
+My Message Color	Manu ziņu krāsa
+My Message Color: %s	Manu ziņu krāsa: %s
+My Message Color: %s (unchanged)	Manu ziņu krāsa: %s (nemainīta)
+My Message Color: %s - rebooting...	Manu ziņu krāsa: %s - restartē...
+N=Choose WiFi   Enter=Finish   Bksp=Back	N=Izvēlēties WiFi   Enter=Pabeigt   Bksp=Atpakaļ
+NO LINE OF SIGHT	NAV REDZAMĪBAS LĪNIJAS
+NODEINFO + telemetry queued.	NODEINFO + telemetrija rindā.
+NODES	MEZGLI
+NODES (%d%s)	MEZGLI (%d%s)
+NODES [%s] (%d%s)	MEZGLI [%s] (%d%s)
+Name	Vārds
+Name: %s\nShort: %s\nID: !%08X\nLast heard: %s\nSNR: %.1f dB\nHops: %u\nChannel: %d\n\nPosition:\n%s\n\nTelemetry:\n%s	Vārds: %s\nĪsais: %s\nID: !%08X\nPēdējoreiz dzirdēts: %s\nSNR: %.1f dB\nLēcieni: %u\nKanāls: %d\n\nPozīcija:\n%s\n\nTelemetrija:\n%s
+Name\nShort\nID	Vārds\nĪsais\nID
+Nav Bar: %s	Navigācijas josla: %s
+Neighborhood Info: %s	Kaimiņu info: %s
+Neighborhood info: %s	Kaimiņu info: %s
+Never	Nekad
+New	Jauna
+New DM	Jauna DM
+New DM: Select Node	Jauna DM: izvēlieties mezglu
+New DM: Select Node [%s]	Jauna DM: izvēlieties mezglu [%s]
+New Message	Jauna ziņa
+Newest: %s %s	Jaunākais: %s %s
+Newest: none heard yet	Jaunākais: vēl neviens nav dzirdēts
+Next	Tālāk
+No %s - not saved	Nav %s - nav saglabāts
+No %s - not saving	Nav %s - netiek saglabāts
+No %s traffic yet\n(filter is on - %s)	Vēl nav %s datplūsmas\n(filtrs ieslēgts - %s)
+No S&F router heard yet	Vēl nav dzirdēts neviens S&F maršrutētājs
+No SD card is mounted.	SD karte nav pievienota.
+No WiFi network configured	Nav iestatīts WiFi tīkls
+No beacons heard yet.\n\nA beacon is only audible while its sender has retuned onto this channel, preset and region, and it repeats on that node's own schedule - minutes to hours apart. This list keeps what it hears until you clear it.	Vēl nav dzirdēta neviena bāka.\n\nBāka ir dzirdama tikai tad, kad tās sūtītājs pārslēdzies uz šo kanālu, priekšiestatījumu un reģionu, un tā atkārtojas pēc sava mezgla grafika - ar minūšu līdz stundu intervālu. Šis saraksts glabā dzirdēto, līdz to notīrāt.
+No elevation server set.\nWeb Config -> Elevation Server (LOS)	Augstuma serveris nav iestatīts.\nTīmekļa iest. -> Elevation Server (LOS)
+No hop path in reply	Atbildē nav lēcienu ceļa
+No keyboards found yet.\n\nPut the keyboard into pairing mode, then press Scan.\n\nOnly Bluetooth LE keyboards can pair - this hardware has no Bluetooth Classic radio.	Vēl nav atrasta neviena tastatūra.\n\nIeslēdziet tastatūrai savienošanas pārī režīmu un nospiediet Meklēt.\n\nSavienot pārī var tikai Bluetooth LE tastatūras - šai aparatūrai nav Bluetooth Classic radio.
+No known nodes yet	Vēl nav zināmu mezglu
+No live traffic yet	Vēl nav tiešraides datplūsmas
+No matches for: %s	Nav rezultātu: %s
+No messages yet	Vēl nav ziņu
+No network in that slot	Šajā vietā nav tīkla
+No network selected	Tīkls nav izvēlēts
+No networks found	Tīkli netika atrasti
+No new messages	Nav jaunu ziņu
+No nodes seen	Mezgli nav redzēti
+No nodes seen yet.	Mezgli vēl nav redzēti.
+No position data	Nav pozīcijas datu
+No position recorded	Pozīcija nav reģistrēta
+No position yet.\nNeeds a GPS fix or a set location.	Vēl nav pozīcijas.\nVajadzīgs GPS fiksējums vai iestatīta atrašanās vieta.
+No release notes in this build.	Šajā versijā nav laidiena piezīmju.
+No reply (%lus)	Nav atbildes (%lus)
+No result details available.	Nav pieejamas detaļas.
+No telemetry data	Nav telemetrijas datu
+No weather server set.\nWeb Config -> Weather Server	Laikapstākļu serveris nav iestatīts.\nTīmekļa iest. -> Weather Server
+Node Actions	Mezgla darbības
+Node DB cleared - rebooting...	Mezglu datubāze notīrīta - restartē...
+Node ID: !%08lx	Mezgla ID: !%08lx
+Node Name	Mezgla vārds
+Node Name: %s (%s)	Mezgla vārds: %s (%s)
+Node Name: %s (%s)%s	Mezgla vārds: %s (%s)%s
+Node id: !%08lx	Mezgla id: !%08lx
+Node info	Mezgla info
+Nodes and SD archive cleared - rebooting...	Mezgli un SD arhīvs notīrīti - restartē...
+None	Nav
+Not counting - out of memory	Neskaita - trūkst atmiņas
+Not enough free heap to hold the topic table.\n\nClose a few screens (or reboot) and try again.	Tēmu tabulai nepietiek brīvas atmiņas.\n\nAizveriet dažus ekrānus (vai restartējiet) un mēģiniet vēlreiz.
+Nothing heard yet	Vēl nekas nav dzirdēts
+Nothing recorded yet - nothing to send	Vēl nekas nav reģistrēts - nav ko sūtīt
+Nothing was removed. The files may have gone already, or the card may be write-protected.	Nekas netika noņemts. Faili, iespējams, jau ir zuduši, vai karte ir aizsargāta pret rakstīšanu.
+Notification Light Timeout	Paziņojumu gaismas ilgums
+Notification Light Timeout: %s	Paziņojumu gaismas ilgums: %s
+Notification Sound	Paziņojuma skaņa
+Notification Sound: %s	Paziņojuma skaņa: %s
+Notification sound: %s	Paziņojuma skaņa: %s
+Nov	nov
+November	novembris
+OFF	IZSL
+OTA disabled on Cardputer build	OTA atspējots Cardputer versijā
+OTA needs the factory image (flash layout)	OTA vajadzīgs rūpnīcas attēls (flash izkārtojums)
+OTA request failed (NVS write). Retry.	OTA pieprasījums neizdevās (NVS ieraksts). Mēģiniet vēlreiz.
+OTA worker completed. Check status.	OTA pabeigts. Pārbaudiet statusu.
+Oct	okt
+October	oktobris
+Off	Izsl.
+Offers: %s	Piedāvājumi: %s
+Old Map Files Found	Atrasti veci kartes faili
+Oldest: %s %s	Vecākais: %s %s
+Oldest: none heard yet	Vecākais: vēl neviens nav dzirdēts
+On	Iesl.
+On (global off)	Iesl. (globāli izsl.)
+On (listening)	Iesl. (klausās)
+Open network (leave blank)	Atvērts tīkls (atstājiet tukšu)
+Optional WiFi setup.\nNo network selected.\nChoose WiFi now or finish without WiFi.	Neobligāta WiFi iestatīšana.\nTīkls nav izvēlēts.\nIzvēlieties WiFi tagad vai pabeidziet bez WiFi.
+Optional WiFi setup.\nSelected: %s\nChoose a different network or finish.	Neobligāta WiFi iestatīšana.\nIzvēlēts: %s\nIzvēlieties citu tīklu vai pabeidziet.
+Orange	Oranžs
+Orientation: %s	Orientācija: %s
+Other	Cits
+Outline	Kontūra
+PKI key: %s	PKI atslēga: %s
+PSRAM free: %lu KB\nPSRAM total: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	Brīvā PSRAM: %lu KB\nPSRAM kopā: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nBrīvs lietotnei: %lu KB
+PSRAM: none\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	PSRAM: nav\nFlash: %lu KB\nSketch: %lu KB\nBrīvs lietotnei: %lu KB
+Pair	Savienot pārī
+Pair BT Keyboard: %s	Savienot pārī BT tastatūru: %s
+Pair BT Keyboard: (none)	Savienot pārī BT tastatūru: (nav)
+Percent	Procenti
+Pink	Rozā
+Please re-flash from Camillia's website for language support.	Lai atbalstītu valodas, lūdzu, pārinstalējiet programmaparatūru no Camillia tīmekļa vietnes.
+Portrait	Portrets
+Portrait 180	Portrets 180
+Position	Pozīcija
+Precise	Precīza
+Preparing state maps...	Sagatavo reģionu kartes...
+Preset	Priekšiestatījums
+Preset (%s)	Priekšiestatījums (%s)
+Preset already %s.	Priekšiestatījums jau ir %s.
+Preset scan already running	Priekšiestatījuma meklēšana jau notiek
+Preset: %s	Priekšiestatījums: %s
+Preset: %s - rebooting...	Priekšiestatījums: %s - restartē...
+Public key preserved\n\n	Publiskā atslēga saglabāta\n\n
+Purple	Violets
+Pwr %d dBm Hops %d	Jauda %d dBm Lēcieni %d
+R=Refresh  %s=Back	R=Atsvaidzināt  %s=Atpakaļ
+RECENTLY HEARD	NESEN DZIRDĒTI
+Radio busy - retry in %lus	Radio aizņemts - vēlreiz pēc %lus
+Radio not ready	Radio nav gatavs
+Re(q)uest Node	Pieprasīt mezglu (Q)
+Ready	Gatavs
+Rebooting into OTA minimal mode...	Restartē OTA minimālajā režīmā...
+Received over: %s %s	Saņemts caur: %s %s
+Red	Sarkans
+Relayed to us by: %s	Pārsūtīja: %s
+Relayed to us by: %s (from MQTT)	Pārsūtīja: %s (no MQTT)
+Relayed to us by: nobody, heard directly	Pārsūtīja: neviens, dzirdēts tieši
+Relayed to us by: not reported by the relaying node	Pārsūtīja: pārsūtītājs mezgls nenorādīja
+Relayed to us by: the sender itself	Pārsūtīja: pats sūtītājs
+Relayed: %lu	Pārsūtīti: %lu
+Release Channel: %s - checking...	Laidienu kanāls: %s - pārbauda...
+Release Channel: %s%s	Laidienu kanāls: %s%s
+Release Notes	Laidiena piezīmes
+Release Notes  %s	Laidiena piezīmes  %s
+Remove	Noņemt
+Removed %s	%s noņemts
+Removed %s - no networks left, AP mode	%s noņemts - tīklu vairs nav, AP režīms
+Removed %s - now %s	%s noņemts - tagad %s
+Removed %u file%s. %u could not be deleted - the card may be write-protected.\n\nRe-run the scan to check.	Noņemti faili: %u%.0s %u neizdevās izdzēst - karte var būt aizsargāta pret rakstīšanu.\n\nPalaidiet pārbaudi vēlreiz, lai pārbaudītu.
+Removed %u file%s.\n\nThis card looked clean afterwards, but the scan reads names and headers, not contents - it cannot promise the card is clean. Reformatting is the only answer that can.	Noņemti faili: %u%.0s\n\nPēc tam karte izskatījās tīra, bet pārbaude lasa nosaukumus un galvenes, nevis saturu - tā nevar garantēt, ka karte ir tīra. To var tikai atkārtota formatēšana.
+Removing Files	Noņem failus
+Removing legacy maps...	Noņem vecās kartes...
+Replay already requested	Atkārtošana jau pieprasīta
+Replay not sent: %s	Atkārtošana nav nosūtīta: %s
+Replay requested (last %lu min)	Atkārtošana pieprasīta (pēdējās %lu min)
+Reply	Atbildēt
+Reply from %s	Atbilde no %s
+Reply from %s (%lus)	Atbilde no %s (%lus)
+Request (P)osition	Pieprasīt (p)ozīciju
+Request Node	Pieprasīt mezglu
+Request Position	Pieprasīt pozīciju
+Request S&F Replay (%s)	Pieprasīt S&F atkārtošanu (%s)
+Request S&F Replay (no router)	Pieprasīt S&F atkārtošanu (nav maršrutētāja)
+Requested (last %lu min)	Pieprasīts (pēdējās %lu min)
+Rescan	Meklēt vēlreiz
+Reset	Atiestatīt
+Reset Chat Colors	Atiestatīt tērzēšanas krāsas
+Reset to Default	Atjaunot noklusējumu
+Restore failed: every slot is favorited, so there is no room. Unfavorite a node and try again.	Atjaunošana neizdevās: visas vietas ir izlasē, nav brīvas vietas. Izņemiet mezglu no izlases un mēģiniet vēlreiz.
+Restore failed: the archived record could not be read.	Atjaunošana neizdevās: arhivēto ierakstu neizdevās nolasīt.
+Restore node?	Atjaunot mezglu?
+Role: %s%s	Loma: %s%s
+S(h)are	Kopīgot (H)
+SD Card Format	SD kartes formatēšana
+SD Card Scan	SD kartes pārbaude
+SD scan cancelled	SD pārbaude atcelta
+SD: %s, %s, %u fails	SD: %s, %s, kļūdas: %u
+SD: no card	SD: nav kartes
+SNR   cur %s  avg %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  cur %s  avg %.0fdBm min %.0f  max %.0f   n=%d	SNR   tag %s  vid %.1fdB  min %.1f  maks %.1f   n=%d\nRSSI  tag %s  vid %.0fdBm min %.0f  maks %.0f   n=%d
+SNR   cur --  avg --  min --  max --   n=0\nRSSI  cur --  avg --  min --  max --   n=0	SNR   tag --  vid --  min --  maks --   n=0\nRSSI  tag --  vid --  min --  maks --   n=0
+Sat	se
+Save	Saglabāt
+Save failed - cannot write %s	Saglabāšana neizdevās - nevar rakstīt uz %s
+Save failed - too many this second	Saglabāšana neizdevās - pārāk daudz šajā sekundē
+Save while discovering	Saglabāt atklāšanas laikā
+Save while scanning	Saglabāt meklēšanas laikā
+Saved %s	%s saglabāts
+Saved: %s	Saglabāts: %s
+Scan	Meklēt
+Scan %s	Meklēšana %s
+Scan %s - saved %s	Meklēšana %s - saglabāts %s
+Scan Networks	Meklēt tīklus
+Scan SD Card for Malware%s	Pārbaudīt SD karti, vai nav ļaunprogrammatūras%s
+Scan a preset	Meklēt priekšiestatījumā
+Scan cancelled	Meklēšana atcelta
+Scan failed - Rescan to try again	Meklēšana neizdevās - meklējiet vēlreiz
+Scan send failed	Meklēšanas nosūtīšana neizdevās
+Scanning %s %s/%s	Meklē %s %s/%s
+Scanning %s...	Meklē %s...
+Scanning SD Card	Pārbauda SD karti
+Scanning WiFi networks...	Meklē WiFi tīklus...
+Screen	Ekrāns
+Screen Timeout	Ekrāna noildze
+Screen Timeout: %s	Ekrāna noildze: %s
+Screen off after %s on lock	Ekrāns izslēdzas pēc %s bloķējot
+Screen orientation	Ekrāna orientācija
+Screen sleeps after %s	Ekrāns aizmieg pēc %s
+Screen stays on	Ekrāns paliek ieslēgts
+Select a conversation	Izvēlieties sarunu
+Select this node's role.	Izvēlieties šī mezgla lomu.
+Select your radio region/preset.	Izvēlieties radio reģionu/priekšiestatījumu.
+Selection settling - press Enter again	Izvēle nostabilizējas - nospiediet Enter vēlreiz
+Sen(d) DM	Sūtīt DM (D)
+Send	Sūtīt
+Send DM	Sūtīt DM
+Send failed	Sūtīšana neizdevās
+Send to channel?	Sūtīt uz kanālu?
+Send top 5 to	Sūtīt top 5 uz
+Sending request...	Sūta pieprasījumu...
+Sent by this node.	Nosūtīja šis mezgls.
+Sent to %s	Nosūtīts uz %s
+Sent. Waiting for route ACK...	Nosūtīts. Gaida maršruta ACK...
+Sep	sep
+September	septembris
+Server answered, but not with\nelevation data. Check the proxy\npoints at the elevation service.	Serveris atbildēja, bet ne\nar augstuma datiem. Pārbaudiet, vai starpniekserveris\nnorāda uz augstuma pakalpojumu.
+Server answered, but not with\nweather data. Check the proxy.	Serveris atbildēja, bet ne\nar laikapstākļu datiem. Pārbaudiet starpniekserveri.
+Set message colour to %s and reboot?	Iestatīt ziņu krāsu %s un restartēt?
+Share	Kopīgot
+Share Location: %s	Kopīgot atrašanās vietu: %s
+Short	Īss
+Short name	Īsais vārds
+Short name cannot be empty	Īsais vārds nevar būt tukšs
+Short: %s	Īsais: %s
+Show Archived Nodes: %s	Rādīt arhivētos mezglus: %s
+Show Archived Nodes: %s%s	Rādīt arhivētos mezglus: %s%s
+Signal: SNR %.1f dB, RSSI %.0f dBm	Signāls: SNR %.1f dB, RSSI %.0f dBm
+Silver	Sudraba
+Sky	Debeszils
+Small	Mazs
+Source	Avots
+Splash Melody: %s	Palaišanas melodija: %s
+Splash melody: %s	Palaišanas melodija: %s
+Stale - 	Novecojis -
+State Map	Reģiona karte
+State map disabled	Reģiona karte atspējota
+State map unavailable	Reģiona karte nav pieejama
+Stay on	Vienmēr ieslēgts
+Storage: %s %s	Krātuve: %s %s
+Storage: %s (not mounted)	Krātuve: %s (nav pievienota)
+Store&Fwd Client: %s	Store&Fwd klients: %s
+Store&Fwd client is off	Store&Fwd klients ir izslēgts
+Sun	sv
+Sweep	Pārmeklēšana
+Sweep already running	Pārmeklēšana jau notiek
+Sweep cancelled	Pārmeklēšana atcelta
+Sweep done: %d new (%lus)	Pārmeklēšana pabeigta: %d jauni (%lus)
+Sweep send failed	Pārmeklēšanas nosūtīšana neizdevās
+Sweep/Scan Settings	Pārmeklēšanas/meklēšanas iestatījumi
+Sweeping...	Pārmeklē...
+Sweeping... %s/%s	Pārmeklē... %s/%s
+Switch to %s and reboot?	Pārslēgt uz %s un restartēt?
+Switch to theme %s and reboot?	Pārslēgt uz motīvu %s un restartēt?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	Pārslēgšanās uz ārējo antenu var sabojāt radio, ja antena nav pievienota.  Pirms nospiežat Jā, pievienojiet ārējo antenu
+System Stats	Sistēmas statistika
+Tall	Augsts
+Tall, turned 180	Augsts, pagriezts par 180
+Tap = Open   Long-press 3s = Delete   DM below = Back	Pieskāriens = Atvērt   Turēt 3 s = Dzēst   DM apakšā = Atpakaļ
+Tap Next to continue	Lai turpinātu, pieskarieties Tālāk
+Tap Next to continue, or Back	Lai turpinātu, pieskarieties Tālāk vai Atpakaļ
+Tap a channel	Pieskarieties kanālam
+Tap a channel to edit	Pieskarieties kanālam, lai rediģētu
+Tap a field to change it	Pieskarieties laukam, lai to mainītu
+Tap a field to edit, then Save	Pieskarieties laukam, rediģējiet, tad Saglabāt
+Tap a node for actions   Nodes below = Back	Pieskarieties mezglam darbībām   Mezgli apakšā = Atpakaļ
+Tap a node to start a DM	Pieskarieties mezglam, lai sāktu DM
+Tap a preset to apply.	Pieskarieties priekšiestatījumam, lai to lietotu.
+Tap a preset, then Scan	Pieskarieties priekšiestatījumam, tad Meklēt
+Tap a size to apply	Pieskarieties izmēram, lai to lietotu
+Tap one to apply.	Pieskarieties vienam, lai to lietotu.
+Tap to preview	Pieskarieties priekšskatījumam
+Teal	Zilganzaļš
+Telemetry	Telemetrija
+Temp: %.1f C\nHumidity: %.1f%%\nPressure: %.1f hPa	Temp: %.1f C\nMitrums: %.1f%%\nSpiediens: %.1f hPa
+Temp: %.1f F\nHumidity: %.1f%%\nPressure: %.2f inHg	Temp: %.1f F\nMitrums: %.1f%%\nSpiediens: %.2f inHg
+Text	Teksts
+The card was formatted but could not be remounted. Reboot the device and it should come up clean.	Karte tika formatēta, bet to neizdevās atkal pievienot. Restartējiet ierīci, un tai vajadzētu startēt tīrai.
+Theme	Motīvs
+Theme: %s	Motīvs: %s
+Theme: %s (unchanged)	Motīvs: %s (nemainīts)
+Theme: %s - rebooting...	Motīvs: %s - restartē...
+These files are not used by the new tile map. Remove them to reclaim storage?	Jaunā flīžu karte šos failus neizmanto. Noņemt tos, lai atbrīvotu vietu?
+This node	Šis mezgls
+This node has no position yet.\nNeeds a GPS fix or a set location.	Šim mezglam vēl nav pozīcijas.\nVajadzīgs GPS fiksējums vai iestatīta atrašanās vieta.
+Thu	ce
+Time and Date	Laiks un datums
+Time and Date: %s	Laiks un datums: %s
+Time source: Internet / GPS	Laika avots: internets / GPS
+To close hit backspace.  (I)nformation	Aizveriet ar taustiņu backspace.  (I)nformācija
+Tools	Rīki
+Touch Navigation:	Skārienvadība:
+Transport Symbols:\n%s Radio Transmission\n%s MQTT Transmission	Pārraides simboli:\n%s Radio pārraide\n%s MQTT pārraide
+Tue	ot
+Turn BT Keyboard on first	Vispirms ieslēdziet BT tastatūru
+Turn MQTT Bridge %s and reboot?	Iestatīt MQTT tiltu %s un restartēt?
+Type = Filter   Bksp = Edit Filter   Enter = Open DM   Esc = Back	Rakstīt = Filtrs   Bksp = Rediģēt filtru   Enter = Atvērt DM   Esc = Atpakaļ
+Type = Filter   Bksp = Edit/Close Filter   Enter = Open DM	Rakstīt = Filtrs   Bksp = Rediģēt/aizvērt filtru   Enter = Atvērt DM
+Type = Filter   Enter = Open DM   Bksp = Back	Rakstīt = Filtrs   Enter = Atvērt DM   Bksp = Atpakaļ
+Type = Filter   Enter = Open DM   Esc = Back	Rakstīt = Filtrs   Enter = Atvērt DM   Esc = Atpakaļ
+Type message...	Ievadiet ziņu...
+Type to filter nodes	Rakstiet, lai filtrētu mezglus
+Type, then tap OK	Ievadiet, tad pieskarieties OK
+Type=Filter  Enter=Done  Bksp=Edit/Exit  %s=Back	Rakstīt=Filtrs  Enter=Gatavs  Bksp=Rediģēt/Iziet  %s=Atpakaļ
+Un(f)avorite	Izņemt no izlases (F)
+Un(m)ute	Ieslēgt skaņu (M)
+Unfavorite	Izņemt no izlases
+Uni(g)nore	Pārtraukt i(g)norēt
+Unignore	Pārtraukt ignorēt
+Units: %s	Vienības: %s
+Unknown	Nezināms
+Until read	Līdz izlasīšanai
+Up to date (%s)	Aktuāla (%s)
+Up/Down	Augšup/Lejup
+Up/Down = Select   Space = Compose   Enter = Focus   %s = Delete   %s = Back	Augšup/Lejup = Izvēlēties   Space = Rakstīt   Enter = Fokuss   %s = Dzēst   %s = Atpakaļ
+Up/Down = Select   Space = Compose   Enter = Focus   D = Delete	Augšup/Lejup = Izvēlēties   Space = Rakstīt   Enter = Fokuss   D = Dzēst
+Up/Down/J/K = Scroll   %s = Close	Augšup/Lejup/J/K = Ritināt   %s = Aizvērt
+Up/Down/J/K = Scroll   Bksp = Close	Augšup/Lejup/J/K = Ritināt   Bksp = Aizvērt
+Up/Down=Change  Enter=Save  %s=Cancel	Augšup/Lejup=Mainīt  Enter=Saglabāt  %s=Atcelt
+Up/Down=Select  Left/Right=Change  Enter=Save  %s=Cancel	Augšup/Lejup=Izvēlēties  Pa kreisi/Pa labi=Mainīt  Enter=Saglabāt  %s=Atcelt
+Update	Atjauninājums
+Update check failed: %s	Atjauninājuma pārbaude neizdevās: %s
+Update check needs WiFi connected	Atjauninājuma pārbaudei vajadzīgs savienots WiFi
+Update check needs WiFi on	Atjauninājuma pārbaudei vajadzīgs ieslēgts WiFi
+Update check skipped (a dialog was open)	Atjauninājuma pārbaude izlaista (bija atvērts dialogs)
+Uplinked by: %s	Uz MQTT nosūtīja: %s
+Uplinked by: the sender itself	Uz MQTT nosūtīja: pats sūtītājs
+Use arrows to choose, then tap Next	Izvēlieties ar bultiņām, tad pieskarieties Tālāk
+Used: %lu KB (%lu%%)\nTotal: %lu KB\nFree: %lu KB\nMin free: %lu KB\nMax block: %lu KB	Izmantots: %lu KB (%lu%%)\nKopā: %lu KB\nBrīvs: %lu KB\nMin. brīvs: %lu KB\nMaks. bloks: %lu KB
+VIA MQTT	CAUR MQTT
+VNC Host failed to allocate PSRAM	VNC Host neizdevās piešķirt PSRAM
+VNC Host off	VNC Host izsl.
+VNC Host on\nOpen http://%s/ and select the Remote tab	VNC Host iesl.\nAtveriet http://%s/ un izvēlieties cilni Remote
+VNC Host on\nhttp://%s:%u/	VNC Host iesl.\nhttp://%s:%u/
+VNC Host: Off	VNC Host: Izsl.
+VNC Host: Off (WiFi off)	VNC Host: Izsl. (WiFi izsl.)
+VNC Host: On (browser connected)	VNC Host: Iesl. (pārlūks savienots)
+VNC Host: On (network disconnected)	VNC Host: Iesl. (tīkls atvienots)
+VNC Host: Unavailable (WiFi not connected)	VNC Host: Nav pieejams (WiFi nav savienots)
+Voltage	Spriegums
+Volume	Skaļums
+Volume: %u%%	Skaļums: %u%%
+W = Scan   S = Send   C = Reset   %s = Back	W = Meklēt   S = Sūtīt   C = Atiestatīt   %s = Atpakaļ
+W = Sweep   P = Preset   C = %s   %s = Back	W = Pārmeklēt   P = Priekšiest.   C = %s   %s = Atpakaļ
+W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Pārmeklēt   P = Priekšiest.   C = %s   S = Saglabāt   %s = Atpakaļ
+Wait %lus before sending again	Pirms atkārtotas sūtīšanas pagaidiet %lus
+Wait %lus between sweeps	Starp pārmeklēšanām pagaidiet %lus
+Waiting for Wi-Fi...	Gaida Wi-Fi...
+Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Vēro %s/2/e/#\n\nVēl nav ziņu. Kanāli šeit parādās, kad tie tiek publicēti, jaunākie apakšā, ar katrā redzēto ziņu skaitu.
+Weather	Laikapstākļi
+Weather - %s	Laikapstākļi - %s
+Weather server error (HTTP %d).	Laikapstākļu servera kļūda (HTTP %d).
+Web Config disabled	Tīmekļa iestatījumi atspējoti
+Web Config locked while MQTT is on	Tīmekļa iestatījumi bloķēti, kamēr MQTT ir ieslēgts
+Web Config start failed	Tīmekļa iestatījumus neizdevās palaist
+Web Config stopped.\n\nThe Bluetooth keyboard and Web Config share one radio and cannot run at the same time.\n\nTurn the keyboard off to use Web Config again.	Tīmekļa iestatījumi apturēti.\n\nBluetooth tastatūra un tīmekļa iestatījumi izmanto vienu radio un nevar darboties vienlaikus.\n\nIzslēdziet tastatūru, lai atkal lietotu tīmekļa iestatījumus.
+Web Config: Disabled	Tīmekļa iestatījumi: Atspējoti
+Web Config: Enabled	Tīmekļa iestatījumi: Iespējoti
+Web Config: Off (MQTT on)	Tīmekļa iestatījumi: Izsl. (MQTT iesl.)
+Web Config: Off (WiFi off)	Tīmekļa iestatījumi: Izsl. (WiFi izsl.)
+Web Config: On	Tīmekļa iestatījumi: Iesl.
+Web Config: On (Lite)	Tīmekļa iestatījumi: Iesl. (Lite)
+Web Config: On (chat PAUSED)	Tīmekļa iestatījumi: Iesl. (tērzēšana APTURĒTA)
+Web config: %s\n\nChat is PAUSED while web config runs - this device needs that memory for Wi-Fi. Messages sent to you now are not received or stored.\n\nTurn web config off to resume messaging.	Tīmekļa iestatījumi: %s\n\nTērzēšana ir APTURĒTA, kamēr darbojas tīmekļa iestatījumi - ierīcei šī atmiņa vajadzīga Wi-Fi. Jums tagad sūtītās ziņas netiek saņemtas vai saglabātas.\n\nIzslēdziet tīmekļa iestatījumus, lai turpinātu sarakstīties.
+Wed	tr
+Welcome to Camillia for Meshtastic	Laipni lūdzam Camillia Meshtastic lietotājiem
+Wheel/j-k=Change   Enter=Next	Ritenītis/j-k=Mainīt   Enter=Tālāk
+White	Balts
+Wi-Fi needed to fetch conditions.	Laikapstākļu iegūšanai vajadzīgs Wi-Fi.
+Wi-Fi needed to fetch the\nterrain profile for this path.	Šī maršruta reljefa profila\niegūšanai vajadzīgs Wi-Fi.
+WiFi connected: %s	WiFi savienots: %s
+WiFi is off	WiFi ir izslēgts
+WiFi not connected	WiFi nav savienots
+WiFi password	WiFi parole
+WiFi selected: %s	Izvēlēts WiFi: %s
+WiFi: Off	WiFi: Izsl.
+WiFi: On (%s)	WiFi: Iesl. (%s)
+WiFi: On (AP MODE ONLY)	WiFi: Iesl. (TIKAI AP REŽĪMS)
+WiFi: On (AP mode)	WiFi: Iesl. (AP režīms)
+WiFi: On (connecting %s)	WiFi: Iesl. (savieno %s)
+Wide	Plats
+Within %s	%s robežās
+Writing a new filesystem...	Raksta jaunu failu sistēmu...
+X-Large	Ļoti liels
+Y/Enter=Import   N/Bksp=Skip	Y/Enter=Importēt   N/Bksp=Izlaist
+Year	Gads
+Yellow	Dzeltens
+Yes	Jā
+[%s] no match	[%s] nav atbilstību
+[radio] init failed	[radio] palaišana neizdevās
+\n%lu min ago	\npirms %lu min
+\n%s, %lu min ago	\n%s, pirms %lu min
+\n+%u more	\n+%u vēl
+\nT-Deck trackball: hold click 2s to sleep	\nT-Deck bumbiņa: turiet klikšķi 2 s, lai iemigtu
+\n\nDelete them? Nothing else on the card is touched.\n\nFormat erases the whole card instead - the only certain fix.	\n\nDzēst tos? Nekas cits kartē netiks aizskarts.\n\nFormatēšana tā vietā izdzēš visu karti - vienīgais drošais risinājums.
+all rates tried	izmēģināti visi ātrumi
+base64 key	base64 atslēga
+ch %s   air %s	kan %s   ēters %s
+channel	kanāls
+check requested	pārbaude pieprasīta
+exact	precīza
+external	ārējā
+internal	iekšējā
+j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k vai </>=Regulēt  Augšup/Lejup=Rinda  Enter=Saglabāt  Back=Atcelt
+j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Regulēt  </>=Rinda  Enter=Saglabāt  Backspace=Atcelt
+j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Regulēt  Enter=Saglabāt  Backspace=Atcelt
+j/k=Adjust  Wheel=Row  Enter=Save  Backspace=Cancel	j/k=Regulēt  Ritenītis=Rinda  Enter=Saglabāt  Backspace=Atcelt
+j/k=Change   Enter=Next   Bksp=Back	j/k=Mainīt   Enter=Tālāk   Bksp=Atpakaļ
+low	zems
+missing	trūkst
+never	nekad
+no key	nav atslēgas
+not seen	nav redzēts
+off	izsl.
+on	iesl.
+one of: 	viens no:
+one rate tried	izmēģināts viens ātrums
+present	ir
+press F to change	lai mainītu, nospiediet F
+retry %lus	vēlreiz pēc %lus
+retry now	mēģināt tagad
+sensor %.2f V    trim %s	sensors %.2f V    korekcija %s
+sensor: read failed	sensors: lasīšanas kļūda
+stay on	vienmēr ieslēgts
+tap Filter to change	lai mainītu, pieskarieties Filtrs
+unavailable	nav pieejams
+unknown	nezināms
+unknown date	nezināms datums
+unknown error	nezināma kļūda
+unknown node (id ends ..%02x)	nezināms mezgls (id beidzas ar ..%02x)
+unset	nav iestatīts
+until read	līdz izlasīšanai
+vague	aptuvena

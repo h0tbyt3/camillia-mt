@@ -1122,6 +1122,7 @@ void cfgInitDefaults(RhinoConfig &cfg) {
     // did, and only a deliberate change alters the keypad.
     cfg.kbBacklightLevel   = MY_KB_BACKLIGHT_LEVEL;
     cfg.uiLanguage         = LANG_EN;
+    cfg.p4Antenna          = 0;   // on-board antenna
     cfg.timeSource         = TIME_SOURCE_AUTO;
     cfg.mqttEnabled        = MY_MQTT_ENABLED;
     strncpy(cfg.mqttServer,  MY_MQTT_SERVER, sizeof(cfg.mqttServer) - 1);

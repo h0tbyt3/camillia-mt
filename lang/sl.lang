@@ -1,0 +1,884 @@
+# Camillia language file (issue #99)
+# code: sl
+# name: Slovenščina
+#
+# One translation per line: the English exactly as it appears in the source,
+# a TAB, then the translation. Escape a newline as \n, a tab as \t, a backslash
+# as \\. Keep every %d / %s / %u ... in the same order and of the same type as the
+# English -- a line whose placeholders differ is ignored on the device and the
+# English is shown. Mesh terms that are names (LongFast, MQTT, LoRa) stay as they
+# are. Lines are kept sorted by the English, for review; the build sorts anyway.
+# First draft: review by a native speaker welcome (see docs/TRANSLATING.md).
+#
+# Compiled in by tools/gen_lang_builtin.py.
+  %s via %s (%.0f dB)\n	  %s prek %s (%.0f dB)\n
+  CONFIRM?	  POTRDIM?
+  Humid  %.1f %%	  Vlaga  %.1f %%
+  Press  %.1f hPa	  Tlak   %.1f hPa
+  lock	  zaščiteno
+  open	  odprto
+ (no card)	 (ni kartice)
+ (not sharing location)	 (lokacija se ne deli)
+ (unchanged)	 (nespremenjeno)
+ - %s available	 - na voljo %s
+ - check failed	 - preverjanje ni uspelo
+ - check unavailable	 - preverjanje ni na voljo
+ - checking...	 - preverjam...
+ - saving to %s	 - shranjujem na %s
+ - up to date	 - posodobljeno
+! TX failed	! Pošiljanje ni uspelo
+! TX failed (node id)	! Pošiljanje ni uspelo (id vozlišča)
+%d %s %d	%d. %s %d
+%d chans  %s msgs  %s%s	%d kan.  %s spor.  %s%s
+%d chans  %s msgs  %s%s  (+%s off-list)	%d kan.  %s spor.  %s%s  (+%s izven seznama)
+%d node(s), %d report(s)	%d vozl., %d poročil
+%d%s  %s\nFeels %d%s, humidity %d%%\nWind %s %d %s%s%s	%d%s  %s\nObčutek %d%s, vlaga %d%%\nVeter %s %d %s%s%s
+%luh ago	pred %luh
+%lum ago	pred %lum
+%lus ago	pred %lus
+%s   -   %u match%s so far	%s   -   %u zadetkov%.0s doslej
+%s  (current)	%s  (trenutno)
+%s (this node)	%s (to vozlišče)
+%s - WiFi off	%s - WiFi izkl.
+%s - rebooting...	%s - vnovični zagon...
+%s - saved	%s - shranjeno
+%s = Back   C = Clear   F = Filter	%s = Nazaj   C = Počisti   F = Filter
+%s = Back   green=SNR  pink=RSSI	%s = Nazaj   zelena=SNR  roza=RSSI
+%s = Back   teal=ChUtil  orange=AirTx	%s = Nazaj   turkizna=ChUtil  oranžna=AirTx
+%s = Close	%s = Zapri
+%s returns to the live list.\nIf it is full, the oldest non-favorite is archived to make room.	%s se vrne na aktivni seznam.\nČe je poln, se najstarejše vozlišče, ki ni priljubljeno, arhivira, da se sprosti prostor.
+%s to close Help	%s zapre Pomoč
+%s will be removed from the node list.	%s bo odstranjeno s seznama vozlišč.
+%s x%u\nClock: %u MHz\nRevision: %u\nUptime: %luh %02lum %02lus\nLoop rate: %lu /s\nBattery: %u%% %.3fV	%s x%u\nTakt: %u MHz\nRevizija: %u\nDelovanje: %luh %02lum %02lus\nZanke: %lu /s\nBaterija: %u%% %.3fV
+%s%.2f, %.2f (rounded)	%s%.2f, %.2f (zaokroženo)
+%s%lu min ago - %.2f, %.2f (rounded)	%spred %lu min - %.2f, %.2f (zaokroženo)
+%s.\n\nNothing can arrive until the bridge has a broker session. Fix it in Config (or web config) and this list fills in on its own.	%s.\n\nNič ne pride, dokler most nima seje s posrednikom. Popravite to v Nastavitvah (ali spletnih nastavitvah) in seznam se bo napolnil sam.
+%s: %d node(s) heard	%s: slišanih vozlišč %d
+%s: %d on preset (%lus)	%s: %d na prednastavitvi (%lus)
+%s=Scroll  A=Actions  %s=List	%s=Premik  A=Dejanja  %s=Seznam
+%s\n%.1f km - brg %03d %s\n%s\nyou %dm - peer %dm - %.0f MHz	%s\n%.1f km - azimut %03d %s\n%s\nti %dm - drugi %dm - %.0f MHz
+%s\n%lu min old	%s\npred %lu min
+%s\nIn use - will switch to the next configured WiFi network, or AP mode if none is available	%s\nV uporabi - preklopi na naslednje nastavljeno omrežje WiFi ali v način AP, če ga ni
+%s\nMessage history will be erased	%s\nZgodovina sporočil bo izbrisana
+%s\nType %06u then Enter on the keyboard	%s\nVnesite %06u in nato Enter na tipkovnici
+%u of %d	%u od %d
+%u sec	%u s
+(A)nnounce	Objav(a)
+(B)eacons	Svetilniki (B)
+(C)FG   (D)M   (N)odes   Too(l)s   (A)ctions	(C)FG   (D)M   Vozlišča (N)   Orodja (L)   Dej(a)nja
+(C)FG  C(h)an  (D)M  (N)odes  Too(l)s  (A)ct	(C)FG  Kanal (H)  (D)M  Vozl. (N)  Orodja (L)  Dej(a)
+(D) Direct Messages\n(C) Configuration\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(H) Channel selector\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(D) Neposredna sporočila\n(C) Nastavitve\n(N) Vozlišča\n(L) Orodja (Live, grafi)\n(A) Dejanja kanala\n(H) Izbira kanala\n(P) Pomoč (ta zaslon)\n(E) Emoji\n(Space) Piši/Odgovori\n(Enter) Pojdi na sporočila
+(D)iscovery	Odkrivanje (D)
+(F)avorite	Priljubljeno (F)
+(H) Home dashboard\n(C) Chat (again: channels)\n(F) Configuration\n(D) Direct Messages\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(H) Začetna plošča\n(C) Klepet (znova: kanali)\n(F) Nastavitve\n(D) Neposredna sporočila\n(N) Vozlišča\n(L) Orodja (Live, grafi)\n(A) Dejanja kanala\n(P) Pomoč (ta zaslon)\n(E) Emoji\n(Space) Piši/Odgovori\n(Enter) Pojdi na sporočila
+(H)ome (C)hat C(f)g (D)M (N)odes Too(l)s	Domov (H) Klepet (C) Nast. (F) (D)M Vozl. (N) Orodja (L)
+(L)ocate	(L)ociraj
+(L)ocation: %s	(L)okacija: %s
+(M)ute	Utišaj (M)
+(R)eply	Odgovo(r)i
+(W)eather	Vreme (W)
+(Y)es	Da (Y)
+(no name)	(brez imena)
+(not set)	(ni nastavljeno)
+(nothing)	(nič)
+(unknown)	(neznano)
+(unnamed)	(brez naziva)
+, gusts %d	, sunki %d
+1 hour	1 ura
+12-hour	12-urni
+15 sec	15 s
+2 hours	2 uri
+24-hour	24-urni
+30 sec	30 s
+4-char short name (ABCD)	Kratko ime s 4 znaki (ABCD)
+5 min on that preset. This node hears nothing on its own while it runs, and finds only meshes sharing your primary channel key.	5 min na tej prednastavitvi. Medtem to vozlišče ne sliši ničesar iz svojega omrežja in najde le omrežja z enakim ključem glavnega kanala.
+5 sec	5 s
+6 hours	6 ur
+? hops	? skokov
+ACK from %s. Waiting for reply...	ACK od %s. Čakam na odgovor...
+ACKed, no reply (%lus)	ACK prejet, brez odgovora (%lus)
+AP mode cannot be removed	Načina AP ni mogoče odstraniti
+AP mode selected	Izbran način AP
+AP mode selected - enable WiFi first	Izbran način AP - najprej vklopite WiFi
+AP mode: %s	Način AP: %s
+ARCHIVED %s\n\n%s\nShort: %s\nID: !%08lX\n\nLast heard: %s\n%s\n\n%sNot on the live list. Restore it to message,\nfavorite or trace it.	ARHIVIRANO %s\n\n%s\nKratko: %s\nID: !%08lX\n\nNazadnje slišano: %s\n%s\n\n%sNi na aktivnem seznamu. Obnovite ga, da mu pišete,\nga dodate med priljubljene ali sledite poti.
+Act	Dej.
+Action Result	Rezultat
+Action: %s	Dejanje: %s
+Actions	Dejanja
+All	Vse
+All live traffic will be erased	Ves promet v živo bo izbrisan
+All live traffic will be erased, including lines hidden by the filter	Ves promet v živo bo izbrisan, tudi vrstice, ki jih skrije filter
+Already %s.	Že %s.
+Already on that preset	Že na tej prednastavitvi
+Analyzing terrain...	Analiziram teren...
+Announce	Objavi
+Antenna: %s	Antena: %s
+Any key / %s = Close	Katera koli tipka / %s = Zapri
+Apply	Uporabi
+Apr	apr
+April	aprila
+Archive Dropped Nodes: %s	Arhiviraj izrinjena vozlišča: %s
+Archive Dropped Nodes: %s%s	Arhiviraj izrinjena vozlišča: %s%s
+Asks first, then reboots.	Najprej vpraša, nato znova zažene.
+Asks first, then reboots. Only nodes on the same preset can hear each other.	Najprej vpraša, nato znova zažene. Slišijo se le vozlišča na isti prednastavitvi.
+Aug	avg
+August	avgusta
+Auto-update gave up on %s after %u failed installs	Samodejna posodobitev je obupala nad %s po %u neuspelih namestitvah
+BT Keyboard failed to start (low memory)	BT tipkovnica se ni zagnala (malo pomnilnika)
+BT Keyboard off	BT tipkovnica izkl.
+BT Keyboard on - connecting to %s	BT tipkovnica vkl. - povezujem z %s
+BT Keyboard on - use Pair to choose one	BT tipkovnica vkl. - izberite jo s Seznani
+BT Keyboard turned off.\n\nWeb Config and the Bluetooth keyboard share one radio and cannot run at the same time.\n\nTurn Web Config off to use the keyboard again.	BT tipkovnica izklopljena.\n\nSpletne nastavitve in tipkovnica Bluetooth si delijo en radio in ne morejo delovati hkrati.\n\nIzklopite spletne nastavitve, da boste lahko znova uporabljali tipkovnico.
+BT Keyboard: %s	BT tipkovnica: %s
+BT Keyboard: Off	BT tipkovnica: Izkl.
+Back	Nazaj
+Back = Cancel	Nazaj = Prekliči
+Bass	Bas
+Battery Calibration	Kalibracija baterije
+Battery Calibration: %s	Kalibracija baterije: %s
+Battery Calibration: Off	Kalibracija baterije: Izkl.
+Battery Display: %s	Prikaz baterije: %s
+Battery critical - shedding load	Baterija kritična - zmanjšujem porabo
+Battery empty	Baterija prazna
+Battery low	Baterija šibka
+Battery trim: %s	Popravek baterije: %s
+Battery: %.0f%%\nVoltage: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%	Baterija: %.0f%%\nNapetost: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%
+Battery\nVoltage\nChUtil\nAirTx\nTemp\nHumidity\nPressure	Baterija\nNapetost\nChUtil\nAirTx\nTemp.\nVlaga\nTlak
+Beacons	Svetilniki
+Bksp=Back  solid=ChUtil  dash=AirTx	Bksp=Nazaj  polna=ChUtil  črtkana=AirTx
+Bksp=Back  solid=SNR  dash=RSSI	Bksp=Nazaj  polna=SNR  črtkana=RSSI
+Bksp=Close	Bksp=Zapri
+Blink Flashes (Channel): %u	Število utripov (kanal): %u
+Blink Flashes (DM): %u	Število utripov (DM): %u
+Blocked @ %.1f km, %dm over sight	Blokirano pri %.1f km, %dm nad vidno črto
+Blue	Modra
+Bluetooth Keyboard	Tipkovnica Bluetooth
+Bottom buttons: Chats, DM, Nodes, Tools, Config, Help.	Spodnji gumbi: Klepeti, DM, Vozlišča, Orodja, Nastavitve, Pomoč.
+Bottom buttons: Home, Chats, DM, Nodes, Tools, Config, Help.\nHome is the dashboard; Chats is the messages, and its icon\nblinks when a channel has something unread.	Spodnji gumbi: Domov, Klepeti, DM, Vozlišča, Orodja, Nastavitve, Pomoč.\nDomov je plošča; Klepeti so sporočila, njihova ikona\npa utripa, ko ima kanal kaj neprebranega.
+Brightness	Svetlost
+Brightness: %u%%	Svetlost: %u%%
+Brightness: %u%%  Lock: %u%%	Svetlost: %u%%  Zaklep: %u%%
+Brown	Rjava
+Bubbles	Oblački
+C = Clear   %s = Back	C = Počisti   %s = Nazaj
+C = Clear   F = Filter	C = Počisti   F = Filter
+C:Cfg H:Ch D:DM N:Node L:Tools A:Act	C:Nast H:Kan D:DM N:Vozl L:Orodja A:Dej
+CHANNEL UTIL	IZKORIŠČENOST KANALA
+CHANNEL UTILIZATION (%)	IZKORIŠČENOST KANALA (%)
+Can't resolve the weather server.\nCheck the address and DNS.	Strežnika za vreme ni mogoče razrešiti.\nPreverite naslov in DNS.
+Cancel	Prekliči
+Cancelled after removing %u file%s. The rest were left alone - run the scan again to see what is still there.	Preklicano po odstranitvi %u datotek%.0s. Ostalo je nedotaknjeno - znova zaženite pregled, da vidite, kaj je ostalo.
+Cannot send: no node id	Ni mogoče poslati: ni id-ja vozlišča
+Card formatted.\n\nWrite your configuration back to it as /camillia/config.yaml?	Kartica formatirana.\n\nNanjo znova zapišem nastavitve kot /camillia/config.yaml?
+ChUtil  cur %s  avg %.1f%%  max %.1f%%   n=%d\nAirTx   cur %s  avg %.1f%%  max %.1f%%   n=%d	ChUtil  zdaj %s  povp %.1f%%  maks %.1f%%   n=%d\nAirTx   zdaj %s  povp %.1f%%  maks %.1f%%   n=%d
+ChUtil  cur --  avg --  max --   n=0\nAirTx   cur --  avg --  max --   n=0	ChUtil  zdaj --  povp --  maks --   n=0\nAirTx   zdaj --  povp --  maks --   n=0
+Channel	Kanal
+Channel %d	Kanal %d
+Channel %d  %s	Kanal %d  %s
+Channel Actions\n%s	Dejanja kanala\n%s
+Channel Configuration	Nastavitve kanala
+Channel Key	Ključ kanala
+Channel Message LED	LED sporočil kanala
+Channel Message LED: %s	LED sporočil kanala: %s
+Channel Name	Ime kanala
+Channel blink: %u flash%s	Utripanje kanala: %u-krat%.0s
+Channel busy (%.0f%%) - not sweeping	Kanal zaseden (%.0f%%) - brez preiskovanja
+Channels	Kanali
+Chat Colors: %s	Barve klepeta: %s
+Chat Names	Imena v klepetu
+Chat Names: %s	Imena v klepetu: %s
+Chat Names: %s%s	Imena v klepetu: %s%s
+Chat Style	Slog klepeta
+Chat Style: %s	Slog klepeta: %s
+Chat Style: %s%s	Slog klepeta: %s%s
+Chat Type	Vrsta klepeta
+Chat Type: %s	Vrsta klepeta: %s
+Chat Type: %s%s	Vrsta klepeta: %s%s
+Chat colors reassigned	Barve klepeta znova dodeljene
+Checking %u of %u   %u%%	Preverjam %u od %u   %u%%
+Chirpy	Čivkanje
+Choose WiFi	Izberi WiFi
+Choose WiFi or Finish	Izberi WiFi ali Končaj
+Choose WiFi: %s	Izberi WiFi: %s
+Choose WiFi: (none)	Izberi WiFi: (brez)
+Classic	Klasično
+Clear	Počisti
+Clear Messages	Počisti sporočila
+Clear Nodes (All)	Počisti vozlišča (vsa)
+Clear Nodes (Keep Favorites)	Počisti vozlišča (obdrži priljubljena)
+Clear by %dm at tightest	Prosto %dm na najožjem mestu
+Clear entire live feed?	Počistim celoten prikaz v živo?
+Cleared %d nodes, kept %d favorites - rebooting...	Počiščenih %d vozlišč, ohranjenih %d priljubljenih - vnovični zagon...
+Cleared (%d report(s)) - rebuilding from traffic	Počiščeno (%d poročil) - obnova iz prometa
+Clock Format: %s	Oblika ure: %s
+Clock set from web config	Ura nastavljena iz spletnih nastavitev
+Clock set: %04d-%02d-%02d %02d:%02d	Ura nastavljena: %04d-%02d-%02d %02d:%02d
+Close	Zapri
+Configuration	Nastavitve
+Configuration exported to /camillia/config.yaml.\n\nThe card is formatted and holds nothing else. Chat history, the node database and any map tiles were on the old filesystem and are gone.	Nastavitve izvožene v /camillia/config.yaml.\n\nKartica je formatirana in ne vsebuje ničesar drugega. Zgodovina klepeta, baza vozlišč in ploščice zemljevida so bile na starem datotečnem sistemu in jih ni več.
+Configured WiFi is empty	Nastavljeni WiFi je prazen
+Confirm Chat Style	Potrdi slog klepeta
+Confirm?	Potrdim?
+Connect	Poveži
+Connect to WiFi before enabling VNC	Pred vklopom VNC se povežite z WiFi
+Connect: %s	Poveži: %s
+Connecting to %s...	Povezujem z %s...
+Connecting to broker...	Povezujem s posrednikom...
+Connection failed: %s	Povezava ni uspela: %s
+Conversation deleted	Pogovor izbrisan
+Conversations	Pogovori
+Could not reach the weather server.	Strežnika za vreme ni mogoče doseči.
+Could not remove every file. Check storage and retry.	Vseh datotek ni bilo mogoče odstraniti. Preverite shrambo in poskusite znova.
+Counting files on the card...	Štejem datoteke na kartici...
+Counting files... %u found	Štejem datoteke... najdenih %u
+Custom	Po meri
+Custom (%u B)	Po meri (%u B)
+Cyan	Cian
+DIRECT MESSAGES	NEPOSREDNA SPOROČILA
+DISTANCE UNKNOWN	RAZDALJA NEZNANA
+DM blink: %u flash%s	Utripanje DM: %u-krat%.0s
+DMs	DM
+Date unavailable	Datum ni na voljo
+Day	Dan
+Dec	dec
+December	decembra
+Default	Privzeto
+Default (%u)	Privzeto (%u)
+Default +%u	Privzeto +%u
+Del(e)te	Izbriš(e)
+Delete	Izbriši
+Delete WiFi?	Izbrišem WiFi?
+Delete conversation?	Izbrišem pogovor?
+Delete failed	Brisanje ni uspelo
+Delete node?	Izbrišem vozlišče?
+Delivery details not recorded: received before this boot, or too many messages ago.	Podatki o dostavi niso zabeleženi: prejeto pred tem zagonom ali pred preveč sporočili.
+Detail Map	Podroben zemljevid
+Device Info	Podatki o napravi
+Device switched off last time: battery empty	Naprava se je zadnjič izklopila: prazna baterija
+Direct Message LED	LED neposrednih sporočil
+Direct Message LED: %s	LED neposrednih sporočil: %s
+Discovery	Odkrivanje
+Do not remove the card	Ne odstranjujte kartice
+Elevation data too sparse\nfor this path.	Premalo višinskih podatkov\nza to pot.
+Elevation fetch failed (%d).\nCheck the server URL - it must be http://	Pridobivanje višine ni uspelo (%d).\nPreverite URL strežnika - biti mora http://
+Enable WiFi first	Najprej vklopite WiFi
+Enc	Šifr.
+Encrypted	Šifrirano
+Encryption	Šifriranje
+Enter password, then tap Connect	Vnesite geslo in tapnite Poveži
+Enter this node's long name.	Vnesite dolgo ime tega vozlišča.
+Enter=Connect  Backspace=Back	Enter=Poveži  Backspace=Nazaj
+Enter=Info  A=Actions  Bksp=Edit/Exit  %s=Back	Enter=Info  A=Dejanja  Bksp=Uredi/Izhod  %s=Nazaj
+Enter=Info  A=Actions  Space=Filter  %s=Back	Enter=Info  A=Dejanja  Space=Filter  %s=Nazaj
+Enter=Next	Enter=Naprej
+Enter=Next    Bksp(empty)=Back	Enter=Naprej    Bksp(prazno)=Nazaj
+Enter=Next   Bksp(empty)=Back	Enter=Naprej   Bksp(prazno)=Nazaj
+Enter=OK  %s=Erase/Back	Enter=OK  %s=Briši/Nazaj
+Enter=OK  Bksp=Erase  %s=Back	Enter=OK  Bksp=Briši  %s=Nazaj
+Enter=Save  Tab=Field  %s=Erase/Back	Enter=Shrani  Tab=Polje  %s=Briši/Nazaj
+Enter=Send   %s=Cancel	Enter=Pošlji   %s=Prekliči
+Enter=Send  Bksp(empty)=Cancel	Enter=Pošlji  Bksp(prazno)=Prekliči
+Enter=Send  Esc=Cancel  Bksp=Del	Enter=Pošlji  Esc=Prekliči  Bksp=Briši
+Environment	Okolje
+Errors	Napake
+Examined %u file%s. Nothing matching Windows malware was found.\n\nThis reads names and file headers, not contents, so it is a good sign rather than a guarantee.	Pregledanih %u datotek%.0s. Nič ni podobno zlonamerni programski opremi za Windows.\n\nBerejo se imena in glave datotek, ne vsebina, zato je to dober znak, ne jamstvo.
+Export Config	Izvozi nastavitve
+Export FAILED (no SD?)	Izvoz NI USPEL (ni SD?)
+Export FAILED. The card formatted, but the configuration could not be written back to it - try Export from the Config screen.	Izvoz NI USPEL. Kartica je bila formatirana, a nastavitev ni bilo mogoče zapisati nazaj - poskusite Izvoz na zaslonu Nastavitve.
+Exported to /camillia/config.yaml	Izvoženo v /camillia/config.yaml
+Extra Large	Zelo veliko
+Factory Reset	Tovarniške nastavitve
+Factory reset - rebooting...	Tovarniške nastavitve - vnovični zagon...
+Favorite	Priljubljeno
+Feb	feb
+February	februarja
+Feels %d%s   Hum %d%%\nWind %d %s %s\nGusting %d %s	Občutek %d%s   Vlaga %d%%\nVeter %d %s %s\nSunki %d %s
+Feels like   %d%s\nHumidity     %d%%\nWind         %d %s from %s\nGusting      %d %s	Občutek      %d%s\nVlaga        %d%%\nVeter        %d %s iz %s\nSunki        %d %s
+Fetching...	Pridobivam...
+Filter Nodes	Filtriraj vozlišča
+Finish	Končaj
+Firmware Update	Posodobitev strojne programske opreme
+Firmware Update Check	Preverjanje posodobitve
+Firmware Update: Install %s	Posodobitev: namesti %s
+Font Size	Velikost pisave
+Font Size: %s	Velikost pisave: %s
+Font Size: %s%s	Velikost pisave: %s%s
+Forget	Pozabi
+Format FAILED, and the card could not be remounted.\n\nReboot the device, or format the card on a PC.	Formatiranje NI USPELO in kartice ni bilo mogoče znova priklopiti.\n\nZnova zaženite napravo ali formatirajte kartico v računalniku.
+Format FAILED. The card was left as it was and is still mounted.\n\nFormatting it on a PC is the reliable way out.	Formatiranje NI USPELO. Kartica je ostala nespremenjena in je še priklopljena.\n\nFormatiranje v računalniku je zanesljiva rešitev.
+Format the SD card?\n\nThis erases EVERYTHING on it - chat and DM history, the node database, map tiles and your saved configuration - not just the files the scan matched.\n\nIt cannot be undone.	Formatiram kartico SD?\n\nTo izbriše VSE na njej - zgodovino klepetov in DM, bazo vozlišč, ploščice zemljevida in shranjene nastavitve - ne le datotek, ki jih je našel pregled.\n\nTega ni mogoče razveljaviti.
+Formatting SD Card	Formatiram kartico SD
+Found %d network(s)	Najdenih omrežij: %d
+Found %u file%s matching Windows malware:\n	%u datotek%.0s je podobnih zlonamerni programski opremi za Windows:\n
+Freq: %.3f MHz	Frekv: %.3f MHz
+Fri	pet
+From: %s	Od: %s
+Full node name when known	Polno ime vozlišča, če je znano
+GPS disabled (using default coordinates)	GPS izklopljen (privzete koordinate)
+GPS enabled (hardware)	GPS vklopljen (strojna oprema)
+GPS: Disabled (Default Coords)	GPS: Izklopljen (privz. koord.)
+GPS: Enabled (Hardware)	GPS: Vklopljen (strojna oprema)
+Gateway: not known	Prehod: neznan
+Grazes terrain - F1=%dm	Oplazi teren - F1=%dm
+Green	Zelena
+HEARD ABOUT	POROČALI DRUGI
+Heard %s ago   %u seen, ~%s apart	Slišano pred %s   videno %u-krat, ~%s razmik
+Heard %s ago   1 seen	Slišano pred %s   videno 1-krat
+Help	Pomoč
+High	Visoko
+Hops	Skoki
+Hops: %d of %d	Skoki: %d od %d
+Hour	Ura
+I(g)nore	Prezr(g)i
+Identity	Identiteta
+Ignore	Prezri
+Import Config	Uvozi nastavitve
+Import FAILED (no file?)	Uvoz NI USPEL (ni datoteke?)
+Import failed - enter a name	Uvoz ni uspel - vnesite ime
+Imported OK - rebooting...	Uvoz OK - vnovični zagon...
+Install now? The device reboots to update.	Namestim zdaj? Naprava se bo za posodobitev znova zagnala.
+Invalid base64 key	Neveljaven ključ base64
+Invalid date/time	Neveljaven datum/čas
+Invert Scrolling: %s	Obratno pomikanje: %s
+J/K = Scroll   %s = Close	J/K = Premik   %s = Zapri
+J/K = Scroll   Bksp = Close	J/K = Premik   Bksp = Zapri
+J/K = Select   Space = Compose   Enter = Focus   D = Delete	J/K = Izberi   Space = Piši   Enter = Fokus   D = Izbriši
+Jan	jan
+January	januarja
+Jul	jul
+July	julija
+Jun	jun
+June	junija
+Just announced. Try again in %us.	Pravkar objavljeno. Poskusite znova čez %us.
+Key	Ključ
+Keyboard Blink: %s	Utripanje tipkovnice: %s
+Keyboard Light	Osvetlitev tipkovnice
+Keyboard Light: %s	Osvetlitev tipkovnice: %s
+Keyboard blink: %s	Utripanje tipkovnice: %s
+Keyboard light %s	Osvetlitev tipkovnice %s
+Keyboard light %s - after a power cycle	Osvetlitev tipkovnice %s - po izklopu in vklopu
+Keyboard light off	Osvetlitev tipkovnice izkl.
+L/R=Change   Enter=Save   %s=Back	L/D=Spremeni   Enter=Shrani   %s=Nazaj
+LINE OF SIGHT	VIDNA ČRTA
+LIVE	V ŽIVO
+LONGEST SILENT	NAJDLJE TIHI
+Landscape	Ležeče
+Language	Jezik
+Language: %s	Jezik: %s
+Large	Veliko
+Last heard	Nazadnje slišano
+Last heard\nSNR\nHops\nChannel\nSigned	Nazadnje slišano\nSNR\nSkoki\nKanal\nPodpisano
+Leave blank to clear	Pustite prazno za brisanje
+Light reminds for %s	Lučka opominja %s
+Light reminds until read	Lučka opominja do branja
+Lime	Limeta
+Link	Povezava
+Listening   %d sender%s heard	Poslušanje   slišanih pošiljateljev: %d%.0s
+Listening: off	Poslušanje: izkl.
+Live	V živo
+Live Filter	Filter v živo
+Live feed cleared	Prikaz v živo počiščen
+Loading map...	Nalagam zemljevid...
+Loc	Lok.
+Locate	Lociraj
+Locate: %s	Lociraj: %s
+Location	Lokacija
+Location Precision	Natančnost lokacije
+Location Precision: %s	Natančnost lokacije: %s
+Location rounded to %s	Lokacija zaokrožena na %s
+Location sent exactly	Lokacija poslana natančno
+Location sharing off (no position sent)	Deljenje lokacije izkl. (položaj se ne pošilja)
+Location sharing on	Deljenje lokacije vkl.
+Location: %s	Lokacija: %s
+Lock Screen Off	Izklop zaslona ob zaklepu
+Lock Screen Off: %s	Izklop zaslona ob zaklepu: %s
+Lock Screen: %s	Zaklenjen zaslon: %s
+Lock screen	Zaklenjen zaslon
+Lock screen stays on	Zaklenjen zaslon ostane vklopljen
+Long	Dolgo
+Long name	Dolgo ime
+Long name cannot be empty	Dolgo ime ne sme biti prazno
+Long name: %s\nEnter a short name (up to 4 chars).	Dolgo ime: %s\nVnesite kratko ime (največ 4 znaki).
+Long: %s	Dolgo: %s
+Looking for keyboards...	Iščem tipkovnice...
+Low	Nizko
+ME (ACK)	JAZ (ACK)
+MQTT Bridge: %s	Most MQTT: %s
+MQTT Bridge: %s - rebooting...	Most MQTT: %s - vnovični zagon...
+MQTT Bridge: Off (WiFi off)	Most MQTT: Izkl. (WiFi izkl.)
+MQTT Scan Settings	Nastavitve pregleda MQTT
+MQTT bridge is off	Most MQTT je izklopljen
+Map (loading)	Zemljevid (nalaganje)
+Map (off)	Zemljevid (izkl.)
+Map memory unavailable	Ni pomnilnika za zemljevid
+Map unavailable	Zemljevid ni na voljo
+Mar	mar
+March	marca
+Match the voltage to a meter reading.\nPercent comes from the fuel gauge and does not change.	Uskladite napetost z odčitkom merilnika.\nOdstotek prihaja iz merilnika napolnjenosti in se ne spreminja.
+Match the voltage to a meter reading.\nPercent follows it. 0% = uncalibrated.	Uskladite napetost z odčitkom merilnika.\nOdstotek ji sledi. 0% = neumerjeno.
+May	maj
+Medium	Srednje
+Mesh Beacons is off.\n\nTurn it on in Config (or under Modules in web config) to decode beacons from other meshes. Receive-only: nothing is transmitted, and an offer is never applied to your radio.	Svetilniki omrežja so izklopljeni.\n\nVklopite jih v Nastavitvah (ali pod Moduli v spletnih nastavitvah) za dekodiranje svetilnikov drugih omrežij. Samo sprejem: nič se ne oddaja in ponudba se nikoli ne uporabi na vašem radiu.
+Mesh Beacons: %s	Svetilniki omrežja: %s
+Mesh beacons: %s	Svetilniki omrežja: %s
+Message (I)nfo	(I)nformacije o sporočilu
+Message Actions	Dejanja sporočila
+Message Info	Informacije o sporočilu
+Messages	Sporočila
+Messages cleared - rebooting...	Sporočila počiščena - vnovični zagon...
+Metric	Metrično
+Minute	Minuta
+Modem preset	Prednastavitev modema
+Mon	pon
+Month	Mesec
+Move  Enter=Apply  %s=Back	Premik  Enter=Uporabi  %s=Nazaj
+Move  Enter=Apply  %s=Cancel	Premik  Enter=Uporabi  %s=Prekliči
+Move  Enter=Change  %s=Cancel	Premik  Enter=Spremeni  %s=Prekliči
+Move  Enter=Edit  %s=Back	Premik  Enter=Uredi  %s=Nazaj
+Move  Enter=OK  %s=Cancel	Premik  Enter=OK  %s=Prekliči
+Move  Enter=Open  %s=Back	Premik  Enter=Odpri  %s=Nazaj
+Move  Enter=Pick  %s=Back	Premik  Enter=Izberi  %s=Nazaj
+Move  Enter=Scan  %s=Cancel	Premik  Enter=Preišči  %s=Prekliči
+Move • Enter=Add • %s=Close	Premik • Enter=Dodaj • %s=Zapri
+Move • Enter=Insert • %s=Close	Premik • Enter=Vstavi • %s=Zapri
+Move • Enter=React • %s=Close	Premik • Enter=Odzovi se • %s=Zapri
+Move • Enter=Send • %s=Close	Premik • Enter=Pošlji • %s=Zapri
+Move=Adjust  Enter=Save  %s=Cancel	Premik=Nastavi  Enter=Shrani  %s=Prekliči
+Move=Adjust  Space=Toggle  Enter=Save  %s=Cancel	Premik=Nastavi  Space=Preklopi  Enter=Shrani  %s=Prekliči
+Move=Preview  Enter=OK  %s=Cancel	Premik=Predogled  Enter=OK  %s=Prekliči
+My Message Color	Barva mojih sporočil
+My Message Color: %s	Barva mojih sporočil: %s
+My Message Color: %s (unchanged)	Barva mojih sporočil: %s (nespremenjeno)
+My Message Color: %s - rebooting...	Barva mojih sporočil: %s - vnovični zagon...
+N=Choose WiFi   Enter=Finish   Bksp=Back	N=Izberi WiFi   Enter=Končaj   Bksp=Nazaj
+NO LINE OF SIGHT	NI VIDNE ČRTE
+NODEINFO + telemetry queued.	NODEINFO + telemetrija v čakalni vrsti.
+NODES	VOZLIŠČA
+NODES (%d%s)	VOZLIŠČA (%d%s)
+NODES [%s] (%d%s)	VOZLIŠČA [%s] (%d%s)
+Name	Ime
+Name: %s\nShort: %s\nID: !%08X\nLast heard: %s\nSNR: %.1f dB\nHops: %u\nChannel: %d\n\nPosition:\n%s\n\nTelemetry:\n%s	Ime: %s\nKratko: %s\nID: !%08X\nNazadnje slišano: %s\nSNR: %.1f dB\nSkoki: %u\nKanal: %d\n\nPoložaj:\n%s\n\nTelemetrija:\n%s
+Name\nShort\nID	Ime\nKratko\nID
+Nav Bar: %s	Navigacijska vrstica: %s
+Neighborhood Info: %s	Podatki o sosedih: %s
+Neighborhood info: %s	Podatki o sosedih: %s
+Never	Nikoli
+New	Novo
+New DM	Novo DM
+New DM: Select Node	Novo DM: izberite vozlišče
+New DM: Select Node [%s]	Novo DM: izberite vozlišče [%s]
+New Message	Novo sporočilo
+Newest: %s %s	Najnovejše: %s %s
+Newest: none heard yet	Najnovejše: še nobeno ni slišano
+Next	Naprej
+No %s - not saved	Ni %s - ni shranjeno
+No %s - not saving	Ni %s - ne shranjujem
+No %s traffic yet\n(filter is on - %s)	Še ni prometa %s\n(filter vklopljen - %s)
+No S&F router heard yet	Usmerjevalnik S&F še ni slišan
+No SD card is mounted.	Kartica SD ni priklopljena.
+No WiFi network configured	Omrežje WiFi ni nastavljeno
+No beacons heard yet.\n\nA beacon is only audible while its sender has retuned onto this channel, preset and region, and it repeats on that node's own schedule - minutes to hours apart. This list keeps what it hears until you clear it.	Svetilniki še niso slišani.\n\nSvetilnik se sliši le, ko se je njegov pošiljatelj preklopil na ta kanal, prednastavitev in regijo, ponavlja pa se po urniku tistega vozlišča - v razmikih od nekaj minut do nekaj ur. Seznam hrani, kar sliši, dokler ga ne počistite.
+No elevation server set.\nWeb Config -> Elevation Server (LOS)	Višinski strežnik ni nastavljen.\nSpletne nast. -> Elevation Server (LOS)
+No hop path in reply	V odgovoru ni poti skokov
+No keyboards found yet.\n\nPut the keyboard into pairing mode, then press Scan.\n\nOnly Bluetooth LE keyboards can pair - this hardware has no Bluetooth Classic radio.	Tipkovnice še niso najdene.\n\nPreklopite tipkovnico v način seznanjanja in pritisnite Preišči.\n\nSeznaniti je mogoče le tipkovnice Bluetooth LE - ta strojna oprema nima radia Bluetooth Classic.
+No known nodes yet	Še ni znanih vozlišč
+No live traffic yet	Še ni prometa v živo
+No matches for: %s	Ni zadetkov za: %s
+No messages yet	Še ni sporočil
+No network in that slot	Na tem mestu ni omrežja
+No network selected	Omrežje ni izbrano
+No networks found	Ni najdenih omrežij
+No new messages	Ni novih sporočil
+No nodes seen	Ni videnih vozlišč
+No nodes seen yet.	Vozlišča še niso videna.
+No position data	Ni podatkov o položaju
+No position recorded	Položaj ni zabeležen
+No position yet.\nNeeds a GPS fix or a set location.	Še ni položaja.\nPotreben je GPS fix ali nastavljena lokacija.
+No release notes in this build.	V tej gradnji ni opomb ob izdaji.
+No reply (%lus)	Ni odgovora (%lus)
+No result details available.	Podrobnosti niso na voljo.
+No telemetry data	Ni podatkov telemetrije
+No weather server set.\nWeb Config -> Weather Server	Strežnik za vreme ni nastavljen.\nSpletne nast. -> Weather Server
+Node Actions	Dejanja vozlišča
+Node DB cleared - rebooting...	Baza vozlišč počiščena - vnovični zagon...
+Node ID: !%08lx	ID vozlišča: !%08lx
+Node Name	Ime vozlišča
+Node Name: %s (%s)	Ime vozlišča: %s (%s)
+Node Name: %s (%s)%s	Ime vozlišča: %s (%s)%s
+Node id: !%08lx	Id vozlišča: !%08lx
+Node info	Podatki o vozlišču
+Nodes and SD archive cleared - rebooting...	Vozlišča in arhiv SD počiščeni - vnovični zagon...
+None	Brez
+Not counting - out of memory	Ne šteje - ni pomnilnika
+Not enough free heap to hold the topic table.\n\nClose a few screens (or reboot) and try again.	Za tabelo tem ni dovolj prostega pomnilnika.\n\nZaprite nekaj zaslonov (ali znova zaženite) in poskusite znova.
+Nothing heard yet	Še nič ni slišano
+Nothing recorded yet - nothing to send	Še nič ni zabeleženo - ni česa poslati
+Nothing was removed. The files may have gone already, or the card may be write-protected.	Nič ni bilo odstranjeno. Datotek morda ni več, ali pa je kartica zaščitena pred pisanjem.
+Notification Light Timeout	Trajanje lučke obvestil
+Notification Light Timeout: %s	Trajanje lučke obvestil: %s
+Notification Sound	Zvok obvestila
+Notification Sound: %s	Zvok obvestila: %s
+Notification sound: %s	Zvok obvestila: %s
+Nov	nov
+November	novembra
+OFF	IZKL
+OTA disabled on Cardputer build	OTA onemogočen v gradnji za Cardputer
+OTA needs the factory image (flash layout)	OTA zahteva tovarniško sliko (razporeditev flash)
+OTA request failed (NVS write). Retry.	Zahteva OTA ni uspela (zapis NVS). Poskusite znova.
+OTA worker completed. Check status.	OTA končan. Preverite stanje.
+Oct	okt
+October	oktobra
+Off	Izkl.
+Offers: %s	Ponudbe: %s
+Old Map Files Found	Najdene stare datoteke zemljevidov
+Oldest: %s %s	Najstarejše: %s %s
+Oldest: none heard yet	Najstarejše: še nobeno ni slišano
+On	Vkl.
+On (global off)	Vkl. (globalno izkl.)
+On (listening)	Vkl. (posluša)
+Open network (leave blank)	Odprto omrežje (pustite prazno)
+Optional WiFi setup.\nNo network selected.\nChoose WiFi now or finish without WiFi.	Neobvezna nastavitev WiFi.\nOmrežje ni izbrano.\nIzberite WiFi zdaj ali končajte brez WiFi.
+Optional WiFi setup.\nSelected: %s\nChoose a different network or finish.	Neobvezna nastavitev WiFi.\nIzbrano: %s\nIzberite drugo omrežje ali končajte.
+Orange	Oranžna
+Orientation: %s	Usmerjenost: %s
+Other	Drugo
+Outline	Obroba
+PKI key: %s	Ključ PKI: %s
+PSRAM free: %lu KB\nPSRAM total: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	Prosti PSRAM: %lu KB\nSkupaj PSRAM: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nProsto za aplikacijo: %lu KB
+PSRAM: none\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	PSRAM: ni\nFlash: %lu KB\nSketch: %lu KB\nProsto za aplikacijo: %lu KB
+Pair	Seznani
+Pair BT Keyboard: %s	Seznani BT tipkovnico: %s
+Pair BT Keyboard: (none)	Seznani BT tipkovnico: (brez)
+Percent	Odstotek
+Pink	Roza
+Please re-flash from Camillia's website for language support.	Za podporo jezikov znova namestite strojno programsko opremo s spletne strani Camillie.
+Portrait	Pokončno
+Portrait 180	Pokončno 180
+Position	Položaj
+Precise	Natančno
+Preparing state maps...	Pripravljam zemljevide regij...
+Preset	Prednastavitev
+Preset (%s)	Prednastavitev (%s)
+Preset already %s.	Prednastavitev je že %s.
+Preset scan already running	Pregled prednastavitve že poteka
+Preset: %s	Prednastavitev: %s
+Preset: %s - rebooting...	Prednastavitev: %s - vnovični zagon...
+Public key preserved\n\n	Javni ključ ohranjen\n\n
+Purple	Vijolična
+Pwr %d dBm Hops %d	Moč %d dBm Skoki %d
+R=Refresh  %s=Back	R=Osveži  %s=Nazaj
+RECENTLY HEARD	NEDAVNO SLIŠANI
+Radio busy - retry in %lus	Radio je zaseden - znova čez %lus
+Radio not ready	Radio ni pripravljen
+Re(q)uest Node	Zahtevaj vozlišče (Q)
+Ready	Pripravljeno
+Rebooting into OTA minimal mode...	Vnovični zagon v minimalni način OTA...
+Received over: %s %s	Prejeto prek: %s %s
+Red	Rdeča
+Relayed to us by: %s	Posredoval: %s
+Relayed to us by: %s (from MQTT)	Posredoval: %s (iz MQTT)
+Relayed to us by: nobody, heard directly	Posredoval: nihče, slišano neposredno
+Relayed to us by: not reported by the relaying node	Posredoval: posredovalno vozlišče ni navedlo
+Relayed to us by: the sender itself	Posredoval: pošiljatelj sam
+Relayed: %lu	Posredovano: %lu
+Release Channel: %s - checking...	Kanal izdaj: %s - preverjam...
+Release Channel: %s%s	Kanal izdaj: %s%s
+Release Notes	Opombe ob izdaji
+Release Notes  %s	Opombe ob izdaji  %s
+Remove	Odstrani
+Removed %s	%s odstranjeno
+Removed %s - no networks left, AP mode	%s odstranjeno - ni več omrežij, način AP
+Removed %s - now %s	%s odstranjeno - zdaj %s
+Removed %u file%s. %u could not be deleted - the card may be write-protected.\n\nRe-run the scan to check.	Odstranjenih %u datotek%.0s. %u jih ni bilo mogoče izbrisati - kartica je morda zaščitena pred pisanjem.\n\nZa preverjanje znova zaženite pregled.
+Removed %u file%s.\n\nThis card looked clean afterwards, but the scan reads names and headers, not contents - it cannot promise the card is clean. Reformatting is the only answer that can.	Odstranjenih %u datotek%.0s.\n\nKartica je bila nato videti čista, a pregled bere imena in glave, ne vsebine - ne more zagotoviti, da je kartica čista. To lahko zagotovi le vnovično formatiranje.
+Removing Files	Odstranjujem datoteke
+Removing legacy maps...	Odstranjujem stare zemljevide...
+Replay already requested	Ponovno predvajanje že zahtevano
+Replay not sent: %s	Ponovno predvajanje ni poslano: %s
+Replay requested (last %lu min)	Ponovno predvajanje zahtevano (zadnjih %lu min)
+Reply	Odgovori
+Reply from %s	Odgovor od %s
+Reply from %s (%lus)	Odgovor od %s (%lus)
+Request (P)osition	Zahtevaj (p)oložaj
+Request Node	Zahtevaj vozlišče
+Request Position	Zahtevaj položaj
+Request S&F Replay (%s)	Zahtevaj predvajanje S&F (%s)
+Request S&F Replay (no router)	Zahtevaj predvajanje S&F (ni usmerjevalnika)
+Requested (last %lu min)	Zahtevano (zadnjih %lu min)
+Rescan	Preišči znova
+Reset	Ponastavi
+Reset Chat Colors	Ponastavi barve klepeta
+Reset to Default	Obnovi privzeto
+Restore failed: every slot is favorited, so there is no room. Unfavorite a node and try again.	Obnova ni uspela: vsa mesta so priljubljena, prostora ni. Odstranite vozlišče s priljubljenih in poskusite znova.
+Restore failed: the archived record could not be read.	Obnova ni uspela: arhiviranega zapisa ni mogoče prebrati.
+Restore node?	Obnovim vozlišče?
+Role: %s%s	Vloga: %s%s
+S(h)are	Deli (H)
+SD Card Format	Formatiranje kartice SD
+SD Card Scan	Pregled kartice SD
+SD scan cancelled	Pregled SD preklican
+SD: %s, %s, %u fails	SD: %s, %s, napak: %u
+SD: no card	SD: ni kartice
+SNR   cur %s  avg %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  cur %s  avg %.0fdBm min %.0f  max %.0f   n=%d	SNR   zdaj %s  povp %.1fdB  min %.1f  maks %.1f   n=%d\nRSSI  zdaj %s  povp %.0fdBm min %.0f  maks %.0f   n=%d
+SNR   cur --  avg --  min --  max --   n=0\nRSSI  cur --  avg --  min --  max --   n=0	SNR   zdaj --  povp --  min --  maks --   n=0\nRSSI  zdaj --  povp --  min --  maks --   n=0
+Sat	sob
+Save	Shrani
+Save failed - cannot write %s	Shranjevanje ni uspelo - ni mogoče pisati na %s
+Save failed - too many this second	Shranjevanje ni uspelo - preveč v tej sekundi
+Save while discovering	Shranjuj med odkrivanjem
+Save while scanning	Shranjuj med pregledom
+Saved %s	%s shranjeno
+Saved: %s	Shranjeno: %s
+Scan	Preišči
+Scan %s	Pregled %s
+Scan %s - saved %s	Pregled %s - shranjeno %s
+Scan Networks	Preišči omrežja
+Scan SD Card for Malware%s	Preglej kartico SD za zlonamerno programsko opremo%s
+Scan a preset	Preišči prednastavitev
+Scan cancelled	Pregled preklican
+Scan failed - Rescan to try again	Pregled ni uspel - preiščite znova
+Scan send failed	Pošiljanje pregleda ni uspelo
+Scanning %s %s/%s	Preiskujem %s %s/%s
+Scanning %s...	Preiskujem %s...
+Scanning SD Card	Pregledujem kartico SD
+Scanning WiFi networks...	Iščem omrežja WiFi...
+Screen	Zaslon
+Screen Timeout	Časovna omejitev zaslona
+Screen Timeout: %s	Časovna omejitev zaslona: %s
+Screen off after %s on lock	Zaslon se ugasne po %s ob zaklepu
+Screen orientation	Usmerjenost zaslona
+Screen sleeps after %s	Zaslon zaspi po %s
+Screen stays on	Zaslon ostane vklopljen
+Select a conversation	Izberite pogovor
+Select this node's role.	Izberite vlogo tega vozlišča.
+Select your radio region/preset.	Izberite regijo/prednastavitev radia.
+Selection settling - press Enter again	Izbira se ustaljuje - znova pritisnite Enter
+Sen(d) DM	Pošlji DM (D)
+Send	Pošlji
+Send DM	Pošlji DM
+Send failed	Pošiljanje ni uspelo
+Send to channel?	Pošljem na kanal?
+Send top 5 to	Pošlji top 5 na
+Sending request...	Pošiljam zahtevo...
+Sent by this node.	Poslalo to vozlišče.
+Sent to %s	Poslano na %s
+Sent. Waiting for route ACK...	Poslano. Čakam na ACK poti...
+Sep	sep
+September	septembra
+Server answered, but not with\nelevation data. Check the proxy\npoints at the elevation service.	Strežnik je odgovoril, a ne\nz višinskimi podatki. Preverite, ali proxy\nkaže na višinsko storitev.
+Server answered, but not with\nweather data. Check the proxy.	Strežnik je odgovoril, a ne\ns podatki o vremenu. Preverite proxy.
+Set message colour to %s and reboot?	Nastavim barvo sporočil na %s in znova zaženem?
+Share	Deli
+Share Location: %s	Deli lokacijo: %s
+Short	Kratko
+Short name	Kratko ime
+Short name cannot be empty	Kratko ime ne sme biti prazno
+Short: %s	Kratko: %s
+Show Archived Nodes: %s	Pokaži arhivirana vozlišča: %s
+Show Archived Nodes: %s%s	Pokaži arhivirana vozlišča: %s%s
+Silver	Srebrna
+Sky	Nebesna
+Small	Majhno
+Source	Vir
+Splash Melody: %s	Zagonska melodija: %s
+Splash melody: %s	Zagonska melodija: %s
+Stale - 	Zastarelo -
+State Map	Zemljevid regije
+State map disabled	Zemljevid regije onemogočen
+State map unavailable	Zemljevid regije ni na voljo
+Stay on	Vedno vklopljeno
+Storage: %s %s	Shramba: %s %s
+Storage: %s (not mounted)	Shramba: %s (ni priklopljena)
+Store&Fwd Client: %s	Odjemalec Store&Fwd: %s
+Store&Fwd client is off	Odjemalec Store&Fwd je izklopljen
+Sun	ned
+Sweep	Preiskovanje
+Sweep already running	Preiskovanje že poteka
+Sweep cancelled	Preiskovanje preklicano
+Sweep done: %d new (%lus)	Preiskovanje končano: %d novih (%lus)
+Sweep send failed	Pošiljanje preiskovanja ni uspelo
+Sweep/Scan Settings	Nastavitve preiskovanja/pregleda
+Sweeping...	Preiskujem...
+Sweeping... %s/%s	Preiskujem... %s/%s
+Switch to %s and reboot?	Preklopim na %s in znova zaženem?
+Switch to theme %s and reboot?	Preklopim na temo %s in znova zaženem?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	Preklop na zunanjo anteno lahko poškoduje radio, če antena ni priklopljena.  Preden pritisnete Da, priklopite zunanjo anteno
+System Stats	Statistika sistema
+Tall	Visoko
+Tall, turned 180	Visoko, obrnjeno za 180
+Tap = Open   Long-press 3s = Delete   DM below = Back	Tap = Odpri   Pridržanje 3 s = Izbriši   DM spodaj = Nazaj
+Tap Next to continue	Za nadaljevanje tapnite Naprej
+Tap Next to continue, or Back	Za nadaljevanje tapnite Naprej, ali Nazaj
+Tap a channel	Tapnite kanal
+Tap a channel to edit	Tapnite kanal za urejanje
+Tap a field to change it	Tapnite polje, da ga spremenite
+Tap a field to edit, then Save	Tapnite polje, uredite, nato Shrani
+Tap a node for actions   Nodes below = Back	Tapnite vozlišče za dejanja   Vozlišča spodaj = Nazaj
+Tap a node to start a DM	Tapnite vozlišče za začetek DM
+Tap a preset to apply.	Tapnite prednastavitev za uporabo.
+Tap a preset, then Scan	Tapnite prednastavitev, nato Preišči
+Tap a size to apply	Tapnite velikost za uporabo
+Tap one to apply.	Tapnite eno za uporabo.
+Tap to preview	Tapnite za predogled
+Teal	Modrozelena
+Telemetry	Telemetrija
+Temp: %.1f C\nHumidity: %.1f%%\nPressure: %.1f hPa	Temp: %.1f C\nVlaga: %.1f%%\nTlak: %.1f hPa
+Temp: %.1f F\nHumidity: %.1f%%\nPressure: %.2f inHg	Temp: %.1f F\nVlaga: %.1f%%\nTlak: %.2f inHg
+Text	Besedilo
+The card was formatted but could not be remounted. Reboot the device and it should come up clean.	Kartica je bila formatirana, a je ni bilo mogoče znova priklopiti. Znova zaženite napravo in morala bi se zagnati čista.
+Theme	Tema
+Theme: %s	Tema: %s
+Theme: %s (unchanged)	Tema: %s (nespremenjeno)
+Theme: %s - rebooting...	Tema: %s - vnovični zagon...
+These files are not used by the new tile map. Remove them to reclaim storage?	Novi ploščični zemljevid teh datotek ne uporablja. Jih odstranim, da sprostim prostor?
+This node	To vozlišče
+This node has no position yet.\nNeeds a GPS fix or a set location.	To vozlišče še nima položaja.\nPotreben je GPS fix ali nastavljena lokacija.
+Thu	čet
+Time and Date	Čas in datum
+Time and Date: %s	Čas in datum: %s
+Time source: Internet / GPS	Vir časa: internet / GPS
+To close hit backspace.  (I)nformation	Zaprite s tipko backspace.  (I)nformacije
+Tools	Orodja
+Touch Navigation:	Upravljanje z dotikom:
+Transport Symbols:\n%s Radio Transmission\n%s MQTT Transmission	Simboli prenosa:\n%s Radijski prenos\n%s Prenos MQTT
+Tue	tor
+Turn BT Keyboard on first	Najprej vklopite BT tipkovnico
+Turn MQTT Bridge %s and reboot?	Nastavim most MQTT na %s in znova zaženem?
+Type = Filter   Bksp = Edit Filter   Enter = Open DM   Esc = Back	Tipkanje = Filter   Bksp = Uredi filter   Enter = Odpri DM   Esc = Nazaj
+Type = Filter   Bksp = Edit/Close Filter   Enter = Open DM	Tipkanje = Filter   Bksp = Uredi/zapri filter   Enter = Odpri DM
+Type = Filter   Enter = Open DM   Bksp = Back	Tipkanje = Filter   Enter = Odpri DM   Bksp = Nazaj
+Type = Filter   Enter = Open DM   Esc = Back	Tipkanje = Filter   Enter = Odpri DM   Esc = Nazaj
+Type message...	Vnesite sporočilo...
+Type to filter nodes	Tipkajte za filtriranje vozlišč
+Type, then tap OK	Vnesite, nato tapnite OK
+Type=Filter  Enter=Done  Bksp=Edit/Exit  %s=Back	Tipkanje=Filter  Enter=Končano  Bksp=Uredi/Izhod  %s=Nazaj
+Un(f)avorite	Odstrani s priljubljenih (F)
+Un(m)ute	Vklopi zvok (M)
+Unfavorite	Odstrani s priljubljenih
+Uni(g)nore	Ne prezri več (G)
+Unignore	Ne prezri več
+Units: %s	Enote: %s
+Unknown	Neznano
+Until read	Do branja
+Up to date (%s)	Posodobljeno (%s)
+Up/Down	Gor/Dol
+Up/Down = Select   Space = Compose   Enter = Focus   %s = Delete   %s = Back	Gor/Dol = Izberi   Space = Piši   Enter = Fokus   %s = Izbriši   %s = Nazaj
+Up/Down = Select   Space = Compose   Enter = Focus   D = Delete	Gor/Dol = Izberi   Space = Piši   Enter = Fokus   D = Izbriši
+Up/Down/J/K = Scroll   %s = Close	Gor/Dol/J/K = Premik   %s = Zapri
+Up/Down/J/K = Scroll   Bksp = Close	Gor/Dol/J/K = Premik   Bksp = Zapri
+Up/Down=Change  Enter=Save  %s=Cancel	Gor/Dol=Spremeni  Enter=Shrani  %s=Prekliči
+Up/Down=Select  Left/Right=Change  Enter=Save  %s=Cancel	Gor/Dol=Izberi  Levo/Desno=Spremeni  Enter=Shrani  %s=Prekliči
+Update	Posodobitev
+Update check failed: %s	Preverjanje posodobitev ni uspelo: %s
+Update check needs WiFi connected	Preverjanje posodobitev zahteva povezan WiFi
+Update check needs WiFi on	Preverjanje posodobitev zahteva vklopljen WiFi
+Update check skipped (a dialog was open)	Preverjanje posodobitev preskočeno (odprto je bilo okno)
+Uplinked by: %s	V MQTT poslal: %s
+Uplinked by: the sender itself	V MQTT poslal: pošiljatelj sam
+Use arrows to choose, then tap Next	Izberite s puščicami, nato tapnite Naprej
+Used: %lu KB (%lu%%)\nTotal: %lu KB\nFree: %lu KB\nMin free: %lu KB\nMax block: %lu KB	Porabljeno: %lu KB (%lu%%)\nSkupaj: %lu KB\nProsto: %lu KB\nMin. prosto: %lu KB\nNajv. blok: %lu KB
+VIA MQTT	PREK MQTT
+VNC Host failed to allocate PSRAM	VNC Host ni mogel dodeliti PSRAM
+VNC Host off	VNC Host izkl.
+VNC Host on\nOpen http://%s/ and select the Remote tab	VNC Host vkl.\nOdprite http://%s/ in izberite zavihek Remote
+VNC Host on\nhttp://%s:%u/	VNC Host vkl.\nhttp://%s:%u/
+VNC Host: Off	VNC Host: Izkl.
+VNC Host: Off (WiFi off)	VNC Host: Izkl. (WiFi izkl.)
+VNC Host: On (browser connected)	VNC Host: Vkl. (brskalnik povezan)
+VNC Host: On (network disconnected)	VNC Host: Vkl. (omrežje prekinjeno)
+VNC Host: Unavailable (WiFi not connected)	VNC Host: Ni na voljo (WiFi ni povezan)
+Voltage	Napetost
+Volume	Glasnost
+Volume: %u%%	Glasnost: %u%%
+W = Scan   S = Send   C = Reset   %s = Back	W = Preišči   S = Pošlji   C = Ponastavi   %s = Nazaj
+W = Sweep   P = Preset   C = %s   %s = Back	W = Preiskovanje   P = Prednast.   C = %s   %s = Nazaj
+W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Preiskovanje   P = Prednast.   C = %s   S = Shrani   %s = Nazaj
+Wait %lus before sending again	Pred vnovičnim pošiljanjem počakajte %lus
+Wait %lus between sweeps	Med preiskovanji počakajte %lus
+Waiting for Wi-Fi...	Čakam na Wi-Fi...
+Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Spremljam %s/2/e/#\n\nŠe ni sporočil. Kanali se tu pojavijo, ko so objavljeni, najnovejši spodaj, s številom sporočil, videnih na vsakem.
+Weather	Vreme
+Weather - %s	Vreme - %s
+Weather server error (HTTP %d).	Napaka strežnika za vreme (HTTP %d).
+Web Config disabled	Spletne nastavitve onemogočene
+Web Config locked while MQTT is on	Spletne nastavitve zaklenjene, dokler je MQTT vklopljen
+Web Config start failed	Zagon spletnih nastavitev ni uspel
+Web Config stopped.\n\nThe Bluetooth keyboard and Web Config share one radio and cannot run at the same time.\n\nTurn the keyboard off to use Web Config again.	Spletne nastavitve ustavljene.\n\nTipkovnica Bluetooth in spletne nastavitve si delijo en radio in ne morejo delovati hkrati.\n\nIzklopite tipkovnico, da boste lahko znova uporabljali spletne nastavitve.
+Web Config: Disabled	Spletne nastavitve: Onemogočene
+Web Config: Enabled	Spletne nastavitve: Omogočene
+Web Config: Off (MQTT on)	Spletne nastavitve: Izkl. (MQTT vkl.)
+Web Config: Off (WiFi off)	Spletne nastavitve: Izkl. (WiFi izkl.)
+Web Config: On	Spletne nastavitve: Vkl.
+Web Config: On (Lite)	Spletne nastavitve: Vkl. (Lite)
+Web Config: On (chat PAUSED)	Spletne nastavitve: Vkl. (klepet ZAUSTAVLJEN)
+Web config: %s\n\nChat is PAUSED while web config runs - this device needs that memory for Wi-Fi. Messages sent to you now are not received or stored.\n\nTurn web config off to resume messaging.	Spletne nastavitve: %s\n\nKlepet je ZAUSTAVLJEN, dokler delujejo spletne nastavitve - naprava potrebuje ta pomnilnik za Wi-Fi. Sporočila, ki vam jih zdaj pošljejo, niso prejeta ali shranjena.\n\nIzklopite spletne nastavitve za nadaljevanje dopisovanja.
+Wed	sre
+Welcome to Camillia for Meshtastic	Dobrodošli v Camillii za Meshtastic
+Wheel/j-k=Change   Enter=Next	Kolesce/j-k=Spremeni   Enter=Naprej
+White	Bela
+Wi-Fi needed to fetch conditions.	Za pridobitev vremena je potreben Wi-Fi.
+Wi-Fi needed to fetch the\nterrain profile for this path.	Za pridobitev profila terena\nza to pot je potreben Wi-Fi.
+WiFi connected: %s	WiFi povezan: %s
+WiFi is off	WiFi je izklopljen
+WiFi not connected	WiFi ni povezan
+WiFi password	Geslo WiFi
+WiFi selected: %s	Izbran WiFi: %s
+WiFi: Off	WiFi: Izkl.
+WiFi: On (%s)	WiFi: Vkl. (%s)
+WiFi: On (AP MODE ONLY)	WiFi: Vkl. (SAMO NAČIN AP)
+WiFi: On (AP mode)	WiFi: Vkl. (način AP)
+WiFi: On (connecting %s)	WiFi: Vkl. (povezujem %s)
+Wide	Široko
+Within %s	Znotraj %s
+Writing a new filesystem...	Zapisujem nov datotečni sistem...
+X-Large	Zelo veliko
+Y/Enter=Import   N/Bksp=Skip	Y/Enter=Uvozi   N/Bksp=Preskoči
+Year	Leto
+Yellow	Rumena
+Yes	Da
+[%s] no match	[%s] ni zadetka
+[radio] init failed	[radio] zagon ni uspel
+\n%lu min ago	\npred %lu min
+\n%s, %lu min ago	\n%s, pred %lu min
+\n+%u more	\n+%u več
+\nT-Deck trackball: hold click 2s to sleep	\nSledilna kroglica T-Decka: držite klik 2 s za spanje
+\n\nDelete them? Nothing else on the card is touched.\n\nFormat erases the whole card instead - the only certain fix.	\n\nJih izbrišem? Nič drugega na kartici se ne spremeni.\n\nFormatiranje namesto tega izbriše celotno kartico - edina zanesljiva rešitev.
+all rates tried	preizkušene vse hitrosti
+base64 key	ključ base64
+ch %s   air %s	kan %s   eter %s
+channel	kanal
+check requested	preverjanje zahtevano
+exact	natančno
+external	zunanja
+internal	notranja
+j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k ali </>=Nastavi  Gor/Dol=Vrstica  Enter=Shrani  Back=Prekliči
+j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Nastavi  </>=Vrstica  Enter=Shrani  Backspace=Prekliči
+j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Nastavi  Enter=Shrani  Backspace=Prekliči
+j/k=Adjust  Wheel=Row  Enter=Save  Backspace=Cancel	j/k=Nastavi  Kolesce=Vrstica  Enter=Shrani  Backspace=Prekliči
+j/k=Change   Enter=Next   Bksp=Back	j/k=Spremeni   Enter=Naprej   Bksp=Nazaj
+low	nizko
+missing	manjka
+never	nikoli
+no key	ni ključa
+not seen	ni videno
+off	izkl.
+on	vkl.
+one of: 	eden od:
+one rate tried	preizkušena ena hitrost
+present	prisoten
+press F to change	za spremembo pritisnite F
+retry %lus	znova čez %lus
+retry now	poskusi zdaj
+sensor %.2f V    trim %s	senzor %.2f V    popravek %s
+sensor: read failed	senzor: napaka branja
+stay on	vedno vklopljeno
+tap Filter to change	za spremembo tapnite Filter
+unavailable	ni na voljo
+unknown	neznano
+unknown date	neznan datum
+unknown error	neznana napaka
+unknown node (id ends ..%02x)	neznano vozlišče (id se konča z ..%02x)
+unset	ni nastavljeno
+until read	do branja
+vague	približno

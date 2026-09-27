@@ -74,6 +74,7 @@
 (R)eply	(R)ispondi
 (S)ender Info	Info mittente (S)
 (W)eather	Meteo (W)
+(Y)es	Sì (Y)
 (no name)	(senza nome)
 (not set)	(non impostato)
 (nothing)	(niente)
@@ -697,6 +698,7 @@ Sweeping...	Sweep in corso...
 Sweeping... %s/%s	Sweep... %s/%s
 Switch to %s and reboot?	Passare a %s e riavviare?
 Switch to theme %s and reboot?	Passare al tema %s e riavviare?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	Passare all'antenna esterna può danneggiare la radio se l'antenna non è collegata.  Collega l'antenna esterna prima di premere Sì
 System Stats	Statistiche di sistema
 Tall	Alto
 Tall, turned 180	Alto, ruotato di 180
@@ -842,6 +844,8 @@ ch %s   air %s	can %s   aria %s
 channel	canale
 check requested	controllo richiesto
 exact	esatta
+external	esterna
+internal	interna
 j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k o </>=Regola  Su/Giù=Riga  Enter=Salva  Back=Annulla
 j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Regola  </>=Riga  Enter=Salva  Backspace=Annulla
 j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Regola  Enter=Salva  Backspace=Annulla

@@ -3807,6 +3807,26 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
             "<input type='checkbox' name='ignore_mqtt' value='1'";
     if (gCfg->ignoreMqtt) html += " checked";
     html += "> Ignore MQTT &mdash; drop received packets that arrived via MQTT</label>";
+#if defined(DEVICE_TDISPLAY_P4)
+    // Antenna: the board's on-board antenna or its external socket. Moving to
+    // external asks first, exactly as the device does -- transmitting into an
+    // empty socket can damage the radio -- and Cancel puts the select back so
+    // nothing is submitted. Moving back to internal never asks. data-cur is
+    // the saved value, so re-picking External when it already is asks nothing.
+    {
+        const bool ext = cfgP4AntennaExternal(*gCfg);
+        html += "<label>Antenna<select name='antenna' data-cur='";
+        html += ext ? "1" : "0";
+        html += "' onchange=\"if(this.value=='1'&&this.dataset.cur!='1'&&!confirm("
+                "'Switching to external can damage the radio if the antenna is not attached. "
+                " Please attach the external antenna before pressing OK.'))this.value='0';\">"
+                "<option value='0'";
+        if (!ext) html += " selected";
+        html += ">Internal</option><option value='1'";
+        if (ext) html += " selected";
+        html += ">External</option></select></label>";
+    }
+#endif
     sectionEnd(html, lite);
     sendChunk(html);
 
@@ -7575,6 +7595,13 @@ static void handlePostSave() {
         const long lang = server.arg("ui_lang").toInt();
         gCfg->uiLanguage = (lang >= 0 && lang < LANG_COUNT) ? (uint8_t)lang : LANG_EN;
     }
+#if defined(DEVICE_TDISPLAY_P4)
+    // Absent (lite, or a cached page from before this field) leaves it alone.
+    // The confirmation happened in the browser before the form was submitted.
+    if (server.hasArg("antenna")) {
+        gCfg->p4Antenna = (server.arg("antenna") == "1") ? kP4AntennaExternal : 0;
+    }
+#endif
     const uint8_t prevUnits = gCfg->displayUnits;
     gCfg->displayUnits    = server.arg("disp_units").toInt() != 0 ? 1 : 0;
     if (server.hasArg("batt_display")) {

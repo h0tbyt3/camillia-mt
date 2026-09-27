@@ -1,0 +1,862 @@
+# Camillia language file (issue #99)
+# code: nl
+# name: Nederlands
+#
+# One translation per line: the English exactly as it appears in the source,
+# a TAB, then the translation. Escape a newline as \n, a tab as \t, a backslash
+# as \\. Keep every %d / %s / %u ... in the same order and of the same type as the
+# English -- a line whose placeholders differ is ignored on the device and the
+# English is shown. Mesh terms that are names (LongFast, MQTT, LoRa) stay as they
+# are. Lines are kept sorted by the English, for review; the build sorts anyway.
+# First draft: review by a native speaker welcome (see docs/TRANSLATING.md).
+#
+# Compiled in by tools/gen_lang_builtin.py.
+  CONFIRM?	  BEVESTIGEN?
+  Humid  %.1f %%	  Vocht  %.1f %%
+  Press  %.1f hPa	  Druk   %.1f hPa
+  lock	  beveiligd
+ (no card)	 (geen kaart)
+ (not sharing location)	 (locatie niet gedeeld)
+ (unchanged)	 (ongewijzigd)
+ - %s available	 - %s beschikbaar
+ - check failed	 - controle mislukt
+ - check unavailable	 - controle niet beschikbaar
+ - checking...	 - controleren...
+ - saving to %s	 - opslaan naar %s
+ - up to date	 - actueel
+! TX failed	! Verzenden mislukt
+! TX failed (node id)	! Verzenden mislukt (node-id)
+%d chans  %s msgs  %s%s	%d kanalen  %s ber.  %s%s
+%d chans  %s msgs  %s%s  (+%s off-list)	%d kanalen  %s ber.  %s%s  (+%s buiten lijst)
+%d node(s), %d report(s)	%d node(s), %d rapport(en)
+%d%s  %s\nFeels %d%s, humidity %d%%\nWind %s %d %s%s%s	%d%s  %s\nGevoel %d%s, vochtigheid %d%%\nWind %s %d %s%s%s
+%luh ago	%luu geleden
+%lum ago	%lum geleden
+%lus ago	%lus geleden
+%s   -   %u match%s so far	%s   -   %u treffer(s)%.0s tot nu toe
+%s  (current)	%s  (huidig)
+%s (this node)	%s (deze node)
+%s - WiFi off	%s - wifi uit
+%s - rebooting...	%s - herstarten...
+%s - saved	%s - opgeslagen
+%s = Back   C = Clear   F = Filter	%s = Terug   C = Wissen   F = Filter
+%s = Back   green=SNR  pink=RSSI	%s = Terug   groen=SNR  roze=RSSI
+%s = Back   teal=ChUtil  orange=AirTx	%s = Terug   blauwgroen=ChUtil  oranje=AirTx
+%s = Close	%s = Sluiten
+%s returns to the live list.\nIf it is full, the oldest non-favorite is archived to make room.	%s komt terug in de actieve lijst.\nIs die vol, dan wordt de oudste niet-favoriet gearchiveerd om ruimte te maken.
+%s to close Help	%s sluit Help
+%s will be removed from the node list.	%s wordt uit de nodelijst verwijderd.
+%s x%u\nClock: %u MHz\nRevision: %u\nUptime: %luh %02lum %02lus\nLoop rate: %lu /s\nBattery: %u%% %.3fV	%s x%u\nKlok: %u MHz\nRevisie: %u\nUptime: %luh %02lum %02lus\nLussen: %lu /s\nAccu: %u%% %.3fV
+%s%.2f, %.2f (rounded)	%s%.2f, %.2f (afgerond)
+%s%lu min ago - %.2f, %.2f (rounded)	%s%lu min geleden - %.2f, %.2f (afgerond)
+%s.\n\nNothing can arrive until the bridge has a broker session. Fix it in Config (or web config) and this list fills in on its own.	%s.\n\nEr komt niets binnen tot de brug een sessie met de broker heeft. Los het op in Configuratie (of webconfiguratie) en deze lijst vult zich vanzelf.
+%s: %d node(s) heard	%s: %d node(s) gehoord
+%s: %d on preset (%lus)	%s: %d op preset (%lus)
+%s=Scroll  A=Actions  %s=List	%s=Scrollen  A=Acties  %s=Lijst
+%s\n%.1f km - brg %03d %s\n%s\nyou %dm - peer %dm - %.0f MHz	%s\n%.1f km - peiling %03d %s\n%s\njij %dm - andere %dm - %.0f MHz
+%s\n%lu min old	%s\n%lu min geleden
+%s\nIn use - will switch to the next configured WiFi network, or AP mode if none is available	%s\nIn gebruik - schakelt over naar het volgende ingestelde wifinetwerk, of naar AP-modus als er geen is
+%s\nMessage history will be erased	%s\nBerichtgeschiedenis wordt gewist
+%s\nType %06u then Enter on the keyboard	%s\nTyp %06u en dan Enter op het toetsenbord
+%u of %d	%u van %d
+%u sec	%u s
+(A)nnounce	(A)ankondigen
+(B)eacons	(B)akens
+(C)FG   (D)M   (N)odes   Too(l)s   (A)ctions	(C)FG   (D)M   (N)odes   Too(l)s   (A)cties
+(C)FG  C(h)an  (D)M  (N)odes  Too(l)s  (A)ct	(C)FG  Kanaal (H)  (D)M  (N)odes  Too(l)s  (A)ct
+(D) Direct Messages\n(C) Configuration\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(H) Channel selector\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(D) Directe berichten\n(C) Configuratie\n(N) Nodes\n(L) Tools (Live, grafieken)\n(A) Kanaalacties\n(H) Kanaalkeuze\n(P) Help (dit scherm)\n(E) Emoji\n(Space) Schrijven/Antwoorden\n(Enter) Berichten focussen
+(D)iscovery	(D)etectie
+(F)avorite	(F)avoriet
+(H) Home dashboard\n(C) Chat (again: channels)\n(F) Configuration\n(D) Direct Messages\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(H) Startdashboard\n(C) Chat (nogmaals: kanalen)\n(F) Configuratie\n(D) Directe berichten\n(N) Nodes\n(L) Tools (Live, grafieken)\n(A) Kanaalacties\n(P) Help (dit scherm)\n(E) Emoji\n(Space) Schrijven/Antwoorden\n(Enter) Berichten focussen
+(L)ocate	(L)okaliseren
+(L)ocation: %s	(L)ocatie: %s
+(M)ute	Dempen (M)
+(R)eply	Antwoo(r)den
+(W)eather	(W)eer
+(Y)es	(Y) Ja
+(no name)	(geen naam)
+(not set)	(niet ingesteld)
+(nothing)	(niets)
+(unknown)	(onbekend)
+(unnamed)	(naamloos)
+, gusts %d	, windstoten %d
+1 hour	1 uur
+12-hour	12-uurs
+15 sec	15 s
+2 hours	2 uur
+24-hour	24-uurs
+30 sec	30 s
+4-char short name (ABCD)	Korte naam van 4 tekens (ABCD)
+5 min on that preset. This node hears nothing on its own while it runs, and finds only meshes sharing your primary channel key.	5 min op die preset. Zolang het loopt hoort deze node niets van het eigen netwerk en vindt hij alleen netwerken met dezelfde sleutel voor het hoofdkanaal.
+5 sec	5 s
+6 hours	6 uur
+ACK from %s. Waiting for reply...	ACK van %s. Wachten op antwoord...
+ACKed, no reply (%lus)	ACK ontvangen, geen antwoord (%lus)
+AP mode cannot be removed	AP-modus kan niet worden verwijderd
+AP mode selected	AP-modus gekozen
+AP mode selected - enable WiFi first	AP-modus gekozen - zet eerst wifi aan
+AP mode: %s	AP-modus: %s
+ARCHIVED %s\n\n%s\nShort: %s\nID: !%08lX\n\nLast heard: %s\n%s\n\n%sNot on the live list. Restore it to message,\nfavorite or trace it.	GEARCHIVEERD %s\n\n%s\nKort: %s\nID: !%08lX\n\nLaatst gehoord: %s\n%s\n\n%sNiet in de actieve lijst. Herstel hem om te berichten,\nals favoriet te zetten of te traceren.
+Act	Act.
+Action Result	Resultaat
+Action: %s	Actie: %s
+Actions	Acties
+All	Alles
+All live traffic will be erased	Al het live verkeer wordt gewist
+All live traffic will be erased, including lines hidden by the filter	Al het live verkeer wordt gewist, ook regels die het filter verbergt
+Already %s.	Al %s.
+Already on that preset	Al op die preset
+Analyzing terrain...	Terrein analyseren...
+Announce	Aankondigen
+Antenna: %s	Antenne: %s
+Any key / %s = Close	Elke toets / %s = Sluiten
+Apply	Toepassen
+Apr	apr
+April	april
+Archive Dropped Nodes: %s	Verdrongen nodes archiveren: %s
+Archive Dropped Nodes: %s%s	Verdrongen nodes archiveren: %s%s
+Asks first, then reboots.	Vraagt eerst, herstart dan.
+Asks first, then reboots. Only nodes on the same preset can hear each other.	Vraagt eerst, herstart dan. Alleen nodes op dezelfde preset horen elkaar.
+Aug	aug
+August	augustus
+Auto-update gave up on %s after %u failed installs	Auto-update gaf %s op na %u mislukte installaties
+BT Keyboard failed to start (low memory)	BT-toetsenbord kon niet starten (weinig geheugen)
+BT Keyboard off	BT-toetsenbord uit
+BT Keyboard on - connecting to %s	BT-toetsenbord aan - verbinden met %s
+BT Keyboard on - use Pair to choose one	BT-toetsenbord aan - kies er een met Koppelen
+BT Keyboard turned off.\n\nWeb Config and the Bluetooth keyboard share one radio and cannot run at the same time.\n\nTurn Web Config off to use the keyboard again.	BT-toetsenbord uitgeschakeld.\n\nWebconfiguratie en het Bluetooth-toetsenbord delen één radio en kunnen niet tegelijk draaien.\n\nZet de webconfiguratie uit om het toetsenbord weer te gebruiken.
+BT Keyboard: %s	BT-toetsenbord: %s
+BT Keyboard: Off	BT-toetsenbord: Uit
+Back	Terug
+Back = Cancel	Terug = Annuleren
+Bass	Bas
+Battery Calibration	Accukalibratie
+Battery Calibration: %s	Accukalibratie: %s
+Battery Calibration: Off	Accukalibratie: Uit
+Battery Display: %s	Accuweergave: %s
+Battery critical - shedding load	Accu kritiek - belasting wordt verlaagd
+Battery empty	Accu leeg
+Battery low	Accu bijna leeg
+Battery trim: %s	Accucorrectie: %s
+Battery: %.0f%%\nVoltage: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%	Accu: %.0f%%\nSpanning: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%
+Battery\nVoltage\nChUtil\nAirTx\nTemp\nHumidity\nPressure	Accu\nSpanning\nChUtil\nAirTx\nTemp.\nVocht\nDruk
+Beacons	Bakens
+Bksp=Back  solid=ChUtil  dash=AirTx	Bksp=Terug  doorgetrokken=ChUtil  gestreept=AirTx
+Bksp=Back  solid=SNR  dash=RSSI	Bksp=Terug  doorgetrokken=SNR  gestreept=RSSI
+Bksp=Close	Bksp=Sluiten
+Blink Flashes (Channel): %u	Aantal knipperingen (kanaal): %u
+Blink Flashes (DM): %u	Aantal knipperingen (DM): %u
+Blocked @ %.1f km, %dm over sight	Geblokkeerd op %.1f km, %dm boven de zichtlijn
+Blue	Blauw
+Bluetooth Keyboard	Bluetooth-toetsenbord
+Bottom buttons: Chats, DM, Nodes, Tools, Config, Help.	Knoppen onderaan: Chats, DM, Nodes, Tools, Config, Help.
+Bottom buttons: Home, Chats, DM, Nodes, Tools, Config, Help.\nHome is the dashboard; Chats is the messages, and its icon\nblinks when a channel has something unread.	Knoppen onderaan: Home, Chats, DM, Nodes, Tools, Config, Help.\nHome is het dashboard; Chats zijn de berichten, en het pictogram\nknippert als een kanaal iets ongelezens heeft.
+Brightness	Helderheid
+Brightness: %u%%	Helderheid: %u%%
+Brightness: %u%%  Lock: %u%%	Helderheid: %u%%  Vergrendeling: %u%%
+Brown	Bruin
+Bubbles	Ballonnen
+C = Clear   %s = Back	C = Wissen   %s = Terug
+C = Clear   F = Filter	C = Wissen   F = Filter
+C:Cfg H:Ch D:DM N:Node L:Tools A:Act	C:Cfg H:Kan D:DM N:Node L:Tools A:Act
+CHANNEL UTIL	KANAALGEBRUIK
+CHANNEL UTILIZATION (%)	KANAALGEBRUIK (%)
+Can't resolve the weather server.\nCheck the address and DNS.	Kan de weerserver niet vinden.\nControleer het adres en de DNS.
+Cancel	Annuleren
+Cancelled after removing %u file%s. The rest were left alone - run the scan again to see what is still there.	Geannuleerd na verwijderen van %u bestand(en)%.0s. De rest is ongemoeid gelaten - scan opnieuw om te zien wat er nog staat.
+Cannot send: no node id	Kan niet verzenden: geen node-id
+Card formatted.\n\nWrite your configuration back to it as /camillia/config.yaml?	Kaart geformatteerd.\n\nJe configuratie er weer op zetten als /camillia/config.yaml?
+ChUtil  cur %s  avg %.1f%%  max %.1f%%   n=%d\nAirTx   cur %s  avg %.1f%%  max %.1f%%   n=%d	ChUtil  nu %s  gem %.1f%%  max %.1f%%   n=%d\nAirTx   nu %s  gem %.1f%%  max %.1f%%   n=%d
+ChUtil  cur --  avg --  max --   n=0\nAirTx   cur --  avg --  max --   n=0	ChUtil  nu --  gem --  max --   n=0\nAirTx   nu --  gem --  max --   n=0
+Channel	Kanaal
+Channel %d	Kanaal %d
+Channel %d  %s	Kanaal %d  %s
+Channel Actions\n%s	Kanaalacties\n%s
+Channel Configuration	Kanaalconfiguratie
+Channel Key	Kanaalsleutel
+Channel Message LED	Led voor kanaalberichten
+Channel Message LED: %s	Led voor kanaalberichten: %s
+Channel Name	Kanaalnaam
+Channel blink: %u flash%s	Kanaal knipperen: %u keer%.0s
+Channel busy (%.0f%%) - not sweeping	Kanaal bezet (%.0f%%) - geen sweep
+Channels	Kanalen
+Chat Colors: %s	Chatkleuren: %s
+Chat Names	Chatnamen
+Chat Names: %s	Chatnamen: %s
+Chat Names: %s%s	Chatnamen: %s%s
+Chat Style	Chatstijl
+Chat Style: %s	Chatstijl: %s
+Chat Style: %s%s	Chatstijl: %s%s
+Chat Type	Chattype
+Chat Type: %s	Chattype: %s
+Chat Type: %s%s	Chattype: %s%s
+Chat colors reassigned	Chatkleuren opnieuw toegewezen
+Checking %u of %u   %u%%	Controleren %u van %u   %u%%
+Chirpy	Tjilpend
+Choose WiFi	Kies wifi
+Choose WiFi or Finish	Kies wifi of Voltooien
+Choose WiFi: %s	Kies wifi: %s
+Choose WiFi: (none)	Kies wifi: (geen)
+Classic	Klassiek
+Clear	Wissen
+Clear Messages	Berichten wissen
+Clear Nodes (All)	Nodes wissen (alle)
+Clear Nodes (Keep Favorites)	Nodes wissen (favorieten houden)
+Clear by %dm at tightest	%dm vrij op het krapste punt
+Clear entire live feed?	Hele live-feed wissen?
+Cleared %d nodes, kept %d favorites - rebooting...	%d nodes gewist, %d favorieten gehouden - herstarten...
+Cleared (%d report(s)) - rebuilding from traffic	Gewist (%d rapport(en)) - opnieuw opbouwen uit verkeer
+Clock Format: %s	Klokformaat: %s
+Clock set from web config	Klok ingesteld via webconfiguratie
+Clock set: %04d-%02d-%02d %02d:%02d	Klok ingesteld: %04d-%02d-%02d %02d:%02d
+Close	Sluiten
+Configuration	Configuratie
+Configuration exported to /camillia/config.yaml.\n\nThe card is formatted and holds nothing else. Chat history, the node database and any map tiles were on the old filesystem and are gone.	Configuratie geëxporteerd naar /camillia/config.yaml.\n\nDe kaart is geformatteerd en bevat verder niets. Chatgeschiedenis, nodedatabase en kaarttegels stonden op het oude bestandssysteem en zijn weg.
+Configured WiFi is empty	Ingestelde wifi is leeg
+Confirm Chat Style	Chatstijl bevestigen
+Confirm?	Bevestigen?
+Connect	Verbinden
+Connect to WiFi before enabling VNC	Maak verbinding met wifi voordat je VNC aanzet
+Connect: %s	Verbinden: %s
+Connecting to %s...	Verbinden met %s...
+Connecting to broker...	Verbinden met broker...
+Connection failed: %s	Verbinding mislukt: %s
+Conversation deleted	Gesprek verwijderd
+Conversations	Gesprekken
+Could not reach the weather server.	Kan de weerserver niet bereiken.
+Could not remove every file. Check storage and retry.	Niet alle bestanden konden worden verwijderd. Controleer de opslag en probeer opnieuw.
+Counting files on the card...	Bestanden op de kaart tellen...
+Counting files... %u found	Bestanden tellen... %u gevonden
+Custom	Aangepast
+Custom (%u B)	Aangepast (%u B)
+Cyan	Cyaan
+DIRECT MESSAGES	DIRECTE BERICHTEN
+DISTANCE UNKNOWN	AFSTAND ONBEKEND
+DM blink: %u flash%s	DM knipperen: %u keer%.0s
+DMs	DM's
+Date unavailable	Datum niet beschikbaar
+Day	Dag
+Dec	dec
+December	december
+Default	Standaard
+Default (%u)	Standaard (%u)
+Default +%u	Standaard +%u
+Del(e)te	V(e)rwijderen
+Delete	Verwijderen
+Delete WiFi?	Wifi verwijderen?
+Delete conversation?	Gesprek verwijderen?
+Delete failed	Verwijderen mislukt
+Delete node?	Node verwijderen?
+Delivery details not recorded: received before this boot, or too many messages ago.	Bezorgdetails niet vastgelegd: ontvangen vóór deze start of te veel berichten geleden.
+Detail Map	Detailkaart
+Device Info	Apparaatinfo
+Device switched off last time: battery empty	Apparaat ging de vorige keer uit: accu leeg
+Direct Message LED	Led voor directe berichten
+Direct Message LED: %s	Led voor directe berichten: %s
+Discovery	Detectie
+Do not remove the card	Verwijder de kaart niet
+Elevation data too sparse\nfor this path.	Hoogtegegevens te schaars\nvoor dit pad.
+Elevation fetch failed (%d).\nCheck the server URL - it must be http://	Hoogte ophalen mislukt (%d).\nControleer de server-URL - die moet met http:// beginnen
+Enable WiFi first	Zet eerst wifi aan
+Enc	Versl.
+Encrypted	Versleuteld
+Encryption	Versleuteling
+Enter password, then tap Connect	Voer het wachtwoord in en tik op Verbinden
+Enter this node's long name.	Voer de lange naam van deze node in.
+Enter=Connect  Backspace=Back	Enter=Verbinden  Backspace=Terug
+Enter=Info  A=Actions  Bksp=Edit/Exit  %s=Back	Enter=Info  A=Acties  Bksp=Bewerken/Stop  %s=Terug
+Enter=Info  A=Actions  Space=Filter  %s=Back	Enter=Info  A=Acties  Space=Filter  %s=Terug
+Enter=Next	Enter=Volgende
+Enter=Next    Bksp(empty)=Back	Enter=Volgende    Bksp(leeg)=Terug
+Enter=Next   Bksp(empty)=Back	Enter=Volgende   Bksp(leeg)=Terug
+Enter=OK  %s=Erase/Back	Enter=OK  %s=Wissen/Terug
+Enter=OK  Bksp=Erase  %s=Back	Enter=OK  Bksp=Wissen  %s=Terug
+Enter=Save  Tab=Field  %s=Erase/Back	Enter=Opslaan  Tab=Veld  %s=Wissen/Terug
+Enter=Send   %s=Cancel	Enter=Verzenden   %s=Annuleren
+Enter=Send  Bksp(empty)=Cancel	Enter=Verzenden  Bksp(leeg)=Annuleren
+Enter=Send  Esc=Cancel  Bksp=Del	Enter=Verzenden  Esc=Annuleren  Bksp=Wis
+Environment	Omgeving
+Errors	Fouten
+Examined %u file%s. Nothing matching Windows malware was found.\n\nThis reads names and file headers, not contents, so it is a good sign rather than a guarantee.	%u bestand(en)%.0s onderzocht. Niets dat lijkt op Windows-malware gevonden.\n\nEr worden namen en bestandskoppen gelezen, geen inhoud, dus het is een goed teken en geen garantie.
+Export Config	Configuratie exporteren
+Export FAILED (no SD?)	Export MISLUKT (geen SD?)
+Export FAILED. The card formatted, but the configuration could not be written back to it - try Export from the Config screen.	Export MISLUKT. De kaart is geformatteerd, maar de configuratie kon er niet terug op worden gezet - probeer Exporteren in het Configuratiescherm.
+Exported to /camillia/config.yaml	Geëxporteerd naar /camillia/config.yaml
+Extra Large	Extra groot
+Factory Reset	Fabrieksinstellingen
+Factory reset - rebooting...	Fabrieksinstellingen - herstarten...
+Favorite	Favoriet
+Feb	feb
+February	februari
+Feels %d%s   Hum %d%%\nWind %d %s %s\nGusting %d %s	Gevoel %d%s   Vocht %d%%\nWind %d %s %s\nStoten %d %s
+Feels like   %d%s\nHumidity     %d%%\nWind         %d %s from %s\nGusting      %d %s	Gevoel       %d%s\nVochtigheid  %d%%\nWind         %d %s uit %s\nStoten       %d %s
+Fetching...	Ophalen...
+Filter Nodes	Nodes filteren
+Finish	Voltooien
+Firmware Update	Firmware-update
+Firmware Update Check	Controle op firmware-update
+Firmware Update: Install %s	Firmware-update: %s installeren
+Font Size	Lettergrootte
+Font Size: %s	Lettergrootte: %s
+Font Size: %s%s	Lettergrootte: %s%s
+Forget	Vergeten
+Format FAILED, and the card could not be remounted.\n\nReboot the device, or format the card on a PC.	Formatteren MISLUKT, en de kaart kon niet opnieuw worden gekoppeld.\n\nHerstart het apparaat of formatteer de kaart op een pc.
+Format FAILED. The card was left as it was and is still mounted.\n\nFormatting it on a PC is the reliable way out.	Formatteren MISLUKT. De kaart is ongewijzigd en nog gekoppeld.\n\nFormatteren op een pc is de betrouwbare uitweg.
+Format the SD card?\n\nThis erases EVERYTHING on it - chat and DM history, the node database, map tiles and your saved configuration - not just the files the scan matched.\n\nIt cannot be undone.	SD-kaart formatteren?\n\nDit wist ALLES erop - chat- en DM-geschiedenis, de nodedatabase, kaarttegels en je opgeslagen configuratie - niet alleen de gevonden bestanden.\n\nDit kan niet ongedaan worden gemaakt.
+Formatting SD Card	SD-kaart formatteren
+Found %d network(s)	%d netwerk(en) gevonden
+Found %u file%s matching Windows malware:\n	%u bestand(en)%.0s lijken op Windows-malware:\n
+Fri	vr
+From: %s	Van: %s
+Full node name when known	Volledige nodenaam, indien bekend
+GPS disabled (using default coordinates)	GPS uit (standaardcoördinaten)
+GPS enabled (hardware)	GPS aan (hardware)
+GPS: Disabled (Default Coords)	GPS: Uit (standaardcoörd.)
+GPS: Enabled (Hardware)	GPS: Aan (hardware)
+Gateway: not known	Gateway: onbekend
+Grazes terrain - F1=%dm	Scheert langs het terrein - F1=%dm
+Green	Groen
+HEARD ABOUT	GEMELD DOOR ANDEREN
+Heard %s ago   %u seen, ~%s apart	%s geleden gehoord   %u gezien, ~%s ertussen
+Heard %s ago   1 seen	%s geleden gehoord   1 gezien
+High	Hoog
+Hops: %d of %d	Hops: %d van %d
+Hour	Uur
+I(g)nore	Ne(g)eren
+Identity	Identiteit
+Ignore	Negeren
+Import Config	Configuratie importeren
+Import FAILED (no file?)	Import MISLUKT (geen bestand?)
+Import failed - enter a name	Import mislukt - voer een naam in
+Imported OK - rebooting...	Import OK - herstarten...
+Install now? The device reboots to update.	Nu installeren? Het apparaat herstart om bij te werken.
+Invalid base64 key	Ongeldige base64-sleutel
+Invalid date/time	Ongeldige datum/tijd
+Invert Scrolling: %s	Scrollen omkeren: %s
+J/K = Scroll   %s = Close	J/K = Scrollen   %s = Sluiten
+J/K = Scroll   Bksp = Close	J/K = Scrollen   Bksp = Sluiten
+J/K = Select   Space = Compose   Enter = Focus   D = Delete	J/K = Kiezen   Space = Schrijven   Enter = Focus   D = Verwijderen
+Jan	jan
+January	januari
+Jul	jul
+July	juli
+Jun	jun
+June	juni
+Just announced. Try again in %us.	Net aangekondigd. Probeer opnieuw over %us.
+Key	Sleutel
+Keyboard Blink: %s	Toetsenbord knipperen: %s
+Keyboard Light	Toetsenbordlicht
+Keyboard Light: %s	Toetsenbordlicht: %s
+Keyboard blink: %s	Toetsenbord knipperen: %s
+Keyboard light %s	Toetsenbordlicht %s
+Keyboard light %s - after a power cycle	Toetsenbordlicht %s - na uit- en aanzetten
+Keyboard light off	Toetsenbordlicht uit
+L/R=Change   Enter=Save   %s=Back	L/R=Wijzigen   Enter=Opslaan   %s=Terug
+LINE OF SIGHT	ZICHTLIJN
+LONGEST SILENT	LANGST STIL
+Landscape	Liggend
+Language	Taal
+Language: %s	Taal: %s
+Large	Groot
+Last heard	Laatst gehoord
+Last heard\nSNR\nHops\nChannel\nSigned	Laatst gehoord\nSNR\nHops\nKanaal\nOndertekend
+Leave blank to clear	Leeg laten om te wissen
+Light reminds for %s	Licht herinnert %s lang
+Light reminds until read	Licht herinnert tot gelezen
+Lime	Limoen
+Link	Verbinding
+Listening   %d sender%s heard	Luisteren   %d zender(s)%.0s gehoord
+Listening: off	Luisteren: uit
+Live Filter	Livefilter
+Live feed cleared	Live-feed gewist
+Loading map...	Kaart laden...
+Loc	Loc.
+Locate	Lokaliseren
+Locate: %s	Lokaliseren: %s
+Location	Locatie
+Location Precision	Locatienauwkeurigheid
+Location Precision: %s	Locatienauwkeurigheid: %s
+Location rounded to %s	Locatie afgerond op %s
+Location sent exactly	Locatie exact verzonden
+Location sharing off (no position sent)	Locatie delen uit (geen positie verzonden)
+Location sharing on	Locatie delen aan
+Location: %s	Locatie: %s
+Lock Screen Off	Scherm uit bij vergrendeling
+Lock Screen Off: %s	Scherm uit bij vergrendeling: %s
+Lock Screen: %s	Vergrendelscherm: %s
+Lock screen	Vergrendelscherm
+Lock screen stays on	Vergrendelscherm blijft aan
+Long	Lang
+Long name	Lange naam
+Long name cannot be empty	Lange naam mag niet leeg zijn
+Long name: %s\nEnter a short name (up to 4 chars).	Lange naam: %s\nVoer een korte naam in (max. 4 tekens).
+Long: %s	Lang: %s
+Looking for keyboards...	Toetsenborden zoeken...
+Low	Laag
+ME (ACK)	IK (ACK)
+MQTT Bridge: %s	MQTT-brug: %s
+MQTT Bridge: %s - rebooting...	MQTT-brug: %s - herstarten...
+MQTT Bridge: Off (WiFi off)	MQTT-brug: Uit (wifi uit)
+MQTT Scan Settings	MQTT-scaninstellingen
+MQTT bridge is off	MQTT-brug staat uit
+Map (loading)	Kaart (laden)
+Map (off)	Kaart (uit)
+Map memory unavailable	Geen geheugen voor de kaart
+Map unavailable	Kaart niet beschikbaar
+Mar	mrt
+March	maart
+Match the voltage to a meter reading.\nPercent comes from the fuel gauge and does not change.	Stem de spanning af op een meterwaarde.\nHet percentage komt van de laadmeter en verandert niet.
+Match the voltage to a meter reading.\nPercent follows it. 0% = uncalibrated.	Stem de spanning af op een meterwaarde.\nHet percentage volgt mee. 0% = niet gekalibreerd.
+May	mei
+Medium	Gemiddeld
+Mesh Beacons is off.\n\nTurn it on in Config (or under Modules in web config) to decode beacons from other meshes. Receive-only: nothing is transmitted, and an offer is never applied to your radio.	Mesh-bakens staat uit.\n\nZet het aan in Configuratie (of onder Modules in de webconfiguratie) om bakens van andere netwerken te decoderen. Alleen ontvangst: er wordt niets verzonden, en een aanbod wordt nooit op je radio toegepast.
+Mesh Beacons: %s	Mesh-bakens: %s
+Mesh beacons: %s	Mesh-bakens: %s
+Message (I)nfo	Bericht(i)nfo
+Message Actions	Berichtacties
+Message Info	Berichtinfo
+Messages	Berichten
+Messages cleared - rebooting...	Berichten gewist - herstarten...
+Metric	Metrisch
+Minute	Minuut
+Modem preset	Modempreset
+Mon	ma
+Month	Maand
+Move  Enter=Apply  %s=Back	Bewegen  Enter=Toepassen  %s=Terug
+Move  Enter=Apply  %s=Cancel	Bewegen  Enter=Toepassen  %s=Annuleren
+Move  Enter=Change  %s=Cancel	Bewegen  Enter=Wijzigen  %s=Annuleren
+Move  Enter=Edit  %s=Back	Bewegen  Enter=Bewerken  %s=Terug
+Move  Enter=OK  %s=Cancel	Bewegen  Enter=OK  %s=Annuleren
+Move  Enter=Open  %s=Back	Bewegen  Enter=Openen  %s=Terug
+Move  Enter=Pick  %s=Back	Bewegen  Enter=Kiezen  %s=Terug
+Move  Enter=Scan  %s=Cancel	Bewegen  Enter=Scannen  %s=Annuleren
+Move • Enter=Add • %s=Close	Bewegen • Enter=Toevoegen • %s=Sluiten
+Move • Enter=Insert • %s=Close	Bewegen • Enter=Invoegen • %s=Sluiten
+Move • Enter=React • %s=Close	Bewegen • Enter=Reageren • %s=Sluiten
+Move • Enter=Send • %s=Close	Bewegen • Enter=Verzenden • %s=Sluiten
+Move=Adjust  Enter=Save  %s=Cancel	Bewegen=Instellen  Enter=Opslaan  %s=Annuleren
+Move=Adjust  Space=Toggle  Enter=Save  %s=Cancel	Bewegen=Instellen  Space=Wisselen  Enter=Opslaan  %s=Annuleren
+Move=Preview  Enter=OK  %s=Cancel	Bewegen=Voorbeeld  Enter=OK  %s=Annuleren
+My Message Color	Kleur van mijn berichten
+My Message Color: %s	Kleur van mijn berichten: %s
+My Message Color: %s (unchanged)	Kleur van mijn berichten: %s (ongewijzigd)
+My Message Color: %s - rebooting...	Kleur van mijn berichten: %s - herstarten...
+N=Choose WiFi   Enter=Finish   Bksp=Back	N=Kies wifi   Enter=Voltooien   Bksp=Terug
+NO LINE OF SIGHT	GEEN ZICHTLIJN
+NODEINFO + telemetry queued.	NODEINFO + telemetrie in de wachtrij.
+Name	Naam
+Name: %s\nShort: %s\nID: !%08X\nLast heard: %s\nSNR: %.1f dB\nHops: %u\nChannel: %d\n\nPosition:\n%s\n\nTelemetry:\n%s	Naam: %s\nKort: %s\nID: !%08X\nLaatst gehoord: %s\nSNR: %.1f dB\nHops: %u\nKanaal: %d\n\nPositie:\n%s\n\nTelemetrie:\n%s
+Name\nShort\nID	Naam\nKort\nID
+Nav Bar: %s	Navigatiebalk: %s
+Neighborhood Info: %s	Buurtinfo: %s
+Neighborhood info: %s	Buurtinfo: %s
+Never	Nooit
+New	Nieuw
+New DM	Nieuwe DM
+New DM: Select Node	Nieuwe DM: kies node
+New DM: Select Node [%s]	Nieuwe DM: kies node [%s]
+New Message	Nieuw bericht
+Newest: %s %s	Nieuwste: %s %s
+Newest: none heard yet	Nieuwste: nog niemand gehoord
+Next	Volgende
+No %s - not saved	Geen %s - niet opgeslagen
+No %s - not saving	Geen %s - wordt niet opgeslagen
+No %s traffic yet\n(filter is on - %s)	Nog geen %s-verkeer\n(filter aan - %s)
+No S&F router heard yet	Nog geen S&F-router gehoord
+No SD card is mounted.	Geen SD-kaart gekoppeld.
+No WiFi network configured	Geen wifinetwerk ingesteld
+No beacons heard yet.\n\nA beacon is only audible while its sender has retuned onto this channel, preset and region, and it repeats on that node's own schedule - minutes to hours apart. This list keeps what it hears until you clear it.	Nog geen bakens gehoord.\n\nEen baken is alleen hoorbaar terwijl de zender is afgestemd op dit kanaal, deze preset en regio, en het herhaalt volgens het eigen schema van die node - minuten tot uren uit elkaar. Deze lijst houdt vast wat hij hoort tot je hem wist.
+No elevation server set.\nWeb Config -> Elevation Server (LOS)	Geen hoogteserver ingesteld.\nWebconfig -> Elevation Server (LOS)
+No hop path in reply	Geen hoppad in het antwoord
+No keyboards found yet.\n\nPut the keyboard into pairing mode, then press Scan.\n\nOnly Bluetooth LE keyboards can pair - this hardware has no Bluetooth Classic radio.	Nog geen toetsenborden gevonden.\n\nZet het toetsenbord in koppelmodus en druk dan op Scannen.\n\nAlleen Bluetooth LE-toetsenborden kunnen koppelen - deze hardware heeft geen Bluetooth Classic-radio.
+No known nodes yet	Nog geen bekende nodes
+No live traffic yet	Nog geen live verkeer
+No matches for: %s	Geen resultaten voor: %s
+No messages yet	Nog geen berichten
+No network in that slot	Geen netwerk op die plek
+No network selected	Geen netwerk gekozen
+No networks found	Geen netwerken gevonden
+No new messages	Geen nieuwe berichten
+No nodes seen	Geen nodes gezien
+No nodes seen yet.	Nog geen nodes gezien.
+No position data	Geen positiegegevens
+No position recorded	Geen positie vastgelegd
+No position yet.\nNeeds a GPS fix or a set location.	Nog geen positie.\nHeeft een GPS-fix of een ingestelde locatie nodig.
+No release notes in this build.	Geen releaseopmerkingen in deze build.
+No reply (%lus)	Geen antwoord (%lus)
+No result details available.	Geen details beschikbaar.
+No telemetry data	Geen telemetriegegevens
+No weather server set.\nWeb Config -> Weather Server	Geen weerserver ingesteld.\nWebconfig -> Weather Server
+Node Actions	Nodeacties
+Node DB cleared - rebooting...	Node-DB gewist - herstarten...
+Node ID: !%08lx	Node-ID: !%08lx
+Node Name	Nodenaam
+Node Name: %s (%s)	Nodenaam: %s (%s)
+Node Name: %s (%s)%s	Nodenaam: %s (%s)%s
+Node id: !%08lx	Node-id: !%08lx
+Node info	Node-info
+Nodes and SD archive cleared - rebooting...	Nodes en SD-archief gewist - herstarten...
+None	Geen
+Not counting - out of memory	Telt niet - geen geheugen
+Not enough free heap to hold the topic table.\n\nClose a few screens (or reboot) and try again.	Niet genoeg vrij geheugen voor de topictabel.\n\nSluit een paar schermen (of herstart) en probeer opnieuw.
+Nothing heard yet	Nog niets gehoord
+Nothing recorded yet - nothing to send	Nog niets vastgelegd - niets te verzenden
+Nothing was removed. The files may have gone already, or the card may be write-protected.	Er is niets verwijderd. De bestanden zijn misschien al weg, of de kaart is tegen schrijven beveiligd.
+Notification Light Timeout	Duur meldingslicht
+Notification Light Timeout: %s	Duur meldingslicht: %s
+Notification Sound	Meldingsgeluid
+Notification Sound: %s	Meldingsgeluid: %s
+Notification sound: %s	Meldingsgeluid: %s
+Nov	nov
+November	november
+OFF	UIT
+OTA disabled on Cardputer build	OTA uitgeschakeld in Cardputer-build
+OTA needs the factory image (flash layout)	OTA heeft de fabrieksimage nodig (flash-indeling)
+OTA request failed (NVS write). Retry.	OTA-verzoek mislukt (NVS-schrijven). Probeer opnieuw.
+OTA worker completed. Check status.	OTA-worker klaar. Controleer de status.
+Oct	okt
+October	oktober
+Off	Uit
+Offers: %s	Aanbiedingen: %s
+Old Map Files Found	Oude kaartbestanden gevonden
+Oldest: %s %s	Oudste: %s %s
+Oldest: none heard yet	Oudste: nog niemand gehoord
+On	Aan
+On (global off)	Aan (globaal uit)
+On (listening)	Aan (luistert)
+Open network (leave blank)	Open netwerk (leeg laten)
+Optional WiFi setup.\nNo network selected.\nChoose WiFi now or finish without WiFi.	Optionele wifi-instelling.\nGeen netwerk gekozen.\nKies nu wifi of voltooi zonder wifi.
+Optional WiFi setup.\nSelected: %s\nChoose a different network or finish.	Optionele wifi-instelling.\nGekozen: %s\nKies een ander netwerk of voltooi.
+Orange	Oranje
+Orientation: %s	Oriëntatie: %s
+Other	Overig
+Outline	Omtrek
+PKI key: %s	PKI-sleutel: %s
+PSRAM free: %lu KB\nPSRAM total: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	PSRAM vrij: %lu KB\nPSRAM totaal: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nApp vrij: %lu KB
+PSRAM: none\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	PSRAM: geen\nFlash: %lu KB\nSketch: %lu KB\nApp vrij: %lu KB
+Pair	Koppelen
+Pair BT Keyboard: %s	BT-toetsenbord koppelen: %s
+Pair BT Keyboard: (none)	BT-toetsenbord koppelen: (geen)
+Percent	Percentage
+Pink	Roze
+Please re-flash from Camillia's website for language support.	Flash opnieuw via de website van Camillia voor taalondersteuning.
+Portrait	Staand
+Portrait 180	Staand 180
+Position	Positie
+Precise	Exact
+Preparing state maps...	Regiokaarten voorbereiden...
+Preset already %s.	Preset is al %s.
+Preset scan already running	Presetscan loopt al
+Preset: %s - rebooting...	Preset: %s - herstarten...
+Public key preserved\n\n	Publieke sleutel bewaard\n\n
+Purple	Paars
+Pwr %d dBm Hops %d	Verm %d dBm Hops %d
+R=Refresh  %s=Back	R=Vernieuwen  %s=Terug
+RECENTLY HEARD	RECENT GEHOORD
+Radio busy - retry in %lus	Radio bezet - opnieuw over %lus
+Radio not ready	Radio niet gereed
+Re(q)uest Node	Node opvragen (Q)
+Ready	Gereed
+Rebooting into OTA minimal mode...	Herstarten in OTA-minimale modus...
+Received over: %s %s	Ontvangen via: %s %s
+Red	Rood
+Relayed to us by: %s	Doorgestuurd door: %s
+Relayed to us by: %s (from MQTT)	Doorgestuurd door: %s (via MQTT)
+Relayed to us by: nobody, heard directly	Doorgestuurd door: niemand, direct gehoord
+Relayed to us by: not reported by the relaying node	Doorgestuurd door: niet gemeld door de doorsturende node
+Relayed to us by: the sender itself	Doorgestuurd door: de afzender zelf
+Relayed: %lu	Doorgestuurd: %lu
+Release Channel: %s - checking...	Releasekanaal: %s - controleren...
+Release Channel: %s%s	Releasekanaal: %s%s
+Release Notes	Releaseopmerkingen
+Release Notes  %s	Releaseopmerkingen  %s
+Remove	Verwijderen
+Removed %s	%s verwijderd
+Removed %s - no networks left, AP mode	%s verwijderd - geen netwerken over, AP-modus
+Removed %s - now %s	%s verwijderd - nu %s
+Removed %u file%s. %u could not be deleted - the card may be write-protected.\n\nRe-run the scan to check.	%u bestand(en)%.0s verwijderd. %u konden niet worden gewist - de kaart is mogelijk tegen schrijven beveiligd.\n\nScan opnieuw om te controleren.
+Removed %u file%s.\n\nThis card looked clean afterwards, but the scan reads names and headers, not contents - it cannot promise the card is clean. Reformatting is the only answer that can.	%u bestand(en)%.0s verwijderd.\n\nDe kaart leek daarna schoon, maar de scan leest namen en koppen, geen inhoud - hij kan niet beloven dat de kaart schoon is. Alleen opnieuw formatteren kan dat.
+Removing Files	Bestanden verwijderen
+Removing legacy maps...	Oude kaarten verwijderen...
+Replay already requested	Herhaling al aangevraagd
+Replay not sent: %s	Herhaling niet verzonden: %s
+Replay requested (last %lu min)	Herhaling aangevraagd (laatste %lu min)
+Reply	Antwoorden
+Reply from %s	Antwoord van %s
+Reply from %s (%lus)	Antwoord van %s (%lus)
+Request (P)osition	(P)ositie opvragen
+Request Node	Node opvragen
+Request Position	Positie opvragen
+Request S&F Replay (%s)	S&F-herhaling aanvragen (%s)
+Request S&F Replay (no router)	S&F-herhaling aanvragen (geen router)
+Requested (last %lu min)	Aangevraagd (laatste %lu min)
+Rescan	Opnieuw scannen
+Reset	Resetten
+Reset Chat Colors	Chatkleuren resetten
+Reset to Default	Standaard herstellen
+Restore failed: every slot is favorited, so there is no room. Unfavorite a node and try again.	Herstellen mislukt: alle plekken zijn favorieten, er is geen ruimte. Haal een node uit de favorieten en probeer opnieuw.
+Restore failed: the archived record could not be read.	Herstellen mislukt: het gearchiveerde record kon niet worden gelezen.
+Restore node?	Node herstellen?
+Role: %s%s	Rol: %s%s
+S(h)are	Delen (H)
+SD Card Format	SD-kaart formatteren
+SD Card Scan	SD-kaartscan
+SD scan cancelled	SD-scan geannuleerd
+SD: %s, %s, %u fails	SD: %s, %s, %u fouten
+SD: no card	SD: geen kaart
+SNR   cur %s  avg %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  cur %s  avg %.0fdBm min %.0f  max %.0f   n=%d	SNR   nu %s  gem %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  nu %s  gem %.0fdBm min %.0f  max %.0f   n=%d
+SNR   cur --  avg --  min --  max --   n=0\nRSSI  cur --  avg --  min --  max --   n=0	SNR   nu --  gem --  min --  max --   n=0\nRSSI  nu --  gem --  min --  max --   n=0
+Sat	za
+Save	Opslaan
+Save failed - cannot write %s	Opslaan mislukt - kan niet schrijven naar %s
+Save failed - too many this second	Opslaan mislukt - te veel in deze seconde
+Save while discovering	Opslaan tijdens detectie
+Save while scanning	Opslaan tijdens scannen
+Saved %s	%s opgeslagen
+Saved: %s	Opgeslagen: %s
+Scan	Scannen
+Scan %s - saved %s	Scan %s - %s opgeslagen
+Scan Networks	Netwerken scannen
+Scan SD Card for Malware%s	SD-kaart scannen op malware%s
+Scan a preset	Een preset scannen
+Scan cancelled	Scan geannuleerd
+Scan failed - Rescan to try again	Scan mislukt - opnieuw scannen
+Scan send failed	Scan verzenden mislukt
+Scanning %s %s/%s	Scannen %s %s/%s
+Scanning %s...	Scannen %s...
+Scanning SD Card	SD-kaart scannen
+Scanning WiFi networks...	Wifinetwerken zoeken...
+Screen	Scherm
+Screen Timeout	Schermtime-out
+Screen Timeout: %s	Schermtime-out: %s
+Screen off after %s on lock	Scherm uit na %s bij vergrendeling
+Screen orientation	Schermoriëntatie
+Screen sleeps after %s	Scherm slaapt na %s
+Screen stays on	Scherm blijft aan
+Select a conversation	Kies een gesprek
+Select this node's role.	Kies de rol van deze node.
+Select your radio region/preset.	Kies de regio/preset van je radio.
+Selection settling - press Enter again	Keuze wordt verwerkt - druk nogmaals op Enter
+Sen(d) DM	DM verzen(d)en
+Send	Verzenden
+Send DM	DM verzenden
+Send failed	Verzenden mislukt
+Send to channel?	Naar kanaal verzenden?
+Send top 5 to	Top 5 verzenden naar
+Sending request...	Verzoek verzenden...
+Sent by this node.	Verzonden door deze node.
+Sent to %s	Verzonden naar %s
+Sent. Waiting for route ACK...	Verzonden. Wachten op route-ACK...
+Sep	sep
+September	september
+Server answered, but not with\nelevation data. Check the proxy\npoints at the elevation service.	De server antwoordde, maar niet met\nhoogtegegevens. Controleer of de proxy\nnaar de hoogtedienst wijst.
+Server answered, but not with\nweather data. Check the proxy.	De server antwoordde, maar niet met\nweergegevens. Controleer de proxy.
+Set message colour to %s and reboot?	Berichtkleur op %s zetten en herstarten?
+Share	Delen
+Share Location: %s	Locatie delen: %s
+Short	Kort
+Short name	Korte naam
+Short name cannot be empty	Korte naam mag niet leeg zijn
+Short: %s	Kort: %s
+Show Archived Nodes: %s	Gearchiveerde nodes tonen: %s
+Show Archived Nodes: %s%s	Gearchiveerde nodes tonen: %s%s
+Signal: SNR %.1f dB, RSSI %.0f dBm	Signaal: SNR %.1f dB, RSSI %.0f dBm
+Silver	Zilver
+Sky	Hemelsblauw
+Small	Klein
+Source	Bron
+Splash Melody: %s	Opstartmelodie: %s
+Splash melody: %s	Opstartmelodie: %s
+Stale - 	Verouderd -
+State Map	Regiokaart
+State map disabled	Regiokaart uitgeschakeld
+State map unavailable	Regiokaart niet beschikbaar
+Stay on	Blijft aan
+Storage: %s %s	Opslag: %s %s
+Storage: %s (not mounted)	Opslag: %s (niet gekoppeld)
+Store&Fwd Client: %s	Store&Fwd-client: %s
+Store&Fwd client is off	Store&Fwd-client staat uit
+Sun	zo
+Sweep already running	Sweep loopt al
+Sweep cancelled	Sweep geannuleerd
+Sweep done: %d new (%lus)	Sweep klaar: %d nieuw (%lus)
+Sweep send failed	Sweep verzenden mislukt
+Sweep/Scan Settings	Sweep-/scaninstellingen
+Sweeping...	Sweep bezig...
+Sweeping... %s/%s	Sweep bezig... %s/%s
+Switch to %s and reboot?	Overschakelen naar %s en herstarten?
+Switch to theme %s and reboot?	Overschakelen naar thema %s en herstarten?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	Overschakelen naar extern kan de radio beschadigen als de antenne niet is aangesloten.  Sluit de externe antenne aan voordat je op Ja drukt
+System Stats	Systeemstatistieken
+Tall	Hoog
+Tall, turned 180	Hoog, 180 gedraaid
+Tap = Open   Long-press 3s = Delete   DM below = Back	Tik = Openen   3 s vasthouden = Verwijderen   DM onderaan = Terug
+Tap Next to continue	Tik op Volgende om door te gaan
+Tap Next to continue, or Back	Tik op Volgende om door te gaan, of Terug
+Tap a channel	Tik op een kanaal
+Tap a channel to edit	Tik op een kanaal om te bewerken
+Tap a field to change it	Tik op een veld om het te wijzigen
+Tap a field to edit, then Save	Tik op een veld, bewerk, dan Opslaan
+Tap a node for actions   Nodes below = Back	Tik op een node voor acties   Nodes onderaan = Terug
+Tap a node to start a DM	Tik op een node om een DM te starten
+Tap a preset to apply.	Tik op een preset om toe te passen.
+Tap a preset, then Scan	Tik op een preset, dan Scannen
+Tap a size to apply	Tik op een grootte om toe te passen
+Tap one to apply.	Tik op één om toe te passen.
+Tap to preview	Tik voor voorbeeld
+Teal	Blauwgroen
+Telemetry	Telemetrie
+Temp: %.1f C\nHumidity: %.1f%%\nPressure: %.1f hPa	Temp: %.1f C\nVocht: %.1f%%\nDruk: %.1f hPa
+Temp: %.1f F\nHumidity: %.1f%%\nPressure: %.2f inHg	Temp: %.1f F\nVocht: %.1f%%\nDruk: %.2f inHg
+Text	Tekst
+The card was formatted but could not be remounted. Reboot the device and it should come up clean.	De kaart is geformatteerd maar kon niet opnieuw worden gekoppeld. Herstart het apparaat, dan zou hij schoon moeten starten.
+Theme	Thema
+Theme: %s	Thema: %s
+Theme: %s (unchanged)	Thema: %s (ongewijzigd)
+Theme: %s - rebooting...	Thema: %s - herstarten...
+These files are not used by the new tile map. Remove them to reclaim storage?	Deze bestanden worden niet gebruikt door de nieuwe tegelkaart. Verwijderen om opslag vrij te maken?
+This node	Deze node
+This node has no position yet.\nNeeds a GPS fix or a set location.	Deze node heeft nog geen positie.\nHeeft een GPS-fix of een ingestelde locatie nodig.
+Thu	do
+Time and Date	Tijd en datum
+Time and Date: %s	Tijd en datum: %s
+Time source: Internet / GPS	Tijdbron: Internet / GPS
+To close hit backspace.  (I)nformation	Sluiten met backspace.  (I)nformatie
+Touch Navigation:	Aanraaknavigatie:
+Transport Symbols:\n%s Radio Transmission\n%s MQTT Transmission	Transportsymbolen:\n%s Radioverzending\n%s MQTT-verzending
+Tue	di
+Turn BT Keyboard on first	Zet eerst het BT-toetsenbord aan
+Turn MQTT Bridge %s and reboot?	MQTT-brug %s zetten en herstarten?
+Type = Filter   Bksp = Edit Filter   Enter = Open DM   Esc = Back	Typen = Filter   Bksp = Filter bewerken   Enter = DM openen   Esc = Terug
+Type = Filter   Bksp = Edit/Close Filter   Enter = Open DM	Typen = Filter   Bksp = Filter bewerken/sluiten   Enter = DM openen
+Type = Filter   Enter = Open DM   Bksp = Back	Typen = Filter   Enter = DM openen   Bksp = Terug
+Type = Filter   Enter = Open DM   Esc = Back	Typen = Filter   Enter = DM openen   Esc = Terug
+Type message...	Typ een bericht...
+Type to filter nodes	Typ om nodes te filteren
+Type, then tap OK	Typ, tik dan op OK
+Type=Filter  Enter=Done  Bksp=Edit/Exit  %s=Back	Typen=Filter  Enter=Klaar  Bksp=Bewerken/Stop  %s=Terug
+Un(f)avorite	Geen (f)avoriet
+Un(m)ute	Geluid aan (m)
+Unfavorite	Geen favoriet
+Uni(g)nore	Niet ne(g)eren
+Unignore	Niet negeren
+Units: %s	Eenheden: %s
+Unknown	Onbekend
+Until read	Tot gelezen
+Up to date (%s)	Actueel (%s)
+Up/Down	Omhoog/Omlaag
+Up/Down = Select   Space = Compose   Enter = Focus   %s = Delete   %s = Back	Omhoog/Omlaag = Kiezen   Space = Schrijven   Enter = Focus   %s = Verwijderen   %s = Terug
+Up/Down = Select   Space = Compose   Enter = Focus   D = Delete	Omhoog/Omlaag = Kiezen   Space = Schrijven   Enter = Focus   D = Verwijderen
+Up/Down/J/K = Scroll   %s = Close	Omhoog/Omlaag/J/K = Scrollen   %s = Sluiten
+Up/Down/J/K = Scroll   Bksp = Close	Omhoog/Omlaag/J/K = Scrollen   Bksp = Sluiten
+Up/Down=Change  Enter=Save  %s=Cancel	Omhoog/Omlaag=Wijzigen  Enter=Opslaan  %s=Annuleren
+Up/Down=Select  Left/Right=Change  Enter=Save  %s=Cancel	Omhoog/Omlaag=Kiezen  Links/Rechts=Wijzigen  Enter=Opslaan  %s=Annuleren
+Update check failed: %s	Updatecontrole mislukt: %s
+Update check needs WiFi connected	Updatecontrole heeft verbonden wifi nodig
+Update check needs WiFi on	Updatecontrole heeft wifi aan nodig
+Update check skipped (a dialog was open)	Updatecontrole overgeslagen (er stond een venster open)
+Uplinked by: %s	Naar MQTT gestuurd door: %s
+Uplinked by: the sender itself	Naar MQTT gestuurd door: de afzender zelf
+Use arrows to choose, then tap Next	Kies met de pijlen, tik dan op Volgende
+Used: %lu KB (%lu%%)\nTotal: %lu KB\nFree: %lu KB\nMin free: %lu KB\nMax block: %lu KB	Gebruikt: %lu KB (%lu%%)\nTotaal: %lu KB\nVrij: %lu KB\nMin. vrij: %lu KB\nMax. blok: %lu KB
+VNC Host failed to allocate PSRAM	VNC-host kon geen PSRAM toewijzen
+VNC Host off	VNC-host uit
+VNC Host on\nOpen http://%s/ and select the Remote tab	VNC-host aan\nOpen http://%s/ en kies het tabblad Remote
+VNC Host on\nhttp://%s:%u/	VNC-host aan\nhttp://%s:%u/
+VNC Host: Off	VNC-host: Uit
+VNC Host: Off (WiFi off)	VNC-host: Uit (wifi uit)
+VNC Host: On (browser connected)	VNC-host: Aan (browser verbonden)
+VNC Host: On (network disconnected)	VNC-host: Aan (netwerk verbroken)
+VNC Host: Unavailable (WiFi not connected)	VNC-host: Niet beschikbaar (wifi niet verbonden)
+Voltage	Spanning
+W = Scan   S = Send   C = Reset   %s = Back	W = Scannen   S = Verzenden   C = Resetten   %s = Terug
+W = Sweep   P = Preset   C = %s   %s = Back	W = Sweep   P = Preset   C = %s   %s = Terug
+W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Sweep   P = Preset   C = %s   S = Opslaan   %s = Terug
+Wait %lus before sending again	Wacht %lus voor je opnieuw verzendt
+Wait %lus between sweeps	Wacht %lus tussen sweeps
+Waiting for Wi-Fi...	Wachten op wifi...
+Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	%s/2/e/# wordt gevolgd\n\nNog geen berichten. Kanalen verschijnen hier zodra ze worden gepubliceerd, de nieuwste onderaan, met het aantal berichten dat op elk is gezien.
+Weather	Weer
+Weather - %s	Weer - %s
+Weather server error (HTTP %d).	Fout van weerserver (HTTP %d).
+Web Config disabled	Webconfiguratie uitgeschakeld
+Web Config locked while MQTT is on	Webconfiguratie vergrendeld zolang MQTT aan staat
+Web Config start failed	Webconfiguratie starten mislukt
+Web Config stopped.\n\nThe Bluetooth keyboard and Web Config share one radio and cannot run at the same time.\n\nTurn the keyboard off to use Web Config again.	Webconfiguratie gestopt.\n\nHet Bluetooth-toetsenbord en de webconfiguratie delen één radio en kunnen niet tegelijk draaien.\n\nZet het toetsenbord uit om de webconfiguratie weer te gebruiken.
+Web Config: Disabled	Webconfiguratie: Uitgeschakeld
+Web Config: Enabled	Webconfiguratie: Ingeschakeld
+Web Config: Off (MQTT on)	Webconfiguratie: Uit (MQTT aan)
+Web Config: Off (WiFi off)	Webconfiguratie: Uit (wifi uit)
+Web Config: On	Webconfiguratie: Aan
+Web Config: On (Lite)	Webconfiguratie: Aan (Lite)
+Web Config: On (chat PAUSED)	Webconfiguratie: Aan (chat GEPAUZEERD)
+Web config: %s\n\nChat is PAUSED while web config runs - this device needs that memory for Wi-Fi. Messages sent to you now are not received or stored.\n\nTurn web config off to resume messaging.	Webconfiguratie: %s\n\nDe chat is GEPAUZEERD terwijl de webconfiguratie draait - dit apparaat heeft dat geheugen nodig voor wifi. Berichten die nu naar je worden gestuurd, worden niet ontvangen of opgeslagen.\n\nZet de webconfiguratie uit om weer te chatten.
+Wed	wo
+Welcome to Camillia for Meshtastic	Welkom bij Camillia voor Meshtastic
+Wheel/j-k=Change   Enter=Next	Wiel/j-k=Wijzigen   Enter=Volgende
+White	Wit
+Wi-Fi needed to fetch conditions.	Wifi nodig om het weer op te halen.
+Wi-Fi needed to fetch the\nterrain profile for this path.	Wifi nodig om het\nterreinprofiel voor dit pad op te halen.
+WiFi %s	Wifi %s
+WiFi connected: %s	Wifi verbonden: %s
+WiFi is off	Wifi staat uit
+WiFi not connected	Wifi niet verbonden
+WiFi password	Wifi-wachtwoord
+WiFi selected: %s	Wifi gekozen: %s
+WiFi: Off	Wifi: Uit
+WiFi: On (%s)	Wifi: Aan (%s)
+WiFi: On (AP MODE ONLY)	Wifi: Aan (ALLEEN AP-MODUS)
+WiFi: On (AP mode)	Wifi: Aan (AP-modus)
+WiFi: On (connecting %s)	Wifi: Aan (verbinden %s)
+Wide	Breed
+Within %s	Binnen %s
+Writing a new filesystem...	Nieuw bestandssysteem schrijven...
+X-Large	Extra groot
+Y/Enter=Import   N/Bksp=Skip	Y/Enter=Importeren   N/Bksp=Overslaan
+Year	Jaar
+Yellow	Geel
+Yes	Ja
+[%s] no match	[%s] geen resultaat
+[radio] init failed	[radio] starten mislukt
+\n%lu min ago	\n%lu min geleden
+\n%s, %lu min ago	\n%s, %lu min geleden
+\n+%u more	\n+%u meer
+\nT-Deck trackball: hold click 2s to sleep	\nT-Deck-trackball: klik 2 s vasthouden om te slapen
+\n\nDelete them? Nothing else on the card is touched.\n\nFormat erases the whole card instead - the only certain fix.	\n\nVerwijderen? Verder wordt niets op de kaart aangeraakt.\n\nFormatteren wist in plaats daarvan de hele kaart - de enige zekere oplossing.
+all rates tried	alle snelheden geprobeerd
+base64 key	base64-sleutel
+ch %s   air %s	kan %s   lucht %s
+channel	kanaal
+check requested	controle aangevraagd
+external	extern
+internal	intern
+j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k of </>=Instellen  Omhoog/Omlaag=Rij  Enter=Opslaan  Back=Annuleren
+j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Instellen  </>=Rij  Enter=Opslaan  Backspace=Annuleren
+j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Instellen  Enter=Opslaan  Backspace=Annuleren
+j/k=Adjust  Wheel=Row  Enter=Save  Backspace=Cancel	j/k=Instellen  Wiel=Rij  Enter=Opslaan  Backspace=Annuleren
+j/k=Change   Enter=Next   Bksp=Back	j/k=Wijzigen   Enter=Volgende   Bksp=Terug
+low	laag
+missing	ontbreekt
+never	nooit
+no key	geen sleutel
+not seen	niet gezien
+off	uit
+on	aan
+one of: 	een van:
+one rate tried	één snelheid geprobeerd
+present	aanwezig
+press F to change	druk op F om te wijzigen
+retry %lus	opnieuw over %lus
+retry now	nu opnieuw
+sensor %.2f V    trim %s	sensor %.2f V    correctie %s
+sensor: read failed	sensor: leesfout
+stay on	blijft aan
+tap Filter to change	tik op Filter om te wijzigen
+unavailable	niet beschikbaar
+unknown	onbekend
+unknown date	onbekende datum
+unknown error	onbekende fout
+unknown node (id ends ..%02x)	onbekende node (id eindigt op ..%02x)
+unset	niet ingesteld
+until read	tot gelezen
+vague	vaag

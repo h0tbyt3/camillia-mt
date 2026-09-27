@@ -71,9 +71,11 @@
 (L)ocate	(L)ocalizează
 (L)ocation: %s	(L)ocație: %s
 (M)ute	(M)ut
+(N)o	(N)u
 (R)eply	(R)ăspunde
 (S)ender Info	Info expeditor (S)
 (W)eather	Vremea (W)
+(Y)es	Da (Y)
 (no name)	(fără nume)
 (not set)	(nesetat)
 (nothing)	(nimic)
@@ -109,6 +111,7 @@ Already %s.	Deja %s.
 Already on that preset	Deja pe această presetare
 Analyzing terrain...	Se analizează terenul...
 Announce	Anunță
+Antenna: %s	Antenă: %s
 Any key / %s = Close	Orice tastă / %s = Închide
 Apply	Aplică
 Apr	apr
@@ -464,6 +467,7 @@ New Message	Mesaj nou
 Newest: %s %s	Cel mai nou: %s %s
 Newest: none heard yet	Cel mai nou: niciunul auzit încă
 Next	Următorul
+No	Nu
 No %s - not saved	Fără %s - nesalvat
 No %s - not saving	Fără %s - nu se salvează
 No %s traffic yet\n(filter is on - %s)	Încă nu există trafic %s\n(filtru activ - %s)
@@ -697,6 +701,7 @@ Sweeping...	Baleiere...
 Sweeping... %s/%s	Baleiere... %s/%s
 Switch to %s and reboot?	Treci la %s și repornești?
 Switch to theme %s and reboot?	Treci la tema %s și repornești?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	Trecerea la antena externă poate deteriora radioul dacă antena nu e conectată.  Conectează antena externă înainte de a apăsa Da
 System Stats	Statistici sistem
 Tall	Înalt
 Tall, turned 180	Înalt, rotit 180
@@ -842,6 +847,8 @@ ch %s   air %s	can %s   aer %s
 channel	canal
 check requested	verificare cerută
 exact	exactă
+external	externă
+internal	internă
 j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k sau </>=Reglează  Sus/Jos=Rând  Enter=Salvează  Back=Anulare
 j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Reglează  </>=Rând  Enter=Salvează  Backspace=Anulare
 j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Reglează  Enter=Salvează  Backspace=Anulare

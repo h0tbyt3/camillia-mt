@@ -1,0 +1,869 @@
+# Camillia language file (issue #99)
+# code: da
+# name: Dansk
+#
+# One translation per line: the English exactly as it appears in the source,
+# a TAB, then the translation. Escape a newline as \n, a tab as \t, a backslash
+# as \\. Keep every %d / %s / %u ... in the same order and of the same type as the
+# English -- a line whose placeholders differ is ignored on the device and the
+# English is shown. Mesh terms that are names (LongFast, MQTT, LoRa) stay as they
+# are. Lines are kept sorted by the English, for review; the build sorts anyway.
+# First draft: review by a native speaker welcome (see docs/TRANSLATING.md).
+#
+# Compiled in by tools/gen_lang_builtin.py.
+  CONFIRM?	  BEKRÆFT?
+  Humid  %.1f %%	  Fugt   %.1f %%
+  Press  %.1f hPa	  Tryk   %.1f hPa
+  lock	  sikret
+  open	  åbent
+ (no card)	 (intet kort)
+ (not sharing location)	 (placering deles ikke)
+ (unchanged)	 (uændret)
+ - %s available	 - %s tilgængelig
+ - check failed	 - tjek mislykkedes
+ - check unavailable	 - tjek ikke tilgængeligt
+ - checking...	 - tjekker...
+ - saving to %s	 - gemmer til %s
+ - up to date	 - opdateret
+! TX failed	! Afsendelse mislykkedes
+! TX failed (node id)	! Afsendelse mislykkedes (node-id)
+%d %s %d	%d. %s %d
+%d chans  %s msgs  %s%s	%d kanaler  %s besk.  %s%s
+%d chans  %s msgs  %s%s  (+%s off-list)	%d kanaler  %s besk.  %s%s  (+%s uden for listen)
+%d node(s), %d report(s)	%d node(r), %d rapport(er)
+%d%s  %s\nFeels %d%s, humidity %d%%\nWind %s %d %s%s%s	%d%s  %s\nFøles som %d%s, fugtighed %d%%\nVind %s %d %s%s%s
+%luh ago	for %lut siden
+%lum ago	for %lum siden
+%lus ago	for %lus siden
+%s   -   %u match%s so far	%s   -   %u fund%.0s indtil nu
+%s  (current)	%s  (aktuel)
+%s (this node)	%s (denne node)
+%s - WiFi off	%s - WiFi fra
+%s - rebooting...	%s - genstarter...
+%s - saved	%s - gemt
+%s = Back   C = Clear   F = Filter	%s = Tilbage   C = Ryd   F = Filter
+%s = Back   green=SNR  pink=RSSI	%s = Tilbage   grøn=SNR  pink=RSSI
+%s = Back   teal=ChUtil  orange=AirTx	%s = Tilbage   blågrøn=ChUtil  orange=AirTx
+%s = Close	%s = Luk
+%s returns to the live list.\nIf it is full, the oldest non-favorite is archived to make room.	%s kommer tilbage på den aktive liste.\nEr den fuld, arkiveres den ældste ikke-favorit for at gøre plads.
+%s to close Help	%s lukker Hjælp
+%s will be removed from the node list.	%s fjernes fra nodelisten.
+%s x%u\nClock: %u MHz\nRevision: %u\nUptime: %luh %02lum %02lus\nLoop rate: %lu /s\nBattery: %u%% %.3fV	%s x%u\nUr: %u MHz\nRevision: %u\nOppetid: %lut %02lum %02lus\nLøkker: %lu /s\nBatteri: %u%% %.3fV
+%s%.2f, %.2f (rounded)	%s%.2f, %.2f (afrundet)
+%s%lu min ago - %.2f, %.2f (rounded)	%sfor %lu min siden - %.2f, %.2f (afrundet)
+%s.\n\nNothing can arrive until the bridge has a broker session. Fix it in Config (or web config) and this list fills in on its own.	%s.\n\nIntet kan nå frem, før broen har en session med brokeren. Ret det i Konfiguration (eller webkonfigurationen), så fylder listen sig selv.
+%s: %d node(s) heard	%s: %d node(r) hørt
+%s: %d on preset (%lus)	%s: %d på forvalg (%lus)
+%s=Scroll  A=Actions  %s=List	%s=Rul  A=Handlinger  %s=Liste
+%s\n%.1f km - brg %03d %s\n%s\nyou %dm - peer %dm - %.0f MHz	%s\n%.1f km - pejling %03d %s\n%s\ndig %dm - modpart %dm - %.0f MHz
+%s\n%lu min old	%s\nfor %lu min siden
+%s\nIn use - will switch to the next configured WiFi network, or AP mode if none is available	%s\nI brug - skifter til det næste konfigurerede WiFi-netværk, eller til AP-tilstand hvis der ikke er nogen
+%s\nMessage history will be erased	%s\nBeskedhistorikken slettes
+%s\nType %06u then Enter on the keyboard	%s\nSkriv %06u og derefter Enter på tastaturet
+%u of %d	%u af %d
+%u sec	%u s
+(A)nnounce	(A)nnoncér
+(C)FG   (D)M   (N)odes   Too(l)s   (A)ctions	(C)FG   (D)M   (N)oder   Værktøjer (L)   H(a)ndlinger
+(C)FG  C(h)an  (D)M  (N)odes  Too(l)s  (A)ct	(C)FG  Kanal (H)  (D)M  (N)oder  Værkt. (L)  H(a)ndl
+(D) Direct Messages\n(C) Configuration\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(H) Channel selector\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(D) Direkte beskeder\n(C) Konfiguration\n(N) Noder\n(L) Værktøjer (Live, diagrammer)\n(A) Kanalhandlinger\n(H) Kanalvælger\n(P) Hjælp (denne skærm)\n(E) Emoji\n(Space) Skriv/Svar\n(Enter) Fokusér beskeder
+(D)iscovery	Opdagelse (D)
+(F)avorite	(F)avorit
+(H) Home dashboard\n(C) Chat (again: channels)\n(F) Configuration\n(D) Direct Messages\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(H) Startpanel\n(C) Chat (igen: kanaler)\n(F) Konfiguration\n(D) Direkte beskeder\n(N) Noder\n(L) Værktøjer (Live, diagrammer)\n(A) Kanalhandlinger\n(P) Hjælp (denne skærm)\n(E) Emoji\n(Space) Skriv/Svar\n(Enter) Fokusér beskeder
+(H)ome (C)hat C(f)g (D)M (N)odes Too(l)s	Hjem (H) (C)hat Kon(f)ig (D)M (N)oder Værkt. (L)
+(L)ocate	(L)okalisér
+(L)ocation: %s	P(l)acering: %s
+(M)ute	Slå lyd fra (M)
+(R)eply	Svar (R)
+(W)eather	Vejr (W)
+(Y)es	Ja (Y)
+(no name)	(intet navn)
+(not set)	(ikke angivet)
+(nothing)	(intet)
+(unknown)	(ukendt)
+(unnamed)	(unavngivet)
+, gusts %d	, vindstød %d
+1 hour	1 time
+12-hour	12-timers
+15 sec	15 s
+2 hours	2 timer
+24-hour	24-timers
+30 sec	30 s
+4-char short name (ABCD)	Kort navn på 4 tegn (ABCD)
+5 min on that preset. This node hears nothing on its own while it runs, and finds only meshes sharing your primary channel key.	5 min på det forvalg. Mens det kører, hører denne node intet fra sit eget net og finder kun net, der deler nøglen til din primære kanal.
+5 sec	5 s
+6 hours	6 timer
+? hops	? hop
+ACK from %s. Waiting for reply...	ACK fra %s. Venter på svar...
+ACKed, no reply (%lus)	ACK modtaget, intet svar (%lus)
+AP mode cannot be removed	AP-tilstand kan ikke fjernes
+AP mode selected	AP-tilstand valgt
+AP mode selected - enable WiFi first	AP-tilstand valgt - slå WiFi til først
+AP mode: %s	AP-tilstand: %s
+ARCHIVED %s\n\n%s\nShort: %s\nID: !%08lX\n\nLast heard: %s\n%s\n\n%sNot on the live list. Restore it to message,\nfavorite or trace it.	ARKIVERET %s\n\n%s\nKort: %s\nID: !%08lX\n\nSidst hørt: %s\n%s\n\n%sIkke på den aktive liste. Gendan den for at sende beskeder,\nmarkere som favorit eller spore den.
+Act	Handl.
+Action Result	Resultat
+Action: %s	Handling: %s
+Actions	Handlinger
+All	Alle
+All live traffic will be erased	Al live-trafik slettes
+All live traffic will be erased, including lines hidden by the filter	Al live-trafik slettes, også linjer som filteret skjuler
+Already %s.	Allerede %s.
+Already on that preset	Allerede på det forvalg
+Analyzing terrain...	Analyserer terrænet...
+Announce	Annoncér
+Antenna: %s	Antenne: %s
+Any key / %s = Close	Vilkårlig tast / %s = Luk
+Apply	Anvend
+Apr	apr
+April	april
+Archive Dropped Nodes: %s	Arkivér fortrængte noder: %s
+Archive Dropped Nodes: %s%s	Arkivér fortrængte noder: %s%s
+Asks first, then reboots.	Spørger først, genstarter derefter.
+Asks first, then reboots. Only nodes on the same preset can hear each other.	Spørger først, genstarter derefter. Kun noder på samme forvalg kan høre hinanden.
+Aug	aug
+August	august
+Auto-update gave up on %s after %u failed installs	Automatisk opdatering opgav %s efter %u mislykkede installationer
+BT Keyboard failed to start (low memory)	BT-tastaturet kunne ikke starte (lidt hukommelse)
+BT Keyboard off	BT-tastatur fra
+BT Keyboard on - connecting to %s	BT-tastatur til - forbinder til %s
+BT Keyboard on - use Pair to choose one	BT-tastatur til - vælg et med Par
+BT Keyboard turned off.\n\nWeb Config and the Bluetooth keyboard share one radio and cannot run at the same time.\n\nTurn Web Config off to use the keyboard again.	BT-tastatur slået fra.\n\nWebkonfigurationen og Bluetooth-tastaturet deler én radio og kan ikke køre samtidig.\n\nSlå webkonfigurationen fra for at bruge tastaturet igen.
+BT Keyboard: %s	BT-tastatur: %s
+BT Keyboard: Off	BT-tastatur: Fra
+Back	Tilbage
+Back = Cancel	Tilbage = Annullér
+Bass	Bas
+Battery Calibration	Batterikalibrering
+Battery Calibration: %s	Batterikalibrering: %s
+Battery Calibration: Off	Batterikalibrering: Fra
+Battery Display: %s	Batterivisning: %s
+Battery critical - shedding load	Batteri kritisk - reducerer forbruget
+Battery empty	Batteriet er tomt
+Battery low	Lavt batteri
+Battery trim: %s	Batterijustering: %s
+Battery: %.0f%%\nVoltage: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%	Batteri: %.0f%%\nSpænding: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%
+Battery\nVoltage\nChUtil\nAirTx\nTemp\nHumidity\nPressure	Batteri\nSpænding\nChUtil\nAirTx\nTemp\nFugt\nTryk
+Bksp=Back  solid=ChUtil  dash=AirTx	Bksp=Tilbage  fuld=ChUtil  stiplet=AirTx
+Bksp=Back  solid=SNR  dash=RSSI	Bksp=Tilbage  fuld=SNR  stiplet=RSSI
+Bksp=Close	Bksp=Luk
+Blink Flashes (Channel): %u	Antal blink (kanal): %u
+Blink Flashes (DM): %u	Antal blink (DM): %u
+Blocked @ %.1f km, %dm over sight	Blokeret ved %.1f km, %dm over sigtelinjen
+Blue	Blå
+Bluetooth Keyboard	Bluetooth-tastatur
+Bottom buttons: Chats, DM, Nodes, Tools, Config, Help.	Knapper nederst: Chats, DM, Noder, Værktøjer, Konfig, Hjælp.
+Bottom buttons: Home, Chats, DM, Nodes, Tools, Config, Help.\nHome is the dashboard; Chats is the messages, and its icon\nblinks when a channel has something unread.	Knapper nederst: Hjem, Chats, DM, Noder, Værktøjer, Konfig, Hjælp.\nHjem er panelet; Chats er beskederne, og ikonet\nblinker, når en kanal har noget ulæst.
+Brightness	Lysstyrke
+Brightness: %u%%	Lysstyrke: %u%%
+Brightness: %u%%  Lock: %u%%	Lysstyrke: %u%%  Lås: %u%%
+Brown	Brun
+Bubbles	Bobler
+C = Clear   %s = Back	C = Ryd   %s = Tilbage
+C = Clear   F = Filter	C = Ryd   F = Filter
+C:Cfg H:Ch D:DM N:Node L:Tools A:Act	C:Cfg H:Kanal D:DM N:Node L:Værkt A:Handl
+CHANNEL UTIL	KANALUDNYTTELSE
+CHANNEL UTILIZATION (%)	KANALUDNYTTELSE (%)
+Can't resolve the weather server.\nCheck the address and DNS.	Kan ikke slå vejrserveren op.\nTjek adressen og DNS.
+Cancel	Annullér
+Cancelled after removing %u file%s. The rest were left alone - run the scan again to see what is still there.	Annulleret efter at %u fil(er)%.0s blev fjernet. Resten blev ikke rørt - kør scanningen igen for at se, hvad der stadig er der.
+Cannot send: no node id	Kan ikke sende: intet node-id
+Card formatted.\n\nWrite your configuration back to it as /camillia/config.yaml?	Kortet formateret.\n\nSkrive konfigurationen tilbage som /camillia/config.yaml?
+ChUtil  cur %s  avg %.1f%%  max %.1f%%   n=%d\nAirTx   cur %s  avg %.1f%%  max %.1f%%   n=%d	ChUtil  nu %s  gns %.1f%%  maks %.1f%%   n=%d\nAirTx   nu %s  gns %.1f%%  maks %.1f%%   n=%d
+ChUtil  cur --  avg --  max --   n=0\nAirTx   cur --  avg --  max --   n=0	ChUtil  nu --  gns --  maks --   n=0\nAirTx   nu --  gns --  maks --   n=0
+Channel	Kanal
+Channel %d	Kanal %d
+Channel %d  %s	Kanal %d  %s
+Channel Actions\n%s	Kanalhandlinger\n%s
+Channel Configuration	Kanalkonfiguration
+Channel Key	Kanalnøgle
+Channel Message LED	Lampe for kanalbeskeder
+Channel Message LED: %s	Lampe for kanalbeskeder: %s
+Channel Name	Kanalnavn
+Channel blink: %u flash%s	Kanalblink: %u gang(e)%.0s
+Channel busy (%.0f%%) - not sweeping	Kanalen er optaget (%.0f%%) - ingen afsøgning
+Channels	Kanaler
+Chat Colors: %s	Chatfarver: %s
+Chat Names	Chatnavne
+Chat Names: %s	Chatnavne: %s
+Chat Names: %s%s	Chatnavne: %s%s
+Chat Style	Chatstil
+Chat Style: %s	Chatstil: %s
+Chat Style: %s%s	Chatstil: %s%s
+Chat Type	Chattype
+Chat Type: %s	Chattype: %s
+Chat Type: %s%s	Chattype: %s%s
+Chat colors reassigned	Chatfarver tildelt på ny
+Checking %u of %u   %u%%	Tjekker %u af %u   %u%%
+Chirpy	Kvidren
+Choose WiFi	Vælg WiFi
+Choose WiFi or Finish	Vælg WiFi eller Afslut
+Choose WiFi: %s	Vælg WiFi: %s
+Choose WiFi: (none)	Vælg WiFi: (intet)
+Classic	Klassisk
+Clear	Ryd
+Clear Messages	Ryd beskeder
+Clear Nodes (All)	Ryd noder (alle)
+Clear Nodes (Keep Favorites)	Ryd noder (behold favoritter)
+Clear by %dm at tightest	Fri med %dm på det snævreste sted
+Clear entire live feed?	Rydde hele live-strømmen?
+Cleared %d nodes, kept %d favorites - rebooting...	%d noder ryddet, %d favoritter beholdt - genstarter...
+Cleared (%d report(s)) - rebuilding from traffic	Ryddet (%d rapport(er)) - genopbygges fra trafikken
+Clock Format: %s	Urformat: %s
+Clock set from web config	Uret indstillet fra webkonfigurationen
+Clock set: %04d-%02d-%02d %02d:%02d	Uret indstillet: %04d-%02d-%02d %02d:%02d
+Close	Luk
+Configuration	Konfiguration
+Configuration exported to /camillia/config.yaml.\n\nThe card is formatted and holds nothing else. Chat history, the node database and any map tiles were on the old filesystem and are gone.	Konfigurationen eksporteret til /camillia/config.yaml.\n\nKortet er formateret og indeholder intet andet. Chathistorik, nodedatabase og kortfliser lå på det gamle filsystem og er væk.
+Configured WiFi is empty	Konfigureret WiFi er tomt
+Confirm Chat Style	Bekræft chatstil
+Confirm?	Bekræft?
+Connect	Forbind
+Connect to WiFi before enabling VNC	Forbind til WiFi, før du slår VNC til
+Connect: %s	Forbind: %s
+Connecting to %s...	Forbinder til %s...
+Connecting to broker...	Forbinder til brokeren...
+Connection failed: %s	Forbindelse mislykkedes: %s
+Conversation deleted	Samtalen slettet
+Conversations	Samtaler
+Could not reach the weather server.	Kunne ikke nå vejrserveren.
+Could not remove every file. Check storage and retry.	Kunne ikke fjerne alle filer. Tjek lageret, og prøv igen.
+Counting files on the card...	Tæller filer på kortet...
+Counting files... %u found	Tæller filer... %u fundet
+Custom	Tilpasset
+Custom (%u B)	Tilpasset (%u B)
+DIRECT MESSAGES	DIREKTE BESKEDER
+DISTANCE UNKNOWN	UKENDT AFSTAND
+DM blink: %u flash%s	DM-blink: %u gang(e)%.0s
+DMs	DM
+Date unavailable	Dato ikke tilgængelig
+Day	Dag
+Dec	dec
+December	december
+Default	Standard
+Default (%u)	Standard (%u)
+Default +%u	Standard +%u
+Del(e)te	Sl(e)t
+Delete	Slet
+Delete WiFi?	Slette WiFi?
+Delete conversation?	Slette samtalen?
+Delete failed	Sletning mislykkedes
+Delete node?	Slette noden?
+Delivery details not recorded: received before this boot, or too many messages ago.	Leveringsdetaljer ikke registreret: modtaget før denne opstart eller for mange beskeder siden.
+Detail Map	Detaljekort
+Device Info	Enhedsinfo
+Device switched off last time: battery empty	Enheden slukkede sidst: tomt batteri
+Direct Message LED	Lampe for direkte beskeder
+Direct Message LED: %s	Lampe for direkte beskeder: %s
+Discovery	Opdagelse
+Do not remove the card	Tag ikke kortet ud
+Elevation data too sparse\nfor this path.	For få højdedata\nfor denne rute.
+Elevation fetch failed (%d).\nCheck the server URL - it must be http://	Hentning af højde mislykkedes (%d).\nTjek serverens URL - den skal være http://
+Enable WiFi first	Slå WiFi til først
+Enc	Krypt.
+Encrypted	Krypteret
+Encryption	Kryptering
+Enter password, then tap Connect	Indtast adgangskoden, og tryk på Forbind
+Enter this node's long name.	Indtast nodens lange navn.
+Enter=Connect  Backspace=Back	Enter=Forbind  Backspace=Tilbage
+Enter=Info  A=Actions  Bksp=Edit/Exit  %s=Back	Enter=Info  A=Handlinger  Bksp=Redigér/Afslut  %s=Tilbage
+Enter=Info  A=Actions  Space=Filter  %s=Back	Enter=Info  A=Handlinger  Space=Filter  %s=Tilbage
+Enter=Next	Enter=Næste
+Enter=Next    Bksp(empty)=Back	Enter=Næste    Bksp(tom)=Tilbage
+Enter=Next   Bksp(empty)=Back	Enter=Næste   Bksp(tom)=Tilbage
+Enter=OK  %s=Erase/Back	Enter=OK  %s=Slet/Tilbage
+Enter=OK  Bksp=Erase  %s=Back	Enter=OK  Bksp=Slet  %s=Tilbage
+Enter=Save  Tab=Field  %s=Erase/Back	Enter=Gem  Tab=Felt  %s=Slet/Tilbage
+Enter=Send   %s=Cancel	Enter=Send   %s=Annullér
+Enter=Send  Bksp(empty)=Cancel	Enter=Send  Bksp(tom)=Annullér
+Enter=Send  Esc=Cancel  Bksp=Del	Enter=Send  Esc=Annullér  Bksp=Slet
+Environment	Miljø
+Errors	Fejl
+Examined %u file%s. Nothing matching Windows malware was found.\n\nThis reads names and file headers, not contents, so it is a good sign rather than a guarantee.	%u fil(er)%.0s undersøgt. Intet, der ligner Windows-malware, blev fundet.\n\nNavne og filhoveder læses, ikke indhold, så det er et godt tegn snarere end en garanti.
+Export Config	Eksportér konfiguration
+Export FAILED (no SD?)	Eksport MISLYKKEDES (intet SD?)
+Export FAILED. The card formatted, but the configuration could not be written back to it - try Export from the Config screen.	Eksport MISLYKKEDES. Kortet blev formateret, men konfigurationen kunne ikke skrives tilbage - prøv Eksportér på konfigurationsskærmen.
+Exported to /camillia/config.yaml	Eksporteret til /camillia/config.yaml
+Extra Large	Ekstra stor
+Factory Reset	Fabriksnulstilling
+Factory reset - rebooting...	Fabriksnulstilling - genstarter...
+Favorite	Favorit
+Feb	feb
+February	februar
+Feels %d%s   Hum %d%%\nWind %d %s %s\nGusting %d %s	Føles %d%s   Fugt %d%%\nVind %d %s %s\nStød %d %s
+Feels like   %d%s\nHumidity     %d%%\nWind         %d %s from %s\nGusting      %d %s	Føles som    %d%s\nFugtighed    %d%%\nVind         %d %s fra %s\nVindstød     %d %s
+Fetching...	Henter...
+Filter Nodes	Filtrér noder
+Finish	Afslut
+Firmware Update	Firmwareopdatering
+Firmware Update Check	Søg efter firmwareopdatering
+Firmware Update: Install %s	Firmwareopdatering: installér %s
+Font Size	Skriftstørrelse
+Font Size: %s	Skriftstørrelse: %s
+Font Size: %s%s	Skriftstørrelse: %s%s
+Forget	Glem
+Format FAILED, and the card could not be remounted.\n\nReboot the device, or format the card on a PC.	Formatering MISLYKKEDES, og kortet kunne ikke monteres igen.\n\nGenstart enheden, eller formatér kortet på en pc.
+Format FAILED. The card was left as it was and is still mounted.\n\nFormatting it on a PC is the reliable way out.	Formatering MISLYKKEDES. Kortet blev efterladt, som det var, og er stadig monteret.\n\nAt formatere det på en pc er den sikre udvej.
+Format the SD card?\n\nThis erases EVERYTHING on it - chat and DM history, the node database, map tiles and your saved configuration - not just the files the scan matched.\n\nIt cannot be undone.	Formatere SD-kortet?\n\nDette sletter ALT på det - chat- og DM-historik, nodedatabasen, kortfliser og din gemte konfiguration - ikke kun de filer, scanningen fandt.\n\nDet kan ikke fortrydes.
+Formatting SD Card	Formaterer SD-kortet
+Found %d network(s)	%d netværk fundet
+Found %u file%s matching Windows malware:\n	%u fil(er)%.0s ligner Windows-malware:\n
+Freq: %.3f MHz	Frekv: %.3f MHz
+Fri	fre
+From: %s	Fra: %s
+Full node name when known	Fuldt nodenavn, når det kendes
+GPS disabled (using default coordinates)	GPS fra (standardkoordinater)
+GPS enabled (hardware)	GPS til (hardware)
+GPS: Disabled (Default Coords)	GPS: Fra (standardkoord.)
+GPS: Enabled (Hardware)	GPS: Til (hardware)
+Gateway: not known	Gateway: ukendt
+Grazes terrain - F1=%dm	Strejfer terrænet - F1=%dm
+Green	Grøn
+HEARD ABOUT	RAPPORTERET AF ANDRE
+Heard %s ago   %u seen, ~%s apart	Hørt for %s siden   %u set, ~%s imellem
+Heard %s ago   1 seen	Hørt for %s siden   1 set
+Help	Hjælp
+High	Høj
+Hops	Hop
+Hops: %d of %d	Hop: %d af %d
+Hour	Time
+I(g)nore	I(g)norér
+Identity	Identitet
+Ignore	Ignorér
+Import Config	Importér konfiguration
+Import FAILED (no file?)	Import MISLYKKEDES (ingen fil?)
+Import failed - enter a name	Import mislykkedes - indtast et navn
+Imported OK - rebooting...	Import OK - genstarter...
+Install now? The device reboots to update.	Installér nu? Enheden genstarter for at opdatere.
+Invalid base64 key	Ugyldig base64-nøgle
+Invalid date/time	Ugyldig dato/tid
+Invert Scrolling: %s	Omvendt rulning: %s
+J/K = Scroll   %s = Close	J/K = Rul   %s = Luk
+J/K = Scroll   Bksp = Close	J/K = Rul   Bksp = Luk
+J/K = Select   Space = Compose   Enter = Focus   D = Delete	J/K = Vælg   Space = Skriv   Enter = Fokus   D = Slet
+Jan	jan
+January	januar
+Jul	jul
+July	juli
+Jun	jun
+June	juni
+Just announced. Try again in %us.	Lige annonceret. Prøv igen om %us.
+Key	Nøgle
+Keyboard Blink: %s	Tastaturblink: %s
+Keyboard Light	Tastaturlys
+Keyboard Light: %s	Tastaturlys: %s
+Keyboard blink: %s	Tastaturblink: %s
+Keyboard light %s	Tastaturlys %s
+Keyboard light %s - after a power cycle	Tastaturlys %s - efter sluk og tænd
+Keyboard light off	Tastaturlys fra
+L/R=Change   Enter=Save   %s=Back	V/H=Skift   Enter=Gem   %s=Tilbage
+LINE OF SIGHT	FRI SIGT
+LONGEST SILENT	STILLE LÆNGST
+Landscape	Liggende
+Language	Sprog
+Language: %s	Sprog: %s
+Large	Stor
+Last heard	Sidst hørt
+Last heard\nSNR\nHops\nChannel\nSigned	Sidst hørt\nSNR\nHop\nKanal\nSigneret
+Leave blank to clear	Lad stå tomt for at rydde
+Light reminds for %s	Lampen minder i %s
+Light reminds until read	Lampen minder, indtil læst
+Listening   %d sender%s heard	Lytter   %d afsender(e)%.0s hørt
+Listening: off	Lytning: fra
+Live Filter	Live-filter
+Live feed cleared	Live-strømmen ryddet
+Loading map...	Indlæser kort...
+Loc	Plac.
+Locate	Lokalisér
+Locate: %s	Lokalisér: %s
+Location	Placering
+Location Precision	Placeringspræcision
+Location Precision: %s	Placeringspræcision: %s
+Location rounded to %s	Placeringen afrundet til %s
+Location sent exactly	Placeringen sendt præcist
+Location sharing off (no position sent)	Placeringsdeling fra (ingen position sendes)
+Location sharing on	Placeringsdeling til
+Location: %s	Placering: %s
+Lock Screen Off	Skærm fra ved lås
+Lock Screen Off: %s	Skærm fra ved lås: %s
+Lock Screen: %s	Låseskærm: %s
+Lock screen	Låseskærm
+Lock screen stays on	Låseskærmen forbliver tændt
+Long	Langt
+Long name	Langt navn
+Long name cannot be empty	Langt navn må ikke være tomt
+Long name: %s\nEnter a short name (up to 4 chars).	Langt navn: %s\nIndtast et kort navn (op til 4 tegn).
+Long: %s	Langt: %s
+Looking for keyboards...	Søger efter tastaturer...
+Low	Lav
+ME (ACK)	MIG (ACK)
+MQTT Bridge: %s	MQTT-bro: %s
+MQTT Bridge: %s - rebooting...	MQTT-bro: %s - genstarter...
+MQTT Bridge: Off (WiFi off)	MQTT-bro: Fra (WiFi fra)
+MQTT Scan Settings	Indstillinger for MQTT-scanning
+MQTT bridge is off	MQTT-broen er slået fra
+Map (loading)	Kort (indlæser)
+Map (off)	Kort (fra)
+Map memory unavailable	Ingen hukommelse til kortet
+Map unavailable	Kort ikke tilgængeligt
+Mar	mar
+March	marts
+Match the voltage to a meter reading.\nPercent comes from the fuel gauge and does not change.	Tilpas spændingen til en måleraflæsning.\nProcenten kommer fra ladeindikatoren og ændrer sig ikke.
+Match the voltage to a meter reading.\nPercent follows it. 0% = uncalibrated.	Tilpas spændingen til en måleraflæsning.\nProcenten følger med. 0% = ukalibreret.
+May	maj
+Medium	Mellem
+Mesh Beacons is off.\n\nTurn it on in Config (or under Modules in web config) to decode beacons from other meshes. Receive-only: nothing is transmitted, and an offer is never applied to your radio.	Mesh-beacons er slået fra.\n\nSlå det til i Konfiguration (eller under Moduler i webkonfigurationen) for at afkode beacons fra andre net. Kun modtagelse: intet sendes, og et tilbud anvendes aldrig på din radio.
+Mesh Beacons: %s	Mesh-beacons: %s
+Mesh beacons: %s	Mesh-beacons: %s
+Message (I)nfo	Besked(i)nfo
+Message Actions	Beskedhandlinger
+Message Info	Beskedinfo
+Messages	Beskeder
+Messages cleared - rebooting...	Beskeder ryddet - genstarter...
+Metric	Metrisk
+Minute	Minut
+Modem preset	Modemforvalg
+Mon	man
+Month	Måned
+Move  Enter=Apply  %s=Back	Flyt  Enter=Anvend  %s=Tilbage
+Move  Enter=Apply  %s=Cancel	Flyt  Enter=Anvend  %s=Annullér
+Move  Enter=Change  %s=Cancel	Flyt  Enter=Skift  %s=Annullér
+Move  Enter=Edit  %s=Back	Flyt  Enter=Redigér  %s=Tilbage
+Move  Enter=OK  %s=Cancel	Flyt  Enter=OK  %s=Annullér
+Move  Enter=Open  %s=Back	Flyt  Enter=Åbn  %s=Tilbage
+Move  Enter=Pick  %s=Back	Flyt  Enter=Vælg  %s=Tilbage
+Move  Enter=Scan  %s=Cancel	Flyt  Enter=Scan  %s=Annullér
+Move • Enter=Add • %s=Close	Flyt • Enter=Tilføj • %s=Luk
+Move • Enter=Insert • %s=Close	Flyt • Enter=Indsæt • %s=Luk
+Move • Enter=React • %s=Close	Flyt • Enter=Reagér • %s=Luk
+Move • Enter=Send • %s=Close	Flyt • Enter=Send • %s=Luk
+Move=Adjust  Enter=Save  %s=Cancel	Flyt=Justér  Enter=Gem  %s=Annullér
+Move=Adjust  Space=Toggle  Enter=Save  %s=Cancel	Flyt=Justér  Space=Skift  Enter=Gem  %s=Annullér
+Move=Preview  Enter=OK  %s=Cancel	Flyt=Forhåndsvis  Enter=OK  %s=Annullér
+My Message Color	Farve på mine beskeder
+My Message Color: %s	Farve på mine beskeder: %s
+My Message Color: %s (unchanged)	Farve på mine beskeder: %s (uændret)
+My Message Color: %s - rebooting...	Farve på mine beskeder: %s - genstarter...
+N=Choose WiFi   Enter=Finish   Bksp=Back	N=Vælg WiFi   Enter=Afslut   Bksp=Tilbage
+NO LINE OF SIGHT	INGEN FRI SIGT
+NODEINFO + telemetry queued.	NODEINFO + telemetri sat i kø.
+NODES	NODER
+NODES (%d%s)	NODER (%d%s)
+NODES [%s] (%d%s)	NODER [%s] (%d%s)
+Name	Navn
+Name: %s\nShort: %s\nID: !%08X\nLast heard: %s\nSNR: %.1f dB\nHops: %u\nChannel: %d\n\nPosition:\n%s\n\nTelemetry:\n%s	Navn: %s\nKort: %s\nID: !%08X\nSidst hørt: %s\nSNR: %.1f dB\nHop: %u\nKanal: %d\n\nPosition:\n%s\n\nTelemetri:\n%s
+Name\nShort\nID	Navn\nKort\nID
+Nav Bar: %s	Navigationslinje: %s
+Neighborhood Info: %s	Naboinfo: %s
+Neighborhood info: %s	Naboinfo: %s
+Never	Aldrig
+New	Ny
+New DM	Ny DM
+New DM: Select Node	Ny DM: vælg node
+New DM: Select Node [%s]	Ny DM: vælg node [%s]
+New Message	Ny besked
+Newest: %s %s	Nyeste: %s %s
+Newest: none heard yet	Nyeste: ingen hørt endnu
+Next	Næste
+No %s - not saved	Intet %s - ikke gemt
+No %s - not saving	Intet %s - gemmer ikke
+No %s traffic yet\n(filter is on - %s)	Ingen %s-trafik endnu\n(filter til - %s)
+No S&F router heard yet	Ingen S&F-router hørt endnu
+No SD card is mounted.	Intet SD-kort monteret.
+No WiFi network configured	Intet WiFi-netværk konfigureret
+No beacons heard yet.\n\nA beacon is only audible while its sender has retuned onto this channel, preset and region, and it repeats on that node's own schedule - minutes to hours apart. This list keeps what it hears until you clear it.	Ingen beacons hørt endnu.\n\nEn beacon kan kun høres, mens afsenderen har stillet om til denne kanal, dette forvalg og denne region, og den gentages efter nodens egen plan - minutter til timer imellem. Listen beholder det, den hører, til du rydder den.
+No elevation server set.\nWeb Config -> Elevation Server (LOS)	Ingen højdeserver angivet.\nWebkonfig -> Elevation Server (LOS)
+No hop path in reply	Ingen hop-sti i svaret
+No keyboards found yet.\n\nPut the keyboard into pairing mode, then press Scan.\n\nOnly Bluetooth LE keyboards can pair - this hardware has no Bluetooth Classic radio.	Ingen tastaturer fundet endnu.\n\nSæt tastaturet i parringstilstand, og tryk på Scan.\n\nKun Bluetooth LE-tastaturer kan parres - denne hardware har ingen Bluetooth Classic-radio.
+No known nodes yet	Ingen kendte noder endnu
+No live traffic yet	Ingen live-trafik endnu
+No matches for: %s	Ingen fund for: %s
+No messages yet	Ingen beskeder endnu
+No network in that slot	Intet netværk på den plads
+No network selected	Intet netværk valgt
+No networks found	Ingen netværk fundet
+No new messages	Ingen nye beskeder
+No nodes seen	Ingen noder set
+No nodes seen yet.	Ingen noder set endnu.
+No position data	Ingen positionsdata
+No position recorded	Ingen position registreret
+No position yet.\nNeeds a GPS fix or a set location.	Ingen position endnu.\nKræver GPS-fix eller en angivet placering.
+No release notes in this build.	Ingen udgivelsesnoter i dette build.
+No reply (%lus)	Intet svar (%lus)
+No result details available.	Ingen detaljer tilgængelige.
+No telemetry data	Ingen telemetridata
+No weather server set.\nWeb Config -> Weather Server	Ingen vejrserver angivet.\nWebkonfig -> Weather Server
+Node Actions	Nodehandlinger
+Node DB cleared - rebooting...	Nodedatabasen ryddet - genstarter...
+Node ID: !%08lx	Node-ID: !%08lx
+Node Name	Nodenavn
+Node Name: %s (%s)	Nodenavn: %s (%s)
+Node Name: %s (%s)%s	Nodenavn: %s (%s)%s
+Node id: !%08lx	Node-id: !%08lx
+Node info	Nodeinfo
+Nodes and SD archive cleared - rebooting...	Noder og SD-arkiv ryddet - genstarter...
+None	Ingen
+Not counting - out of memory	Tæller ikke - løbet tør for hukommelse
+Not enough free heap to hold the topic table.\n\nClose a few screens (or reboot) and try again.	Ikke nok ledig hukommelse til emnetabellen.\n\nLuk nogle skærme (eller genstart), og prøv igen.
+Nothing heard yet	Intet hørt endnu
+Nothing recorded yet - nothing to send	Intet registreret endnu - intet at sende
+Nothing was removed. The files may have gone already, or the card may be write-protected.	Intet blev fjernet. Filerne er måske allerede væk, eller kortet er skrivebeskyttet.
+Notification Light Timeout	Varighed for notifikationslampe
+Notification Light Timeout: %s	Varighed for notifikationslampe: %s
+Notification Sound	Notifikationslyd
+Notification Sound: %s	Notifikationslyd: %s
+Notification sound: %s	Notifikationslyd: %s
+Nov	nov
+November	november
+OFF	FRA
+OTA disabled on Cardputer build	OTA deaktiveret i Cardputer-buildet
+OTA needs the factory image (flash layout)	OTA kræver fabriksbilledet (flash-layout)
+OTA request failed (NVS write). Retry.	OTA-anmodning mislykkedes (NVS-skrivning). Prøv igen.
+OTA worker completed. Check status.	OTA-arbejderen færdig. Tjek status.
+Oct	okt
+October	oktober
+Off	Fra
+Offers: %s	Tilbud: %s
+Old Map Files Found	Gamle kortfiler fundet
+Oldest: %s %s	Ældste: %s %s
+Oldest: none heard yet	Ældste: ingen hørt endnu
+On	Til
+On (global off)	Til (globalt fra)
+On (listening)	Til (lytter)
+Open network (leave blank)	Åbent netværk (lad stå tomt)
+Optional WiFi setup.\nNo network selected.\nChoose WiFi now or finish without WiFi.	Valgfri WiFi-opsætning.\nIntet netværk valgt.\nVælg WiFi nu, eller afslut uden WiFi.
+Optional WiFi setup.\nSelected: %s\nChoose a different network or finish.	Valgfri WiFi-opsætning.\nValgt: %s\nVælg et andet netværk, eller afslut.
+Orientation: %s	Retning: %s
+Other	Andet
+Outline	Omrids
+PKI key: %s	PKI-nøgle: %s
+PSRAM free: %lu KB\nPSRAM total: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	PSRAM ledig: %lu KB\nPSRAM i alt: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nApp ledig: %lu KB
+PSRAM: none\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	PSRAM: ingen\nFlash: %lu KB\nSketch: %lu KB\nApp ledig: %lu KB
+Pair	Par
+Pair BT Keyboard: %s	Par BT-tastatur: %s
+Pair BT Keyboard: (none)	Par BT-tastatur: (intet)
+Percent	Procent
+Please re-flash from Camillia's website for language support.	Flash igen fra Camillias websted for sprogunderstøttelse.
+Portrait	Stående
+Portrait 180	Stående 180
+Precise	Præcis
+Preparing state maps...	Forbereder regionskort...
+Preset	Forvalg
+Preset (%s)	Forvalg (%s)
+Preset already %s.	Forvalget er allerede %s.
+Preset scan already running	Scanning af forvalg kører allerede
+Preset: %s	Forvalg: %s
+Preset: %s - rebooting...	Forvalg: %s - genstarter...
+Public key preserved\n\n	Offentlig nøgle bevaret\n\n
+Purple	Lilla
+Pwr %d dBm Hops %d	Eff %d dBm Hop %d
+R=Refresh  %s=Back	R=Opdatér  %s=Tilbage
+RECENTLY HEARD	NYLIG HØRT
+Radio busy - retry in %lus	Radioen er optaget - prøver igen om %lus
+Radio not ready	Radioen er ikke klar
+Re(q)uest Node	Anmod om node (Q)
+Ready	Klar
+Rebooting into OTA minimal mode...	Genstarter i OTA-minimaltilstand...
+Received over: %s %s	Modtaget via: %s %s
+Red	Rød
+Relayed to us by: %s	Videresendt af: %s
+Relayed to us by: %s (from MQTT)	Videresendt af: %s (fra MQTT)
+Relayed to us by: nobody, heard directly	Videresendt af: ingen, hørt direkte
+Relayed to us by: not reported by the relaying node	Videresendt af: ikke oplyst af relænoden
+Relayed to us by: the sender itself	Videresendt af: afsenderen selv
+Relayed: %lu	Videresendt: %lu
+Release Channel: %s - checking...	Udgivelseskanal: %s - tjekker...
+Release Channel: %s%s	Udgivelseskanal: %s%s
+Release Notes	Udgivelsesnoter
+Release Notes  %s	Udgivelsesnoter  %s
+Remove	Fjern
+Removed %s	%s fjernet
+Removed %s - no networks left, AP mode	%s fjernet - ingen netværk tilbage, AP-tilstand
+Removed %s - now %s	%s fjernet - nu %s
+Removed %u file%s. %u could not be deleted - the card may be write-protected.\n\nRe-run the scan to check.	%u fil(er)%.0s fjernet. %u kunne ikke slettes - kortet kan være skrivebeskyttet.\n\nKør scanningen igen for at tjekke.
+Removed %u file%s.\n\nThis card looked clean afterwards, but the scan reads names and headers, not contents - it cannot promise the card is clean. Reformatting is the only answer that can.	%u fil(er)%.0s fjernet.\n\nKortet så rent ud bagefter, men scanningen læser navne og filhoveder, ikke indhold - den kan ikke love, at kortet er rent. Det kan kun genformatering.
+Removing Files	Fjerner filer
+Removing legacy maps...	Fjerner gamle kort...
+Replay already requested	Genafspilning allerede anmodet
+Replay not sent: %s	Genafspilning ikke sendt: %s
+Replay requested (last %lu min)	Genafspilning anmodet (seneste %lu min)
+Reply	Svar
+Reply from %s	Svar fra %s
+Reply from %s (%lus)	Svar fra %s (%lus)
+Request (P)osition	Anmod om (p)osition
+Request Node	Anmod om node
+Request Position	Anmod om position
+Request S&F Replay (%s)	Anmod om S&F-genafspilning (%s)
+Request S&F Replay (no router)	Anmod om S&F-genafspilning (ingen router)
+Requested (last %lu min)	Anmodet (seneste %lu min)
+Rescan	Scan igen
+Reset	Nulstil
+Reset Chat Colors	Nulstil chatfarver
+Reset to Default	Gendan standard
+Restore failed: every slot is favorited, so there is no room. Unfavorite a node and try again.	Gendannelse mislykkedes: alle pladser er favoritter, der er ikke plads. Fjern en favorit, og prøv igen.
+Restore failed: the archived record could not be read.	Gendannelse mislykkedes: den arkiverede post kunne ikke læses.
+Restore node?	Gendanne noden?
+Role: %s%s	Rolle: %s%s
+S(h)are	Del (H)
+SD Card Format	Formatering af SD-kort
+SD Card Scan	Scanning af SD-kort
+SD scan cancelled	SD-scanning annulleret
+SD: %s, %s, %u fails	SD: %s, %s, %u fejl
+SD: no card	SD: intet kort
+SNR   cur %s  avg %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  cur %s  avg %.0fdBm min %.0f  max %.0f   n=%d	SNR   nu %s  gns %.1fdB  min %.1f  maks %.1f   n=%d\nRSSI  nu %s  gns %.0fdBm min %.0f  maks %.0f   n=%d
+SNR   cur --  avg --  min --  max --   n=0\nRSSI  cur --  avg --  min --  max --   n=0	SNR   nu --  gns --  min --  maks --   n=0\nRSSI  nu --  gns --  min --  maks --   n=0
+Sat	lør
+Save	Gem
+Save failed - cannot write %s	Lagring mislykkedes - kan ikke skrive til %s
+Save failed - too many this second	Lagring mislykkedes - for mange dette sekund
+Save while discovering	Gem under opdagelse
+Save while scanning	Gem under scanning
+Saved %s	%s gemt
+Saved: %s	Gemt: %s
+Scan %s	Scanning %s
+Scan %s - saved %s	Scanning %s - gemt %s
+Scan Networks	Scan netværk
+Scan SD Card for Malware%s	Scan SD-kortet for malware%s
+Scan a preset	Scan et forvalg
+Scan cancelled	Scanning annulleret
+Scan failed - Rescan to try again	Scanning mislykkedes - scan igen
+Scan send failed	Afsendelse af scanning mislykkedes
+Scanning %s %s/%s	Scanner %s %s/%s
+Scanning %s...	Scanner %s...
+Scanning SD Card	Scanner SD-kortet
+Scanning WiFi networks...	Søger efter WiFi-netværk...
+Screen	Skærm
+Screen Timeout	Skærmtimeout
+Screen Timeout: %s	Skærmtimeout: %s
+Screen off after %s on lock	Skærmen slukker efter %s ved lås
+Screen orientation	Skærmretning
+Screen sleeps after %s	Skærmen slumrer efter %s
+Screen stays on	Skærmen forbliver tændt
+Select a conversation	Vælg en samtale
+Select this node's role.	Vælg nodens rolle.
+Select your radio region/preset.	Vælg radioens region/forvalg.
+Selection settling - press Enter again	Valget falder på plads - tryk Enter igen
+Sen(d) DM	Send DM (D)
+Send failed	Afsendelse mislykkedes
+Send to channel?	Sende til kanalen?
+Send top 5 to	Send top 5 til
+Sending request...	Sender anmodning...
+Sent by this node.	Sendt af denne node.
+Sent to %s	Sendt til %s
+Sent. Waiting for route ACK...	Sendt. Venter på rute-ACK...
+Sep	sep
+September	september
+Server answered, but not with\nelevation data. Check the proxy\npoints at the elevation service.	Serveren svarede, men ikke med\nhøjdedata. Tjek, at proxyen\npeger på højdetjenesten.
+Server answered, but not with\nweather data. Check the proxy.	Serveren svarede, men ikke med\nvejrdata. Tjek proxyen.
+Set message colour to %s and reboot?	Skift beskedfarven til %s og genstart?
+Share	Del
+Share Location: %s	Del placering: %s
+Short	Kort
+Short name	Kort navn
+Short name cannot be empty	Kort navn må ikke være tomt
+Short: %s	Kort: %s
+Show Archived Nodes: %s	Vis arkiverede noder: %s
+Show Archived Nodes: %s%s	Vis arkiverede noder: %s%s
+Silver	Sølv
+Sky	Himmelblå
+Small	Lille
+Source	Kilde
+Splash Melody: %s	Opstartsmelodi: %s
+Splash melody: %s	Opstartsmelodi: %s
+Stale - 	Forældet -
+State Map	Regionskort
+State map disabled	Regionskort deaktiveret
+State map unavailable	Regionskort ikke tilgængeligt
+Stay on	Altid tændt
+Storage: %s %s	Lager: %s %s
+Storage: %s (not mounted)	Lager: %s (ikke monteret)
+Store&Fwd Client: %s	Store&Fwd-klient: %s
+Store&Fwd client is off	Store&Fwd-klienten er slået fra
+Sun	søn
+Sweep	Afsøgning
+Sweep already running	Afsøgning kører allerede
+Sweep cancelled	Afsøgning annulleret
+Sweep done: %d new (%lus)	Afsøgning færdig: %d nye (%lus)
+Sweep send failed	Afsendelse af afsøgning mislykkedes
+Sweep/Scan Settings	Indstillinger for afsøgning/scanning
+Sweeping...	Afsøger...
+Sweeping... %s/%s	Afsøger... %s/%s
+Switch to %s and reboot?	Skift til %s og genstart?
+Switch to theme %s and reboot?	Skift til temaet %s og genstart?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	Skift til ekstern kan beskadige radioen, hvis antennen ikke er tilsluttet.  Tilslut den eksterne antenne, før du trykker Ja
+System Stats	Systemstatistik
+Tall	Høj
+Tall, turned 180	Høj, drejet 180
+Tap = Open   Long-press 3s = Delete   DM below = Back	Tryk = Åbn   Hold 3 s = Slet   DM nedenfor = Tilbage
+Tap Next to continue	Tryk på Næste for at fortsætte
+Tap Next to continue, or Back	Tryk på Næste for at fortsætte, eller Tilbage
+Tap a channel	Tryk på en kanal
+Tap a channel to edit	Tryk på en kanal for at redigere
+Tap a field to change it	Tryk på et felt for at ændre det
+Tap a field to edit, then Save	Tryk på et felt, redigér, og Gem
+Tap a node for actions   Nodes below = Back	Tryk på en node for handlinger   Noder nedenfor = Tilbage
+Tap a node to start a DM	Tryk på en node for at starte en DM
+Tap a preset to apply.	Tryk på et forvalg for at anvende det.
+Tap a preset, then Scan	Tryk på et forvalg, og derefter Scan
+Tap a size to apply	Tryk på en størrelse for at anvende den
+Tap one to apply.	Tryk på én for at anvende den.
+Tap to preview	Tryk for forhåndsvisning
+Teal	Blågrøn
+Telemetry	Telemetri
+Temp: %.1f C\nHumidity: %.1f%%\nPressure: %.1f hPa	Temp: %.1f C\nFugt: %.1f%%\nTryk: %.1f hPa
+Temp: %.1f F\nHumidity: %.1f%%\nPressure: %.2f inHg	Temp: %.1f F\nFugt: %.1f%%\nTryk: %.2f inHg
+Text	Tekst
+The card was formatted but could not be remounted. Reboot the device and it should come up clean.	Kortet blev formateret, men kunne ikke monteres igen. Genstart enheden, så bør det komme op rent.
+Theme	Tema
+Theme: %s	Tema: %s
+Theme: %s (unchanged)	Tema: %s (uændret)
+Theme: %s - rebooting...	Tema: %s - genstarter...
+These files are not used by the new tile map. Remove them to reclaim storage?	Disse filer bruges ikke af det nye flisekort. Fjerne dem for at frigøre plads?
+This node	Denne node
+This node has no position yet.\nNeeds a GPS fix or a set location.	Denne node har ingen position endnu.\nKræver GPS-fix eller en angivet placering.
+Thu	tor
+Time and Date	Tid og dato
+Time and Date: %s	Tid og dato: %s
+Time source: Internet / GPS	Tidskilde: Internet / GPS
+To close hit backspace.  (I)nformation	Luk med backspace.  (I)nformation
+Tools	Værktøjer
+Touch Navigation:	Berøringsnavigation:
+Transport Symbols:\n%s Radio Transmission\n%s MQTT Transmission	Transportsymboler:\n%s Radiotransmission\n%s MQTT-transmission
+Tue	tir
+Turn BT Keyboard on first	Slå BT-tastaturet til først
+Turn MQTT Bridge %s and reboot?	Sæt MQTT-broen %s og genstart?
+Type = Filter   Bksp = Edit Filter   Enter = Open DM   Esc = Back	Skriv = Filter   Bksp = Redigér filter   Enter = Åbn DM   Esc = Tilbage
+Type = Filter   Bksp = Edit/Close Filter   Enter = Open DM	Skriv = Filter   Bksp = Redigér/luk filter   Enter = Åbn DM
+Type = Filter   Enter = Open DM   Bksp = Back	Skriv = Filter   Enter = Åbn DM   Bksp = Tilbage
+Type = Filter   Enter = Open DM   Esc = Back	Skriv = Filter   Enter = Åbn DM   Esc = Tilbage
+Type message...	Skriv en besked...
+Type to filter nodes	Skriv for at filtrere noder
+Type, then tap OK	Skriv, og tryk så OK
+Type=Filter  Enter=Done  Bksp=Edit/Exit  %s=Back	Skriv=Filter  Enter=Færdig  Bksp=Redigér/Afslut  %s=Tilbage
+Un(f)avorite	Fjern (f)avorit
+Un(m)ute	Slå lyd til (m)
+Unfavorite	Fjern favorit
+Uni(g)nore	Stop med at i(g)norere
+Unignore	Stop med at ignorere
+Units: %s	Enheder: %s
+Unknown	Ukendt
+Until read	Indtil læst
+Up to date (%s)	Opdateret (%s)
+Up/Down	Op/Ned
+Up/Down = Select   Space = Compose   Enter = Focus   %s = Delete   %s = Back	Op/Ned = Vælg   Space = Skriv   Enter = Fokus   %s = Slet   %s = Tilbage
+Up/Down = Select   Space = Compose   Enter = Focus   D = Delete	Op/Ned = Vælg   Space = Skriv   Enter = Fokus   D = Slet
+Up/Down/J/K = Scroll   %s = Close	Op/Ned/J/K = Rul   %s = Luk
+Up/Down/J/K = Scroll   Bksp = Close	Op/Ned/J/K = Rul   Bksp = Luk
+Up/Down=Change  Enter=Save  %s=Cancel	Op/Ned=Skift  Enter=Gem  %s=Annullér
+Up/Down=Select  Left/Right=Change  Enter=Save  %s=Cancel	Op/Ned=Vælg  Venstre/Højre=Skift  Enter=Gem  %s=Annullér
+Update	Opdatering
+Update check failed: %s	Opdateringstjek mislykkedes: %s
+Update check needs WiFi connected	Opdateringstjek kræver forbundet WiFi
+Update check needs WiFi on	Opdateringstjek kræver, at WiFi er slået til
+Update check skipped (a dialog was open)	Opdateringstjek sprunget over (en dialog var åben)
+Uplinked by: %s	Sendt til MQTT af: %s
+Uplinked by: the sender itself	Sendt til MQTT af: afsenderen selv
+Use arrows to choose, then tap Next	Vælg med pilene, og tryk så Næste
+Used: %lu KB (%lu%%)\nTotal: %lu KB\nFree: %lu KB\nMin free: %lu KB\nMax block: %lu KB	Brugt: %lu KB (%lu%%)\nI alt: %lu KB\nLedig: %lu KB\nMin. ledig: %lu KB\nMaks. blok: %lu KB
+VNC Host failed to allocate PSRAM	VNC-vært kunne ikke tildele PSRAM
+VNC Host off	VNC-vært fra
+VNC Host on\nOpen http://%s/ and select the Remote tab	VNC-vært til\nÅbn http://%s/, og vælg fanen Remote
+VNC Host on\nhttp://%s:%u/	VNC-vært til\nhttp://%s:%u/
+VNC Host: Off	VNC-vært: Fra
+VNC Host: Off (WiFi off)	VNC-vært: Fra (WiFi fra)
+VNC Host: On (browser connected)	VNC-vært: Til (browser forbundet)
+VNC Host: On (network disconnected)	VNC-vært: Til (netværk afbrudt)
+VNC Host: Unavailable (WiFi not connected)	VNC-vært: Ikke tilgængelig (WiFi ikke forbundet)
+Voltage	Spænding
+Volume	Lydstyrke
+Volume: %u%%	Lydstyrke: %u%%
+W = Scan   S = Send   C = Reset   %s = Back	W = Scan   S = Send   C = Nulstil   %s = Tilbage
+W = Sweep   P = Preset   C = %s   %s = Back	W = Afsøg   P = Forvalg   C = %s   %s = Tilbage
+W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Afsøg   P = Forvalg   C = %s   S = Gem   %s = Tilbage
+Wait %lus before sending again	Vent %lus, før du sender igen
+Wait %lus between sweeps	Vent %lus mellem afsøgninger
+Waiting for Wi-Fi...	Venter på Wi-Fi...
+Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Overvåger %s/2/e/#\n\nIngen beskeder endnu. Kanaler vises her, efterhånden som de udgives, de nyeste nederst, med antallet af beskeder set på hver.
+Weather	Vejr
+Weather - %s	Vejr - %s
+Weather server error (HTTP %d).	Fejl fra vejrserveren (HTTP %d).
+Web Config disabled	Webkonfiguration deaktiveret
+Web Config locked while MQTT is on	Webkonfigurationen er låst, mens MQTT er slået til
+Web Config start failed	Webkonfigurationen kunne ikke starte
+Web Config stopped.\n\nThe Bluetooth keyboard and Web Config share one radio and cannot run at the same time.\n\nTurn the keyboard off to use Web Config again.	Webkonfigurationen stoppet.\n\nBluetooth-tastaturet og webkonfigurationen deler én radio og kan ikke køre samtidig.\n\nSlå tastaturet fra for at bruge webkonfigurationen igen.
+Web Config: Disabled	Webkonfiguration: Deaktiveret
+Web Config: Enabled	Webkonfiguration: Aktiveret
+Web Config: Off (MQTT on)	Webkonfiguration: Fra (MQTT til)
+Web Config: Off (WiFi off)	Webkonfiguration: Fra (WiFi fra)
+Web Config: On	Webkonfiguration: Til
+Web Config: On (Lite)	Webkonfiguration: Til (Lite)
+Web Config: On (chat PAUSED)	Webkonfiguration: Til (chat PAUSERET)
+Web config: %s\n\nChat is PAUSED while web config runs - this device needs that memory for Wi-Fi. Messages sent to you now are not received or stored.\n\nTurn web config off to resume messaging.	Webkonfiguration: %s\n\nChatten er PAUSERET, mens webkonfigurationen kører - enheden har brug for hukommelsen til Wi-Fi. Beskeder, der sendes til dig nu, bliver hverken modtaget eller gemt.\n\nSlå webkonfigurationen fra for at fortsætte med at chatte.
+Wed	ons
+Welcome to Camillia for Meshtastic	Velkommen til Camillia til Meshtastic
+Wheel/j-k=Change   Enter=Next	Hjul/j-k=Skift   Enter=Næste
+White	Hvid
+Wi-Fi needed to fetch conditions.	Wi-Fi er nødvendigt for at hente vejret.
+Wi-Fi needed to fetch the\nterrain profile for this path.	Wi-Fi er nødvendigt for at hente\nterrænprofilen for denne rute.
+WiFi connected: %s	WiFi forbundet: %s
+WiFi is off	WiFi er slået fra
+WiFi not connected	WiFi ikke forbundet
+WiFi password	WiFi-adgangskode
+WiFi selected: %s	WiFi valgt: %s
+WiFi: Off	WiFi: Fra
+WiFi: On (%s)	WiFi: Til (%s)
+WiFi: On (AP MODE ONLY)	WiFi: Til (KUN AP-TILSTAND)
+WiFi: On (AP mode)	WiFi: Til (AP-tilstand)
+WiFi: On (connecting %s)	WiFi: Til (forbinder %s)
+Wide	Bred
+Within %s	Inden for %s
+Writing a new filesystem...	Skriver et nyt filsystem...
+X-Large	Ekstra stor
+Y/Enter=Import   N/Bksp=Skip	Y/Enter=Importér   N/Bksp=Spring over
+Year	År
+Yellow	Gul
+Yes	Ja
+[%s] no match	[%s] intet fund
+[radio] init failed	[radio] opstart mislykkedes
+\n%lu min ago	\nfor %lu min siden
+\n%s, %lu min ago	\n%s, for %lu min siden
+\n+%u more	\n+%u mere
+\nT-Deck trackball: hold click 2s to sleep	\nT-Decks trackball: hold klikket 2 s for at slumre
+\n\nDelete them? Nothing else on the card is touched.\n\nFormat erases the whole card instead - the only certain fix.	\n\nSlette dem? Intet andet på kortet røres.\n\nFormatering sletter i stedet hele kortet - den eneste sikre løsning.
+all rates tried	alle hastigheder prøvet
+base64 key	base64-nøgle
+ch %s   air %s	kan %s   luft %s
+channel	kanal
+check requested	tjek anmodet
+exact	præcis
+external	ekstern
+internal	intern
+j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k eller </>=Justér  Op/Ned=Række  Enter=Gem  Back=Annullér
+j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Justér  </>=Række  Enter=Gem  Backspace=Annullér
+j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Justér  Enter=Gem  Backspace=Annullér
+j/k=Adjust  Wheel=Row  Enter=Save  Backspace=Cancel	j/k=Justér  Hjul=Række  Enter=Gem  Backspace=Annullér
+j/k=Change   Enter=Next   Bksp=Back	j/k=Skift   Enter=Næste   Bksp=Tilbage
+low	lav
+missing	mangler
+never	aldrig
+no key	ingen nøgle
+not seen	ikke set
+off	fra
+on	til
+one of: 	én af:
+one rate tried	én hastighed prøvet
+present	findes
+press F to change	tryk F for at skifte
+retry %lus	prøver igen om %lus
+retry now	prøv nu
+sensor %.2f V    trim %s	sensor %.2f V    justering %s
+sensor: read failed	sensor: læsefejl
+stay on	altid tændt
+tap Filter to change	tryk Filter for at skifte
+unavailable	ikke tilgængelig
+unknown	ukendt
+unknown date	ukendt dato
+unknown error	ukendt fejl
+unknown node (id ends ..%02x)	ukendt node (id ender på ..%02x)
+unset	ikke angivet
+until read	indtil læst
+vague	omtrentlig

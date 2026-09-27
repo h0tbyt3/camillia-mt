@@ -28,7 +28,9 @@ except NameError:
 
 # Same order as enum UiLang in src/i18n.h -- the index is what gets stored.
 # English is the keys themselves and has no file.
-LANGS = ["en", "es", "fr", "ro", "it"]
+LANGS = ["en", "es", "fr", "ro", "it",
+         "de", "pt", "pl", "nl", "cs", "sv", "nb", "da", "fi",
+         "hu", "sk", "hr", "sl", "tr", "lt", "lv", "et"]
 
 LANG_DIR = os.path.join(PROJECT_DIR, "lang")
 DST_PATH = os.path.join(PROJECT_DIR, "src", "i18n_builtin.h")

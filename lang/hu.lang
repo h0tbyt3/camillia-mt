@@ -1,0 +1,887 @@
+# Camillia language file (issue #99)
+# code: hu
+# name: Magyar
+#
+# One translation per line: the English exactly as it appears in the source,
+# a TAB, then the translation. Escape a newline as \n, a tab as \t, a backslash
+# as \\. Keep every %d / %s / %u ... in the same order and of the same type as the
+# English -- a line whose placeholders differ is ignored on the device and the
+# English is shown. Mesh terms that are names (LongFast, MQTT, LoRa) stay as they
+# are. Lines are kept sorted by the English, for review; the build sorts anyway.
+# First draft: review by a native speaker welcome (see docs/TRANSLATING.md).
+#
+# Compiled in by tools/gen_lang_builtin.py.
+  %s via %s (%.0f dB)\n	  %s ezen át: %s (%.0f dB)\n
+  CONFIRM?	  MEGERŐSÍTED?
+  Humid  %.1f %%	  Párat. %.1f %%
+  Press  %.1f hPa	  Nyomás %.1f hPa
+  lock	  védett
+  open	  nyílt
+ (no card)	 (nincs kártya)
+ (not sharing location)	 (hely nincs megosztva)
+ (unchanged)	 (változatlan)
+ - %s available	 - %s elérhető
+ - check failed	 - az ellenőrzés sikertelen
+ - check unavailable	 - az ellenőrzés nem érhető el
+ - checking...	 - ellenőrzés...
+ - saving to %s	 - mentés ide: %s
+ - up to date	 - naprakész
+! TX failed	! Küldés sikertelen
+! TX failed (node id)	! Küldés sikertelen (csomópont-azonosító)
+%d %s %d	%d. %s %d.
+%d chans  %s msgs  %s%s	%d csatorna  %s üz.  %s%s
+%d chans  %s msgs  %s%s  (+%s off-list)	%d csatorna  %s üz.  %s%s  (+%s listán kívül)
+%d node(s), %d report(s)	%d csomópont, %d jelentés
+%d%s  %s\nFeels %d%s, humidity %d%%\nWind %s %d %s%s%s	%d%s  %s\nHőérzet %d%s, páratartalom %d%%\nSzél %s %d %s%s%s
+%luh ago	%lu órája
+%lum ago	%lu perce
+%lus ago	%lu mp-e
+%s   -   %u match%s so far	%s   -   %u találat%.0s eddig
+%s  (current)	%s  (jelenlegi)
+%s (this node)	%s (ez a csomópont)
+%s - WiFi off	%s - WiFi ki
+%s - rebooting...	%s - újraindítás...
+%s - saved	%s - mentve
+%s = Back   C = Clear   F = Filter	%s = Vissza   C = Törlés   F = Szűrő
+%s = Back   green=SNR  pink=RSSI	%s = Vissza   zöld=SNR  rózsaszín=RSSI
+%s = Back   teal=ChUtil  orange=AirTx	%s = Vissza   kékeszöld=ChUtil  narancs=AirTx
+%s = Close	%s = Bezárás
+%s returns to the live list.\nIf it is full, the oldest non-favorite is archived to make room.	%s visszakerül az aktív listára.\nHa az megtelt, a legrégebbi nem kedvenc archiválódik, hogy helyet csináljon.
+%s to close Help	%s bezárja a Súgót
+%s will be removed from the node list.	%s törlődik a csomópontlistából.
+%s x%u\nClock: %u MHz\nRevision: %u\nUptime: %luh %02lum %02lus\nLoop rate: %lu /s\nBattery: %u%% %.3fV	%s x%u\nÓrajel: %u MHz\nRevízió: %u\nÜzemidő: %luh %02lum %02lus\nCiklusok: %lu /s\nAkku: %u%% %.3fV
+%s%.2f, %.2f (rounded)	%s%.2f, %.2f (kerekítve)
+%s%lu min ago - %.2f, %.2f (rounded)	%s%lu perce - %.2f, %.2f (kerekítve)
+%s.\n\nNothing can arrive until the bridge has a broker session. Fix it in Config (or web config) and this list fills in on its own.	%s.\n\nSemmi sem érkezik, amíg a hídnak nincs munkamenete a brokerrel. Javítsd a Beállításokban (vagy a webes beállításokban), és a lista magától feltöltődik.
+%s: %d node(s) heard	%s: %d csomópont hallva
+%s: %d on preset (%lus)	%s: %d az előbeállításon (%lus)
+%s=Scroll  A=Actions  %s=List	%s=Görgetés  A=Műveletek  %s=Lista
+%s\n%.1f km - brg %03d %s\n%s\nyou %dm - peer %dm - %.0f MHz	%s\n%.1f km - irány %03d %s\n%s\nte %dm - másik %dm - %.0f MHz
+%s\n%lu min old	%s\n%lu perce
+%s\nIn use - will switch to the next configured WiFi network, or AP mode if none is available	%s\nHasználatban - átvált a következő beállított WiFi-hálózatra, vagy AP módra, ha nincs ilyen
+%s\nMessage history will be erased	%s\nAz üzenetelőzmények törlődnek
+%s\nType %06u then Enter on the keyboard	%s\nÍrd be: %06u, majd Enter a billentyűzeten
+%u of %d	%u / %d
+%u sec	%u mp
+(A)nnounce	Bejelentés (A)
+(B)eacons	Jeladók (B)
+(C)FG   (D)M   (N)odes   Too(l)s   (A)ctions	(C)FG   (D)M   Csomópontok (N)   Eszközök (L)   Műveletek (A)
+(C)FG  C(h)an  (D)M  (N)odes  Too(l)s  (A)ct	(C)FG  Csatorna (H)  (D)M  Csomóp. (N)  Eszk. (L)  Műv. (A)
+(D) Direct Messages\n(C) Configuration\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(H) Channel selector\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(D) Közvetlen üzenetek\n(C) Beállítások\n(N) Csomópontok\n(L) Eszközök (Live, grafikonok)\n(A) Csatorna műveletei\n(H) Csatornaválasztó\n(P) Súgó (ez a képernyő)\n(E) Emoji\n(Space) Írás/Válasz\n(Enter) Ugrás az üzenetekre
+(D)iscovery	Felderítés (D)
+(F)avorite	Kedvenc (F)
+(H) Home dashboard\n(C) Chat (again: channels)\n(F) Configuration\n(D) Direct Messages\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(H) Kezdőpanel\n(C) Chat (újra: csatornák)\n(F) Beállítások\n(D) Közvetlen üzenetek\n(N) Csomópontok\n(L) Eszközök (Live, grafikonok)\n(A) Csatorna műveletei\n(P) Súgó (ez a képernyő)\n(E) Emoji\n(Space) Írás/Válasz\n(Enter) Ugrás az üzenetekre
+(H)ome (C)hat C(f)g (D)M (N)odes Too(l)s	Kezdő (H) (C)hat Beáll. (F) (D)M Csomóp. (N) Eszk. (L)
+(L)ocate	Helymeghatározás (L)
+(L)ocation: %s	Hely (L): %s
+(M)ute	Némítás (M)
+(R)eply	Válasz (R)
+(W)eather	Időjárás (W)
+(Y)es	Igen (Y)
+(no name)	(nincs név)
+(not set)	(nincs beállítva)
+(nothing)	(semmi)
+(unknown)	(ismeretlen)
+(unnamed)	(névtelen)
+, gusts %d	, széllökés %d
+1 hour	1 óra
+12-hour	12 órás
+15 sec	15 mp
+2 hours	2 óra
+24-hour	24 órás
+30 sec	30 mp
+4-char short name (ABCD)	4 karakteres rövid név (ABCD)
+5 min on that preset. This node hears nothing on its own while it runs, and finds only meshes sharing your primary channel key.	5 perc ezen az előbeállításon. Közben ez a csomópont semmit sem hall a saját hálózatából, és csak az elsődleges csatornád kulcsát használó hálózatokat találja meg.
+5 sec	5 mp
+6 hours	6 óra
+? hops	? ugrás
+ACK from %s. Waiting for reply...	ACK tőle: %s. Válaszra várva...
+ACKed, no reply (%lus)	ACK megjött, nincs válasz (%lus)
+AP mode cannot be removed	Az AP mód nem távolítható el
+AP mode selected	AP mód kiválasztva
+AP mode selected - enable WiFi first	AP mód kiválasztva - előbb kapcsold be a WiFit
+AP mode: %s	AP mód: %s
+ARCHIVED %s\n\n%s\nShort: %s\nID: !%08lX\n\nLast heard: %s\n%s\n\n%sNot on the live list. Restore it to message,\nfavorite or trace it.	ARCHIVÁLVA %s\n\n%s\nRövid: %s\nID: !%08lX\n\nUtoljára hallva: %s\n%s\n\n%sNincs az aktív listán. Állítsd vissza, hogy üzenhess neki,\nkedvencnek jelöld vagy nyomon kövesd.
+Act	Műv.
+Action Result	Eredmény
+Action: %s	Művelet: %s
+Actions	Műveletek
+All	Mind
+All live traffic will be erased	Az összes élő forgalom törlődik
+All live traffic will be erased, including lines hidden by the filter	Az összes élő forgalom törlődik, a szűrő által elrejtett sorokkal együtt
+Already %s.	Már %s.
+Already on that preset	Már ezen az előbeállításon van
+Analyzing terrain...	Terep elemzése...
+Announce	Bejelentés
+Any key / %s = Close	Bármely gomb / %s = Bezárás
+Apply	Alkalmaz
+Apr	ápr.
+April	április
+Archive Dropped Nodes: %s	Kiszorult csomópontok archiválása: %s
+Archive Dropped Nodes: %s%s	Kiszorult csomópontok archiválása: %s%s
+Asks first, then reboots.	Előbb rákérdez, aztán újraindít.
+Asks first, then reboots. Only nodes on the same preset can hear each other.	Előbb rákérdez, aztán újraindít. Csak az azonos előbeállítású csomópontok hallják egymást.
+Aug	aug.
+August	augusztus
+Auto-update gave up on %s after %u failed installs	Az automatikus frissítés feladta: %s, %u sikertelen telepítés után
+BT Keyboard failed to start (low memory)	A BT-billentyűzet nem indult el (kevés memória)
+BT Keyboard off	BT-billentyűzet ki
+BT Keyboard on - connecting to %s	BT-billentyűzet be - csatlakozás: %s
+BT Keyboard on - use Pair to choose one	BT-billentyűzet be - válassz a Párosítással
+BT Keyboard turned off.\n\nWeb Config and the Bluetooth keyboard share one radio and cannot run at the same time.\n\nTurn Web Config off to use the keyboard again.	BT-billentyűzet kikapcsolva.\n\nA webes beállítások és a Bluetooth-billentyűzet egy rádión osztozik, így nem futhatnak egyszerre.\n\nKapcsold ki a webes beállításokat, hogy újra használhasd a billentyűzetet.
+BT Keyboard: %s	BT-billentyűzet: %s
+BT Keyboard: Off	BT-billentyűzet: Ki
+Back	Vissza
+Back = Cancel	Vissza = Mégse
+Bass	Basszus
+Battery Calibration	Akku kalibrálása
+Battery Calibration: %s	Akku kalibrálása: %s
+Battery Calibration: Off	Akku kalibrálása: Ki
+Battery Display: %s	Akku kijelzése: %s
+Battery critical - shedding load	Akku kritikus - terhelés csökkentése
+Battery empty	Akku lemerült
+Battery low	Akku gyenge
+Battery trim: %s	Akku korrekció: %s
+Battery: %.0f%%\nVoltage: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%	Akku: %.0f%%\nFeszültség: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%
+Battery\nVoltage\nChUtil\nAirTx\nTemp\nHumidity\nPressure	Akku\nFeszültség\nChUtil\nAirTx\nHőm.\nPáratart.\nNyomás
+Beacons	Jeladók
+Bksp=Back  solid=ChUtil  dash=AirTx	Bksp=Vissza  folytonos=ChUtil  szaggatott=AirTx
+Bksp=Back  solid=SNR  dash=RSSI	Bksp=Vissza  folytonos=SNR  szaggatott=RSSI
+Bksp=Close	Bksp=Bezárás
+Blink Flashes (Channel): %u	Villanások (csatorna): %u
+Blink Flashes (DM): %u	Villanások (DM): %u
+Blocked @ %.1f km, %dm over sight	Takarva %.1f km-nél, %dm-rel a rálátás felett
+Blue	Kék
+Bluetooth Keyboard	Bluetooth-billentyűzet
+Bottom buttons: Chats, DM, Nodes, Tools, Config, Help.	Alsó gombok: Chatek, DM, Csomópontok, Eszközök, Beállítás, Súgó.
+Bottom buttons: Home, Chats, DM, Nodes, Tools, Config, Help.\nHome is the dashboard; Chats is the messages, and its icon\nblinks when a channel has something unread.	Alsó gombok: Kezdő, Chatek, DM, Csomópontok, Eszközök, Beállítás, Súgó.\nA Kezdő a panel; a Chatek az üzenetek, és az ikonja\nvillog, ha egy csatornán olvasatlan van.
+Brightness	Fényerő
+Brightness: %u%%	Fényerő: %u%%
+Brightness: %u%%  Lock: %u%%	Fényerő: %u%%  Zár: %u%%
+Brown	Barna
+Bubbles	Buborékok
+C = Clear   %s = Back	C = Törlés   %s = Vissza
+C = Clear   F = Filter	C = Törlés   F = Szűrő
+C:Cfg H:Ch D:DM N:Node L:Tools A:Act	C:Beáll H:Csat D:DM N:Csomó L:Eszk A:Műv
+CHANNEL UTIL	CSATORNAHASZNÁLAT
+CHANNEL UTILIZATION (%)	CSATORNAHASZNÁLAT (%)
+Can't resolve the weather server.\nCheck the address and DNS.	Az időjárás-szerver nem oldható fel.\nEllenőrizd a címet és a DNS-t.
+Cancel	Mégse
+Cancelled after removing %u file%s. The rest were left alone - run the scan again to see what is still there.	Megszakítva %u fájl%.0s törlése után. A többihez nem nyúlt - futtasd újra a vizsgálatot, hogy lásd, mi maradt.
+Cannot send: no node id	Nem küldhető: nincs csomópont-azonosító
+Card formatted.\n\nWrite your configuration back to it as /camillia/config.yaml?	Kártya formázva.\n\nVisszaírjam a beállításokat /camillia/config.yaml néven?
+ChUtil  cur %s  avg %.1f%%  max %.1f%%   n=%d\nAirTx   cur %s  avg %.1f%%  max %.1f%%   n=%d	ChUtil  most %s  átl %.1f%%  max %.1f%%   n=%d\nAirTx   most %s  átl %.1f%%  max %.1f%%   n=%d
+ChUtil  cur --  avg --  max --   n=0\nAirTx   cur --  avg --  max --   n=0	ChUtil  most --  átl --  max --   n=0\nAirTx   most --  átl --  max --   n=0
+Channel	Csatorna
+Channel %d	%d. csatorna
+Channel %d  %s	%d. csatorna  %s
+Channel Actions\n%s	Csatorna műveletei\n%s
+Channel Configuration	Csatorna beállításai
+Channel Key	Csatornakulcs
+Channel Message LED	Csatornaüzenet LED
+Channel Message LED: %s	Csatornaüzenet LED: %s
+Channel Name	Csatornanév
+Channel blink: %u flash%s	Csatorna villogás: %u×%.0s
+Channel busy (%.0f%%) - not sweeping	A csatorna foglalt (%.0f%%) - nincs pásztázás
+Channels	Csatornák
+Chat Colors: %s	Chat színek: %s
+Chat Names	Nevek a chatben
+Chat Names: %s	Nevek a chatben: %s
+Chat Names: %s%s	Nevek a chatben: %s%s
+Chat Style	Chat stílus
+Chat Style: %s	Chat stílus: %s
+Chat Style: %s%s	Chat stílus: %s%s
+Chat Type	Chat típus
+Chat Type: %s	Chat típus: %s
+Chat Type: %s%s	Chat típus: %s%s
+Chat colors reassigned	Chat színek újraosztva
+Checking %u of %u   %u%%	Ellenőrzés: %u / %u   %u%%
+Chirpy	Csiripelés
+Choose WiFi	WiFi kiválasztása
+Choose WiFi or Finish	Válassz WiFit vagy Befejezés
+Choose WiFi: %s	WiFi kiválasztása: %s
+Choose WiFi: (none)	WiFi kiválasztása: (nincs)
+Classic	Klasszikus
+Clear	Törlés
+Clear Messages	Üzenetek törlése
+Clear Nodes (All)	Csomópontok törlése (mind)
+Clear Nodes (Keep Favorites)	Csomópontok törlése (kedvencek maradnak)
+Clear by %dm at tightest	%dm szabad a legszűkebb ponton
+Clear entire live feed?	Törlöd a teljes élő hírfolyamot?
+Cleared %d nodes, kept %d favorites - rebooting...	%d csomópont törölve, %d kedvenc megtartva - újraindítás...
+Cleared (%d report(s)) - rebuilding from traffic	Törölve (%d jelentés) - újraépítés a forgalomból
+Clock Format: %s	Időformátum: %s
+Clock set from web config	Óra beállítva a webes beállításokból
+Clock set: %04d-%02d-%02d %02d:%02d	Óra beállítva: %04d-%02d-%02d %02d:%02d
+Close	Bezárás
+Configuration	Beállítások
+Configuration exported to /camillia/config.yaml.\n\nThe card is formatted and holds nothing else. Chat history, the node database and any map tiles were on the old filesystem and are gone.	Beállítások exportálva ide: /camillia/config.yaml.\n\nA kártya formázva van, és semmi mást nem tartalmaz. A chat előzmények, a csomópont-adatbázis és a térképcsempék a régi fájlrendszeren voltak, és elvesztek.
+Configured WiFi is empty	A beállított WiFi üres
+Confirm Chat Style	Chat stílus megerősítése
+Confirm?	Megerősíted?
+Connect	Csatlakozás
+Connect to WiFi before enabling VNC	A VNC bekapcsolása előtt csatlakozz WiFihez
+Connect: %s	Csatlakozás: %s
+Connecting to %s...	Csatlakozás: %s...
+Connecting to broker...	Csatlakozás a brokerhez...
+Connection failed: %s	Sikertelen csatlakozás: %s
+Conversation deleted	Beszélgetés törölve
+Conversations	Beszélgetések
+Could not reach the weather server.	Az időjárás-szerver nem érhető el.
+Could not remove every file. Check storage and retry.	Nem sikerült minden fájlt törölni. Ellenőrizd a tárolót, és próbáld újra.
+Counting files on the card...	Fájlok számolása a kártyán...
+Counting files... %u found	Fájlok számolása... %u találat
+Custom	Egyéni
+Custom (%u B)	Egyéni (%u B)
+Cyan	Ciánkék
+DIRECT MESSAGES	KÖZVETLEN ÜZENETEK
+DISTANCE UNKNOWN	ISMERETLEN TÁVOLSÁG
+DM blink: %u flash%s	DM villogás: %u×%.0s
+DMs	DM-ek
+Date unavailable	A dátum nem érhető el
+Day	Nap
+Dec	dec.
+December	december
+Default	Alapértelmezett
+Default (%u)	Alapértelmezett (%u)
+Default +%u	Alapértelmezett +%u
+Del(e)te	Törlés (E)
+Delete	Törlés
+Delete WiFi?	Törlöd a WiFit?
+Delete conversation?	Törlöd a beszélgetést?
+Delete failed	A törlés sikertelen
+Delete node?	Törlöd a csomópontot?
+Delivery details not recorded: received before this boot, or too many messages ago.	Kézbesítési adatok nincsenek rögzítve: ez előtt az indítás előtt érkezett, vagy túl sok üzenettel korábban.
+Detail Map	Részletes térkép
+Device Info	Eszközadatok
+Device switched off last time: battery empty	Az eszköz legutóbb lemerült akkuval kapcsolt ki
+Direct Message LED	Közvetlen üzenet LED
+Direct Message LED: %s	Közvetlen üzenet LED: %s
+Discovery	Felderítés
+Do not remove the card	Ne vedd ki a kártyát
+Elevation data too sparse\nfor this path.	Túl kevés magassági adat\nehhez az útvonalhoz.
+Elevation fetch failed (%d).\nCheck the server URL - it must be http://	A magasság lekérése sikertelen (%d).\nEllenőrizd a szerver URL-jét - http:// kell legyen
+Enable WiFi first	Előbb kapcsold be a WiFit
+Enc	Titk.
+Encrypted	Titkosított
+Encryption	Titkosítás
+Enter password, then tap Connect	Add meg a jelszót, majd koppints a Csatlakozásra
+Enter this node's long name.	Add meg a csomópont hosszú nevét.
+Enter=Connect  Backspace=Back	Enter=Csatlakozás  Backspace=Vissza
+Enter=Info  A=Actions  Bksp=Edit/Exit  %s=Back	Enter=Infó  A=Műveletek  Bksp=Szerk./Kilépés  %s=Vissza
+Enter=Info  A=Actions  Space=Filter  %s=Back	Enter=Infó  A=Műveletek  Space=Szűrő  %s=Vissza
+Enter=Next	Enter=Tovább
+Enter=Next    Bksp(empty)=Back	Enter=Tovább    Bksp(üres)=Vissza
+Enter=Next   Bksp(empty)=Back	Enter=Tovább   Bksp(üres)=Vissza
+Enter=OK  %s=Erase/Back	Enter=OK  %s=Törlés/Vissza
+Enter=OK  Bksp=Erase  %s=Back	Enter=OK  Bksp=Törlés  %s=Vissza
+Enter=Save  Tab=Field  %s=Erase/Back	Enter=Mentés  Tab=Mező  %s=Törlés/Vissza
+Enter=Send   %s=Cancel	Enter=Küldés   %s=Mégse
+Enter=Send  Bksp(empty)=Cancel	Enter=Küldés  Bksp(üres)=Mégse
+Enter=Send  Esc=Cancel  Bksp=Del	Enter=Küldés  Esc=Mégse  Bksp=Törlés
+Environment	Környezet
+Errors	Hibák
+Examined %u file%s. Nothing matching Windows malware was found.\n\nThis reads names and file headers, not contents, so it is a good sign rather than a guarantee.	%u fájl%.0s megvizsgálva. Windows-kártevőre utaló fájl nem található.\n\nA vizsgálat neveket és fájlfejléceket olvas, nem tartalmat, így ez jó jel, nem garancia.
+Export Config	Beállítások exportálása
+Export FAILED (no SD?)	Az export SIKERTELEN (nincs SD?)
+Export FAILED. The card formatted, but the configuration could not be written back to it - try Export from the Config screen.	Az export SIKERTELEN. A kártya formázva lett, de a beállításokat nem sikerült visszaírni - próbáld az Exportot a Beállítások képernyőn.
+Exported to /camillia/config.yaml	Exportálva ide: /camillia/config.yaml
+Extra Large	Extra nagy
+Factory Reset	Gyári visszaállítás
+Factory reset - rebooting...	Gyári visszaállítás - újraindítás...
+Favorite	Kedvenc
+Feb	febr.
+February	február
+Feels %d%s   Hum %d%%\nWind %d %s %s\nGusting %d %s	Hőérz. %d%s   Pára %d%%\nSzél %d %s %s\nLökés %d %s
+Feels like   %d%s\nHumidity     %d%%\nWind         %d %s from %s\nGusting      %d %s	Hőérzet      %d%s\nPáratartalom %d%%\nSzél         %d %s innen: %s\nSzéllökés    %d %s
+Fetching...	Lekérés...
+Filter	Szűrő
+Filter Nodes	Csomópontok szűrése
+Filter: %s	Szűrő: %s
+Finish	Befejezés
+Firmware Update	Firmware-frissítés
+Firmware Update Check	Firmware-frissítés keresése
+Firmware Update: Install %s	Firmware-frissítés: %s telepítése
+Font Size	Betűméret
+Font Size: %s	Betűméret: %s
+Font Size: %s%s	Betűméret: %s%s
+Forget	Elfelejtés
+Format FAILED, and the card could not be remounted.\n\nReboot the device, or format the card on a PC.	A formázás SIKERTELEN, és a kártyát nem sikerült újra csatolni.\n\nIndítsd újra az eszközt, vagy formázd a kártyát számítógépen.
+Format FAILED. The card was left as it was and is still mounted.\n\nFormatting it on a PC is the reliable way out.	A formázás SIKERTELEN. A kártya változatlan maradt, és továbbra is csatolva van.\n\nA számítógépes formázás a megbízható megoldás.
+Format the SD card?\n\nThis erases EVERYTHING on it - chat and DM history, the node database, map tiles and your saved configuration - not just the files the scan matched.\n\nIt cannot be undone.	Formázod az SD-kártyát?\n\nEz MINDENT töröl róla - chat- és DM-előzményeket, a csomópont-adatbázist, a térképcsempéket és a mentett beállításokat -, nem csak a vizsgálat által talált fájlokat.\n\nNem vonható vissza.
+Formatting SD Card	SD-kártya formázása
+Found %d network(s)	%d hálózat található
+Found %u file%s matching Windows malware:\n	%u fájl%.0s Windows-kártevőre utal:\n
+Freq: %.3f MHz	Frekv: %.3f MHz
+Fri	P
+From: %s	Feladó: %s
+Full node name when known	Teljes csomópontnév, ha ismert
+GPS disabled (using default coordinates)	GPS kikapcsolva (alapértelmezett koordináták)
+GPS enabled (hardware)	GPS bekapcsolva (hardver)
+GPS: Disabled (Default Coords)	GPS: Ki (alap koord.)
+GPS: Enabled (Hardware)	GPS: Be (hardver)
+Gateway: not known	Átjáró: ismeretlen
+Grazes terrain - F1=%dm	Súrolja a terepet - F1=%dm
+Green	Zöld
+HEARD ABOUT	MÁSOK ÁLTAL JELENTVE
+Heard %s ago   %u seen, ~%s apart	%s ezelőtt hallva   %u látva, ~%s időközzel
+Heard %s ago   1 seen	%s ezelőtt hallva   1 látva
+Help	Súgó
+High	Magas
+Hops	Ugrások
+Hops: %d of %d	Ugrások: %d / %d
+Hour	Óra
+I(g)nore	Mellőzés (G)
+Identity	Azonosság
+Ignore	Mellőzés
+Import Config	Beállítások importálása
+Import FAILED (no file?)	Az import SIKERTELEN (nincs fájl?)
+Import failed - enter a name	Sikertelen import - adj meg egy nevet
+Imported OK - rebooting...	Import OK - újraindítás...
+Indigo	Indigó
+Info	Infó
+Install now? The device reboots to update.	Telepíted most? Az eszköz a frissítéshez újraindul.
+Invalid base64 key	Érvénytelen base64 kulcs
+Invalid date/time	Érvénytelen dátum/idő
+Invert Scrolling: %s	Fordított görgetés: %s
+J/K = Scroll   %s = Close	J/K = Görgetés   %s = Bezárás
+J/K = Scroll   Bksp = Close	J/K = Görgetés   Bksp = Bezárás
+J/K = Select   Space = Compose   Enter = Focus   D = Delete	J/K = Kiválasztás   Space = Írás   Enter = Fókusz   D = Törlés
+Jan	jan.
+January	január
+Jul	júl.
+July	július
+Jun	jún.
+June	június
+Just announced. Try again in %us.	Épp most jelentetted be. Próbáld újra %us múlva.
+Key	Kulcs
+Keyboard Blink: %s	Billentyűzet villogás: %s
+Keyboard Light	Billentyűzet fény
+Keyboard Light: %s	Billentyűzet fény: %s
+Keyboard blink: %s	Billentyűzet villogás: %s
+Keyboard light %s	Billentyűzet fény %s
+Keyboard light %s - after a power cycle	Billentyűzet fény %s - ki- és bekapcsolás után
+Keyboard light off	Billentyűzet fény ki
+L/R=Change   Enter=Save   %s=Back	B/J=Módosítás   Enter=Mentés   %s=Vissza
+LINE OF SIGHT	RÁLÁTÁS
+LIVE	ÉLŐ
+LONGEST SILENT	LEGRÉGEBBEN CSENDES
+Landscape	Fekvő
+Language	Nyelv
+Language: %s	Nyelv: %s
+Large	Nagy
+Last heard	Utoljára hallva
+Last heard\nSNR\nHops\nChannel\nSigned	Utoljára hallva\nSNR\nUgrások\nCsatorna\nAláírva
+Leave blank to clear	Hagyd üresen a törléshez
+Light reminds for %s	A fény %s ideig emlékeztet
+Light reminds until read	A fény olvasásig emlékeztet
+Link	Kapcsolat
+Listening   %d sender%s heard	Figyelés   %d küldő%.0s hallva
+Listening: off	Figyelés: ki
+Live	Élő
+Live Filter	Élő szűrő
+Live feed cleared	Élő hírfolyam törölve
+Loading map...	Térkép betöltése...
+Loc	Hely
+Locate	Helymeghatározás
+Locate: %s	Helymeghatározás: %s
+Location	Hely
+Location Precision	Helypontosság
+Location Precision: %s	Helypontosság: %s
+Location rounded to %s	Hely kerekítve: %s
+Location sent exactly	Hely pontosan elküldve
+Location sharing off (no position sent)	Helymegosztás ki (nincs pozíció küldve)
+Location sharing on	Helymegosztás be
+Location: %s	Hely: %s
+Lock Screen Off	Kijelző ki záráskor
+Lock Screen Off: %s	Kijelző ki záráskor: %s
+Lock Screen: %s	Zárolási képernyő: %s
+Lock screen	Zárolási képernyő
+Lock screen stays on	A zárolási képernyő bekapcsolva marad
+Long	Hosszú
+Long name	Hosszú név
+Long name cannot be empty	A hosszú név nem lehet üres
+Long name: %s\nEnter a short name (up to 4 chars).	Hosszú név: %s\nAdj meg egy rövid nevet (legfeljebb 4 karakter).
+Long: %s	Hosszú: %s
+Looking for keyboards...	Billentyűzetek keresése...
+Low	Alacsony
+ME (ACK)	ÉN (ACK)
+MQTT Bridge: %s	MQTT híd: %s
+MQTT Bridge: %s - rebooting...	MQTT híd: %s - újraindítás...
+MQTT Bridge: Off (WiFi off)	MQTT híd: Ki (WiFi ki)
+MQTT Scan Settings	MQTT keresés beállításai
+MQTT bridge is off	Az MQTT híd ki van kapcsolva
+Map (loading)	Térkép (betöltés)
+Map (off)	Térkép (ki)
+Map memory unavailable	Nincs memória a térképhez
+Map unavailable	A térkép nem érhető el
+Mar	márc.
+March	március
+Match the voltage to a meter reading.\nPercent comes from the fuel gauge and does not change.	Állítsd a feszültséget egy mérőműszer értékére.\nA százalék a töltésmérőből jön, és nem változik.
+Match the voltage to a meter reading.\nPercent follows it. 0% = uncalibrated.	Állítsd a feszültséget egy mérőműszer értékére.\nA százalék követi. 0% = kalibrálatlan.
+May	máj.
+Medium	Közepes
+Mesh Beacons is off.\n\nTurn it on in Config (or under Modules in web config) to decode beacons from other meshes. Receive-only: nothing is transmitted, and an offer is never applied to your radio.	A háló-jeladók ki vannak kapcsolva.\n\nKapcsold be a Beállításokban (vagy a webes beállítások Moduljai között), hogy más hálózatok jeladóit dekódold. Csak vétel: semmi nem kerül adásra, és egy ajánlat soha nem kerül alkalmazásra a rádiódon.
+Mesh Beacons: %s	Háló-jeladók: %s
+Mesh beacons: %s	Háló-jeladók: %s
+Message (I)nfo	Üzenet(i)nfó
+Message Actions	Üzenet műveletei
+Message Info	Üzenetinfó
+Messages	Üzenetek
+Messages cleared - rebooting...	Üzenetek törölve - újraindítás...
+Metric	Metrikus
+Minute	Perc
+Modem preset	Modem előbeállítás
+Mon	H
+Month	Hónap
+Move  Enter=Apply  %s=Back	Mozgatás  Enter=Alkalmaz  %s=Vissza
+Move  Enter=Apply  %s=Cancel	Mozgatás  Enter=Alkalmaz  %s=Mégse
+Move  Enter=Change  %s=Cancel	Mozgatás  Enter=Módosítás  %s=Mégse
+Move  Enter=Edit  %s=Back	Mozgatás  Enter=Szerkesztés  %s=Vissza
+Move  Enter=OK  %s=Cancel	Mozgatás  Enter=OK  %s=Mégse
+Move  Enter=Open  %s=Back	Mozgatás  Enter=Megnyitás  %s=Vissza
+Move  Enter=Pick  %s=Back	Mozgatás  Enter=Választás  %s=Vissza
+Move  Enter=Scan  %s=Cancel	Mozgatás  Enter=Keresés  %s=Mégse
+Move • Enter=Add • %s=Close	Mozgatás • Enter=Hozzáadás • %s=Bezárás
+Move • Enter=Insert • %s=Close	Mozgatás • Enter=Beszúrás • %s=Bezárás
+Move • Enter=React • %s=Close	Mozgatás • Enter=Reagálás • %s=Bezárás
+Move • Enter=Send • %s=Close	Mozgatás • Enter=Küldés • %s=Bezárás
+Move=Adjust  Enter=Save  %s=Cancel	Mozgatás=Állítás  Enter=Mentés  %s=Mégse
+Move=Adjust  Space=Toggle  Enter=Save  %s=Cancel	Mozgatás=Állítás  Space=Váltás  Enter=Mentés  %s=Mégse
+Move=Preview  Enter=OK  %s=Cancel	Mozgatás=Előnézet  Enter=OK  %s=Mégse
+My Message Color	Üzeneteim színe
+My Message Color: %s	Üzeneteim színe: %s
+My Message Color: %s (unchanged)	Üzeneteim színe: %s (változatlan)
+My Message Color: %s - rebooting...	Üzeneteim színe: %s - újraindítás...
+N=Choose WiFi   Enter=Finish   Bksp=Back	N=WiFi kiválasztása   Enter=Befejezés   Bksp=Vissza
+NO LINE OF SIGHT	NINCS RÁLÁTÁS
+NODEINFO + telemetry queued.	NODEINFO + telemetria sorba állítva.
+NODES	CSOMÓPONTOK
+NODES (%d%s)	CSOMÓPONTOK (%d%s)
+NODES [%s] (%d%s)	CSOMÓPONTOK [%s] (%d%s)
+Name	Név
+Name: %s\nShort: %s\nID: !%08X\nLast heard: %s\nSNR: %.1f dB\nHops: %u\nChannel: %d\n\nPosition:\n%s\n\nTelemetry:\n%s	Név: %s\nRövid: %s\nID: !%08X\nUtoljára hallva: %s\nSNR: %.1f dB\nUgrások: %u\nCsatorna: %d\n\nPozíció:\n%s\n\nTelemetria:\n%s
+Name\nShort\nID	Név\nRövid\nID
+Nav Bar: %s	Navigációs sáv: %s
+Neighborhood Info: %s	Szomszédsági infó: %s
+Neighborhood info: %s	Szomszédsági infó: %s
+Never	Soha
+New	Új
+New DM	Új DM
+New DM: Select Node	Új DM: csomópont kiválasztása
+New DM: Select Node [%s]	Új DM: csomópont kiválasztása [%s]
+New Message	Új üzenet
+Newest: %s %s	Legújabb: %s %s
+Newest: none heard yet	Legújabb: még senki sem hallatszott
+Next	Tovább
+No %s - not saved	Nincs %s - nincs mentve
+No %s - not saving	Nincs %s - nincs mentés
+No %s traffic yet\n(filter is on - %s)	Még nincs %s forgalom\n(szűrő bekapcsolva - %s)
+No S&F router heard yet	Még nem hallatszott S&F útválasztó
+No SD card is mounted.	Nincs csatolt SD-kártya.
+No WiFi network configured	Nincs beállított WiFi-hálózat
+No beacons heard yet.\n\nA beacon is only audible while its sender has retuned onto this channel, preset and region, and it repeats on that node's own schedule - minutes to hours apart. This list keeps what it hears until you clear it.	Még nem hallatszott jeladó.\n\nEgy jeladó csak akkor hallható, amikor a küldője erre a csatornára, előbeállításra és régióra hangolt, és a csomópont saját ütemezése szerint ismétlődik - percek vagy órák különbséggel. A lista megtartja, amit hall, amíg nem törlöd.
+No elevation server set.\nWeb Config -> Elevation Server (LOS)	Nincs magassági szerver megadva.\nWebes beállítás -> Elevation Server (LOS)
+No hop path in reply	Nincs ugrási útvonal a válaszban
+No keyboards found yet.\n\nPut the keyboard into pairing mode, then press Scan.\n\nOnly Bluetooth LE keyboards can pair - this hardware has no Bluetooth Classic radio.	Még nem található billentyűzet.\n\nTedd a billentyűzetet párosítási módba, majd nyomd meg a Keresést.\n\nCsak Bluetooth LE billentyűzet párosítható - ennek a hardvernek nincs Bluetooth Classic rádiója.
+No known nodes yet	Még nincsenek ismert csomópontok
+No live traffic yet	Még nincs élő forgalom
+No matches for: %s	Nincs találat erre: %s
+No messages yet	Még nincsenek üzenetek
+No network in that slot	Ezen a helyen nincs hálózat
+No network selected	Nincs kiválasztott hálózat
+No networks found	Nem található hálózat
+No new messages	Nincsenek új üzenetek
+No nodes seen	Nem látható csomópont
+No nodes seen yet.	Még nem látható csomópont.
+No position data	Nincs pozícióadat
+No position recorded	Nincs rögzített pozíció
+No position yet.\nNeeds a GPS fix or a set location.	Még nincs pozíció.\nGPS-fix vagy megadott hely szükséges.
+No release notes in this build.	Ebben a buildben nincsenek kiadási megjegyzések.
+No reply (%lus)	Nincs válasz (%lus)
+No result details available.	Nincsenek részletek.
+No telemetry data	Nincs telemetriaadat
+No weather server set.\nWeb Config -> Weather Server	Nincs időjárás-szerver megadva.\nWebes beállítás -> Weather Server
+Node Actions	Csomópont műveletei
+Node DB cleared - rebooting...	Csomópont-adatbázis törölve - újraindítás...
+Node ID: !%08lx	Csomópont-ID: !%08lx
+Node Name	Csomópont neve
+Node Name: %s (%s)	Csomópont neve: %s (%s)
+Node Name: %s (%s)%s	Csomópont neve: %s (%s)%s
+Node id: !%08lx	Csomópont-azonosító: !%08lx
+Node info	Csomópontinfó
+Nodes and SD archive cleared - rebooting...	Csomópontok és SD-archívum törölve - újraindítás...
+None	Nincs
+Not counting - out of memory	Nem számol - elfogyott a memória
+Not enough free heap to hold the topic table.\n\nClose a few screens (or reboot) and try again.	Nincs elég szabad memória a témák táblázatához.\n\nZárj be néhány képernyőt (vagy indíts újra), és próbáld újra.
+Nothing heard yet	Még semmi sem hallatszott
+Nothing recorded yet - nothing to send	Még semmi nincs rögzítve - nincs mit küldeni
+Nothing was removed. The files may have gone already, or the card may be write-protected.	Semmi sem törlődött. Lehet, hogy a fájlok már eltűntek, vagy a kártya írásvédett.
+Notification Light Timeout	Értesítési fény időtartama
+Notification Light Timeout: %s	Értesítési fény időtartama: %s
+Notification Sound	Értesítési hang
+Notification Sound: %s	Értesítési hang: %s
+Notification sound: %s	Értesítési hang: %s
+Nov	nov.
+November	november
+OFF	KI
+OTA disabled on Cardputer build	OTA kikapcsolva a Cardputer buildben
+OTA needs the factory image (flash layout)	Az OTA-hoz gyári kép kell (flash elrendezés)
+OTA request failed (NVS write). Retry.	OTA-kérés sikertelen (NVS írás). Próbáld újra.
+OTA worker completed. Check status.	OTA kész. Ellenőrizd az állapotot.
+Oct	okt.
+October	október
+Off	Ki
+Offers: %s	Ajánlatok: %s
+Old Map Files Found	Régi térképfájlok találhatók
+Oldest: %s %s	Legrégebbi: %s %s
+Oldest: none heard yet	Legrégebbi: még senki sem hallatszott
+On	Be
+On (global off)	Be (globálisan ki)
+On (listening)	Be (figyel)
+Open network (leave blank)	Nyílt hálózat (hagyd üresen)
+Optional WiFi setup.\nNo network selected.\nChoose WiFi now or finish without WiFi.	Opcionális WiFi-beállítás.\nNincs kiválasztott hálózat.\nVálassz most WiFit, vagy fejezd be WiFi nélkül.
+Optional WiFi setup.\nSelected: %s\nChoose a different network or finish.	Opcionális WiFi-beállítás.\nKiválasztva: %s\nVálassz másik hálózatot, vagy fejezd be.
+Orange	Narancs
+Orientation: %s	Tájolás: %s
+Other	Egyéb
+Outline	Körvonal
+PKI key: %s	PKI kulcs: %s
+PSRAM free: %lu KB\nPSRAM total: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	Szabad PSRAM: %lu KB\nÖsszes PSRAM: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nSzabad az alkalmazásnak: %lu KB
+PSRAM: none\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	PSRAM: nincs\nFlash: %lu KB\nSketch: %lu KB\nSzabad az alkalmazásnak: %lu KB
+Pair	Párosítás
+Pair BT Keyboard: %s	BT-billentyűzet párosítása: %s
+Pair BT Keyboard: (none)	BT-billentyűzet párosítása: (nincs)
+Percent	Százalék
+Pink	Rózsaszín
+Please re-flash from Camillia's website for language support.	A nyelvi támogatáshoz telepítsd újra a firmware-t a Camillia weboldaláról.
+Portrait	Álló
+Portrait 180	Álló 180
+Position	Pozíció
+Precise	Pontos
+Preparing state maps...	Régiótérképek előkészítése...
+Preset	Előbeállítás
+Preset (%s)	Előbeállítás (%s)
+Preset already %s.	Az előbeállítás már %s.
+Preset scan already running	Az előbeállítás keresése már fut
+Preset: %s	Előbeállítás: %s
+Preset: %s - rebooting...	Előbeállítás: %s - újraindítás...
+Public key preserved\n\n	Nyilvános kulcs megőrizve\n\n
+Purple	Lila
+Pwr %d dBm Hops %d	Telj. %d dBm Ugrás %d
+R=Refresh  %s=Back	R=Frissítés  %s=Vissza
+RECENTLY HEARD	NEMRÉG HALLOTT
+Radio busy - retry in %lus	A rádió foglalt - újra %lus múlva
+Radio not ready	A rádió nem kész
+Re(q)uest Node	Csomópont kérése (Q)
+Ready	Kész
+Rebooting into OTA minimal mode...	Újraindítás OTA minimál módba...
+Received over: %s %s	Érkezett ezen át: %s %s
+Red	Piros
+Relayed to us by: %s	Továbbította: %s
+Relayed to us by: %s (from MQTT)	Továbbította: %s (MQTT-ről)
+Relayed to us by: nobody, heard directly	Továbbította: senki, közvetlenül hallva
+Relayed to us by: not reported by the relaying node	Továbbította: a továbbító csomópont nem jelezte
+Relayed to us by: the sender itself	Továbbította: maga a küldő
+Relayed: %lu	Továbbítva: %lu
+Release Channel: %s - checking...	Kiadási csatorna: %s - ellenőrzés...
+Release Channel: %s%s	Kiadási csatorna: %s%s
+Release Notes	Kiadási megjegyzések
+Release Notes  %s	Kiadási megjegyzések  %s
+Remove	Eltávolítás
+Removed %s	%s eltávolítva
+Removed %s - no networks left, AP mode	%s eltávolítva - nem maradt hálózat, AP mód
+Removed %s - now %s	%s eltávolítva - most %s
+Removed %u file%s. %u could not be deleted - the card may be write-protected.\n\nRe-run the scan to check.	%u fájl%.0s eltávolítva. %u nem törölhető - lehet, hogy a kártya írásvédett.\n\nFuttasd újra a vizsgálatot az ellenőrzéshez.
+Removed %u file%s.\n\nThis card looked clean afterwards, but the scan reads names and headers, not contents - it cannot promise the card is clean. Reformatting is the only answer that can.	%u fájl%.0s eltávolítva.\n\nA kártya utána tisztának tűnt, de a vizsgálat neveket és fejléceket olvas, nem tartalmat - nem ígérheti, hogy a kártya tiszta. Erre csak az újraformázás képes.
+Removing Files	Fájlok eltávolítása
+Removing legacy maps...	Régi térképek eltávolítása...
+Replay already requested	Visszajátszás már kérve
+Replay not sent: %s	Visszajátszás nincs elküldve: %s
+Replay requested (last %lu min)	Visszajátszás kérve (utolsó %lu perc)
+Reply	Válasz
+Reply from %s	Válasz tőle: %s
+Reply from %s (%lus)	Válasz tőle: %s (%lus)
+Request (P)osition	(P)ozíció kérése
+Request Node	Csomópont kérése
+Request Position	Pozíció kérése
+Request S&F Replay (%s)	S&F visszajátszás kérése (%s)
+Request S&F Replay (no router)	S&F visszajátszás kérése (nincs útválasztó)
+Requested (last %lu min)	Kérve (utolsó %lu perc)
+Rescan	Újrakeresés
+Reset	Visszaállítás
+Reset Chat Colors	Chat színek visszaállítása
+Reset to Default	Alapértelmezés visszaállítása
+Restore failed: every slot is favorited, so there is no room. Unfavorite a node and try again.	Visszaállítás sikertelen: minden hely kedvenc, nincs szabad hely. Vegyél ki egy csomópontot a kedvencek közül, és próbáld újra.
+Restore failed: the archived record could not be read.	Visszaállítás sikertelen: az archivált rekord nem olvasható.
+Restore node?	Visszaállítod a csomópontot?
+Role: %s%s	Szerep: %s%s
+S(h)are	Megosztás (H)
+SD Card Format	SD-kártya formázása
+SD Card Scan	SD-kártya vizsgálata
+SD scan cancelled	SD-vizsgálat megszakítva
+SD: %s, %s, %u fails	SD: %s, %s, %u hiba
+SD: no card	SD: nincs kártya
+SNR   cur %s  avg %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  cur %s  avg %.0fdBm min %.0f  max %.0f   n=%d	SNR   most %s  átl %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  most %s  átl %.0fdBm min %.0f  max %.0f   n=%d
+SNR   cur --  avg --  min --  max --   n=0\nRSSI  cur --  avg --  min --  max --   n=0	SNR   most --  átl --  min --  max --   n=0\nRSSI  most --  átl --  min --  max --   n=0
+Sat	Szo
+Save	Mentés
+Save failed - cannot write %s	Mentés sikertelen - nem írható: %s
+Save failed - too many this second	Mentés sikertelen - túl sok ebben a másodpercben
+Save while discovering	Mentés felderítés közben
+Save while scanning	Mentés keresés közben
+Saved %s	%s mentve
+Saved: %s	Mentve: %s
+Scan	Keresés
+Scan %s	Keresés: %s
+Scan %s - saved %s	Keresés: %s - mentve: %s
+Scan Networks	Hálózatok keresése
+Scan SD Card for Malware%s	SD-kártya vizsgálata kártevőkre%s
+Scan a preset	Előbeállítás keresése
+Scan cancelled	Keresés megszakítva
+Scan failed - Rescan to try again	Sikertelen keresés - keress újra
+Scan send failed	A keresés küldése sikertelen
+Scanning %s %s/%s	Keresés: %s %s/%s
+Scanning %s...	Keresés: %s...
+Scanning SD Card	SD-kártya vizsgálata
+Scanning WiFi networks...	WiFi-hálózatok keresése...
+Screen	Kijelző
+Screen Timeout	Kijelző időkorlát
+Screen Timeout: %s	Kijelző időkorlát: %s
+Screen off after %s on lock	A kijelző %s után kikapcsol záráskor
+Screen orientation	Kijelző tájolása
+Screen sleeps after %s	A kijelző %s után alszik
+Screen stays on	A kijelző bekapcsolva marad
+Select a conversation	Válassz beszélgetést
+Select this node's role.	Válaszd ki a csomópont szerepét.
+Select your radio region/preset.	Válaszd ki a rádió régióját/előbeállítását.
+Selection settling - press Enter again	A kiválasztás rögzül - nyomd meg újra az Entert
+Sen(d) DM	DM küldése (D)
+Send	Küldés
+Send DM	DM küldése
+Send failed	Sikertelen küldés
+Send to channel?	Küldés a csatornára?
+Send top 5 to	Top 5 küldése ide
+Sending request...	Kérés küldése...
+Sent by this node.	Ez a csomópont küldte.
+Sent to %s	Elküldve ide: %s
+Sent. Waiting for route ACK...	Elküldve. Várakozás az útvonal ACK-ra...
+Sep	szept.
+September	szeptember
+Server answered, but not with\nelevation data. Check the proxy\npoints at the elevation service.	A szerver válaszolt, de nem\nmagassági adattal. Ellenőrizd, hogy a proxy\na magassági szolgáltatásra mutat-e.
+Server answered, but not with\nweather data. Check the proxy.	A szerver válaszolt, de nem\nidőjárási adattal. Ellenőrizd a proxyt.
+Set message colour to %s and reboot?	Az üzenetek színe legyen %s, és induljon újra?
+Share	Megosztás
+Share Location: %s	Hely megosztása: %s
+Short	Rövid
+Short name	Rövid név
+Short name cannot be empty	A rövid név nem lehet üres
+Short: %s	Rövid: %s
+Show Archived Nodes: %s	Archivált csomópontok mutatása: %s
+Show Archived Nodes: %s%s	Archivált csomópontok mutatása: %s%s
+Signal: SNR %.1f dB, RSSI %.0f dBm	Jel: SNR %.1f dB, RSSI %.0f dBm
+Silver	Ezüst
+Sky	Égszínkék
+Small	Kicsi
+Source	Forrás
+Splash Melody: %s	Indító dallam: %s
+Splash melody: %s	Indító dallam: %s
+Stale - 	Elavult -
+State Map	Régiótérkép
+State map disabled	Régiótérkép kikapcsolva
+State map unavailable	A régiótérkép nem érhető el
+Stay on	Mindig be
+Storage: %s %s	Tárhely: %s %s
+Storage: %s (not mounted)	Tárhely: %s (nincs csatolva)
+Store&Fwd Client: %s	Store&Fwd kliens: %s
+Store&Fwd client is off	A Store&Fwd kliens ki van kapcsolva
+Sun	V
+Sweep	Pásztázás
+Sweep already running	A pásztázás már fut
+Sweep cancelled	Pásztázás megszakítva
+Sweep done: %d new (%lus)	Pásztázás kész: %d új (%lus)
+Sweep send failed	A pásztázás küldése sikertelen
+Sweep/Scan Settings	Pásztázás/keresés beállításai
+Sweeping...	Pásztázás...
+Sweeping... %s/%s	Pásztázás... %s/%s
+Switch to %s and reboot?	Váltás erre: %s, és újraindítás?
+Switch to theme %s and reboot?	Váltás erre a témára: %s, és újraindítás?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	A külső antennára váltás károsíthatja a rádiót, ha nincs antenna csatlakoztatva.  Csatlakoztasd a külső antennát, mielőtt az Igenre nyomsz
+System Stats	Rendszerstatisztika
+Tall	Magas
+Tall, turned 180	Magas, 180 fokkal elforgatva
+Tap = Open   Long-press 3s = Delete   DM below = Back	Koppintás = Megnyitás   3 mp nyomva tartás = Törlés   DM lent = Vissza
+Tap Next to continue	A folytatáshoz koppints a Tovább gombra
+Tap Next to continue, or Back	A folytatáshoz koppints a Tovább gombra, vagy Vissza
+Tap a channel	Koppints egy csatornára
+Tap a channel to edit	Koppints egy csatornára a szerkesztéshez
+Tap a field to change it	Koppints egy mezőre a módosításhoz
+Tap a field to edit, then Save	Koppints egy mezőre, szerkeszd, majd Mentés
+Tap a node for actions   Nodes below = Back	Koppints egy csomópontra a műveletekhez   Csomópontok lent = Vissza
+Tap a node to start a DM	Koppints egy csomópontra DM indításához
+Tap a preset to apply.	Koppints egy előbeállításra az alkalmazáshoz.
+Tap a preset, then Scan	Koppints egy előbeállításra, majd Keresés
+Tap a size to apply	Koppints egy méretre az alkalmazáshoz
+Tap one to apply.	Koppints egyre az alkalmazáshoz.
+Tap to preview	Koppints az előnézethez
+Teal	Kékeszöld
+Telemetry	Telemetria
+Temp: %.1f C\nHumidity: %.1f%%\nPressure: %.1f hPa	Hőm.: %.1f C\nPáratartalom: %.1f%%\nNyomás: %.1f hPa
+Temp: %.1f F\nHumidity: %.1f%%\nPressure: %.2f inHg	Hőm.: %.1f F\nPáratartalom: %.1f%%\nNyomás: %.2f inHg
+Text	Szöveg
+The card was formatted but could not be remounted. Reboot the device and it should come up clean.	A kártya formázva lett, de nem sikerült újra csatolni. Indítsd újra az eszközt, és tisztán kell elindulnia.
+Theme	Téma
+Theme: %s	Téma: %s
+Theme: %s (unchanged)	Téma: %s (változatlan)
+Theme: %s - rebooting...	Téma: %s - újraindítás...
+These files are not used by the new tile map. Remove them to reclaim storage?	Ezeket a fájlokat az új csempés térkép nem használja. Eltávolítod őket a hely felszabadításához?
+This node	Ez a csomópont
+This node has no position yet.\nNeeds a GPS fix or a set location.	Ennek a csomópontnak még nincs pozíciója.\nGPS-fix vagy megadott hely szükséges.
+Thu	Cs
+Time and Date	Idő és dátum
+Time and Date: %s	Idő és dátum: %s
+Time source: Internet / GPS	Időforrás: Internet / GPS
+To close hit backspace.  (I)nformation	Bezárás a backspace gombbal.  (I)nformáció
+Tools	Eszközök
+Touch Navigation:	Érintéses navigáció:
+Transport Symbols:\n%s Radio Transmission\n%s MQTT Transmission	Átviteli jelek:\n%s Rádiós átvitel\n%s MQTT átvitel
+Tue	K
+Turn BT Keyboard on first	Előbb kapcsold be a BT-billentyűzetet
+Turn MQTT Bridge %s and reboot?	MQTT híd: %s, és újraindítás?
+Type = Filter   Bksp = Edit Filter   Enter = Open DM   Esc = Back	Gépelés = Szűrő   Bksp = Szűrő szerk.   Enter = DM megnyitása   Esc = Vissza
+Type = Filter   Bksp = Edit/Close Filter   Enter = Open DM	Gépelés = Szűrő   Bksp = Szűrő szerk./bezárás   Enter = DM megnyitása
+Type = Filter   Enter = Open DM   Bksp = Back	Gépelés = Szűrő   Enter = DM megnyitása   Bksp = Vissza
+Type = Filter   Enter = Open DM   Esc = Back	Gépelés = Szűrő   Enter = DM megnyitása   Esc = Vissza
+Type message...	Írj üzenetet...
+Type to filter nodes	Gépelj a csomópontok szűréséhez
+Type, then tap OK	Gépelj, majd koppints az OK-ra
+Type=Filter  Enter=Done  Bksp=Edit/Exit  %s=Back	Gépelés=Szűrő  Enter=Kész  Bksp=Szerk./Kilépés  %s=Vissza
+Un(f)avorite	Nem kedvenc (F)
+Un(m)ute	Hang be (M)
+Unfavorite	Nem kedvenc
+Uni(g)nore	Mellőzés vége (G)
+Unignore	Mellőzés vége
+Units: %s	Mértékegységek: %s
+Unknown	Ismeretlen
+Until read	Olvasásig
+Up to date (%s)	Naprakész (%s)
+Up/Down	Fel/Le
+Up/Down = Select   Space = Compose   Enter = Focus   %s = Delete   %s = Back	Fel/Le = Kiválasztás   Space = Írás   Enter = Fókusz   %s = Törlés   %s = Vissza
+Up/Down = Select   Space = Compose   Enter = Focus   D = Delete	Fel/Le = Kiválasztás   Space = Írás   Enter = Fókusz   D = Törlés
+Up/Down/J/K = Scroll   %s = Close	Fel/Le/J/K = Görgetés   %s = Bezárás
+Up/Down/J/K = Scroll   Bksp = Close	Fel/Le/J/K = Görgetés   Bksp = Bezárás
+Up/Down=Change  Enter=Save  %s=Cancel	Fel/Le=Módosítás  Enter=Mentés  %s=Mégse
+Up/Down=Select  Left/Right=Change  Enter=Save  %s=Cancel	Fel/Le=Kiválasztás  Balra/Jobbra=Módosítás  Enter=Mentés  %s=Mégse
+Update	Frissítés
+Update check failed: %s	A frissítés keresése sikertelen: %s
+Update check needs WiFi connected	A frissítés kereséséhez csatlakoztatott WiFi kell
+Update check needs WiFi on	A frissítés kereséséhez bekapcsolt WiFi kell
+Update check skipped (a dialog was open)	Frissítés keresése kihagyva (egy ablak nyitva volt)
+Uplinked by: %s	MQTT-re küldte: %s
+Uplinked by: the sender itself	MQTT-re küldte: maga a küldő
+Use arrows to choose, then tap Next	Válassz a nyilakkal, majd koppints a Tovább gombra
+Used: %lu KB (%lu%%)\nTotal: %lu KB\nFree: %lu KB\nMin free: %lu KB\nMax block: %lu KB	Használt: %lu KB (%lu%%)\nÖsszes: %lu KB\nSzabad: %lu KB\nMin. szabad: %lu KB\nMax. blokk: %lu KB
+VIA MQTT	MQTT-N ÁT
+VNC Host failed to allocate PSRAM	A VNC-gazda nem tudott PSRAM-ot foglalni
+VNC Host off	VNC-gazda ki
+VNC Host on\nOpen http://%s/ and select the Remote tab	VNC-gazda be\nNyisd meg: http://%s/ és válaszd a Remote fület
+VNC Host on\nhttp://%s:%u/	VNC-gazda be\nhttp://%s:%u/
+VNC Host: Off	VNC-gazda: Ki
+VNC Host: Off (WiFi off)	VNC-gazda: Ki (WiFi ki)
+VNC Host: On (browser connected)	VNC-gazda: Be (böngésző csatlakozva)
+VNC Host: On (network disconnected)	VNC-gazda: Be (hálózat bontva)
+VNC Host: Unavailable (WiFi not connected)	VNC-gazda: Nem érhető el (WiFi nincs csatlakozva)
+Voltage	Feszültség
+Volume	Hangerő
+Volume: %u%%	Hangerő: %u%%
+W = Scan   S = Send   C = Reset   %s = Back	W = Keresés   S = Küldés   C = Visszaáll.   %s = Vissza
+W = Sweep   P = Preset   C = %s   %s = Back	W = Pásztázás   P = Előbeáll.   C = %s   %s = Vissza
+W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Pásztázás   P = Előbeáll.   C = %s   S = Mentés   %s = Vissza
+Wait %lus before sending again	Várj %lus-et az újabb küldés előtt
+Wait %lus between sweeps	Várj %lus-et a pásztázások között
+Waiting for Wi-Fi...	Várakozás a Wi-Fire...
+Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Figyelés: %s/2/e/#\n\nMég nincsenek üzenetek. A csatornák megjelenésük sorrendjében jelennek meg itt, a legújabb alul, mindegyiknél a látott üzenetek számával.
+Weather	Időjárás
+Weather - %s	Időjárás - %s
+Weather server error (HTTP %d).	Időjárás-szerver hiba (HTTP %d).
+Web Config disabled	Webes beállítások kikapcsolva
+Web Config locked while MQTT is on	Webes beállítások zárolva, amíg az MQTT be van kapcsolva
+Web Config start failed	A webes beállítások indítása sikertelen
+Web Config stopped.\n\nThe Bluetooth keyboard and Web Config share one radio and cannot run at the same time.\n\nTurn the keyboard off to use Web Config again.	Webes beállítások leállítva.\n\nA Bluetooth-billentyűzet és a webes beállítások egy rádión osztoznak, így nem futhatnak egyszerre.\n\nKapcsold ki a billentyűzetet, hogy újra használhasd a webes beállításokat.
+Web Config: Disabled	Webes beállítások: Kikapcsolva
+Web Config: Enabled	Webes beállítások: Engedélyezve
+Web Config: Off (MQTT on)	Webes beállítások: Ki (MQTT be)
+Web Config: Off (WiFi off)	Webes beállítások: Ki (WiFi ki)
+Web Config: On	Webes beállítások: Be
+Web Config: On (Lite)	Webes beállítások: Be (Lite)
+Web Config: On (chat PAUSED)	Webes beállítások: Be (chat SZÜNETEL)
+Web config: %s\n\nChat is PAUSED while web config runs - this device needs that memory for Wi-Fi. Messages sent to you now are not received or stored.\n\nTurn web config off to resume messaging.	Webes beállítások: %s\n\nA chat SZÜNETEL, amíg a webes beállítások futnak - az eszköznek ez a memória a Wi-Fihez kell. A most neked küldött üzenetek nem érkeznek meg és nem mentődnek.\n\nKapcsold ki a webes beállításokat az üzenetküldés folytatásához.
+Wed	Sze
+Welcome to Camillia for Meshtastic	Üdvözöl a Camillia a Meshtastichoz
+Wheel/j-k=Change   Enter=Next	Görgő/j-k=Módosítás   Enter=Tovább
+White	Fehér
+Wi-Fi needed to fetch conditions.	Az időjárás lekéréséhez Wi-Fi kell.
+Wi-Fi needed to fetch the\nterrain profile for this path.	Az útvonal terepprofiljának\nlekéréséhez Wi-Fi kell.
+WiFi connected: %s	WiFi csatlakozva: %s
+WiFi is off	A WiFi ki van kapcsolva
+WiFi not connected	A WiFi nincs csatlakozva
+WiFi password	WiFi jelszó
+WiFi selected: %s	Kiválasztott WiFi: %s
+WiFi: Off	WiFi: Ki
+WiFi: On (%s)	WiFi: Be (%s)
+WiFi: On (AP MODE ONLY)	WiFi: Be (CSAK AP MÓD)
+WiFi: On (AP mode)	WiFi: Be (AP mód)
+WiFi: On (connecting %s)	WiFi: Be (csatlakozás: %s)
+Wide	Széles
+Within %s	%s pontossággal
+Writing a new filesystem...	Új fájlrendszer írása...
+X-Large	Extra nagy
+Y/Enter=Import   N/Bksp=Skip	Y/Enter=Importálás   N/Bksp=Kihagyás
+Year	Év
+Yellow	Sárga
+Yes	Igen
+[%s] no match	[%s] nincs találat
+[radio] init failed	[radio] indítás sikertelen
+\n%lu min ago	\n%lu perce
+\n%s, %lu min ago	\n%s, %lu perce
+\n+%u more	\n+%u további
+\nT-Deck trackball: hold click 2s to sleep	\nT-Deck hanyattegér: tartsd nyomva a kattintást 2 mp-ig az alváshoz
+\n\nDelete them? Nothing else on the card is touched.\n\nFormat erases the whole card instead - the only certain fix.	\n\nTörlöd őket? A kártyán semmi más nem változik.\n\nA formázás ehelyett a teljes kártyát törli - ez az egyetlen biztos megoldás.
+all rates tried	minden sebesség kipróbálva
+base64 key	base64 kulcs
+ch %s   air %s	csat %s   lég %s
+channel	csatorna
+check requested	ellenőrzés kérve
+exact	pontos
+external	külső
+internal	belső
+j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k vagy </>=Állítás  Fel/Le=Sor  Enter=Mentés  Back=Mégse
+j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Állítás  </>=Sor  Enter=Mentés  Backspace=Mégse
+j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Állítás  Enter=Mentés  Backspace=Mégse
+j/k=Adjust  Wheel=Row  Enter=Save  Backspace=Cancel	j/k=Állítás  Görgő=Sor  Enter=Mentés  Backspace=Mégse
+j/k=Change   Enter=Next   Bksp=Back	j/k=Módosítás   Enter=Tovább   Bksp=Vissza
+low	alacsony
+missing	hiányzik
+never	soha
+no key	nincs kulcs
+not seen	nem látott
+off	ki
+on	be
+one of: 	egyik ezek közül:
+one rate tried	egy sebesség kipróbálva
+present	van
+press F to change	nyomd meg az F-et a módosításhoz
+retry %lus	újra %lus múlva
+retry now	próbáld most
+sensor %.2f V    trim %s	érzékelő %.2f V    korr. %s
+sensor: read failed	érzékelő: olvasási hiba
+stay on	mindig be
+tap Filter to change	koppints a Szűrőre a módosításhoz
+unavailable	nem érhető el
+unknown	ismeretlen
+unknown date	ismeretlen dátum
+unknown error	ismeretlen hiba
+unknown node (id ends ..%02x)	ismeretlen csomópont (az id vége ..%02x)
+unset	nincs beállítva
+until read	olvasásig
+vague	hozzávetőleges

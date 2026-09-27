@@ -116,6 +116,13 @@ public:
     // which case it only records the preference.
     void setRxBoostedGain(bool enabled);
 
+    // T-Display P4: route the radio to the external antenna socket instead of
+    // the on-board antenna. Applied live, and by init(); safe to call before
+    // init(), which then starts on it. The caller is responsible for having
+    // confirmed an antenna is attached -- keying the PA into an empty socket
+    // can damage the radio. A no-op on every other board.
+    void setExternalAntenna(bool external);
+
     // Called from loop() — returns true and fills pkt if a packet is ready.
     bool pollRx(MeshPacket &pkt);
 
@@ -162,6 +169,7 @@ private:
 
     bool    _ready = false;
     bool    _rxBoostedGain = (bool)MY_LORA_RX_BOOST;
+    bool    _externalAntenna = false;   // T-Display P4 only; false = on-board
 #if defined(DEVICE_TDISPLAY_P4)
     TDisplayP4RadioHal _hal;
     Module _module{&_hal, LORA_CS, TDisplayP4RadioHal::kDio1,

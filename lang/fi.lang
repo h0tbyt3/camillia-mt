@@ -1,0 +1,886 @@
+# Camillia language file (issue #99)
+# code: fi
+# name: Suomi
+#
+# One translation per line: the English exactly as it appears in the source,
+# a TAB, then the translation. Escape a newline as \n, a tab as \t, a backslash
+# as \\. Keep every %d / %s / %u ... in the same order and of the same type as the
+# English -- a line whose placeholders differ is ignored on the device and the
+# English is shown. Mesh terms that are names (LongFast, MQTT, LoRa) stay as they
+# are. Lines are kept sorted by the English, for review; the build sorts anyway.
+# First draft: review by a native speaker welcome (see docs/TRANSLATING.md).
+#
+# Compiled in by tools/gen_lang_builtin.py.
+  %s via %s (%.0f dB)\n	  %s kautta %s (%.0f dB)\n
+  CONFIRM?	  VAHVISTETAANKO?
+  Humid  %.1f %%	  Kost.  %.1f %%
+  Press  %.1f hPa	  Paine  %.1f hPa
+  lock	  suojattu
+  open	  avoin
+ (no card)	 (ei korttia)
+ (not sharing location)	 (sijaintia ei jaeta)
+ (unchanged)	 (ennallaan)
+ - %s available	 - %s saatavilla
+ - check failed	 - tarkistus epäonnistui
+ - check unavailable	 - tarkistus ei käytettävissä
+ - checking...	 - tarkistetaan...
+ - saving to %s	 - tallennetaan kohteeseen %s
+ - up to date	 - ajan tasalla
+! TX failed	! Lähetys epäonnistui
+! TX failed (node id)	! Lähetys epäonnistui (solmun id)
+%d %s %d	%d. %s %d
+%d chans  %s msgs  %s%s	%d kanavaa  %s viest.  %s%s
+%d chans  %s msgs  %s%s  (+%s off-list)	%d kanavaa  %s viest.  %s%s  (+%s listan ulkopuolella)
+%d node(s), %d report(s)	%d solmu(a), %d raportti(a)
+%d%s  %s\nFeels %d%s, humidity %d%%\nWind %s %d %s%s%s	%d%s  %s\nTuntuu kuin %d%s, kosteus %d%%\nTuuli %s %d %s%s%s
+%luh ago	%luh sitten
+%lum ago	%lum sitten
+%lus ago	%lus sitten
+%s   -   %u match%s so far	%s   -   %u osuma(a)%.0s tähän mennessä
+%s  (current)	%s  (nykyinen)
+%s (this node)	%s (tämä solmu)
+%s - WiFi off	%s - WiFi pois
+%s - rebooting...	%s - käynnistetään uudelleen...
+%s - saved	%s - tallennettu
+%s = Back   C = Clear   F = Filter	%s = Takaisin   C = Tyhjennä   F = Suodatin
+%s = Back   green=SNR  pink=RSSI	%s = Takaisin   vihreä=SNR  pinkki=RSSI
+%s = Back   teal=ChUtil  orange=AirTx	%s = Takaisin   sinivihreä=ChUtil  oranssi=AirTx
+%s = Close	%s = Sulje
+%s returns to the live list.\nIf it is full, the oldest non-favorite is archived to make room.	%s palaa aktiiviseen listaan.\nJos se on täynnä, vanhin ei-suosikki arkistoidaan tilan tekemiseksi.
+%s to close Help	%s sulkee ohjeen
+%s will be removed from the node list.	%s poistetaan solmulistasta.
+%s x%u\nClock: %u MHz\nRevision: %u\nUptime: %luh %02lum %02lus\nLoop rate: %lu /s\nBattery: %u%% %.3fV	%s x%u\nKello: %u MHz\nRevisio: %u\nKäynnissä: %luh %02lum %02lus\nSilmukat: %lu /s\nAkku: %u%% %.3fV
+%s%.2f, %.2f (rounded)	%s%.2f, %.2f (pyöristetty)
+%s%lu min ago - %.2f, %.2f (rounded)	%s%lu min sitten - %.2f, %.2f (pyöristetty)
+%s.\n\nNothing can arrive until the bridge has a broker session. Fix it in Config (or web config) and this list fills in on its own.	%s.\n\nMitään ei saavu, ennen kuin sillalla on istunto välittäjän kanssa. Korjaa asia Asetuksissa (tai web-asetuksissa), niin lista täyttyy itsestään.
+%s: %d node(s) heard	%s: %d solmu(a) kuultu
+%s: %d on preset (%lus)	%s: %d esiasetuksella (%lus)
+%s=Scroll  A=Actions  %s=List	%s=Vieritä  A=Toiminnot  %s=Lista
+%s\n%.1f km - brg %03d %s\n%s\nyou %dm - peer %dm - %.0f MHz	%s\n%.1f km - suunta %03d %s\n%s\nsinä %dm - vasta-asema %dm - %.0f MHz
+%s\n%lu min old	%s\n%lu min sitten
+%s\nIn use - will switch to the next configured WiFi network, or AP mode if none is available	%s\nKäytössä - vaihtaa seuraavaan määritettyyn WiFi-verkkoon tai AP-tilaan, jos verkkoja ei ole
+%s\nMessage history will be erased	%s\nViestihistoria poistetaan
+%s\nType %06u then Enter on the keyboard	%s\nKirjoita %06u ja sitten Enter näppäimistöllä
+%u of %d	%u / %d
+%u sec	%u s
+(A)nnounce	Ilmoit(a)
+(B)eacons	Maja(b)it
+(C)FG   (D)M   (N)odes   Too(l)s   (A)ctions	(C)FG   (D)M   Solmut (N)   Työkalut (L)   Toiminnot (A)
+(C)FG  C(h)an  (D)M  (N)odes  Too(l)s  (A)ct	(C)FG  Kanava (H)  (D)M  Solmut (N)  Työk. (L)  Toim. (A)
+(D) Direct Messages\n(C) Configuration\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(H) Channel selector\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(D) Yksityisviestit\n(C) Asetukset\n(N) Solmut\n(L) Työkalut (Live, kaaviot)\n(A) Kanavan toiminnot\n(H) Kanavan valinta\n(P) Ohje (tämä näkymä)\n(E) Emoji\n(Space) Kirjoita/Vastaa\n(Enter) Siirry viesteihin
+(D)iscovery	Haku (D)
+(F)avorite	Suosikki (F)
+(H) Home dashboard\n(C) Chat (again: channels)\n(F) Configuration\n(D) Direct Messages\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(H) Aloitusnäkymä\n(C) Chat (uudelleen: kanavat)\n(F) Asetukset\n(D) Yksityisviestit\n(N) Solmut\n(L) Työkalut (Live, kaaviot)\n(A) Kanavan toiminnot\n(P) Ohje (tämä näkymä)\n(E) Emoji\n(Space) Kirjoita/Vastaa\n(Enter) Siirry viesteihin
+(H)ome (C)hat C(f)g (D)M (N)odes Too(l)s	Koti (H) (C)hat Ase(f) (D)M Solmut (N) Työk. (L)
+(L)ocate	Paikanna (L)
+(L)ocation: %s	Sijainti (L): %s
+(M)ute	Mykistä (M)
+(R)eply	Vastaa (R)
+(W)eather	Sää (W)
+(Y)es	Kyllä (Y)
+(no name)	(ei nimeä)
+(not set)	(ei asetettu)
+(nothing)	(ei mitään)
+(unknown)	(tuntematon)
+(unnamed)	(nimetön)
+, gusts %d	, puuskat %d
+1 hour	1 tunti
+12-hour	12 tunnin
+15 sec	15 s
+2 hours	2 tuntia
+24-hour	24 tunnin
+30 sec	30 s
+4-char short name (ABCD)	4 merkin lyhyt nimi (ABCD)
+5 min on that preset. This node hears nothing on its own while it runs, and finds only meshes sharing your primary channel key.	5 min tällä esiasetuksella. Sen aikana tämä solmu ei kuule omaa verkkoaan ja löytää vain verkot, joilla on sama pääkanavan avain.
+5 sec	5 s
+6 hours	6 tuntia
+? hops	? hyppyä
+ACK from %s. Waiting for reply...	ACK kohteelta %s. Odotetaan vastausta...
+ACKed, no reply (%lus)	ACK saatu, ei vastausta (%lus)
+AP mode cannot be removed	AP-tilaa ei voi poistaa
+AP mode selected	AP-tila valittu
+AP mode selected - enable WiFi first	AP-tila valittu - ota ensin WiFi käyttöön
+AP mode: %s	AP-tila: %s
+ARCHIVED %s\n\n%s\nShort: %s\nID: !%08lX\n\nLast heard: %s\n%s\n\n%sNot on the live list. Restore it to message,\nfavorite or trace it.	ARKISTOITU %s\n\n%s\nLyhyt: %s\nID: !%08lX\n\nViimeksi kuultu: %s\n%s\n\n%sEi aktiivisessa listassa. Palauta se lähettääksesi viestejä,\nlisätäksesi suosikiksi tai jäljittääksesi sen.
+Act	Toim.
+Action Result	Tulos
+Action: %s	Toiminto: %s
+Actions	Toiminnot
+All	Kaikki
+All live traffic will be erased	Kaikki live-liikenne poistetaan
+All live traffic will be erased, including lines hidden by the filter	Kaikki live-liikenne poistetaan, myös suodattimen piilottamat rivit
+Already %s.	Jo %s.
+Already on that preset	Jo tällä esiasetuksella
+Analyzing terrain...	Analysoidaan maastoa...
+Announce	Ilmoita
+Antenna: %s	Antenni: %s
+Any key / %s = Close	Mikä tahansa näppäin / %s = Sulje
+Apply	Käytä
+Apr	huhti
+April	huhtikuuta
+Archive Dropped Nodes: %s	Arkistoi pudonneet solmut: %s
+Archive Dropped Nodes: %s%s	Arkistoi pudonneet solmut: %s%s
+Asks first, then reboots.	Kysyy ensin, käynnistää sitten uudelleen.
+Asks first, then reboots. Only nodes on the same preset can hear each other.	Kysyy ensin, käynnistää sitten uudelleen. Vain saman esiasetuksen solmut kuulevat toisensa.
+Aug	elo
+August	elokuuta
+Auto-update gave up on %s after %u failed installs	Automaattinen päivitys luopui versiosta %s %u epäonnistuneen asennuksen jälkeen
+BT Keyboard failed to start (low memory)	BT-näppäimistö ei käynnistynyt (vähän muistia)
+BT Keyboard off	BT-näppäimistö pois
+BT Keyboard on - connecting to %s	BT-näppäimistö päällä - yhdistetään kohteeseen %s
+BT Keyboard on - use Pair to choose one	BT-näppäimistö päällä - valitse Parita-kohdasta
+BT Keyboard turned off.\n\nWeb Config and the Bluetooth keyboard share one radio and cannot run at the same time.\n\nTurn Web Config off to use the keyboard again.	BT-näppäimistö sammutettu.\n\nWeb-asetukset ja Bluetooth-näppäimistö jakavat yhden radion eivätkä voi toimia samaan aikaan.\n\nSammuta web-asetukset käyttääksesi näppäimistöä uudelleen.
+BT Keyboard: %s	BT-näppäimistö: %s
+BT Keyboard: Off	BT-näppäimistö: Pois
+Back	Takaisin
+Back = Cancel	Takaisin = Peruuta
+Bass	Basso
+Battery Calibration	Akun kalibrointi
+Battery Calibration: %s	Akun kalibrointi: %s
+Battery Calibration: Off	Akun kalibrointi: Pois
+Battery Display: %s	Akun näyttö: %s
+Battery critical - shedding load	Akku kriittinen - kuormaa vähennetään
+Battery empty	Akku tyhjä
+Battery low	Akku vähissä
+Battery trim: %s	Akun korjaus: %s
+Battery: %.0f%%\nVoltage: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%	Akku: %.0f%%\nJännite: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%
+Battery\nVoltage\nChUtil\nAirTx\nTemp\nHumidity\nPressure	Akku\nJännite\nChUtil\nAirTx\nLämpö\nKosteus\nPaine
+Beacons	Majakat
+Bksp=Back  solid=ChUtil  dash=AirTx	Bksp=Takaisin  yhtenäinen=ChUtil  katkoviiva=AirTx
+Bksp=Back  solid=SNR  dash=RSSI	Bksp=Takaisin  yhtenäinen=SNR  katkoviiva=RSSI
+Bksp=Close	Bksp=Sulje
+Blink Flashes (Channel): %u	Vilkkumäärä (kanava): %u
+Blink Flashes (DM): %u	Vilkkumäärä (DM): %u
+Blocked @ %.1f km, %dm over sight	Estetty %.1f km:n kohdalla, %dm näköyhteyden yli
+Blue	Sininen
+Bluetooth Keyboard	Bluetooth-näppäimistö
+Bottom buttons: Chats, DM, Nodes, Tools, Config, Help.	Alapainikkeet: Chatit, DM, Solmut, Työkalut, Asetukset, Ohje.
+Bottom buttons: Home, Chats, DM, Nodes, Tools, Config, Help.\nHome is the dashboard; Chats is the messages, and its icon\nblinks when a channel has something unread.	Alapainikkeet: Koti, Chatit, DM, Solmut, Työkalut, Asetukset, Ohje.\nKoti on kojelauta; Chatit ovat viestit, ja sen kuvake\nvilkkuu, kun kanavalla on lukematonta.
+Brightness	Kirkkaus
+Brightness: %u%%	Kirkkaus: %u%%
+Brightness: %u%%  Lock: %u%%	Kirkkaus: %u%%  Lukitus: %u%%
+Brown	Ruskea
+Bubbles	Kuplat
+C = Clear   %s = Back	C = Tyhjennä   %s = Takaisin
+C = Clear   F = Filter	C = Tyhjennä   F = Suodatin
+C:Cfg H:Ch D:DM N:Node L:Tools A:Act	C:Ase H:Kan D:DM N:Solmu L:Työk A:Toim
+CHANNEL UTIL	KANAVAN KÄYTTÖ
+CHANNEL UTILIZATION (%)	KANAVAN KÄYTTÖ (%)
+Can't resolve the weather server.\nCheck the address and DNS.	Sääpalvelimen nimeä ei voi selvittää.\nTarkista osoite ja DNS.
+Cancel	Peruuta
+Cancelled after removing %u file%s. The rest were left alone - run the scan again to see what is still there.	Peruutettu, kun %u tiedosto(a)%.0s oli poistettu. Loput jätettiin ennalleen - aja tarkistus uudelleen nähdäksesi, mitä on jäljellä.
+Cannot send: no node id	Ei voi lähettää: ei solmun id:tä
+Card formatted.\n\nWrite your configuration back to it as /camillia/config.yaml?	Kortti alustettu.\n\nKirjoitetaanko asetukset takaisin nimellä /camillia/config.yaml?
+ChUtil  cur %s  avg %.1f%%  max %.1f%%   n=%d\nAirTx   cur %s  avg %.1f%%  max %.1f%%   n=%d	ChUtil  nyt %s  ka %.1f%%  maks %.1f%%   n=%d\nAirTx   nyt %s  ka %.1f%%  maks %.1f%%   n=%d
+ChUtil  cur --  avg --  max --   n=0\nAirTx   cur --  avg --  max --   n=0	ChUtil  nyt --  ka --  maks --   n=0\nAirTx   nyt --  ka --  maks --   n=0
+Channel	Kanava
+Channel %d	Kanava %d
+Channel %d  %s	Kanava %d  %s
+Channel Actions\n%s	Kanavan toiminnot\n%s
+Channel Configuration	Kanavan asetukset
+Channel Key	Kanavan avain
+Channel Message LED	Kanavaviestien LED
+Channel Message LED: %s	Kanavaviestien LED: %s
+Channel Name	Kanavan nimi
+Channel blink: %u flash%s	Kanavan vilkutus: %u kertaa%.0s
+Channel busy (%.0f%%) - not sweeping	Kanava varattu (%.0f%%) - ei skannausta
+Channels	Kanavat
+Chat Colors: %s	Chatin värit: %s
+Chat Names	Nimet chatissa
+Chat Names: %s	Nimet chatissa: %s
+Chat Names: %s%s	Nimet chatissa: %s%s
+Chat Style	Chatin tyyli
+Chat Style: %s	Chatin tyyli: %s
+Chat Style: %s%s	Chatin tyyli: %s%s
+Chat Type	Chatin tyyppi
+Chat Type: %s	Chatin tyyppi: %s
+Chat Type: %s%s	Chatin tyyppi: %s%s
+Chat colors reassigned	Chatin värit jaettu uudelleen
+Checking %u of %u   %u%%	Tarkistetaan %u / %u   %u%%
+Chirpy	Sirkutus
+Choose WiFi	Valitse WiFi
+Choose WiFi or Finish	Valitse WiFi tai Valmis
+Choose WiFi: %s	Valitse WiFi: %s
+Choose WiFi: (none)	Valitse WiFi: (ei mitään)
+Classic	Klassinen
+Clear	Tyhjennä
+Clear Messages	Tyhjennä viestit
+Clear Nodes (All)	Tyhjennä solmut (kaikki)
+Clear Nodes (Keep Favorites)	Tyhjennä solmut (säilytä suosikit)
+Clear by %dm at tightest	Vapaata %dm ahtaimmassa kohdassa
+Clear entire live feed?	Tyhjennetäänkö koko live-syöte?
+Cleared %d nodes, kept %d favorites - rebooting...	%d solmua poistettu, %d suosikkia säilytetty - käynnistetään uudelleen...
+Cleared (%d report(s)) - rebuilding from traffic	Tyhjennetty (%d raportti(a)) - rakennetaan uudelleen liikenteestä
+Clock Format: %s	Kellon muoto: %s
+Clock set from web config	Kello asetettu web-asetuksista
+Clock set: %04d-%02d-%02d %02d:%02d	Kello asetettu: %04d-%02d-%02d %02d:%02d
+Close	Sulje
+Configuration	Asetukset
+Configuration exported to /camillia/config.yaml.\n\nThe card is formatted and holds nothing else. Chat history, the node database and any map tiles were on the old filesystem and are gone.	Asetukset viety tiedostoon /camillia/config.yaml.\n\nKortti on alustettu eikä sisällä muuta. Chat-historia, solmutietokanta ja karttaruudut olivat vanhassa tiedostojärjestelmässä ja ovat poissa.
+Configured WiFi is empty	Määritetty WiFi on tyhjä
+Confirm Chat Style	Vahvista chatin tyyli
+Confirm?	Vahvistetaanko?
+Connect	Yhdistä
+Connect to WiFi before enabling VNC	Yhdistä WiFiin ennen VNC:n käyttöönottoa
+Connect: %s	Yhdistä: %s
+Connecting to %s...	Yhdistetään kohteeseen %s...
+Connecting to broker...	Yhdistetään välittäjään...
+Connection failed: %s	Yhteys epäonnistui: %s
+Conversation deleted	Keskustelu poistettu
+Conversations	Keskustelut
+Could not reach the weather server.	Sääpalvelimeen ei saatu yhteyttä.
+Could not remove every file. Check storage and retry.	Kaikkia tiedostoja ei voitu poistaa. Tarkista tallennustila ja yritä uudelleen.
+Counting files on the card...	Lasketaan kortin tiedostoja...
+Counting files... %u found	Lasketaan tiedostoja... %u löydetty
+Custom	Mukautettu
+Custom (%u B)	Mukautettu (%u B)
+Cyan	Syaani
+DIRECT MESSAGES	YKSITYISVIESTIT
+DISTANCE UNKNOWN	ETÄISYYS TUNTEMATON
+DM blink: %u flash%s	DM-vilkutus: %u kertaa%.0s
+DMs	DM
+Date unavailable	Päivämäärä ei saatavilla
+Day	Päivä
+Dec	joulu
+December	joulukuuta
+Default	Oletus
+Default (%u)	Oletus (%u)
+Default +%u	Oletus +%u
+Del(e)te	Poista (E)
+Delete	Poista
+Delete WiFi?	Poistetaanko WiFi?
+Delete conversation?	Poistetaanko keskustelu?
+Delete failed	Poisto epäonnistui
+Delete node?	Poistetaanko solmu?
+Delivery details not recorded: received before this boot, or too many messages ago.	Toimitustietoja ei tallennettu: vastaanotettu ennen tätä käynnistystä tai liian monta viestiä sitten.
+Detail Map	Tarkka kartta
+Device Info	Laitteen tiedot
+Device switched off last time: battery empty	Laite sammui viimeksi: akku tyhjä
+Direct Message LED	Yksityisviestien LED
+Direct Message LED: %s	Yksityisviestien LED: %s
+Discovery	Haku
+Do not remove the card	Älä poista korttia
+Elevation data too sparse\nfor this path.	Korkeustietoja liian vähän\ntälle reitille.
+Elevation fetch failed (%d).\nCheck the server URL - it must be http://	Korkeuden haku epäonnistui (%d).\nTarkista palvelimen URL - sen on oltava http://
+Enable WiFi first	Ota ensin WiFi käyttöön
+Enc	Salaus
+Encrypted	Salattu
+Encryption	Salaus
+Enter password, then tap Connect	Anna salasana ja napauta Yhdistä
+Enter this node's long name.	Anna tämän solmun pitkä nimi.
+Enter=Connect  Backspace=Back	Enter=Yhdistä  Backspace=Takaisin
+Enter=Info  A=Actions  Bksp=Edit/Exit  %s=Back	Enter=Tiedot  A=Toiminnot  Bksp=Muokkaa/Lopeta  %s=Takaisin
+Enter=Info  A=Actions  Space=Filter  %s=Back	Enter=Tiedot  A=Toiminnot  Space=Suodatin  %s=Takaisin
+Enter=Next	Enter=Seuraava
+Enter=Next    Bksp(empty)=Back	Enter=Seuraava    Bksp(tyhjä)=Takaisin
+Enter=Next   Bksp(empty)=Back	Enter=Seuraava   Bksp(tyhjä)=Takaisin
+Enter=OK  %s=Erase/Back	Enter=OK  %s=Poista/Takaisin
+Enter=OK  Bksp=Erase  %s=Back	Enter=OK  Bksp=Poista  %s=Takaisin
+Enter=Save  Tab=Field  %s=Erase/Back	Enter=Tallenna  Tab=Kenttä  %s=Poista/Takaisin
+Enter=Send   %s=Cancel	Enter=Lähetä   %s=Peruuta
+Enter=Send  Bksp(empty)=Cancel	Enter=Lähetä  Bksp(tyhjä)=Peruuta
+Enter=Send  Esc=Cancel  Bksp=Del	Enter=Lähetä  Esc=Peruuta  Bksp=Poista
+Environment	Ympäristö
+Errors	Virheet
+Examined %u file%s. Nothing matching Windows malware was found.\n\nThis reads names and file headers, not contents, so it is a good sign rather than a guarantee.	%u tiedosto(a)%.0s tutkittu. Windows-haittaohjelmaa muistuttavaa ei löytynyt.\n\nNimet ja tiedostojen otsakkeet luetaan, ei sisältöä, joten tämä on hyvä merkki eikä takuu.
+Export Config	Vie asetukset
+Export FAILED (no SD?)	Vienti EPÄONNISTUI (ei SD:tä?)
+Export FAILED. The card formatted, but the configuration could not be written back to it - try Export from the Config screen.	Vienti EPÄONNISTUI. Kortti alustettiin, mutta asetuksia ei voitu kirjoittaa takaisin - kokeile Vie-toimintoa Asetukset-näkymästä.
+Exported to /camillia/config.yaml	Viety tiedostoon /camillia/config.yaml
+Extra Large	Erittäin suuri
+Factory Reset	Tehdasasetukset
+Factory reset - rebooting...	Tehdasasetukset - käynnistetään uudelleen...
+Favorite	Suosikki
+Feb	helmi
+February	helmikuuta
+Feels %d%s   Hum %d%%\nWind %d %s %s\nGusting %d %s	Tuntuu %d%s   Kost %d%%\nTuuli %d %s %s\nPuuskat %d %s
+Feels like   %d%s\nHumidity     %d%%\nWind         %d %s from %s\nGusting      %d %s	Tuntuu kuin  %d%s\nKosteus      %d%%\nTuuli        %d %s suunnasta %s\nPuuskat      %d %s
+Fetching...	Haetaan...
+Filter	Suodatin
+Filter Nodes	Suodata solmuja
+Filter: %s	Suodatin: %s
+Finish	Valmis
+Firmware Update	Laiteohjelmistopäivitys
+Firmware Update Check	Laiteohjelmistopäivityksen tarkistus
+Firmware Update: Install %s	Laiteohjelmistopäivitys: asenna %s
+Font Size	Fonttikoko
+Font Size: %s	Fonttikoko: %s
+Font Size: %s%s	Fonttikoko: %s%s
+Forget	Unohda
+Format FAILED, and the card could not be remounted.\n\nReboot the device, or format the card on a PC.	Alustus EPÄONNISTUI, eikä korttia voitu liittää uudelleen.\n\nKäynnistä laite uudelleen tai alusta kortti tietokoneella.
+Format FAILED. The card was left as it was and is still mounted.\n\nFormatting it on a PC is the reliable way out.	Alustus EPÄONNISTUI. Kortti jätettiin ennalleen ja on yhä liitettynä.\n\nAlustus tietokoneella on luotettava keino.
+Format the SD card?\n\nThis erases EVERYTHING on it - chat and DM history, the node database, map tiles and your saved configuration - not just the files the scan matched.\n\nIt cannot be undone.	Alustetaanko SD-kortti?\n\nTämä poistaa KAIKEN - chat- ja DM-historian, solmutietokannan, karttaruudut ja tallennetut asetukset - ei vain tarkistuksen löytämiä tiedostoja.\n\nTätä ei voi perua.
+Formatting SD Card	Alustetaan SD-korttia
+Found %d network(s)	%d verkko(a) löydetty
+Found %u file%s matching Windows malware:\n	%u tiedosto(a)%.0s muistuttaa Windows-haittaohjelmaa:\n
+Freq: %.3f MHz	Taaj: %.3f MHz
+Fri	pe
+From: %s	Lähettäjä: %s
+Full node name when known	Solmun koko nimi, jos tiedossa
+GPS disabled (using default coordinates)	GPS pois (oletuskoordinaatit)
+GPS enabled (hardware)	GPS päällä (laitteisto)
+GPS: Disabled (Default Coords)	GPS: Pois (oletuskoord.)
+GPS: Enabled (Hardware)	GPS: Päällä (laitteisto)
+Gateway: not known	Yhdyskäytävä: tuntematon
+Grazes terrain - F1=%dm	Hipoo maastoa - F1=%dm
+Green	Vihreä
+HEARD ABOUT	MUIDEN ILMOITTAMAT
+Heard %s ago   %u seen, ~%s apart	Kuultu %s sitten   nähty %u, välein ~%s
+Heard %s ago   1 seen	Kuultu %s sitten   nähty 1
+Help	Ohje
+High	Korkea
+Hops	Hypyt
+Hops: %d of %d	Hypyt: %d / %d
+Hour	Tunti
+I(g)nore	Ohita (G)
+Identity	Identiteetti
+Ignore	Ohita
+Import Config	Tuo asetukset
+Import FAILED (no file?)	Tuonti EPÄONNISTUI (ei tiedostoa?)
+Import failed - enter a name	Tuonti epäonnistui - anna nimi
+Imported OK - rebooting...	Tuonti OK - käynnistetään uudelleen...
+Info	Tiedot
+Install now? The device reboots to update.	Asennetaanko nyt? Laite käynnistyy uudelleen päivittääkseen.
+Invalid base64 key	Virheellinen base64-avain
+Invalid date/time	Virheellinen päivämäärä/aika
+Invert Scrolling: %s	Käänteinen vieritys: %s
+J/K = Scroll   %s = Close	J/K = Vieritä   %s = Sulje
+J/K = Scroll   Bksp = Close	J/K = Vieritä   Bksp = Sulje
+J/K = Select   Space = Compose   Enter = Focus   D = Delete	J/K = Valitse   Space = Kirjoita   Enter = Kohdista   D = Poista
+Jan	tammi
+January	tammikuuta
+Jul	heinä
+July	heinäkuuta
+Jun	kesä
+June	kesäkuuta
+Just announced. Try again in %us.	Juuri ilmoitettu. Yritä uudelleen %us kuluttua.
+Key	Avain
+Keyboard Blink: %s	Näppäimistön vilkutus: %s
+Keyboard Light	Näppäimistön valo
+Keyboard Light: %s	Näppäimistön valo: %s
+Keyboard blink: %s	Näppäimistön vilkutus: %s
+Keyboard light %s	Näppäimistön valo %s
+Keyboard light %s - after a power cycle	Näppäimistön valo %s - virran katkaisun jälkeen
+Keyboard light off	Näppäimistön valo pois
+L/R=Change   Enter=Save   %s=Back	V/O=Muuta   Enter=Tallenna   %s=Takaisin
+LINE OF SIGHT	NÄKÖYHTEYS
+LONGEST SILENT	PISIMPÄÄN HILJAA
+Landscape	Vaaka
+Language	Kieli
+Language: %s	Kieli: %s
+Large	Suuri
+Last heard	Viimeksi kuultu
+Last heard\nSNR\nHops\nChannel\nSigned	Viimeksi kuultu\nSNR\nHypyt\nKanava\nAllekirjoitettu
+Leave blank to clear	Jätä tyhjäksi tyhjentääksesi
+Light reminds for %s	Valo muistuttaa %s
+Light reminds until read	Valo muistuttaa luettuun asti
+Lime	Limetti
+Link	Yhteys
+Listening   %d sender%s heard	Kuunnellaan   %d lähettäjä(ä)%.0s kuultu
+Listening: off	Kuuntelu: pois
+Live Filter	Live-suodatin
+Live feed cleared	Live-syöte tyhjennetty
+Loading map...	Ladataan karttaa...
+Loc	Sij.
+Locate	Paikanna
+Locate: %s	Paikanna: %s
+Location	Sijainti
+Location Precision	Sijainnin tarkkuus
+Location Precision: %s	Sijainnin tarkkuus: %s
+Location rounded to %s	Sijainti pyöristetty: %s
+Location sent exactly	Sijainti lähetetty tarkkana
+Location sharing off (no position sent)	Sijainnin jako pois (sijaintia ei lähetetä)
+Location sharing on	Sijainnin jako päällä
+Location: %s	Sijainti: %s
+Lock Screen Off	Näyttö pois lukituksessa
+Lock Screen Off: %s	Näyttö pois lukituksessa: %s
+Lock Screen: %s	Lukitusnäyttö: %s
+Lock screen	Lukitusnäyttö
+Lock screen stays on	Lukitusnäyttö pysyy päällä
+Long	Pitkä
+Long name	Pitkä nimi
+Long name cannot be empty	Pitkä nimi ei voi olla tyhjä
+Long name: %s\nEnter a short name (up to 4 chars).	Pitkä nimi: %s\nAnna lyhyt nimi (enintään 4 merkkiä).
+Long: %s	Pitkä: %s
+Looking for keyboards...	Etsitään näppäimistöjä...
+Low	Matala
+ME (ACK)	MINÄ (ACK)
+MQTT Bridge: %s	MQTT-silta: %s
+MQTT Bridge: %s - rebooting...	MQTT-silta: %s - käynnistetään uudelleen...
+MQTT Bridge: Off (WiFi off)	MQTT-silta: Pois (WiFi pois)
+MQTT Scan Settings	MQTT-skannauksen asetukset
+MQTT bridge is off	MQTT-silta on pois päältä
+Map (loading)	Kartta (latautuu)
+Map (off)	Kartta (pois)
+Map memory unavailable	Kartalle ei ole muistia
+Map unavailable	Kartta ei saatavilla
+Mar	maalis
+March	maaliskuuta
+Match the voltage to a meter reading.\nPercent comes from the fuel gauge and does not change.	Säädä jännite mittarin lukeman mukaan.\nProsentti tulee varausmittarista eikä muutu.
+Match the voltage to a meter reading.\nPercent follows it. 0% = uncalibrated.	Säädä jännite mittarin lukeman mukaan.\nProsentti seuraa sitä. 0% = kalibroimaton.
+May	touko
+Medium	Keskikoko
+Mesh Beacons is off.\n\nTurn it on in Config (or under Modules in web config) to decode beacons from other meshes. Receive-only: nothing is transmitted, and an offer is never applied to your radio.	Mesh-majakat on pois päältä.\n\nOta se käyttöön Asetuksissa (tai web-asetusten Moduulit-kohdassa) purkaaksesi muiden verkkojen majakoita. Vain vastaanotto: mitään ei lähetetä, eikä tarjousta koskaan sovelleta radioosi.
+Mesh Beacons: %s	Mesh-majakat: %s
+Mesh beacons: %s	Mesh-majakat: %s
+Message (I)nfo	V(i)estin tiedot
+Message Actions	Viestin toiminnot
+Message Info	Viestin tiedot
+Messages	Viestit
+Messages cleared - rebooting...	Viestit tyhjennetty - käynnistetään uudelleen...
+Metric	Metrinen
+Minute	Minuutti
+Modem preset	Modeemin esiasetus
+Mon	ma
+Month	Kuukausi
+Move  Enter=Apply  %s=Back	Siirrä  Enter=Käytä  %s=Takaisin
+Move  Enter=Apply  %s=Cancel	Siirrä  Enter=Käytä  %s=Peruuta
+Move  Enter=Change  %s=Cancel	Siirrä  Enter=Muuta  %s=Peruuta
+Move  Enter=Edit  %s=Back	Siirrä  Enter=Muokkaa  %s=Takaisin
+Move  Enter=OK  %s=Cancel	Siirrä  Enter=OK  %s=Peruuta
+Move  Enter=Open  %s=Back	Siirrä  Enter=Avaa  %s=Takaisin
+Move  Enter=Pick  %s=Back	Siirrä  Enter=Valitse  %s=Takaisin
+Move  Enter=Scan  %s=Cancel	Siirrä  Enter=Skannaa  %s=Peruuta
+Move • Enter=Add • %s=Close	Siirrä • Enter=Lisää • %s=Sulje
+Move • Enter=Insert • %s=Close	Siirrä • Enter=Lisää tekstiin • %s=Sulje
+Move • Enter=React • %s=Close	Siirrä • Enter=Reagoi • %s=Sulje
+Move • Enter=Send • %s=Close	Siirrä • Enter=Lähetä • %s=Sulje
+Move=Adjust  Enter=Save  %s=Cancel	Siirrä=Säädä  Enter=Tallenna  %s=Peruuta
+Move=Adjust  Space=Toggle  Enter=Save  %s=Cancel	Siirrä=Säädä  Space=Vaihda  Enter=Tallenna  %s=Peruuta
+Move=Preview  Enter=OK  %s=Cancel	Siirrä=Esikatselu  Enter=OK  %s=Peruuta
+My Message Color	Viestieni väri
+My Message Color: %s	Viestieni väri: %s
+My Message Color: %s (unchanged)	Viestieni väri: %s (ennallaan)
+My Message Color: %s - rebooting...	Viestieni väri: %s - käynnistetään uudelleen...
+N=Choose WiFi   Enter=Finish   Bksp=Back	N=Valitse WiFi   Enter=Valmis   Bksp=Takaisin
+NO LINE OF SIGHT	EI NÄKÖYHTEYTTÄ
+NODEINFO + telemetry queued.	NODEINFO + telemetria jonossa.
+NODES	SOLMUT
+NODES (%d%s)	SOLMUT (%d%s)
+NODES [%s] (%d%s)	SOLMUT [%s] (%d%s)
+Name	Nimi
+Name: %s\nShort: %s\nID: !%08X\nLast heard: %s\nSNR: %.1f dB\nHops: %u\nChannel: %d\n\nPosition:\n%s\n\nTelemetry:\n%s	Nimi: %s\nLyhyt: %s\nID: !%08X\nViimeksi kuultu: %s\nSNR: %.1f dB\nHypyt: %u\nKanava: %d\n\nSijainti:\n%s\n\nTelemetria:\n%s
+Name\nShort\nID	Nimi\nLyhyt\nID
+Nav Bar: %s	Navigointipalkki: %s
+Neighborhood Info: %s	Naapuritiedot: %s
+Neighborhood info: %s	Naapuritiedot: %s
+Never	Ei koskaan
+New	Uusi
+New DM	Uusi DM
+New DM: Select Node	Uusi DM: valitse solmu
+New DM: Select Node [%s]	Uusi DM: valitse solmu [%s]
+New Message	Uusi viesti
+Newest: %s %s	Uusin: %s %s
+Newest: none heard yet	Uusin: ketään ei ole vielä kuultu
+Next	Seuraava
+No %s - not saved	Ei %s - ei tallennettu
+No %s - not saving	Ei %s - ei tallenneta
+No %s traffic yet\n(filter is on - %s)	Ei vielä %s-liikennettä\n(suodatin päällä - %s)
+No S&F router heard yet	S&F-reititintä ei ole vielä kuultu
+No SD card is mounted.	SD-korttia ei ole liitetty.
+No WiFi network configured	WiFi-verkkoa ei ole määritetty
+No beacons heard yet.\n\nA beacon is only audible while its sender has retuned onto this channel, preset and region, and it repeats on that node's own schedule - minutes to hours apart. This list keeps what it hears until you clear it.	Majakoita ei ole vielä kuultu.\n\nMajakka kuuluu vain, kun sen lähettäjä on virittäytynyt tälle kanavalle, esiasetukselle ja alueelle, ja se toistuu solmun oman aikataulun mukaan - minuuttien tai tuntien välein. Lista säilyttää kuulemansa, kunnes tyhjennät sen.
+No elevation server set.\nWeb Config -> Elevation Server (LOS)	Korkeuspalvelinta ei ole asetettu.\nWeb-asetukset -> Elevation Server (LOS)
+No hop path in reply	Vastauksessa ei ole hyppypolkua
+No keyboards found yet.\n\nPut the keyboard into pairing mode, then press Scan.\n\nOnly Bluetooth LE keyboards can pair - this hardware has no Bluetooth Classic radio.	Näppäimistöjä ei ole vielä löytynyt.\n\nLaita näppäimistö paritustilaan ja paina Skannaa.\n\nVain Bluetooth LE -näppäimistöt voi paritaa - tässä laitteessa ei ole Bluetooth Classic -radiota.
+No known nodes yet	Ei vielä tunnettuja solmuja
+No live traffic yet	Ei vielä live-liikennettä
+No matches for: %s	Ei tuloksia haulle: %s
+No messages yet	Ei vielä viestejä
+No network in that slot	Tässä paikassa ei ole verkkoa
+No network selected	Verkkoa ei valittu
+No networks found	Verkkoja ei löytynyt
+No new messages	Ei uusia viestejä
+No nodes seen	Ei nähtyjä solmuja
+No nodes seen yet.	Solmuja ei ole vielä nähty.
+No position data	Ei sijaintitietoja
+No position recorded	Sijaintia ei ole tallennettu
+No position yet.\nNeeds a GPS fix or a set location.	Ei vielä sijaintia.\nTarvitaan GPS-paikannus tai asetettu sijainti.
+No release notes in this build.	Tässä versiossa ei ole julkaisutietoja.
+No reply (%lus)	Ei vastausta (%lus)
+No result details available.	Tietoja ei ole saatavilla.
+No telemetry data	Ei telemetriatietoja
+No weather server set.\nWeb Config -> Weather Server	Sääpalvelinta ei ole asetettu.\nWeb-asetukset -> Weather Server
+Node Actions	Solmun toiminnot
+Node DB cleared - rebooting...	Solmutietokanta tyhjennetty - käynnistetään uudelleen...
+Node ID: !%08lx	Solmun ID: !%08lx
+Node Name	Solmun nimi
+Node Name: %s (%s)	Solmun nimi: %s (%s)
+Node Name: %s (%s)%s	Solmun nimi: %s (%s)%s
+Node id: !%08lx	Solmun id: !%08lx
+Node info	Solmun tiedot
+Nodes and SD archive cleared - rebooting...	Solmut ja SD-arkisto tyhjennetty - käynnistetään uudelleen...
+None	Ei mitään
+Not counting - out of memory	Ei laskentaa - muisti loppui
+Not enough free heap to hold the topic table.\n\nClose a few screens (or reboot) and try again.	Aihetaulukolle ei ole tarpeeksi vapaata muistia.\n\nSulje muutama näkymä (tai käynnistä uudelleen) ja yritä uudelleen.
+Nothing heard yet	Mitään ei ole vielä kuultu
+Nothing recorded yet - nothing to send	Mitään ei ole vielä tallennettu - ei lähetettävää
+Nothing was removed. The files may have gone already, or the card may be write-protected.	Mitään ei poistettu. Tiedostot ovat ehkä jo poissa, tai kortti on kirjoitussuojattu.
+Notification Light Timeout	Ilmoitusvalon kesto
+Notification Light Timeout: %s	Ilmoitusvalon kesto: %s
+Notification Sound	Ilmoitusääni
+Notification Sound: %s	Ilmoitusääni: %s
+Notification sound: %s	Ilmoitusääni: %s
+Nov	marras
+November	marraskuuta
+OFF	POIS
+OTA disabled on Cardputer build	OTA ei käytössä Cardputer-versiossa
+OTA needs the factory image (flash layout)	OTA vaatii tehdaskuvan (flash-asettelu)
+OTA request failed (NVS write). Retry.	OTA-pyyntö epäonnistui (NVS-kirjoitus). Yritä uudelleen.
+OTA worker completed. Check status.	OTA valmis. Tarkista tila.
+Oct	loka
+October	lokakuuta
+Off	Pois
+Offers: %s	Tarjoukset: %s
+Old Map Files Found	Vanhoja karttatiedostoja löytyi
+Oldest: %s %s	Vanhin: %s %s
+Oldest: none heard yet	Vanhin: ketään ei ole vielä kuultu
+On	Päällä
+On (global off)	Päällä (yleisesti pois)
+On (listening)	Päällä (kuuntelee)
+Open network (leave blank)	Avoin verkko (jätä tyhjäksi)
+Optional WiFi setup.\nNo network selected.\nChoose WiFi now or finish without WiFi.	Valinnainen WiFi-asetus.\nVerkkoa ei valittu.\nValitse WiFi nyt tai lopeta ilman WiFiä.
+Optional WiFi setup.\nSelected: %s\nChoose a different network or finish.	Valinnainen WiFi-asetus.\nValittu: %s\nValitse toinen verkko tai lopeta.
+Orange	Oranssi
+Orientation: %s	Suunta: %s
+Other	Muut
+Outline	Ääriviiva
+PKI key: %s	PKI-avain: %s
+PSRAM free: %lu KB\nPSRAM total: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	Vapaa PSRAM: %lu KB\nPSRAM yhteensä: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nVapaana sovellukselle: %lu KB
+PSRAM: none\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	PSRAM: ei ole\nFlash: %lu KB\nSketch: %lu KB\nVapaana sovellukselle: %lu KB
+Pair	Parita
+Pair BT Keyboard: %s	Parita BT-näppäimistö: %s
+Pair BT Keyboard: (none)	Parita BT-näppäimistö: (ei mitään)
+Percent	Prosentti
+Pink	Pinkki
+Please re-flash from Camillia's website for language support.	Asenna laiteohjelmisto uudelleen Camillian verkkosivulta saadaksesi kielituen.
+Portrait	Pysty
+Portrait 180	Pysty 180
+Position	Sijainti
+Precise	Tarkka
+Preparing state maps...	Valmistellaan aluekarttoja...
+Preset	Esiasetus
+Preset (%s)	Esiasetus (%s)
+Preset already %s.	Esiasetus on jo %s.
+Preset scan already running	Esiasetuksen skannaus on jo käynnissä
+Preset: %s	Esiasetus: %s
+Preset: %s - rebooting...	Esiasetus: %s - käynnistetään uudelleen...
+Public key preserved\n\n	Julkinen avain säilytetty\n\n
+Purple	Violetti
+Pwr %d dBm Hops %d	Teho %d dBm Hypyt %d
+R=Refresh  %s=Back	R=Päivitä  %s=Takaisin
+RECENTLY HEARD	ÄSKETTÄIN KUULLUT
+Radio busy - retry in %lus	Radio varattu - uusi yritys %lus kuluttua
+Radio not ready	Radio ei ole valmis
+Re(q)uest Node	Pyydä solmua (Q)
+Ready	Valmis
+Rebooting into OTA minimal mode...	Käynnistetään OTA-minimitilaan...
+Received over: %s %s	Vastaanotettu kautta: %s %s
+Red	Punainen
+Relayed to us by: %s	Välittänyt: %s
+Relayed to us by: %s (from MQTT)	Välittänyt: %s (MQTT:stä)
+Relayed to us by: nobody, heard directly	Välittänyt: ei kukaan, kuultu suoraan
+Relayed to us by: not reported by the relaying node	Välittänyt: välittävä solmu ei ilmoittanut
+Relayed to us by: the sender itself	Välittänyt: lähettäjä itse
+Relayed: %lu	Välitetty: %lu
+Release Channel: %s - checking...	Julkaisukanava: %s - tarkistetaan...
+Release Channel: %s%s	Julkaisukanava: %s%s
+Release Notes	Julkaisutiedot
+Release Notes  %s	Julkaisutiedot  %s
+Remove	Poista
+Removed %s	%s poistettu
+Removed %s - no networks left, AP mode	%s poistettu - verkkoja ei jäljellä, AP-tila
+Removed %s - now %s	%s poistettu - nyt %s
+Removed %u file%s. %u could not be deleted - the card may be write-protected.\n\nRe-run the scan to check.	%u tiedosto(a)%.0s poistettu. %u ei voitu poistaa - kortti voi olla kirjoitussuojattu.\n\nAja tarkistus uudelleen varmistaaksesi.
+Removed %u file%s.\n\nThis card looked clean afterwards, but the scan reads names and headers, not contents - it cannot promise the card is clean. Reformatting is the only answer that can.	%u tiedosto(a)%.0s poistettu.\n\nKortti näytti jälkeenpäin puhtaalta, mutta tarkistus lukee nimiä ja otsakkeita, ei sisältöä - se ei voi luvata, että kortti on puhdas. Vain uudelleenalustus voi.
+Removing Files	Poistetaan tiedostoja
+Removing legacy maps...	Poistetaan vanhoja karttoja...
+Replay already requested	Toisto jo pyydetty
+Replay not sent: %s	Toistoa ei lähetetty: %s
+Replay requested (last %lu min)	Toisto pyydetty (viim. %lu min)
+Reply	Vastaa
+Reply from %s	Vastaus kohteelta %s
+Reply from %s (%lus)	Vastaus kohteelta %s (%lus)
+Request (P)osition	Pyydä sijaintia (P)
+Request Node	Pyydä solmua
+Request Position	Pyydä sijaintia
+Request S&F Replay (%s)	Pyydä S&F-toistoa (%s)
+Request S&F Replay (no router)	Pyydä S&F-toistoa (ei reititintä)
+Requested (last %lu min)	Pyydetty (viim. %lu min)
+Rescan	Skannaa uudelleen
+Reset	Nollaa
+Reset Chat Colors	Nollaa chatin värit
+Reset to Default	Palauta oletus
+Restore failed: every slot is favorited, so there is no room. Unfavorite a node and try again.	Palautus epäonnistui: kaikki paikat ovat suosikkeja, tilaa ei ole. Poista suosikki ja yritä uudelleen.
+Restore failed: the archived record could not be read.	Palautus epäonnistui: arkistoitua tietuetta ei voitu lukea.
+Restore node?	Palautetaanko solmu?
+Role: %s%s	Rooli: %s%s
+S(h)are	Jaa (H)
+SD Card Format	SD-kortin alustus
+SD Card Scan	SD-kortin tarkistus
+SD scan cancelled	SD-tarkistus peruttu
+SD: %s, %s, %u fails	SD: %s, %s, %u virhettä
+SD: no card	SD: ei korttia
+SNR   cur %s  avg %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  cur %s  avg %.0fdBm min %.0f  max %.0f   n=%d	SNR   nyt %s  ka %.1fdB  min %.1f  maks %.1f   n=%d\nRSSI  nyt %s  ka %.0fdBm min %.0f  maks %.0f   n=%d
+SNR   cur --  avg --  min --  max --   n=0\nRSSI  cur --  avg --  min --  max --   n=0	SNR   nyt --  ka --  min --  maks --   n=0\nRSSI  nyt --  ka --  min --  maks --   n=0
+Sat	la
+Save	Tallenna
+Save failed - cannot write %s	Tallennus epäonnistui - kohteeseen %s ei voi kirjoittaa
+Save failed - too many this second	Tallennus epäonnistui - liian monta tällä sekunnilla
+Save while discovering	Tallenna haun aikana
+Save while scanning	Tallenna skannauksen aikana
+Saved %s	%s tallennettu
+Saved: %s	Tallennettu: %s
+Scan	Skannaa
+Scan %s	Skannaus %s
+Scan %s - saved %s	Skannaus %s - tallennettu %s
+Scan Networks	Skannaa verkot
+Scan SD Card for Malware%s	Tarkista SD-kortti haittaohjelmien varalta%s
+Scan a preset	Skannaa esiasetus
+Scan cancelled	Skannaus peruttu
+Scan failed - Rescan to try again	Skannaus epäonnistui - skannaa uudelleen
+Scan send failed	Skannauksen lähetys epäonnistui
+Scanning %s %s/%s	Skannataan %s %s/%s
+Scanning %s...	Skannataan %s...
+Scanning SD Card	Tarkistetaan SD-korttia
+Scanning WiFi networks...	Etsitään WiFi-verkkoja...
+Screen	Näyttö
+Screen Timeout	Näytön aikakatkaisu
+Screen Timeout: %s	Näytön aikakatkaisu: %s
+Screen off after %s on lock	Näyttö sammuu %s jälkeen lukituksessa
+Screen orientation	Näytön suunta
+Screen sleeps after %s	Näyttö nukahtaa %s jälkeen
+Screen stays on	Näyttö pysyy päällä
+Select a conversation	Valitse keskustelu
+Select this node's role.	Valitse tämän solmun rooli.
+Select your radio region/preset.	Valitse radion alue/esiasetus.
+Selection settling - press Enter again	Valinta asettuu - paina Enteriä uudelleen
+Sen(d) DM	Lähetä DM (D)
+Send	Lähetä
+Send DM	Lähetä DM
+Send failed	Lähetys epäonnistui
+Send to channel?	Lähetetäänkö kanavalle?
+Send top 5 to	Lähetä top 5 kohteeseen
+Sending request...	Lähetetään pyyntöä...
+Sent by this node.	Lähetetty tästä solmusta.
+Sent to %s	Lähetetty kohteeseen %s
+Sent. Waiting for route ACK...	Lähetetty. Odotetaan reitin ACK:ta...
+Sep	syys
+September	syyskuuta
+Server answered, but not with\nelevation data. Check the proxy\npoints at the elevation service.	Palvelin vastasi, mutta ei\nkorkeustiedoilla. Tarkista, että välityspalvelin\nosoittaa korkeuspalveluun.
+Server answered, but not with\nweather data. Check the proxy.	Palvelin vastasi, mutta ei\nsäätiedoilla. Tarkista välityspalvelin.
+Set message colour to %s and reboot?	Vaihdetaanko viestien väriksi %s ja käynnistetään uudelleen?
+Share	Jaa
+Share Location: %s	Jaa sijainti: %s
+Short	Lyhyt
+Short name	Lyhyt nimi
+Short name cannot be empty	Lyhyt nimi ei voi olla tyhjä
+Short: %s	Lyhyt: %s
+Show Archived Nodes: %s	Näytä arkistoidut solmut: %s
+Show Archived Nodes: %s%s	Näytä arkistoidut solmut: %s%s
+Signal: SNR %.1f dB, RSSI %.0f dBm	Signaali: SNR %.1f dB, RSSI %.0f dBm
+Silver	Hopea
+Sky	Taivaansininen
+Small	Pieni
+Source	Lähde
+Splash Melody: %s	Käynnistysmelodia: %s
+Splash melody: %s	Käynnistysmelodia: %s
+Stale - 	Vanhentunut -
+State Map	Aluekartta
+State map disabled	Aluekartta pois käytöstä
+State map unavailable	Aluekartta ei saatavilla
+Stay on	Aina päällä
+Storage: %s %s	Tallennustila: %s %s
+Storage: %s (not mounted)	Tallennustila: %s (ei liitetty)
+Store&Fwd Client: %s	Store&Fwd-asiakas: %s
+Store&Fwd client is off	Store&Fwd-asiakas on pois päältä
+Sun	su
+Sweep	Haravointi
+Sweep already running	Haravointi on jo käynnissä
+Sweep cancelled	Haravointi peruttu
+Sweep done: %d new (%lus)	Haravointi valmis: %d uutta (%lus)
+Sweep send failed	Haravoinnin lähetys epäonnistui
+Sweep/Scan Settings	Haravoinnin/skannauksen asetukset
+Sweeping...	Haravoidaan...
+Sweeping... %s/%s	Haravoidaan... %s/%s
+Switch to %s and reboot?	Vaihdetaanko %s ja käynnistetään uudelleen?
+Switch to theme %s and reboot?	Vaihdetaanko teemaan %s ja käynnistetään uudelleen?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	Vaihto ulkoiseen voi vahingoittaa radiota, jos antennia ei ole kytketty.  Kytke ulkoinen antenni ennen kuin painat Kyllä
+System Stats	Järjestelmätilastot
+Tall	Pysty
+Tall, turned 180	Pysty, käännetty 180
+Tap = Open   Long-press 3s = Delete   DM below = Back	Napautus = Avaa   Paina 3 s = Poista   DM alla = Takaisin
+Tap Next to continue	Jatka napauttamalla Seuraava
+Tap Next to continue, or Back	Jatka napauttamalla Seuraava, tai Takaisin
+Tap a channel	Napauta kanavaa
+Tap a channel to edit	Napauta kanavaa muokataksesi
+Tap a field to change it	Napauta kenttää muuttaaksesi sitä
+Tap a field to edit, then Save	Napauta kenttää, muokkaa ja Tallenna
+Tap a node for actions   Nodes below = Back	Napauta solmua toimintoja varten   Solmut alla = Takaisin
+Tap a node to start a DM	Napauta solmua aloittaaksesi DM:n
+Tap a preset to apply.	Napauta esiasetusta ottaaksesi sen käyttöön.
+Tap a preset, then Scan	Napauta esiasetusta, sitten Skannaa
+Tap a size to apply	Napauta kokoa ottaaksesi sen käyttöön
+Tap one to apply.	Napauta yhtä ottaaksesi sen käyttöön.
+Tap to preview	Napauta esikatsellaksesi
+Teal	Sinivihreä
+Telemetry	Telemetria
+Temp: %.1f C\nHumidity: %.1f%%\nPressure: %.1f hPa	Lämpö: %.1f C\nKosteus: %.1f%%\nPaine: %.1f hPa
+Temp: %.1f F\nHumidity: %.1f%%\nPressure: %.2f inHg	Lämpö: %.1f F\nKosteus: %.1f%%\nPaine: %.2f inHg
+Text	Teksti
+The card was formatted but could not be remounted. Reboot the device and it should come up clean.	Kortti alustettiin, mutta sitä ei voitu liittää uudelleen. Käynnistä laite uudelleen, niin sen pitäisi toimia puhtaana.
+Theme	Teema
+Theme: %s	Teema: %s
+Theme: %s (unchanged)	Teema: %s (ennallaan)
+Theme: %s - rebooting...	Teema: %s - käynnistetään uudelleen...
+These files are not used by the new tile map. Remove them to reclaim storage?	Uusi ruutukartta ei käytä näitä tiedostoja. Poistetaanko ne tilan vapauttamiseksi?
+This node	Tämä solmu
+This node has no position yet.\nNeeds a GPS fix or a set location.	Tällä solmulla ei ole vielä sijaintia.\nTarvitaan GPS-paikannus tai asetettu sijainti.
+Thu	to
+Time and Date	Aika ja päivämäärä
+Time and Date: %s	Aika ja päivämäärä: %s
+Time source: Internet / GPS	Aikalähde: Internet / GPS
+To close hit backspace.  (I)nformation	Sulje backspace-näppäimellä.  (I)nformaatio
+Tools	Työkalut
+Touch Navigation:	Kosketusnavigointi:
+Transport Symbols:\n%s Radio Transmission\n%s MQTT Transmission	Siirtosymbolit:\n%s Radiolähetys\n%s MQTT-lähetys
+Tue	ti
+Turn BT Keyboard on first	Ota ensin BT-näppäimistö käyttöön
+Turn MQTT Bridge %s and reboot?	Asetetaanko MQTT-silta tilaan %s ja käynnistetään uudelleen?
+Type = Filter   Bksp = Edit Filter   Enter = Open DM   Esc = Back	Kirjoita = Suodata   Bksp = Muokkaa suodatinta   Enter = Avaa DM   Esc = Takaisin
+Type = Filter   Bksp = Edit/Close Filter   Enter = Open DM	Kirjoita = Suodata   Bksp = Muokkaa/sulje suodatin   Enter = Avaa DM
+Type = Filter   Enter = Open DM   Bksp = Back	Kirjoita = Suodata   Enter = Avaa DM   Bksp = Takaisin
+Type = Filter   Enter = Open DM   Esc = Back	Kirjoita = Suodata   Enter = Avaa DM   Esc = Takaisin
+Type message...	Kirjoita viesti...
+Type to filter nodes	Kirjoita suodattaaksesi solmuja
+Type, then tap OK	Kirjoita ja napauta OK
+Type=Filter  Enter=Done  Bksp=Edit/Exit  %s=Back	Kirjoita=Suodata  Enter=Valmis  Bksp=Muokkaa/Lopeta  %s=Takaisin
+Un(f)avorite	Poista suosikeista (F)
+Un(m)ute	Poista mykistys (M)
+Unfavorite	Poista suosikeista
+Uni(g)nore	Lopeta ohitus (G)
+Unignore	Lopeta ohitus
+Units: %s	Yksiköt: %s
+Unknown	Tuntematon
+Until read	Luettuun asti
+Up to date (%s)	Ajan tasalla (%s)
+Up/Down	Ylös/Alas
+Up/Down = Select   Space = Compose   Enter = Focus   %s = Delete   %s = Back	Ylös/Alas = Valitse   Space = Kirjoita   Enter = Kohdista   %s = Poista   %s = Takaisin
+Up/Down = Select   Space = Compose   Enter = Focus   D = Delete	Ylös/Alas = Valitse   Space = Kirjoita   Enter = Kohdista   D = Poista
+Up/Down/J/K = Scroll   %s = Close	Ylös/Alas/J/K = Vieritä   %s = Sulje
+Up/Down/J/K = Scroll   Bksp = Close	Ylös/Alas/J/K = Vieritä   Bksp = Sulje
+Up/Down=Change  Enter=Save  %s=Cancel	Ylös/Alas=Muuta  Enter=Tallenna  %s=Peruuta
+Up/Down=Select  Left/Right=Change  Enter=Save  %s=Cancel	Ylös/Alas=Valitse  Vasen/Oikea=Muuta  Enter=Tallenna  %s=Peruuta
+Update	Päivitys
+Update check failed: %s	Päivitystarkistus epäonnistui: %s
+Update check needs WiFi connected	Päivitystarkistus vaatii yhdistetyn WiFin
+Update check needs WiFi on	Päivitystarkistus vaatii, että WiFi on päällä
+Update check skipped (a dialog was open)	Päivitystarkistus ohitettu (valintaikkuna oli auki)
+Uplinked by: %s	MQTT:hen välittänyt: %s
+Uplinked by: the sender itself	MQTT:hen välittänyt: lähettäjä itse
+Use arrows to choose, then tap Next	Valitse nuolilla ja napauta Seuraava
+Used: %lu KB (%lu%%)\nTotal: %lu KB\nFree: %lu KB\nMin free: %lu KB\nMax block: %lu KB	Käytetty: %lu KB (%lu%%)\nYhteensä: %lu KB\nVapaana: %lu KB\nVähimmäisvapaa: %lu KB\nSuurin lohko: %lu KB
+VIA MQTT	MQTT:N KAUTTA
+VNC Host failed to allocate PSRAM	VNC-isäntä ei voinut varata PSRAM-muistia
+VNC Host off	VNC-isäntä pois
+VNC Host on\nOpen http://%s/ and select the Remote tab	VNC-isäntä päällä\nAvaa http://%s/ ja valitse Remote-välilehti
+VNC Host on\nhttp://%s:%u/	VNC-isäntä päällä\nhttp://%s:%u/
+VNC Host: Off	VNC-isäntä: Pois
+VNC Host: Off (WiFi off)	VNC-isäntä: Pois (WiFi pois)
+VNC Host: On (browser connected)	VNC-isäntä: Päällä (selain yhdistetty)
+VNC Host: On (network disconnected)	VNC-isäntä: Päällä (verkko katkaistu)
+VNC Host: Unavailable (WiFi not connected)	VNC-isäntä: Ei saatavilla (WiFi ei yhdistetty)
+Voltage	Jännite
+Volume	Äänenvoimakkuus
+Volume: %u%%	Äänenvoimakkuus: %u%%
+W = Scan   S = Send   C = Reset   %s = Back	W = Skannaa   S = Lähetä   C = Nollaa   %s = Takaisin
+W = Sweep   P = Preset   C = %s   %s = Back	W = Haravoi   P = Esias.   C = %s   %s = Takaisin
+W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Haravoi   P = Esias.   C = %s   S = Tallenna   %s = Takaisin
+Wait %lus before sending again	Odota %lus ennen uutta lähetystä
+Wait %lus between sweeps	Odota %lus haravointien välillä
+Waiting for Wi-Fi...	Odotetaan Wi-Fiä...
+Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Seurataan %s/2/e/#\n\nEi vielä viestejä. Kanavat ilmestyvät tänne sitä mukaa kuin niitä julkaistaan, uusimmat alimpana, ja kunkin kohdalla näkyy nähtyjen viestien määrä.
+Weather	Sää
+Weather - %s	Sää - %s
+Weather server error (HTTP %d).	Sääpalvelimen virhe (HTTP %d).
+Web Config disabled	Web-asetukset pois käytöstä
+Web Config locked while MQTT is on	Web-asetukset lukittu, kun MQTT on päällä
+Web Config start failed	Web-asetusten käynnistys epäonnistui
+Web Config stopped.\n\nThe Bluetooth keyboard and Web Config share one radio and cannot run at the same time.\n\nTurn the keyboard off to use Web Config again.	Web-asetukset pysäytetty.\n\nBluetooth-näppäimistö ja web-asetukset jakavat yhden radion eivätkä voi toimia samaan aikaan.\n\nSammuta näppäimistö käyttääksesi web-asetuksia uudelleen.
+Web Config: Disabled	Web-asetukset: Pois käytöstä
+Web Config: Enabled	Web-asetukset: Käytössä
+Web Config: Off (MQTT on)	Web-asetukset: Pois (MQTT päällä)
+Web Config: Off (WiFi off)	Web-asetukset: Pois (WiFi pois)
+Web Config: On	Web-asetukset: Päällä
+Web Config: On (Lite)	Web-asetukset: Päällä (Lite)
+Web Config: On (chat PAUSED)	Web-asetukset: Päällä (chat TAUOLLA)
+Web config: %s\n\nChat is PAUSED while web config runs - this device needs that memory for Wi-Fi. Messages sent to you now are not received or stored.\n\nTurn web config off to resume messaging.	Web-asetukset: %s\n\nChat on TAUOLLA web-asetusten ollessa käynnissä - laite tarvitsee muistin Wi-Fiä varten. Sinulle nyt lähetettyjä viestejä ei vastaanoteta eikä tallenneta.\n\nSammuta web-asetukset jatkaaksesi viestittelyä.
+Wed	ke
+Welcome to Camillia for Meshtastic	Tervetuloa Camilliaan Meshtasticille
+Wheel/j-k=Change   Enter=Next	Rulla/j-k=Muuta   Enter=Seuraava
+White	Valkoinen
+Wi-Fi needed to fetch conditions.	Sään hakeminen vaatii Wi-Fin.
+Wi-Fi needed to fetch the\nterrain profile for this path.	Maastoprofiilin hakeminen\ntälle reitille vaatii Wi-Fin.
+WiFi connected: %s	WiFi yhdistetty: %s
+WiFi is off	WiFi on pois päältä
+WiFi not connected	WiFi ei yhdistetty
+WiFi password	WiFi-salasana
+WiFi selected: %s	WiFi valittu: %s
+WiFi: Off	WiFi: Pois
+WiFi: On (%s)	WiFi: Päällä (%s)
+WiFi: On (AP MODE ONLY)	WiFi: Päällä (VAIN AP-TILA)
+WiFi: On (AP mode)	WiFi: Päällä (AP-tila)
+WiFi: On (connecting %s)	WiFi: Päällä (yhdistetään %s)
+Wide	Leveä
+Within %s	%s tarkkuudella
+Writing a new filesystem...	Kirjoitetaan uutta tiedostojärjestelmää...
+X-Large	Erittäin suuri
+Y/Enter=Import   N/Bksp=Skip	Y/Enter=Tuo   N/Bksp=Ohita
+Year	Vuosi
+Yellow	Keltainen
+Yes	Kyllä
+[%s] no match	[%s] ei osumia
+[radio] init failed	[radio] käynnistys epäonnistui
+\n%lu min ago	\n%lu min sitten
+\n%s, %lu min ago	\n%s, %lu min sitten
+\n+%u more	\n+%u lisää
+\nT-Deck trackball: hold click 2s to sleep	\nT-Deckin ohjauspallo: pidä klikkausta 2 s nukahtaaksesi
+\n\nDelete them? Nothing else on the card is touched.\n\nFormat erases the whole card instead - the only certain fix.	\n\nPoistetaanko ne? Mihinkään muuhun kortilla ei kosketa.\n\nAlustus tyhjentää sen sijaan koko kortin - ainoa varma korjaus.
+all rates tried	kaikki nopeudet kokeiltu
+base64 key	base64-avain
+ch %s   air %s	kan %s   ilma %s
+channel	kanava
+check requested	tarkistus pyydetty
+exact	tarkka
+external	ulkoinen
+internal	sisäinen
+j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k tai </>=Säädä  Ylös/Alas=Rivi  Enter=Tallenna  Back=Peruuta
+j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Säädä  </>=Rivi  Enter=Tallenna  Backspace=Peruuta
+j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Säädä  Enter=Tallenna  Backspace=Peruuta
+j/k=Adjust  Wheel=Row  Enter=Save  Backspace=Cancel	j/k=Säädä  Rulla=Rivi  Enter=Tallenna  Backspace=Peruuta
+j/k=Change   Enter=Next   Bksp=Back	j/k=Muuta   Enter=Seuraava   Bksp=Takaisin
+low	matala
+missing	puuttuu
+never	ei koskaan
+no key	ei avainta
+not seen	ei nähty
+off	pois
+on	päällä
+one of: 	yksi näistä:
+one rate tried	yksi nopeus kokeiltu
+present	olemassa
+press F to change	paina F muuttaaksesi
+retry %lus	uusi yritys %lus kuluttua
+retry now	yritä nyt
+sensor %.2f V    trim %s	anturi %.2f V    korjaus %s
+sensor: read failed	anturi: lukuvirhe
+stay on	aina päällä
+tap Filter to change	napauta Suodatin muuttaaksesi
+unavailable	ei saatavilla
+unknown	tuntematon
+unknown date	tuntematon päivämäärä
+unknown error	tuntematon virhe
+unknown node (id ends ..%02x)	tuntematon solmu (id päättyy ..%02x)
+unset	ei asetettu
+until read	luettuun asti
+vague	likimääräinen

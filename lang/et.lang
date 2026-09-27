@@ -1,0 +1,884 @@
+# Camillia language file (issue #99)
+# code: et
+# name: Eesti
+#
+# One translation per line: the English exactly as it appears in the source,
+# a TAB, then the translation. Escape a newline as \n, a tab as \t, a backslash
+# as \\. Keep every %d / %s / %u ... in the same order and of the same type as the
+# English -- a line whose placeholders differ is ignored on the device and the
+# English is shown. Mesh terms that are names (LongFast, MQTT, LoRa) stay as they
+# are. Lines are kept sorted by the English, for review; the build sorts anyway.
+# First draft: review by a native speaker welcome (see docs/TRANSLATING.md).
+#
+# Compiled in by tools/gen_lang_builtin.py.
+  %s via %s (%.0f dB)\n	  %s kaudu %s (%.0f dB)\n
+  CONFIRM?	  KINNITADA?
+  Humid  %.1f %%	  Niisk. %.1f %%
+  Press  %.1f hPa	  Rõhk   %.1f hPa
+  lock	  kaitstud
+  open	  avatud
+ (no card)	 (kaarti pole)
+ (not sharing location)	 (asukohta ei jagata)
+ (unchanged)	 (muutmata)
+ - %s available	 - saadaval %s
+ - check failed	 - kontroll ebaõnnestus
+ - check unavailable	 - kontroll pole saadaval
+ - checking...	 - kontrollin...
+ - saving to %s	 - salvestan asukohta %s
+ - up to date	 - ajakohane
+! TX failed	! Saatmine ebaõnnestus
+! TX failed (node id)	! Saatmine ebaõnnestus (sõlme id)
+%d %s %d	%d. %s %d
+%d chans  %s msgs  %s%s	%d kan.  %s sõn.  %s%s
+%d chans  %s msgs  %s%s  (+%s off-list)	%d kan.  %s sõn.  %s%s  (+%s nimekirjast väljas)
+%d node(s), %d report(s)	%d sõlme, %d aruannet
+%d%s  %s\nFeels %d%s, humidity %d%%\nWind %s %d %s%s%s	%d%s  %s\nTundub %d%s, niiskus %d%%\nTuul %s %d %s%s%s
+%luh ago	%lu t tagasi
+%lum ago	%lu min tagasi
+%lus ago	%lu s tagasi
+%s   -   %u match%s so far	%s   -   seni %u vastet%.0s
+%s  (current)	%s  (praegune)
+%s (this node)	%s (see sõlm)
+%s - WiFi off	%s - WiFi väljas
+%s - rebooting...	%s - taaskäivitan...
+%s - saved	%s - salvestatud
+%s = Back   C = Clear   F = Filter	%s = Tagasi   C = Tühjenda   F = Filter
+%s = Back   green=SNR  pink=RSSI	%s = Tagasi   roheline=SNR  roosa=RSSI
+%s = Back   teal=ChUtil  orange=AirTx	%s = Tagasi   sinakasroheline=ChUtil  oranž=AirTx
+%s = Close	%s = Sulge
+%s returns to the live list.\nIf it is full, the oldest non-favorite is archived to make room.	%s naaseb aktiivsesse nimekirja.\nKui see on täis, arhiveeritakse ruumi tegemiseks vanim mittelemmik.
+%s to close Help	%s sulgeb Abi
+%s will be removed from the node list.	%s eemaldatakse sõlmede nimekirjast.
+%s x%u\nClock: %u MHz\nRevision: %u\nUptime: %luh %02lum %02lus\nLoop rate: %lu /s\nBattery: %u%% %.3fV	%s x%u\nTakt: %u MHz\nRevisjon: %u\nTööaeg: %luh %02lum %02lus\nTsüklid: %lu /s\nAku: %u%% %.3fV
+%s%.2f, %.2f (rounded)	%s%.2f, %.2f (ümardatud)
+%s%lu min ago - %.2f, %.2f (rounded)	%s%lu min tagasi - %.2f, %.2f (ümardatud)
+%s.\n\nNothing can arrive until the bridge has a broker session. Fix it in Config (or web config) and this list fills in on its own.	%s.\n\nMidagi ei saabu enne, kui sillal on maakleriga seanss. Parandage see Seadetes (või veebiseadetes) ja see nimekiri täitub ise.
+%s: %d node(s) heard	%s: kuuldud sõlmi %d
+%s: %d on preset (%lus)	%s: eelseadistusel %d (%lus)
+%s=Scroll  A=Actions  %s=List	%s=Keri  A=Toimingud  %s=Nimekiri
+%s\n%.1f km - brg %03d %s\n%s\nyou %dm - peer %dm - %.0f MHz	%s\n%.1f km - suund %03d %s\n%s\nsina %dm - teine %dm - %.0f MHz
+%s\n%lu min old	%s\n%lu min tagasi
+%s\nIn use - will switch to the next configured WiFi network, or AP mode if none is available	%s\nKasutusel - lülitub järgmisele seadistatud WiFi-võrgule või AP-režiimi, kui ühtegi pole
+%s\nMessage history will be erased	%s\nSõnumite ajalugu kustutatakse
+%s\nType %06u then Enter on the keyboard	%s\nSisestage %06u ja seejärel Enter klaviatuuril
+%u of %d	%u / %d
+%u sec	%u s
+(A)nnounce	Teat(a)
+(B)eacons	Majakad (B)
+(C)FG   (D)M   (N)odes   Too(l)s   (A)ctions	(C)FG   (D)M   Sõlmed (N)   Tööriistad (L)   Toimingud (A)
+(C)FG  C(h)an  (D)M  (N)odes  Too(l)s  (A)ct	(C)FG  Kanal (H)  (D)M  Sõlmed (N)  Tööriist (L)  Toim. (A)
+(D) Direct Messages\n(C) Configuration\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(H) Channel selector\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(D) Otsesõnumid\n(C) Seaded\n(N) Sõlmed\n(L) Tööriistad (Live, graafikud)\n(A) Kanali toimingud\n(H) Kanali valik\n(P) Abi (see ekraan)\n(E) Emoji\n(Space) Kirjuta/Vasta\n(Enter) Mine sõnumitele
+(D)iscovery	Avastamine (D)
+(F)avorite	Lemmik (F)
+(H) Home dashboard\n(C) Chat (again: channels)\n(F) Configuration\n(D) Direct Messages\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(H) Avapaneel\n(C) Vestlus (uuesti: kanalid)\n(F) Seaded\n(D) Otsesõnumid\n(N) Sõlmed\n(L) Tööriistad (Live, graafikud)\n(A) Kanali toimingud\n(P) Abi (see ekraan)\n(E) Emoji\n(Space) Kirjuta/Vasta\n(Enter) Mine sõnumitele
+(H)ome (C)hat C(f)g (D)M (N)odes Too(l)s	Avaleht (H) Vestl. (C) Seaded (F) (D)M Sõlmed (N) Tööriist (L)
+(L)ocate	(L)okaliseeri
+(L)ocation: %s	Asukoht (L): %s
+(M)ute	Vaigista (M)
+(R)eply	Vasta (R)
+(W)eather	Ilm (W)
+(Y)es	Jah (Y)
+(no name)	(nimeta)
+(not set)	(määramata)
+(nothing)	(mitte midagi)
+(unknown)	(tundmatu)
+(unnamed)	(nimetu)
+, gusts %d	, puhanguid %d
+1 hour	1 tund
+12-hour	12-tunnine
+15 sec	15 s
+2 hours	2 tundi
+24-hour	24-tunnine
+30 sec	30 s
+4-char short name (ABCD)	4-märgiline lühinimi (ABCD)
+5 min on that preset. This node hears nothing on its own while it runs, and finds only meshes sharing your primary channel key.	5 min sellel eelseadistusel. Selle ajal ei kuule see sõlm oma võrgust midagi ja leiab ainult võrgud, millel on sama põhikanali võti.
+5 sec	5 s
+6 hours	6 tundi
+? hops	? hüpet
+ACK from %s. Waiting for reply...	ACK saatjalt %s. Ootan vastust...
+ACKed, no reply (%lus)	ACK saadud, vastust pole (%lus)
+AP mode cannot be removed	AP-režiimi ei saa eemaldada
+AP mode selected	AP-režiim valitud
+AP mode selected - enable WiFi first	AP-režiim valitud - lülitage esmalt WiFi sisse
+AP mode: %s	AP-režiim: %s
+ARCHIVED %s\n\n%s\nShort: %s\nID: !%08lX\n\nLast heard: %s\n%s\n\n%sNot on the live list. Restore it to message,\nfavorite or trace it.	ARHIVEERITUD %s\n\n%s\nLühike: %s\nID: !%08lX\n\nViimati kuuldud: %s\n%s\n\n%sPole aktiivses nimekirjas. Taastage see, et saata sõnumeid,\nmärkida lemmikuks või jälgida.
+Act	Toim.
+Action Result	Tulemus
+Action: %s	Toiming: %s
+Actions	Toimingud
+All	Kõik
+All live traffic will be erased	Kogu reaalajas liiklus kustutatakse
+All live traffic will be erased, including lines hidden by the filter	Kogu reaalajas liiklus kustutatakse, ka filtri peidetud read
+Already %s.	Juba %s.
+Already on that preset	Juba sellel eelseadistusel
+Analyzing terrain...	Analüüsin maastikku...
+Announce	Teata
+Antenna: %s	Antenn: %s
+Any key / %s = Close	Mis tahes klahv / %s = Sulge
+Apply	Rakenda
+Apr	apr
+April	aprill
+Archive Dropped Nodes: %s	Arhiveeri väljatõrjutud sõlmed: %s
+Archive Dropped Nodes: %s%s	Arhiveeri väljatõrjutud sõlmed: %s%s
+Asks first, then reboots.	Küsib enne, siis taaskäivitab.
+Asks first, then reboots. Only nodes on the same preset can hear each other.	Küsib enne, siis taaskäivitab. Üksteist kuulevad ainult sama eelseadistusega sõlmed.
+Aug	aug
+August	august
+Auto-update gave up on %s after %u failed installs	Automaatne uuendus loobus versioonist %s pärast %u ebaõnnestunud paigaldust
+BT Keyboard failed to start (low memory)	BT-klaviatuur ei käivitunud (vähe mälu)
+BT Keyboard off	BT-klaviatuur väljas
+BT Keyboard on - connecting to %s	BT-klaviatuur sees - ühendan seadmega %s
+BT Keyboard on - use Pair to choose one	BT-klaviatuur sees - valige Paarita kaudu
+BT Keyboard turned off.\n\nWeb Config and the Bluetooth keyboard share one radio and cannot run at the same time.\n\nTurn Web Config off to use the keyboard again.	BT-klaviatuur välja lülitatud.\n\nVeebiseaded ja Bluetooth-klaviatuur jagavad üht raadiot ega saa korraga töötada.\n\nLülitage veebiseaded välja, et klaviatuuri uuesti kasutada.
+BT Keyboard: %s	BT-klaviatuur: %s
+BT Keyboard: Off	BT-klaviatuur: Väljas
+Back	Tagasi
+Back = Cancel	Tagasi = Tühista
+Battery Calibration	Aku kalibreerimine
+Battery Calibration: %s	Aku kalibreerimine: %s
+Battery Calibration: Off	Aku kalibreerimine: Väljas
+Battery Display: %s	Aku kuva: %s
+Battery critical - shedding load	Aku kriitiline - vähendan koormust
+Battery empty	Aku tühi
+Battery low	Aku tühjeneb
+Battery trim: %s	Aku korrektsioon: %s
+Battery: %.0f%%\nVoltage: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%	Aku: %.0f%%\nPinge: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%
+Battery\nVoltage\nChUtil\nAirTx\nTemp\nHumidity\nPressure	Aku\nPinge\nChUtil\nAirTx\nTemp.\nNiiskus\nRõhk
+Beacons	Majakad
+Bksp=Back  solid=ChUtil  dash=AirTx	Bksp=Tagasi  pidev=ChUtil  katkendlik=AirTx
+Bksp=Back  solid=SNR  dash=RSSI	Bksp=Tagasi  pidev=SNR  katkendlik=RSSI
+Bksp=Close	Bksp=Sulge
+Blink Flashes (Channel): %u	Vilkumiste arv (kanal): %u
+Blink Flashes (DM): %u	Vilkumiste arv (DM): %u
+Blocked @ %.1f km, %dm over sight	Blokeeritud %.1f km juures, %dm üle nähtavusjoone
+Blue	Sinine
+Bluetooth Keyboard	Bluetooth-klaviatuur
+Bottom buttons: Chats, DM, Nodes, Tools, Config, Help.	Alumised nupud: Vestlused, DM, Sõlmed, Tööriistad, Seaded, Abi.
+Bottom buttons: Home, Chats, DM, Nodes, Tools, Config, Help.\nHome is the dashboard; Chats is the messages, and its icon\nblinks when a channel has something unread.	Alumised nupud: Avaleht, Vestlused, DM, Sõlmed, Tööriistad, Seaded, Abi.\nAvaleht on paneel; Vestlused on sõnumid ja nende ikoon\nvilgub, kui kanalis on midagi lugemata.
+Brightness	Heledus
+Brightness: %u%%	Heledus: %u%%
+Brightness: %u%%  Lock: %u%%	Heledus: %u%%  Lukk: %u%%
+Brown	Pruun
+Bubbles	Mullid
+C = Clear   %s = Back	C = Tühjenda   %s = Tagasi
+C = Clear   F = Filter	C = Tühjenda   F = Filter
+C:Cfg H:Ch D:DM N:Node L:Tools A:Act	C:Seaded H:Kan D:DM N:Sõlm L:Tööriist A:Toim
+CHANNEL UTIL	KANALI KASUTUS
+CHANNEL UTILIZATION (%)	KANALI KASUTUS (%)
+Can't resolve the weather server.\nCheck the address and DNS.	Ilmaserverit ei saa lahendada.\nKontrollige aadressi ja DNS-i.
+Cancel	Tühista
+Cancelled after removing %u file%s. The rest were left alone - run the scan again to see what is still there.	Tühistatud pärast %u faili%.0s eemaldamist. Ülejäänut ei puudutatud - käivitage kontroll uuesti, et näha, mis alles on.
+Cannot send: no node id	Ei saa saata: sõlme id puudub
+Card formatted.\n\nWrite your configuration back to it as /camillia/config.yaml?	Kaart vormindatud.\n\nKas kirjutada seaded tagasi nimega /camillia/config.yaml?
+ChUtil  cur %s  avg %.1f%%  max %.1f%%   n=%d\nAirTx   cur %s  avg %.1f%%  max %.1f%%   n=%d	ChUtil  nüüd %s  kesk %.1f%%  max %.1f%%   n=%d\nAirTx   nüüd %s  kesk %.1f%%  max %.1f%%   n=%d
+ChUtil  cur --  avg --  max --   n=0\nAirTx   cur --  avg --  max --   n=0	ChUtil  nüüd --  kesk --  max --   n=0\nAirTx   nüüd --  kesk --  max --   n=0
+Channel	Kanal
+Channel %d	Kanal %d
+Channel %d  %s	Kanal %d  %s
+Channel Actions\n%s	Kanali toimingud\n%s
+Channel Configuration	Kanali seaded
+Channel Key	Kanali võti
+Channel Message LED	Kanalisõnumi LED
+Channel Message LED: %s	Kanalisõnumi LED: %s
+Channel Name	Kanali nimi
+Channel blink: %u flash%s	Kanali vilkumine: %u korda%.0s
+Channel busy (%.0f%%) - not sweeping	Kanal hõivatud (%.0f%%) - ei skaneeri
+Channels	Kanalid
+Chat Colors: %s	Vestluse värvid: %s
+Chat Names	Nimed vestluses
+Chat Names: %s	Nimed vestluses: %s
+Chat Names: %s%s	Nimed vestluses: %s%s
+Chat Style	Vestluse stiil
+Chat Style: %s	Vestluse stiil: %s
+Chat Style: %s%s	Vestluse stiil: %s%s
+Chat Type	Vestluse tüüp
+Chat Type: %s	Vestluse tüüp: %s
+Chat Type: %s%s	Vestluse tüüp: %s%s
+Chat colors reassigned	Vestluse värvid uuesti jaotatud
+Checking %u of %u   %u%%	Kontrollin %u / %u   %u%%
+Chirpy	Siristamine
+Choose WiFi	Vali WiFi
+Choose WiFi or Finish	Valige WiFi või Lõpeta
+Choose WiFi: %s	Vali WiFi: %s
+Choose WiFi: (none)	Vali WiFi: (puudub)
+Classic	Klassikaline
+Clear	Tühjenda
+Clear Messages	Tühjenda sõnumid
+Clear Nodes (All)	Tühjenda sõlmed (kõik)
+Clear Nodes (Keep Favorites)	Tühjenda sõlmed (jäta lemmikud)
+Clear by %dm at tightest	Vaba %dm kõige kitsamas kohas
+Clear entire live feed?	Kas tühjendada kogu reaalajas voog?
+Cleared %d nodes, kept %d favorites - rebooting...	Tühjendatud %d sõlme, alles %d lemmikut - taaskäivitan...
+Cleared (%d report(s)) - rebuilding from traffic	Tühjendatud (%d aruannet) - taastan liiklusest
+Clock Format: %s	Kella vorming: %s
+Clock set from web config	Kell seatud veebiseadetest
+Clock set: %04d-%02d-%02d %02d:%02d	Kell seatud: %04d-%02d-%02d %02d:%02d
+Close	Sulge
+Configuration	Seaded
+Configuration exported to /camillia/config.yaml.\n\nThe card is formatted and holds nothing else. Chat history, the node database and any map tiles were on the old filesystem and are gone.	Seaded eksporditud faili /camillia/config.yaml.\n\nKaart on vormindatud ega sisalda muud. Vestluste ajalugu, sõlmede andmebaas ja kaardipaanid olid vanas failisüsteemis ja on kadunud.
+Configured WiFi is empty	Seadistatud WiFi on tühi
+Confirm Chat Style	Kinnita vestluse stiil
+Confirm?	Kinnitada?
+Connect	Ühenda
+Connect to WiFi before enabling VNC	Enne VNC sisselülitamist ühendage WiFi-ga
+Connect: %s	Ühenda: %s
+Connecting to %s...	Ühendan seadmega %s...
+Connecting to broker...	Ühendan maakleriga...
+Connection failed: %s	Ühendus ebaõnnestus: %s
+Conversation deleted	Vestlus kustutatud
+Conversations	Vestlused
+Could not reach the weather server.	Ilmaserverit ei õnnestunud tabada.
+Could not remove every file. Check storage and retry.	Kõiki faile ei õnnestunud eemaldada. Kontrollige salvestusruumi ja proovige uuesti.
+Counting files on the card...	Loen kaardil olevaid faile...
+Counting files... %u found	Loen faile... leitud %u
+Custom	Kohandatud
+Custom (%u B)	Kohandatud (%u B)
+Cyan	Tsüaan
+DIRECT MESSAGES	OTSESÕNUMID
+DISTANCE UNKNOWN	KAUGUS TEADMATA
+DM blink: %u flash%s	DM vilkumine: %u korda%.0s
+DMs	DM-id
+Date unavailable	Kuupäev pole saadaval
+Day	Päev
+Dec	dets
+December	detsember
+Default	Vaikimisi
+Default (%u)	Vaikimisi (%u)
+Default +%u	Vaikimisi +%u
+Del(e)te	Kustuta (E)
+Delete	Kustuta
+Delete WiFi?	Kas kustutada WiFi?
+Delete conversation?	Kas kustutada vestlus?
+Delete failed	Kustutamine ebaõnnestus
+Delete node?	Kas kustutada sõlm?
+Delivery details not recorded: received before this boot, or too many messages ago.	Kohaletoimetamise andmeid pole salvestatud: saadud enne seda käivitust või liiga palju sõnumeid tagasi.
+Detail Map	Üksikasjalik kaart
+Device Info	Seadme teave
+Device switched off last time: battery empty	Seade lülitus viimati välja: aku tühi
+Direct Message LED	Otsesõnumi LED
+Direct Message LED: %s	Otsesõnumi LED: %s
+Discovery	Avastamine
+Do not remove the card	Ärge eemaldage kaarti
+Elevation data too sparse\nfor this path.	Kõrgusandmeid on sellele teele\nliiga vähe.
+Elevation fetch failed (%d).\nCheck the server URL - it must be http://	Kõrguse toomine ebaõnnestus (%d).\nKontrollige serveri URL-i - see peab olema http://
+Enable WiFi first	Lülitage esmalt WiFi sisse
+Enc	Krüpt.
+Encrypted	Krüptitud
+Encryption	Krüptimine
+Enter password, then tap Connect	Sisestage parool ja puudutage Ühenda
+Enter this node's long name.	Sisestage selle sõlme pikk nimi.
+Enter=Connect  Backspace=Back	Enter=Ühenda  Backspace=Tagasi
+Enter=Info  A=Actions  Bksp=Edit/Exit  %s=Back	Enter=Info  A=Toimingud  Bksp=Muuda/Välju  %s=Tagasi
+Enter=Info  A=Actions  Space=Filter  %s=Back	Enter=Info  A=Toimingud  Space=Filter  %s=Tagasi
+Enter=Next	Enter=Edasi
+Enter=Next    Bksp(empty)=Back	Enter=Edasi    Bksp(tühi)=Tagasi
+Enter=Next   Bksp(empty)=Back	Enter=Edasi   Bksp(tühi)=Tagasi
+Enter=OK  %s=Erase/Back	Enter=OK  %s=Kustuta/Tagasi
+Enter=OK  Bksp=Erase  %s=Back	Enter=OK  Bksp=Kustuta  %s=Tagasi
+Enter=Save  Tab=Field  %s=Erase/Back	Enter=Salvesta  Tab=Väli  %s=Kustuta/Tagasi
+Enter=Send   %s=Cancel	Enter=Saada   %s=Tühista
+Enter=Send  Bksp(empty)=Cancel	Enter=Saada  Bksp(tühi)=Tühista
+Enter=Send  Esc=Cancel  Bksp=Del	Enter=Saada  Esc=Tühista  Bksp=Kustuta
+Environment	Keskkond
+Errors	Vead
+Examined %u file%s. Nothing matching Windows malware was found.\n\nThis reads names and file headers, not contents, so it is a good sign rather than a guarantee.	Kontrollitud %u faili%.0s. Windowsi pahavarale sarnast ei leitud.\n\nLoetakse nimesid ja failipäiseid, mitte sisu, seega on see hea märk, mitte garantii.
+Export Config	Ekspordi seaded
+Export FAILED (no SD?)	Eksport EBAÕNNESTUS (SD puudub?)
+Export FAILED. The card formatted, but the configuration could not be written back to it - try Export from the Config screen.	Eksport EBAÕNNESTUS. Kaart vormindati, kuid seadeid ei õnnestunud tagasi kirjutada - proovige Eksporti Seadete ekraanil.
+Exported to /camillia/config.yaml	Eksporditud faili /camillia/config.yaml
+Extra Large	Väga suur
+Factory Reset	Tehaseseaded
+Factory reset - rebooting...	Tehaseseaded - taaskäivitan...
+Favorite	Lemmik
+Feb	veebr
+February	veebruar
+Feels %d%s   Hum %d%%\nWind %d %s %s\nGusting %d %s	Tundub %d%s   Niisk. %d%%\nTuul %d %s %s\nPuhang %d %s
+Feels like   %d%s\nHumidity     %d%%\nWind         %d %s from %s\nGusting      %d %s	Tundub       %d%s\nNiiskus      %d%%\nTuul         %d %s suunast %s\nPuhangud     %d %s
+Fetching...	Toon...
+Filter Nodes	Filtreeri sõlmi
+Finish	Lõpeta
+Firmware Update	Püsivara uuendus
+Firmware Update Check	Püsivara uuenduse kontroll
+Firmware Update: Install %s	Püsivara uuendus: paigalda %s
+Font Size	Fondi suurus
+Font Size: %s	Fondi suurus: %s
+Font Size: %s%s	Fondi suurus: %s%s
+Forget	Unusta
+Format FAILED, and the card could not be remounted.\n\nReboot the device, or format the card on a PC.	Vormindamine EBAÕNNESTUS ja kaarti ei õnnestunud uuesti ühendada.\n\nTaaskäivitage seade või vormindage kaart arvutis.
+Format FAILED. The card was left as it was and is still mounted.\n\nFormatting it on a PC is the reliable way out.	Vormindamine EBAÕNNESTUS. Kaart jäi muutmata ja on endiselt ühendatud.\n\nArvutis vormindamine on usaldusväärne lahendus.
+Format the SD card?\n\nThis erases EVERYTHING on it - chat and DM history, the node database, map tiles and your saved configuration - not just the files the scan matched.\n\nIt cannot be undone.	Kas vormindada SD-kaart?\n\nSee kustutab sellelt KÕIK - vestluste ja DM-ide ajaloo, sõlmede andmebaasi, kaardipaanid ja salvestatud seaded - mitte ainult kontrolli leitud failid.\n\nSeda ei saa tagasi võtta.
+Formatting SD Card	Vormindan SD-kaarti
+Found %d network(s)	Leitud võrke: %d
+Found %u file%s matching Windows malware:\n	%u faili%.0s sarnaneb Windowsi pahavarale:\n
+Freq: %.3f MHz	Sag: %.3f MHz
+Fri	R
+From: %s	Saatja: %s
+Full node name when known	Sõlme täisnimi, kui teada
+GPS disabled (using default coordinates)	GPS väljas (vaikekoordinaadid)
+GPS enabled (hardware)	GPS sees (riistvara)
+GPS: Disabled (Default Coords)	GPS: Väljas (vaikekoord.)
+GPS: Enabled (Hardware)	GPS: Sees (riistvara)
+Gateway: not known	Lüüs: teadmata
+Grazes terrain - F1=%dm	Riivab maastikku - F1=%dm
+Green	Roheline
+HEARD ABOUT	TEISTE TEATATUD
+Heard %s ago   %u seen, ~%s apart	Kuuldud %s tagasi   nähtud %u korda, ~%s vahega
+Heard %s ago   1 seen	Kuuldud %s tagasi   nähtud 1 kord
+Help	Abi
+High	Kõrge
+Hops	Hüpped
+Hops: %d of %d	Hüpped: %d / %d
+Hour	Tund
+I(g)nore	I(g)noreeri
+Identity	Identiteet
+Ignore	Ignoreeri
+Import Config	Impordi seaded
+Import FAILED (no file?)	Import EBAÕNNESTUS (faili pole?)
+Import failed - enter a name	Import ebaõnnestus - sisestage nimi
+Imported OK - rebooting...	Import OK - taaskäivitan...
+Install now? The device reboots to update.	Kas paigaldada kohe? Seade taaskäivitub uuendamiseks.
+Invalid base64 key	Vigane base64 võti
+Invalid date/time	Vigane kuupäev/kellaaeg
+Invert Scrolling: %s	Pööratud kerimine: %s
+J/K = Scroll   %s = Close	J/K = Keri   %s = Sulge
+J/K = Scroll   Bksp = Close	J/K = Keri   Bksp = Sulge
+J/K = Select   Space = Compose   Enter = Focus   D = Delete	J/K = Vali   Space = Kirjuta   Enter = Fookus   D = Kustuta
+Jan	jaan
+January	jaanuar
+Jul	juuli
+July	juuli
+Jun	juuni
+June	juuni
+Just announced. Try again in %us.	Just teatati. Proovige uuesti %us pärast.
+Key	Võti
+Keyboard Blink: %s	Klaviatuuri vilkumine: %s
+Keyboard Light	Klaviatuuri valgus
+Keyboard Light: %s	Klaviatuuri valgus: %s
+Keyboard blink: %s	Klaviatuuri vilkumine: %s
+Keyboard light %s	Klaviatuuri valgus %s
+Keyboard light %s - after a power cycle	Klaviatuuri valgus %s - pärast toite välja- ja sisselülitamist
+Keyboard light off	Klaviatuuri valgus väljas
+L/R=Change   Enter=Save   %s=Back	V/P=Muuda   Enter=Salvesta   %s=Tagasi
+LINE OF SIGHT	OTSENÄHTAVUS
+LIVE	REAALAJAS
+LONGEST SILENT	KÕIGE KAUEM VAIKNE
+Landscape	Rõhtpaigutus
+Language	Keel
+Language: %s	Keel: %s
+Large	Suur
+Last heard	Viimati kuuldud
+Last heard\nSNR\nHops\nChannel\nSigned	Viimati kuuldud\nSNR\nHüpped\nKanal\nAllkirjastatud
+Leave blank to clear	Tühjendamiseks jätke tühjaks
+Light reminds for %s	Tuli tuletab meelde %s
+Light reminds until read	Tuli tuletab meelde kuni lugemiseni
+Lime	Laim
+Link	Ühendus
+Listening   %d sender%s heard	Kuulan   kuuldud saatjaid: %d%.0s
+Listening: off	Kuulamine: väljas
+Live	Reaalajas
+Live Filter	Reaalajas filter
+Live feed cleared	Reaalajas voog tühjendatud
+Loading map...	Laadin kaarti...
+Loc	Asuk.
+Locate	Lokaliseeri
+Locate: %s	Lokaliseeri: %s
+Location	Asukoht
+Location Precision	Asukoha täpsus
+Location Precision: %s	Asukoha täpsus: %s
+Location rounded to %s	Asukoht ümardatud: %s
+Location sent exactly	Asukoht saadetud täpselt
+Location sharing off (no position sent)	Asukoha jagamine väljas (asendit ei saadeta)
+Location sharing on	Asukoha jagamine sees
+Location: %s	Asukoht: %s
+Lock Screen Off	Ekraan välja lukustamisel
+Lock Screen Off: %s	Ekraan välja lukustamisel: %s
+Lock Screen: %s	Lukustuskuva: %s
+Lock screen	Lukustuskuva
+Lock screen stays on	Lukustuskuva jääb sisse
+Long	Pikk
+Long name	Pikk nimi
+Long name cannot be empty	Pikk nimi ei tohi olla tühi
+Long name: %s\nEnter a short name (up to 4 chars).	Pikk nimi: %s\nSisestage lühinimi (kuni 4 märki).
+Long: %s	Pikk: %s
+Looking for keyboards...	Otsin klaviatuure...
+Low	Madal
+ME (ACK)	MINA (ACK)
+MQTT Bridge: %s	MQTT sild: %s
+MQTT Bridge: %s - rebooting...	MQTT sild: %s - taaskäivitan...
+MQTT Bridge: Off (WiFi off)	MQTT sild: Väljas (WiFi väljas)
+MQTT Scan Settings	MQTT skannimise seaded
+MQTT bridge is off	MQTT sild on väljas
+Map (loading)	Kaart (laadib)
+Map (off)	Kaart (väljas)
+Map memory unavailable	Kaardi jaoks pole mälu
+Map unavailable	Kaart pole saadaval
+Mar	märts
+March	märts
+Match the voltage to a meter reading.\nPercent comes from the fuel gauge and does not change.	Sobitage pinge mõõteriista näiduga.\nProtsent tuleb laetuse mõõturist ega muutu.
+Match the voltage to a meter reading.\nPercent follows it. 0% = uncalibrated.	Sobitage pinge mõõteriista näiduga.\nProtsent järgib seda. 0% = kalibreerimata.
+May	mai
+Medium	Keskmine
+Mesh Beacons is off.\n\nTurn it on in Config (or under Modules in web config) to decode beacons from other meshes. Receive-only: nothing is transmitted, and an offer is never applied to your radio.	Võrgu majakad on väljas.\n\nLülitage need sisse Seadetes (või veebiseadete jaotises Moodulid), et dekodeerida teiste võrkude majakaid. Ainult vastuvõtt: midagi ei edastata ja pakkumist ei rakendata kunagi teie raadiole.
+Mesh Beacons: %s	Võrgu majakad: %s
+Mesh beacons: %s	Võrgu majakad: %s
+Message (I)nfo	Sõnumi (i)nfo
+Message Actions	Sõnumi toimingud
+Message Info	Sõnumi info
+Messages	Sõnumid
+Messages cleared - rebooting...	Sõnumid tühjendatud - taaskäivitan...
+Metric	Meetriline
+Minute	Minut
+Modem preset	Modemi eelseadistus
+Mon	E
+Month	Kuu
+Move  Enter=Apply  %s=Back	Liiguta  Enter=Rakenda  %s=Tagasi
+Move  Enter=Apply  %s=Cancel	Liiguta  Enter=Rakenda  %s=Tühista
+Move  Enter=Change  %s=Cancel	Liiguta  Enter=Muuda  %s=Tühista
+Move  Enter=Edit  %s=Back	Liiguta  Enter=Redigeeri  %s=Tagasi
+Move  Enter=OK  %s=Cancel	Liiguta  Enter=OK  %s=Tühista
+Move  Enter=Open  %s=Back	Liiguta  Enter=Ava  %s=Tagasi
+Move  Enter=Pick  %s=Back	Liiguta  Enter=Vali  %s=Tagasi
+Move  Enter=Scan  %s=Cancel	Liiguta  Enter=Skanni  %s=Tühista
+Move • Enter=Add • %s=Close	Liiguta • Enter=Lisa • %s=Sulge
+Move • Enter=Insert • %s=Close	Liiguta • Enter=Sisesta • %s=Sulge
+Move • Enter=React • %s=Close	Liiguta • Enter=Reageeri • %s=Sulge
+Move • Enter=Send • %s=Close	Liiguta • Enter=Saada • %s=Sulge
+Move=Adjust  Enter=Save  %s=Cancel	Liiguta=Reguleeri  Enter=Salvesta  %s=Tühista
+Move=Adjust  Space=Toggle  Enter=Save  %s=Cancel	Liiguta=Reguleeri  Space=Lülita  Enter=Salvesta  %s=Tühista
+Move=Preview  Enter=OK  %s=Cancel	Liiguta=Eelvaade  Enter=OK  %s=Tühista
+My Message Color	Minu sõnumite värv
+My Message Color: %s	Minu sõnumite värv: %s
+My Message Color: %s (unchanged)	Minu sõnumite värv: %s (muutmata)
+My Message Color: %s - rebooting...	Minu sõnumite värv: %s - taaskäivitan...
+N=Choose WiFi   Enter=Finish   Bksp=Back	N=Vali WiFi   Enter=Lõpeta   Bksp=Tagasi
+NO LINE OF SIGHT	OTSENÄHTAVUST POLE
+NODEINFO + telemetry queued.	NODEINFO + telemeetria järjekorras.
+NODES	SÕLMED
+NODES (%d%s)	SÕLMED (%d%s)
+NODES [%s] (%d%s)	SÕLMED [%s] (%d%s)
+Name	Nimi
+Name: %s\nShort: %s\nID: !%08X\nLast heard: %s\nSNR: %.1f dB\nHops: %u\nChannel: %d\n\nPosition:\n%s\n\nTelemetry:\n%s	Nimi: %s\nLühike: %s\nID: !%08X\nViimati kuuldud: %s\nSNR: %.1f dB\nHüpped: %u\nKanal: %d\n\nAsend:\n%s\n\nTelemeetria:\n%s
+Name\nShort\nID	Nimi\nLühike\nID
+Nav Bar: %s	Navigeerimisriba: %s
+Neighborhood Info: %s	Naabrite info: %s
+Neighborhood info: %s	Naabrite info: %s
+Never	Mitte kunagi
+New	Uus
+New DM	Uus DM
+New DM: Select Node	Uus DM: valige sõlm
+New DM: Select Node [%s]	Uus DM: valige sõlm [%s]
+New Message	Uus sõnum
+Newest: %s %s	Uusim: %s %s
+Newest: none heard yet	Uusim: veel kedagi ei kuuldud
+Next	Edasi
+No %s - not saved	%s puudub - ei salvestatud
+No %s - not saving	%s puudub - ei salvesta
+No %s traffic yet\n(filter is on - %s)	Veel pole %s liiklust\n(filter sees - %s)
+No S&F router heard yet	S&F ruuterit pole veel kuuldud
+No SD card is mounted.	SD-kaarti pole ühendatud.
+No WiFi network configured	WiFi-võrku pole seadistatud
+No beacons heard yet.\n\nA beacon is only audible while its sender has retuned onto this channel, preset and region, and it repeats on that node's own schedule - minutes to hours apart. This list keeps what it hears until you clear it.	Majakaid pole veel kuuldud.\n\nMajakas on kuuldav ainult siis, kui selle saatja on häälestunud sellele kanalile, eelseadistusele ja piirkonnale, ning see kordub selle sõlme ajakava järgi - minutite kuni tundide tagant. Nimekiri säilitab kuuldu, kuni selle tühjendate.
+No elevation server set.\nWeb Config -> Elevation Server (LOS)	Kõrgusserverit pole seatud.\nVeebiseaded -> Elevation Server (LOS)
+No hop path in reply	Vastuses pole hüppeteed
+No keyboards found yet.\n\nPut the keyboard into pairing mode, then press Scan.\n\nOnly Bluetooth LE keyboards can pair - this hardware has no Bluetooth Classic radio.	Klaviatuure pole veel leitud.\n\nLülitage klaviatuur paaritusrežiimi ja vajutage Skanni.\n\nPaaritada saab ainult Bluetooth LE klaviatuure - sellel riistvaral pole Bluetooth Classic raadiot.
+No known nodes yet	Tuntud sõlmi pole veel
+No live traffic yet	Reaalajas liiklust pole veel
+No matches for: %s	Vasteid pole: %s
+No messages yet	Sõnumeid pole veel
+No network in that slot	Selles kohas pole võrku
+No network selected	Võrku pole valitud
+No networks found	Võrke ei leitud
+No new messages	Uusi sõnumeid pole
+No nodes seen	Sõlmi pole nähtud
+No nodes seen yet.	Sõlmi pole veel nähtud.
+No position data	Asendi andmeid pole
+No position recorded	Asendit pole salvestatud
+No position yet.\nNeeds a GPS fix or a set location.	Asendit pole veel.\nVaja on GPS-lukustust või määratud asukohta.
+No release notes in this build.	Selles versioonis pole väljalaskemärkmeid.
+No reply (%lus)	Vastust pole (%lus)
+No result details available.	Üksikasju pole saadaval.
+No telemetry data	Telemeetria andmeid pole
+No weather server set.\nWeb Config -> Weather Server	Ilmaserverit pole seatud.\nVeebiseaded -> Weather Server
+Node Actions	Sõlme toimingud
+Node DB cleared - rebooting...	Sõlmede andmebaas tühjendatud - taaskäivitan...
+Node ID: !%08lx	Sõlme ID: !%08lx
+Node Name	Sõlme nimi
+Node Name: %s (%s)	Sõlme nimi: %s (%s)
+Node Name: %s (%s)%s	Sõlme nimi: %s (%s)%s
+Node id: !%08lx	Sõlme id: !%08lx
+Node info	Sõlme info
+Nodes and SD archive cleared - rebooting...	Sõlmed ja SD arhiiv tühjendatud - taaskäivitan...
+None	Puudub
+Not counting - out of memory	Ei loe - mälu otsas
+Not enough free heap to hold the topic table.\n\nClose a few screens (or reboot) and try again.	Teemade tabeli jaoks pole piisavalt vaba mälu.\n\nSulgege mõned ekraanid (või taaskäivitage) ja proovige uuesti.
+Nothing heard yet	Veel pole midagi kuuldud
+Nothing recorded yet - nothing to send	Veel pole midagi salvestatud - pole midagi saata
+Nothing was removed. The files may have gone already, or the card may be write-protected.	Midagi ei eemaldatud. Failid võivad olla juba kadunud või on kaart kirjutuskaitstud.
+Notification Light Timeout	Teavitustule kestus
+Notification Light Timeout: %s	Teavitustule kestus: %s
+Notification Sound	Teavitusheli
+Notification Sound: %s	Teavitusheli: %s
+Notification sound: %s	Teavitusheli: %s
+Nov	nov
+November	november
+OFF	VÄLJAS
+OTA disabled on Cardputer build	OTA on Cardputeri versioonis keelatud
+OTA needs the factory image (flash layout)	OTA vajab tehasetõmmist (flash-paigutus)
+OTA request failed (NVS write). Retry.	OTA taotlus ebaõnnestus (NVS kirjutamine). Proovige uuesti.
+OTA worker completed. Check status.	OTA lõpetatud. Kontrollige olekut.
+Oct	okt
+October	oktoober
+Off	Väljas
+Offers: %s	Pakkumised: %s
+Old Map Files Found	Leiti vanu kaardifaile
+Oldest: %s %s	Vanim: %s %s
+Oldest: none heard yet	Vanim: veel kedagi ei kuuldud
+On	Sees
+On (global off)	Sees (üldiselt väljas)
+On (listening)	Sees (kuulab)
+Open network (leave blank)	Avatud võrk (jätke tühjaks)
+Optional WiFi setup.\nNo network selected.\nChoose WiFi now or finish without WiFi.	Valikuline WiFi seadistus.\nVõrku pole valitud.\nValige WiFi kohe või lõpetage ilma WiFita.
+Optional WiFi setup.\nSelected: %s\nChoose a different network or finish.	Valikuline WiFi seadistus.\nValitud: %s\nValige teine võrk või lõpetage.
+Orange	Oranž
+Orientation: %s	Suund: %s
+Other	Muu
+Outline	Kontuur
+PKI key: %s	PKI võti: %s
+PSRAM free: %lu KB\nPSRAM total: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	Vaba PSRAM: %lu KB\nPSRAM kokku: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nRakendusele vaba: %lu KB
+PSRAM: none\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	PSRAM: puudub\nFlash: %lu KB\nSketch: %lu KB\nRakendusele vaba: %lu KB
+Pair	Paarita
+Pair BT Keyboard: %s	Paarita BT-klaviatuur: %s
+Pair BT Keyboard: (none)	Paarita BT-klaviatuur: (puudub)
+Percent	Protsent
+Pink	Roosa
+Please re-flash from Camillia's website for language support.	Keeletoe saamiseks installige püsivara uuesti Camillia veebilehelt.
+Portrait	Püstpaigutus
+Portrait 180	Püstpaigutus 180
+Position	Asend
+Precise	Täpne
+Preparing state maps...	Valmistan piirkonnakaarte ette...
+Preset	Eelseadistus
+Preset (%s)	Eelseadistus (%s)
+Preset already %s.	Eelseadistus on juba %s.
+Preset scan already running	Eelseadistuse skannimine juba käib
+Preset: %s	Eelseadistus: %s
+Preset: %s - rebooting...	Eelseadistus: %s - taaskäivitan...
+Public key preserved\n\n	Avalik võti säilitatud\n\n
+Purple	Lilla
+Pwr %d dBm Hops %d	Võimsus %d dBm Hüpped %d
+R=Refresh  %s=Back	R=Värskenda  %s=Tagasi
+RECENTLY HEARD	HILJUTI KUULDUD
+Radio busy - retry in %lus	Raadio hõivatud - uuesti %lus pärast
+Radio not ready	Raadio pole valmis
+Re(q)uest Node	Küsi sõlme (Q)
+Ready	Valmis
+Rebooting into OTA minimal mode...	Taaskäivitan OTA minimaalrežiimis...
+Received over: %s %s	Saadud kaudu: %s %s
+Red	Punane
+Relayed to us by: %s	Edastas: %s
+Relayed to us by: %s (from MQTT)	Edastas: %s (MQTT-st)
+Relayed to us by: nobody, heard directly	Edastas: keegi, kuuldud otse
+Relayed to us by: not reported by the relaying node	Edastas: edastav sõlm ei teatanud
+Relayed to us by: the sender itself	Edastas: saatja ise
+Relayed: %lu	Edastatud: %lu
+Release Channel: %s - checking...	Väljalaskekanal: %s - kontrollin...
+Release Channel: %s%s	Väljalaskekanal: %s%s
+Release Notes	Väljalaskemärkmed
+Release Notes  %s	Väljalaskemärkmed  %s
+Remove	Eemalda
+Removed %s	%s eemaldatud
+Removed %s - no networks left, AP mode	%s eemaldatud - võrke ei jäänud, AP-režiim
+Removed %s - now %s	%s eemaldatud - nüüd %s
+Removed %u file%s. %u could not be deleted - the card may be write-protected.\n\nRe-run the scan to check.	Eemaldatud %u faili%.0s. %u ei saanud kustutada - kaart võib olla kirjutuskaitstud.\n\nKäivitage kontroll uuesti.
+Removed %u file%s.\n\nThis card looked clean afterwards, but the scan reads names and headers, not contents - it cannot promise the card is clean. Reformatting is the only answer that can.	Eemaldatud %u faili%.0s.\n\nKaart näis pärast puhas, kuid kontroll loeb nimesid ja päiseid, mitte sisu - see ei saa lubada, et kaart on puhas. Seda saab tagada ainult uuesti vormindamine.
+Removing Files	Eemaldan faile
+Removing legacy maps...	Eemaldan vanu kaarte...
+Replay already requested	Taasesitus juba küsitud
+Replay not sent: %s	Taasesitust ei saadetud: %s
+Replay requested (last %lu min)	Taasesitus küsitud (viimased %lu min)
+Reply	Vasta
+Reply from %s	Vastus saatjalt %s
+Reply from %s (%lus)	Vastus saatjalt %s (%lus)
+Request (P)osition	Küsi asendit (P)
+Request Node	Küsi sõlme
+Request Position	Küsi asendit
+Request S&F Replay (%s)	Küsi S&F taasesitust (%s)
+Request S&F Replay (no router)	Küsi S&F taasesitust (ruuterit pole)
+Requested (last %lu min)	Küsitud (viimased %lu min)
+Rescan	Skanni uuesti
+Reset	Lähtesta
+Reset Chat Colors	Lähtesta vestluse värvid
+Reset to Default	Taasta vaikeväärtus
+Restore failed: every slot is favorited, so there is no room. Unfavorite a node and try again.	Taastamine ebaõnnestus: kõik kohad on lemmikud, ruumi pole. Eemaldage sõlm lemmikutest ja proovige uuesti.
+Restore failed: the archived record could not be read.	Taastamine ebaõnnestus: arhiveeritud kirjet ei õnnestunud lugeda.
+Restore node?	Kas taastada sõlm?
+Role: %s%s	Roll: %s%s
+S(h)are	Jaga (H)
+SD Card Format	SD-kaardi vormindamine
+SD Card Scan	SD-kaardi kontroll
+SD scan cancelled	SD kontroll tühistatud
+SD: %s, %s, %u fails	SD: %s, %s, vigu: %u
+SD: no card	SD: kaarti pole
+SNR   cur %s  avg %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  cur %s  avg %.0fdBm min %.0f  max %.0f   n=%d	SNR   nüüd %s  kesk %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  nüüd %s  kesk %.0fdBm min %.0f  max %.0f   n=%d
+SNR   cur --  avg --  min --  max --   n=0\nRSSI  cur --  avg --  min --  max --   n=0	SNR   nüüd --  kesk --  min --  max --   n=0\nRSSI  nüüd --  kesk --  min --  max --   n=0
+Sat	L
+Save	Salvesta
+Save failed - cannot write %s	Salvestamine ebaõnnestus - ei saa kirjutada asukohta %s
+Save failed - too many this second	Salvestamine ebaõnnestus - liiga palju selles sekundis
+Save while discovering	Salvesta avastamise ajal
+Save while scanning	Salvesta skannimise ajal
+Saved %s	%s salvestatud
+Saved: %s	Salvestatud: %s
+Scan	Skanni
+Scan %s	Skannimine %s
+Scan %s - saved %s	Skannimine %s - salvestatud %s
+Scan Networks	Skanni võrke
+Scan SD Card for Malware%s	Kontrolli SD-kaarti pahavara suhtes%s
+Scan a preset	Skanni eelseadistust
+Scan cancelled	Skannimine tühistatud
+Scan failed - Rescan to try again	Skannimine ebaõnnestus - skannige uuesti
+Scan send failed	Skannimise saatmine ebaõnnestus
+Scanning %s %s/%s	Skannin %s %s/%s
+Scanning %s...	Skannin %s...
+Scanning SD Card	Kontrollin SD-kaarti
+Scanning WiFi networks...	Otsin WiFi-võrke...
+Screen	Ekraan
+Screen Timeout	Ekraani ajalõpp
+Screen Timeout: %s	Ekraani ajalõpp: %s
+Screen off after %s on lock	Ekraan kustub %s pärast lukustamisel
+Screen orientation	Ekraani suund
+Screen sleeps after %s	Ekraan uinub %s pärast
+Screen stays on	Ekraan jääb sisse
+Select a conversation	Valige vestlus
+Select this node's role.	Valige selle sõlme roll.
+Select your radio region/preset.	Valige raadio piirkond/eelseadistus.
+Selection settling - press Enter again	Valik settib - vajutage uuesti Enter
+Sen(d) DM	Saada DM (D)
+Send	Saada
+Send DM	Saada DM
+Send failed	Saatmine ebaõnnestus
+Send to channel?	Kas saata kanalile?
+Send top 5 to	Saada top 5 aadressile
+Sending request...	Saadan päringut...
+Sent by this node.	Saatis see sõlm.
+Sent to %s	Saadetud: %s
+Sent. Waiting for route ACK...	Saadetud. Ootan marsruudi ACK-i...
+Sep	sept
+September	september
+Server answered, but not with\nelevation data. Check the proxy\npoints at the elevation service.	Server vastas, kuid mitte\nkõrgusandmetega. Kontrollige, kas puhverserver\nosutab kõrgusteenusele.
+Server answered, but not with\nweather data. Check the proxy.	Server vastas, kuid mitte\nilmaandmetega. Kontrollige puhverserverit.
+Set message colour to %s and reboot?	Kas seada sõnumite värviks %s ja taaskäivitada?
+Share	Jaga
+Share Location: %s	Jaga asukohta: %s
+Short	Lühike
+Short name	Lühinimi
+Short name cannot be empty	Lühinimi ei tohi olla tühi
+Short: %s	Lühike: %s
+Show Archived Nodes: %s	Näita arhiveeritud sõlmi: %s
+Show Archived Nodes: %s%s	Näita arhiveeritud sõlmi: %s%s
+Signal: SNR %.1f dB, RSSI %.0f dBm	Signaal: SNR %.1f dB, RSSI %.0f dBm
+Silver	Hõbe
+Sky	Taevasinine
+Small	Väike
+Source	Allikas
+Splash Melody: %s	Käivitusmeloodia: %s
+Splash melody: %s	Käivitusmeloodia: %s
+Stale - 	Aegunud -
+State Map	Piirkonnakaart
+State map disabled	Piirkonnakaart keelatud
+State map unavailable	Piirkonnakaart pole saadaval
+Stay on	Alati sees
+Storage: %s %s	Salvestusruum: %s %s
+Storage: %s (not mounted)	Salvestusruum: %s (pole ühendatud)
+Store&Fwd Client: %s	Store&Fwd klient: %s
+Store&Fwd client is off	Store&Fwd klient on väljas
+Sun	P
+Sweep	Läbikamm
+Sweep already running	Läbikamm juba käib
+Sweep cancelled	Läbikamm tühistatud
+Sweep done: %d new (%lus)	Läbikamm valmis: %d uut (%lus)
+Sweep send failed	Läbikammi saatmine ebaõnnestus
+Sweep/Scan Settings	Läbikammi/skannimise seaded
+Sweeping...	Kammin läbi...
+Sweeping... %s/%s	Kammin läbi... %s/%s
+Switch to %s and reboot?	Kas lülituda %s peale ja taaskäivitada?
+Switch to theme %s and reboot?	Kas lülituda teemale %s ja taaskäivitada?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	Välisele antennile lülitumine võib raadiot kahjustada, kui antenn pole ühendatud.  Enne Jah vajutamist ühendage väline antenn
+System Stats	Süsteemi statistika
+Tall	Kõrge
+Tall, turned 180	Kõrge, pööratud 180
+Tap = Open   Long-press 3s = Delete   DM below = Back	Puuduta = Ava   Hoia 3 s = Kustuta   DM all = Tagasi
+Tap Next to continue	Jätkamiseks puudutage Edasi
+Tap Next to continue, or Back	Jätkamiseks puudutage Edasi või Tagasi
+Tap a channel	Puudutage kanalit
+Tap a channel to edit	Puudutage kanalit, et muuta
+Tap a field to change it	Puudutage välja, et seda muuta
+Tap a field to edit, then Save	Puudutage välja, muutke, siis Salvesta
+Tap a node for actions   Nodes below = Back	Puudutage sõlme toiminguteks   Sõlmed all = Tagasi
+Tap a node to start a DM	Puudutage sõlme, et alustada DM-i
+Tap a preset to apply.	Puudutage eelseadistust, et rakendada.
+Tap a preset, then Scan	Puudutage eelseadistust, siis Skanni
+Tap a size to apply	Puudutage suurust, et rakendada
+Tap one to apply.	Puudutage üht, et rakendada.
+Tap to preview	Puudutage eelvaateks
+Teal	Sinakasroheline
+Telemetry	Telemeetria
+Temp: %.1f C\nHumidity: %.1f%%\nPressure: %.1f hPa	Temp: %.1f C\nNiiskus: %.1f%%\nRõhk: %.1f hPa
+Temp: %.1f F\nHumidity: %.1f%%\nPressure: %.2f inHg	Temp: %.1f F\nNiiskus: %.1f%%\nRõhk: %.2f inHg
+Text	Tekst
+The card was formatted but could not be remounted. Reboot the device and it should come up clean.	Kaart vormindati, kuid seda ei õnnestunud uuesti ühendada. Taaskäivitage seade ja see peaks käivituma puhtana.
+Theme	Teema
+Theme: %s	Teema: %s
+Theme: %s (unchanged)	Teema: %s (muutmata)
+Theme: %s - rebooting...	Teema: %s - taaskäivitan...
+These files are not used by the new tile map. Remove them to reclaim storage?	Uus paanikaart neid faile ei kasuta. Kas eemaldada need ruumi vabastamiseks?
+This node	See sõlm
+This node has no position yet.\nNeeds a GPS fix or a set location.	Sellel sõlmel pole veel asendit.\nVaja on GPS-lukustust või määratud asukohta.
+Thu	N
+Time and Date	Kellaaeg ja kuupäev
+Time and Date: %s	Kellaaeg ja kuupäev: %s
+Time source: Internet / GPS	Ajaallikas: internet / GPS
+To close hit backspace.  (I)nformation	Sulgege klahviga backspace.  (I)nfo
+Tools	Tööriistad
+Touch Navigation:	Puutejuhtimine:
+Transport Symbols:\n%s Radio Transmission\n%s MQTT Transmission	Edastussümbolid:\n%s Raadioedastus\n%s MQTT edastus
+Tue	T
+Turn BT Keyboard on first	Lülitage esmalt BT-klaviatuur sisse
+Turn MQTT Bridge %s and reboot?	Kas seada MQTT sild olekusse %s ja taaskäivitada?
+Type = Filter   Bksp = Edit Filter   Enter = Open DM   Esc = Back	Kirjuta = Filter   Bksp = Muuda filtrit   Enter = Ava DM   Esc = Tagasi
+Type = Filter   Bksp = Edit/Close Filter   Enter = Open DM	Kirjuta = Filter   Bksp = Muuda/sulge filter   Enter = Ava DM
+Type = Filter   Enter = Open DM   Bksp = Back	Kirjuta = Filter   Enter = Ava DM   Bksp = Tagasi
+Type = Filter   Enter = Open DM   Esc = Back	Kirjuta = Filter   Enter = Ava DM   Esc = Tagasi
+Type message...	Kirjutage sõnum...
+Type to filter nodes	Kirjutage, et sõlmi filtreerida
+Type, then tap OK	Kirjutage, siis puudutage OK
+Type=Filter  Enter=Done  Bksp=Edit/Exit  %s=Back	Kirjuta=Filter  Enter=Valmis  Bksp=Muuda/Välju  %s=Tagasi
+Un(f)avorite	Eemalda lemmikutest (F)
+Un(m)ute	Lülita heli sisse (M)
+Unfavorite	Eemalda lemmikutest
+Uni(g)nore	Lõpeta i(g)noreerimine
+Unignore	Lõpeta ignoreerimine
+Units: %s	Ühikud: %s
+Unknown	Tundmatu
+Until read	Kuni lugemiseni
+Up to date (%s)	Ajakohane (%s)
+Up/Down	Üles/Alla
+Up/Down = Select   Space = Compose   Enter = Focus   %s = Delete   %s = Back	Üles/Alla = Vali   Space = Kirjuta   Enter = Fookus   %s = Kustuta   %s = Tagasi
+Up/Down = Select   Space = Compose   Enter = Focus   D = Delete	Üles/Alla = Vali   Space = Kirjuta   Enter = Fookus   D = Kustuta
+Up/Down/J/K = Scroll   %s = Close	Üles/Alla/J/K = Keri   %s = Sulge
+Up/Down/J/K = Scroll   Bksp = Close	Üles/Alla/J/K = Keri   Bksp = Sulge
+Up/Down=Change  Enter=Save  %s=Cancel	Üles/Alla=Muuda  Enter=Salvesta  %s=Tühista
+Up/Down=Select  Left/Right=Change  Enter=Save  %s=Cancel	Üles/Alla=Vali  Vasak/Parem=Muuda  Enter=Salvesta  %s=Tühista
+Update	Uuendus
+Update check failed: %s	Uuenduse kontroll ebaõnnestus: %s
+Update check needs WiFi connected	Uuenduse kontrolliks on vaja ühendatud WiFi-t
+Update check needs WiFi on	Uuenduse kontrolliks peab WiFi sees olema
+Update check skipped (a dialog was open)	Uuenduse kontroll vahele jäetud (dialoog oli avatud)
+Uplinked by: %s	MQTT-sse saatis: %s
+Uplinked by: the sender itself	MQTT-sse saatis: saatja ise
+Use arrows to choose, then tap Next	Valige nooltega, siis puudutage Edasi
+Used: %lu KB (%lu%%)\nTotal: %lu KB\nFree: %lu KB\nMin free: %lu KB\nMax block: %lu KB	Kasutatud: %lu KB (%lu%%)\nKokku: %lu KB\nVaba: %lu KB\nMin. vaba: %lu KB\nMax plokk: %lu KB
+VIA MQTT	MQTT KAUDU
+VNC Host failed to allocate PSRAM	VNC Host ei saanud PSRAM-i eraldada
+VNC Host off	VNC Host väljas
+VNC Host on\nOpen http://%s/ and select the Remote tab	VNC Host sees\nAvage http://%s/ ja valige vahekaart Remote
+VNC Host on\nhttp://%s:%u/	VNC Host sees\nhttp://%s:%u/
+VNC Host: Off	VNC Host: Väljas
+VNC Host: Off (WiFi off)	VNC Host: Väljas (WiFi väljas)
+VNC Host: On (browser connected)	VNC Host: Sees (brauser ühendatud)
+VNC Host: On (network disconnected)	VNC Host: Sees (võrk katkestatud)
+VNC Host: Unavailable (WiFi not connected)	VNC Host: Pole saadaval (WiFi pole ühendatud)
+Voltage	Pinge
+Volume	Helitugevus
+Volume: %u%%	Helitugevus: %u%%
+W = Scan   S = Send   C = Reset   %s = Back	W = Skanni   S = Saada   C = Lähtesta   %s = Tagasi
+W = Sweep   P = Preset   C = %s   %s = Back	W = Läbikamm   P = Eelseade   C = %s   %s = Tagasi
+W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Läbikamm   P = Eelseade   C = %s   S = Salvesta   %s = Tagasi
+Wait %lus before sending again	Oodake %lus enne uuesti saatmist
+Wait %lus between sweeps	Oodake läbikammide vahel %lus
+Waiting for Wi-Fi...	Ootan Wi-Fi-t...
+Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Jälgin %s/2/e/#\n\nSõnumeid pole veel. Kanalid ilmuvad siia avaldamise järjekorras, uusimad all, igaühe juures nähtud sõnumite arv.
+Weather	Ilm
+Weather - %s	Ilm - %s
+Weather server error (HTTP %d).	Ilmaserveri viga (HTTP %d).
+Web Config disabled	Veebiseaded keelatud
+Web Config locked while MQTT is on	Veebiseaded lukus, kuni MQTT on sees
+Web Config start failed	Veebiseadete käivitamine ebaõnnestus
+Web Config stopped.\n\nThe Bluetooth keyboard and Web Config share one radio and cannot run at the same time.\n\nTurn the keyboard off to use Web Config again.	Veebiseaded peatatud.\n\nBluetooth-klaviatuur ja veebiseaded jagavad üht raadiot ega saa korraga töötada.\n\nLülitage klaviatuur välja, et veebiseadeid uuesti kasutada.
+Web Config: Disabled	Veebiseaded: Keelatud
+Web Config: Enabled	Veebiseaded: Lubatud
+Web Config: Off (MQTT on)	Veebiseaded: Väljas (MQTT sees)
+Web Config: Off (WiFi off)	Veebiseaded: Väljas (WiFi väljas)
+Web Config: On	Veebiseaded: Sees
+Web Config: On (Lite)	Veebiseaded: Sees (Lite)
+Web Config: On (chat PAUSED)	Veebiseaded: Sees (vestlus PEATATUD)
+Web config: %s\n\nChat is PAUSED while web config runs - this device needs that memory for Wi-Fi. Messages sent to you now are not received or stored.\n\nTurn web config off to resume messaging.	Veebiseaded: %s\n\nVestlus on PEATATUD, kuni veebiseaded töötavad - seade vajab seda mälu Wi-Fi jaoks. Teile praegu saadetud sõnumeid ei võeta vastu ega salvestata.\n\nLülitage veebiseaded välja, et sõnumite saatmist jätkata.
+Wed	K
+Welcome to Camillia for Meshtastic	Tere tulemast Camilliasse Meshtasticu jaoks
+Wheel/j-k=Change   Enter=Next	Ratas/j-k=Muuda   Enter=Edasi
+White	Valge
+Wi-Fi needed to fetch conditions.	Ilma toomiseks on vaja Wi-Fi-t.
+Wi-Fi needed to fetch the\nterrain profile for this path.	Selle tee maastikuprofiili\ntoomiseks on vaja Wi-Fi-t.
+WiFi connected: %s	WiFi ühendatud: %s
+WiFi is off	WiFi on väljas
+WiFi not connected	WiFi pole ühendatud
+WiFi password	WiFi parool
+WiFi selected: %s	Valitud WiFi: %s
+WiFi: Off	WiFi: Väljas
+WiFi: On (%s)	WiFi: Sees (%s)
+WiFi: On (AP MODE ONLY)	WiFi: Sees (AINULT AP-REŽIIM)
+WiFi: On (AP mode)	WiFi: Sees (AP-režiim)
+WiFi: On (connecting %s)	WiFi: Sees (ühendan %s)
+Wide	Lai
+Within %s	%s piires
+Writing a new filesystem...	Kirjutan uut failisüsteemi...
+X-Large	Väga suur
+Y/Enter=Import   N/Bksp=Skip	Y/Enter=Impordi   N/Bksp=Jäta vahele
+Year	Aasta
+Yellow	Kollane
+Yes	Jah
+[%s] no match	[%s] vasteid pole
+[radio] init failed	[radio] käivitamine ebaõnnestus
+\n%lu min ago	\n%lu min tagasi
+\n%s, %lu min ago	\n%s, %lu min tagasi
+\n+%u more	\n+%u veel
+\nT-Deck trackball: hold click 2s to sleep	\nT-Decki juhtkuul: hoidke klõpsu 2 s, et uinuda
+\n\nDelete them? Nothing else on the card is touched.\n\nFormat erases the whole card instead - the only certain fix.	\n\nKas kustutada need? Kaardil ei puudutata midagi muud.\n\nVormindamine kustutab selle asemel kogu kaardi - ainus kindel lahendus.
+all rates tried	kõik kiirused proovitud
+base64 key	base64 võti
+ch %s   air %s	kan %s   eeter %s
+channel	kanal
+check requested	kontroll küsitud
+exact	täpne
+external	väline
+internal	sisemine
+j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k või </>=Reguleeri  Üles/Alla=Rida  Enter=Salvesta  Back=Tühista
+j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Reguleeri  </>=Rida  Enter=Salvesta  Backspace=Tühista
+j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Reguleeri  Enter=Salvesta  Backspace=Tühista
+j/k=Adjust  Wheel=Row  Enter=Save  Backspace=Cancel	j/k=Reguleeri  Ratas=Rida  Enter=Salvesta  Backspace=Tühista
+j/k=Change   Enter=Next   Bksp=Back	j/k=Muuda   Enter=Edasi   Bksp=Tagasi
+low	madal
+missing	puudub
+never	mitte kunagi
+no key	võtit pole
+not seen	nägemata
+off	väljas
+on	sees
+one of: 	üks järgmistest:
+one rate tried	üks kiirus proovitud
+present	olemas
+press F to change	muutmiseks vajutage F
+retry %lus	uuesti %lus pärast
+retry now	proovi kohe
+sensor %.2f V    trim %s	andur %.2f V    korrektsioon %s
+sensor: read failed	andur: lugemisviga
+stay on	alati sees
+tap Filter to change	muutmiseks puudutage Filter
+unavailable	pole saadaval
+unknown	tundmatu
+unknown date	tundmatu kuupäev
+unknown error	tundmatu viga
+unknown node (id ends ..%02x)	tundmatu sõlm (id lõpeb ..%02x)
+unset	määramata
+until read	kuni lugemiseni
+vague	ligikaudne

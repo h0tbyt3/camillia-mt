@@ -82,6 +82,7 @@
 (S)ender Info	Info del remitente (S)
 (T)raceroute	(T)raceroute
 (W)eather	Tiempo (W)
+(Y)es	Sí (Y)
 (c) OpenStreetMap	(c) OpenStreetMap
 (no name)	(sin nombre)
 (not set)	(sin definir)
@@ -119,6 +120,7 @@ Already %s.	Ya está en %s.
 Already on that preset	Ya estás en ese preajuste
 Analyzing terrain...	Analizando el terreno...
 Announce	Anunciar
+Antenna: %s	Antena: %s
 Any key / %s = Close	Cualquier tecla / %s = Cerrar
 Apply	Aplicar
 Apr	abr
@@ -724,6 +726,7 @@ Sweeping...	Barriendo...
 Sweeping... %s/%s	Barriendo... %s/%s
 Switch to %s and reboot?	¿Cambiar a %s y reiniciar?
 Switch to theme %s and reboot?	¿Cambiar al tema %s y reiniciar?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	Cambiar a la externa puede dañar la radio si la antena no está conectada.  Conecta la antena externa antes de pulsar Sí
 System Stats	Estadísticas del sistema
 Tall	Alto
 Tall, turned 180	Alto, girado 180
@@ -875,6 +878,8 @@ ch %s   air %s	can %s   aire %s
 channel	canal
 check requested	comprobación solicitada
 exact	exacta
+external	externa
+internal	interna
 j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k o </>=Ajustar  Arriba/Abajo=Fila  Enter=Guardar  Back=Cancelar
 j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Ajustar  </>=Fila  Enter=Guardar  Backspace=Cancelar
 j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Ajustar  Enter=Guardar  Backspace=Cancelar

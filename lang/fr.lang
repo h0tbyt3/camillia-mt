@@ -70,9 +70,11 @@
 (L)ocate	(L)ocaliser
 (L)ocation: %s	(L)ocalisation : %s
 (M)ute	Sourdine (M)
+(N)o	(N)on
 (R)eply	(R)épondre
 (S)ender Info	Infos de l'expéditeur (S)
 (W)eather	Météo (W)
+(Y)es	Oui (Y)
 (no name)	(sans nom)
 (not set)	(non défini)
 (nothing)	(rien)
@@ -108,6 +110,7 @@ Already %s.	Déjà %s.
 Already on that preset	Déjà sur ce préréglage
 Analyzing terrain...	Analyse du terrain...
 Announce	Annoncer
+Antenna: %s	Antenne : %s
 Any key / %s = Close	Une touche / %s = Fermer
 Apply	Appliquer
 Apr	avr
@@ -470,6 +473,7 @@ New Message	Nouveau message
 Newest: %s %s	Plus récent : %s %s
 Newest: none heard yet	Plus récent : aucun entendu
 Next	Suivant
+No	Non
 No %s - not saved	Pas de %s - non enregistré
 No %s - not saving	Pas de %s - pas d'enregistrement
 No %s traffic yet\n(filter is on - %s)	Pas encore de trafic %s\n(filtre actif - %s)
@@ -698,6 +702,7 @@ Sweeping...	Balayage...
 Sweeping... %s/%s	Balayage... %s/%s
 Switch to %s and reboot?	Passer à %s et redémarrer ?
 Switch to theme %s and reboot?	Passer au thème %s et redémarrer ?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	Passer à l'antenne externe peut endommager la radio si elle n'est pas branchée.  Branchez l'antenne externe avant d'appuyer sur Oui
 System Stats	Statistiques système
 Tall	Haut
 Tall, turned 180	Haut, retourné à 180
@@ -843,6 +848,8 @@ ch %s   air %s	can %s   air %s
 channel	canal
 check requested	vérification demandée
 exact	exacte
+external	externe
+internal	interne
 j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k ou </>=Régler  Haut/Bas=Ligne  Enter=Enregistrer  Back=Annuler
 j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Régler  </>=Ligne  Enter=Enregistrer  Backspace=Annuler
 j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Régler  Enter=Enregistrer  Backspace=Annuler

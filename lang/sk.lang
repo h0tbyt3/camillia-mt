@@ -1,0 +1,882 @@
+# Camillia language file (issue #99)
+# code: sk
+# name: Slovenčina
+#
+# One translation per line: the English exactly as it appears in the source,
+# a TAB, then the translation. Escape a newline as \n, a tab as \t, a backslash
+# as \\. Keep every %d / %s / %u ... in the same order and of the same type as the
+# English -- a line whose placeholders differ is ignored on the device and the
+# English is shown. Mesh terms that are names (LongFast, MQTT, LoRa) stay as they
+# are. Lines are kept sorted by the English, for review; the build sorts anyway.
+# First draft: review by a native speaker welcome (see docs/TRANSLATING.md).
+#
+# Compiled in by tools/gen_lang_builtin.py.
+  %s via %s (%.0f dB)\n	  %s cez %s (%.0f dB)\n
+  CONFIRM?	  POTVRDIŤ?
+  Humid  %.1f %%	  Vlhk.  %.1f %%
+  Press  %.1f hPa	  Tlak   %.1f hPa
+  lock	  zabezpečená
+  open	  otvorená
+ (no card)	 (bez karty)
+ (not sharing location)	 (poloha sa nezdieľa)
+ (unchanged)	 (bez zmeny)
+ - %s available	 - dostupná %s
+ - check failed	 - kontrola zlyhala
+ - check unavailable	 - kontrola nedostupná
+ - checking...	 - kontrolujem...
+ - saving to %s	 - ukladám do %s
+ - up to date	 - aktuálne
+! TX failed	! Odoslanie zlyhalo
+! TX failed (node id)	! Odoslanie zlyhalo (id uzla)
+%d %s %d	%d. %s %d
+%d chans  %s msgs  %s%s	%d kan.  %s spr.  %s%s
+%d chans  %s msgs  %s%s  (+%s off-list)	%d kan.  %s spr.  %s%s  (+%s mimo zoznamu)
+%d node(s), %d report(s)	%d uzl., %d hlásení
+%d%s  %s\nFeels %d%s, humidity %d%%\nWind %s %d %s%s%s	%d%s  %s\nPocitovo %d%s, vlhkosť %d%%\nVietor %s %d %s%s%s
+%luh ago	pred %luh
+%lum ago	pred %lum
+%lus ago	pred %lus
+%s   -   %u match%s so far	%s   -   %u zhôd%.0s zatiaľ
+%s  (current)	%s  (aktuálny)
+%s (this node)	%s (tento uzol)
+%s - WiFi off	%s - WiFi vyp.
+%s - rebooting...	%s - reštartujem...
+%s - saved	%s - uložené
+%s = Back   C = Clear   F = Filter	%s = Späť   C = Vymazať   F = Filter
+%s = Back   green=SNR  pink=RSSI	%s = Späť   zelená=SNR  ružová=RSSI
+%s = Back   teal=ChUtil  orange=AirTx	%s = Späť   tyrkys=ChUtil  oranžová=AirTx
+%s = Close	%s = Zavrieť
+%s returns to the live list.\nIf it is full, the oldest non-favorite is archived to make room.	%s sa vracia do aktívneho zoznamu.\nAk je plný, najstarší neobľúbený uzol sa archivuje, aby sa uvoľnilo miesto.
+%s to close Help	%s zavrie Pomocníka
+%s will be removed from the node list.	%s bude odstránený zo zoznamu uzlov.
+%s x%u\nClock: %u MHz\nRevision: %u\nUptime: %luh %02lum %02lus\nLoop rate: %lu /s\nBattery: %u%% %.3fV	%s x%u\nTakt: %u MHz\nRevízia: %u\nDoba behu: %luh %02lum %02lus\nSlučky: %lu /s\nBatéria: %u%% %.3fV
+%s%.2f, %.2f (rounded)	%s%.2f, %.2f (zaokrúhlené)
+%s%lu min ago - %.2f, %.2f (rounded)	%spred %lu min - %.2f, %.2f (zaokrúhlené)
+%s.\n\nNothing can arrive until the bridge has a broker session. Fix it in Config (or web config) and this list fills in on its own.	%s.\n\nNič nepríde, kým most nemá reláciu s brokerom. Opravte to v Nastaveniach (alebo webovej konfigurácii) a tento zoznam sa zaplní sám.
+%s: %d node(s) heard	%s: počutých uzlov %d
+%s: %d on preset (%lus)	%s: %d na presete (%lus)
+%s=Scroll  A=Actions  %s=List	%s=Posun  A=Akcie  %s=Zoznam
+%s\n%.1f km - brg %03d %s\n%s\nyou %dm - peer %dm - %.0f MHz	%s\n%.1f km - azimut %03d %s\n%s\nty %dm - druhý %dm - %.0f MHz
+%s\n%lu min old	%s\npred %lu min
+%s\nIn use - will switch to the next configured WiFi network, or AP mode if none is available	%s\nPoužíva sa - prepne na ďalšiu nastavenú sieť WiFi alebo do režimu AP, ak žiadna nie je
+%s\nMessage history will be erased	%s\nHistória správ bude vymazaná
+%s\nType %06u then Enter on the keyboard	%s\nZadajte %06u a potom Enter na klávesnici
+%u of %d	%u z %d
+%u sec	%u s
+(A)nnounce	Ohl(a)siť
+(B)eacons	Ma(b)áky
+(C)FG   (D)M   (N)odes   Too(l)s   (A)ctions	(C)FG   (D)M   Uzly (N)   Nástroje (L)   (A)kcie
+(C)FG  C(h)an  (D)M  (N)odes  Too(l)s  (A)ct	(C)FG  Kanál (H)  (D)M  Uzly (N)  Nástr. (L)  (A)kcie
+(D) Direct Messages\n(C) Configuration\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(H) Channel selector\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(D) Priame správy\n(C) Nastavenia\n(N) Uzly\n(L) Nástroje (Live, grafy)\n(A) Akcie kanála\n(H) Výber kanála\n(P) Pomocník (táto obrazovka)\n(E) Emoji\n(Space) Písať/Odpovedať\n(Enter) Prejsť na správy
+(D)iscovery	(D)etekcia
+(F)avorite	Obľúbený (F)
+(H) Home dashboard\n(C) Chat (again: channels)\n(F) Configuration\n(D) Direct Messages\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(H) Úvodný panel\n(C) Chat (znova: kanály)\n(F) Nastavenia\n(D) Priame správy\n(N) Uzly\n(L) Nástroje (Live, grafy)\n(A) Akcie kanála\n(P) Pomocník (táto obrazovka)\n(E) Emoji\n(Space) Písať/Odpovedať\n(Enter) Prejsť na správy
+(H)ome (C)hat C(f)g (D)M (N)odes Too(l)s	Domov (H) (C)hat Kon(f)ig (D)M Uzly (N) Nástr. (L)
+(L)ocate	(L)okalizovať
+(L)ocation: %s	Poloha (L): %s
+(M)ute	Stlmiť (M)
+(R)eply	Odpovedať (R)
+(W)eather	Počasie (W)
+(Y)es	Áno (Y)
+(no name)	(bez mena)
+(not set)	(nenastavené)
+(nothing)	(nič)
+(unknown)	(neznámy)
+(unnamed)	(bez názvu)
+, gusts %d	, nárazy %d
+1 hour	1 hodina
+12-hour	12-hodinový
+15 sec	15 s
+2 hours	2 hodiny
+24-hour	24-hodinový
+30 sec	30 s
+4-char short name (ABCD)	Krátke meno so 4 znakmi (ABCD)
+5 min on that preset. This node hears nothing on its own while it runs, and finds only meshes sharing your primary channel key.	5 min na tomto presete. Počas behu tento uzol nepočuje nič z vlastnej siete a nájde len siete s rovnakým kľúčom hlavného kanála.
+5 sec	5 s
+6 hours	6 hodín
+? hops	? skokov
+ACK from %s. Waiting for reply...	ACK od %s. Čakám na odpoveď...
+ACKed, no reply (%lus)	ACK prijatý, bez odpovede (%lus)
+AP mode cannot be removed	Režim AP nemožno odstrániť
+AP mode selected	Vybraný režim AP
+AP mode selected - enable WiFi first	Vybraný režim AP - najprv zapnite WiFi
+AP mode: %s	Režim AP: %s
+ARCHIVED %s\n\n%s\nShort: %s\nID: !%08lX\n\nLast heard: %s\n%s\n\n%sNot on the live list. Restore it to message,\nfavorite or trace it.	ARCHIVOVANÝ %s\n\n%s\nKrátke: %s\nID: !%08lX\n\nNaposledy počutý: %s\n%s\n\n%sNie je v aktívnom zozname. Obnovte ho, aby ste mu mohli písať,\npridať ho medzi obľúbené alebo sledovať trasu.
+Act	Akcie
+Action Result	Výsledok
+Action: %s	Akcia: %s
+Actions	Akcie
+All	Všetko
+All live traffic will be erased	Celá živá prevádzka bude vymazaná
+All live traffic will be erased, including lines hidden by the filter	Celá živá prevádzka bude vymazaná vrátane riadkov skrytých filtrom
+Already %s.	Už %s.
+Already on that preset	Tento preset už je nastavený
+Analyzing terrain...	Analyzujem terén...
+Announce	Ohlásiť
+Antenna: %s	Anténa: %s
+Any key / %s = Close	Ľubovoľný kláves / %s = Zavrieť
+Apply	Použiť
+Apr	apr
+April	apríla
+Archive Dropped Nodes: %s	Archivovať vytlačené uzly: %s
+Archive Dropped Nodes: %s%s	Archivovať vytlačené uzly: %s%s
+Asks first, then reboots.	Najprv sa spýta, potom reštartuje.
+Asks first, then reboots. Only nodes on the same preset can hear each other.	Najprv sa spýta, potom reštartuje. Počujú sa len uzly na rovnakom presete.
+Aug	aug
+August	augusta
+Auto-update gave up on %s after %u failed installs	Automatická aktualizácia vzdala %s po %u neúspešných inštaláciách
+BT Keyboard failed to start (low memory)	BT klávesnica sa nespustila (málo pamäte)
+BT Keyboard off	BT klávesnica vyp.
+BT Keyboard on - connecting to %s	BT klávesnica zap. - pripájam k %s
+BT Keyboard on - use Pair to choose one	BT klávesnica zap. - vyberte ju cez Spárovať
+BT Keyboard turned off.\n\nWeb Config and the Bluetooth keyboard share one radio and cannot run at the same time.\n\nTurn Web Config off to use the keyboard again.	BT klávesnica vypnutá.\n\nWebová konfigurácia a klávesnica Bluetooth zdieľajú jedno rádio a nemôžu bežať súčasne.\n\nVypnite webovú konfiguráciu, aby ste mohli klávesnicu znova používať.
+BT Keyboard: %s	BT klávesnica: %s
+BT Keyboard: Off	BT klávesnica: Vyp.
+Back	Späť
+Back = Cancel	Späť = Zrušiť
+Bass	Basy
+Battery Calibration	Kalibrácia batérie
+Battery Calibration: %s	Kalibrácia batérie: %s
+Battery Calibration: Off	Kalibrácia batérie: Vyp.
+Battery Display: %s	Zobrazenie batérie: %s
+Battery critical - shedding load	Kritická batéria - obmedzujem spotrebu
+Battery empty	Batéria vybitá
+Battery low	Slabá batéria
+Battery trim: %s	Korekcia batérie: %s
+Battery: %.0f%%\nVoltage: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%	Batéria: %.0f%%\nNapätie: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%
+Battery\nVoltage\nChUtil\nAirTx\nTemp\nHumidity\nPressure	Batéria\nNapätie\nChUtil\nAirTx\nTepl.\nVlhkosť\nTlak
+Beacons	Majáky
+Bksp=Back  solid=ChUtil  dash=AirTx	Bksp=Späť  plná=ChUtil  čiarkovaná=AirTx
+Bksp=Back  solid=SNR  dash=RSSI	Bksp=Späť  plná=SNR  čiarkovaná=RSSI
+Bksp=Close	Bksp=Zavrieť
+Blink Flashes (Channel): %u	Počet bliknutí (kanál): %u
+Blink Flashes (DM): %u	Počet bliknutí (DM): %u
+Blocked @ %.1f km, %dm over sight	Blokované na %.1f km, %dm nad priamou viditeľnosťou
+Blue	Modrá
+Bluetooth Keyboard	Klávesnica Bluetooth
+Bottom buttons: Chats, DM, Nodes, Tools, Config, Help.	Spodné tlačidlá: Chaty, DM, Uzly, Nástroje, Nastavenia, Pomocník.
+Bottom buttons: Home, Chats, DM, Nodes, Tools, Config, Help.\nHome is the dashboard; Chats is the messages, and its icon\nblinks when a channel has something unread.	Spodné tlačidlá: Domov, Chaty, DM, Uzly, Nástroje, Nastavenia, Pomocník.\nDomov je panel; Chaty sú správy a ich ikona\nbliká, keď má kanál niečo neprečítané.
+Brightness	Jas
+Brightness: %u%%	Jas: %u%%
+Brightness: %u%%  Lock: %u%%	Jas: %u%%  Zámok: %u%%
+Brown	Hnedá
+Bubbles	Bubliny
+C = Clear   %s = Back	C = Vymazať   %s = Späť
+C = Clear   F = Filter	C = Vymazať   F = Filter
+C:Cfg H:Ch D:DM N:Node L:Tools A:Act	C:Cfg H:Kanál D:DM N:Uzol L:Nástr A:Akcie
+CHANNEL UTIL	VYŤAŽENIE KANÁLA
+CHANNEL UTILIZATION (%)	VYŤAŽENIE KANÁLA (%)
+Can't resolve the weather server.\nCheck the address and DNS.	Adresu servera počasia nemožno preložiť.\nSkontrolujte adresu a DNS.
+Cancel	Zrušiť
+Cancelled after removing %u file%s. The rest were left alone - run the scan again to see what is still there.	Zrušené po odstránení %u súb.%.0s Zvyšok zostal nedotknutý - spustite kontrolu znova a uvidíte, čo ešte zostáva.
+Cannot send: no node id	Nemožno odoslať: chýba id uzla
+Card formatted.\n\nWrite your configuration back to it as /camillia/config.yaml?	Karta naformátovaná.\n\nZapísať na ňu znova konfiguráciu ako /camillia/config.yaml?
+ChUtil  cur %s  avg %.1f%%  max %.1f%%   n=%d\nAirTx   cur %s  avg %.1f%%  max %.1f%%   n=%d	ChUtil  akt %s  priem %.1f%%  max %.1f%%   n=%d\nAirTx   akt %s  priem %.1f%%  max %.1f%%   n=%d
+ChUtil  cur --  avg --  max --   n=0\nAirTx   cur --  avg --  max --   n=0	ChUtil  akt --  priem --  max --   n=0\nAirTx   akt --  priem --  max --   n=0
+Channel	Kanál
+Channel %d	Kanál %d
+Channel %d  %s	Kanál %d  %s
+Channel Actions\n%s	Akcie kanála\n%s
+Channel Configuration	Nastavenia kanála
+Channel Key	Kľúč kanála
+Channel Message LED	LED správ kanála
+Channel Message LED: %s	LED správ kanála: %s
+Channel Name	Názov kanála
+Channel blink: %u flash%s	Blikanie kanála: %u×%.0s
+Channel busy (%.0f%%) - not sweeping	Kanál je vyťažený (%.0f%%) - bez prieskumu
+Channels	Kanály
+Chat Colors: %s	Farby chatu: %s
+Chat Names	Mená v chate
+Chat Names: %s	Mená v chate: %s
+Chat Names: %s%s	Mená v chate: %s%s
+Chat Style	Štýl chatu
+Chat Style: %s	Štýl chatu: %s
+Chat Style: %s%s	Štýl chatu: %s%s
+Chat Type	Typ chatu
+Chat Type: %s	Typ chatu: %s
+Chat Type: %s%s	Typ chatu: %s%s
+Chat colors reassigned	Farby chatu pridelené znova
+Checking %u of %u   %u%%	Kontrolujem %u z %u   %u%%
+Chirpy	Čvirikanie
+Choose WiFi	Vybrať WiFi
+Choose WiFi or Finish	Vyberte WiFi alebo Dokončiť
+Choose WiFi: %s	Vybrať WiFi: %s
+Choose WiFi: (none)	Vybrať WiFi: (žiadna)
+Classic	Klasický
+Clear	Vymazať
+Clear Messages	Vymazať správy
+Clear Nodes (All)	Vymazať uzly (všetky)
+Clear Nodes (Keep Favorites)	Vymazať uzly (ponechať obľúbené)
+Clear by %dm at tightest	Voľno %dm v najužšom mieste
+Clear entire live feed?	Vymazať celý živý prehľad?
+Cleared %d nodes, kept %d favorites - rebooting...	Vymazaných %d uzlov, ponechaných %d obľúbených - reštartujem...
+Cleared (%d report(s)) - rebuilding from traffic	Vymazané (%d hlásení) - obnova z prevádzky
+Clock Format: %s	Formát času: %s
+Clock set from web config	Hodiny nastavené z webovej konfigurácie
+Clock set: %04d-%02d-%02d %02d:%02d	Hodiny nastavené: %04d-%02d-%02d %02d:%02d
+Close	Zavrieť
+Configuration	Nastavenia
+Configuration exported to /camillia/config.yaml.\n\nThe card is formatted and holds nothing else. Chat history, the node database and any map tiles were on the old filesystem and are gone.	Konfigurácia exportovaná do /camillia/config.yaml.\n\nKarta je naformátovaná a nič iné neobsahuje. História chatu, databáza uzlov a dlaždice máp boli v starom súborovom systéme a sú preč.
+Configured WiFi is empty	Nastavená WiFi je prázdna
+Confirm Chat Style	Potvrdiť štýl chatu
+Confirm?	Potvrdiť?
+Connect	Pripojiť
+Connect to WiFi before enabling VNC	Pred zapnutím VNC sa pripojte k WiFi
+Connect: %s	Pripojiť: %s
+Connecting to %s...	Pripájam k %s...
+Connecting to broker...	Pripájam k brokeru...
+Connection failed: %s	Pripojenie zlyhalo: %s
+Conversation deleted	Konverzácia vymazaná
+Conversations	Konverzácie
+Could not reach the weather server.	Server počasia je nedostupný.
+Could not remove every file. Check storage and retry.	Nepodarilo sa odstrániť všetky súbory. Skontrolujte úložisko a skúste to znova.
+Counting files on the card...	Počítam súbory na karte...
+Counting files... %u found	Počítam súbory... nájdených %u
+Custom	Vlastný
+Custom (%u B)	Vlastný (%u B)
+Cyan	Azúrová
+DIRECT MESSAGES	PRIAME SPRÁVY
+DISTANCE UNKNOWN	VZDIALENOSŤ NEZNÁMA
+DM blink: %u flash%s	Blikanie DM: %u×%.0s
+DMs	DM
+Date unavailable	Dátum nie je k dispozícii
+Day	Deň
+Dec	dec
+December	decembra
+Default	Predvolený
+Default (%u)	Predvolený (%u)
+Default +%u	Predvolený +%u
+Del(e)te	Vymazať (E)
+Delete	Vymazať
+Delete WiFi?	Vymazať WiFi?
+Delete conversation?	Vymazať konverzáciu?
+Delete failed	Vymazanie zlyhalo
+Delete node?	Vymazať uzol?
+Delivery details not recorded: received before this boot, or too many messages ago.	Podrobnosti doručenia nie sú zaznamenané: prijaté pred týmto spustením alebo pred príliš mnohými správami.
+Detail Map	Podrobná mapa
+Device Info	Informácie o zariadení
+Device switched off last time: battery empty	Zariadenie sa naposledy vyplo: vybitá batéria
+Direct Message LED	LED priamych správ
+Direct Message LED: %s	LED priamych správ: %s
+Discovery	Detekcia
+Do not remove the card	Nevyberajte kartu
+Elevation data too sparse\nfor this path.	Výškové údaje pre túto trasu\nsú príliš riedke.
+Elevation fetch failed (%d).\nCheck the server URL - it must be http://	Načítanie výšok zlyhalo (%d).\nSkontrolujte URL servera - musí začínať http://
+Enable WiFi first	Najprv zapnite WiFi
+Enc	Šifr.
+Encrypted	Šifrované
+Encryption	Šifrovanie
+Enter password, then tap Connect	Zadajte heslo a ťuknite na Pripojiť
+Enter this node's long name.	Zadajte dlhé meno tohto uzla.
+Enter=Connect  Backspace=Back	Enter=Pripojiť  Backspace=Späť
+Enter=Info  A=Actions  Bksp=Edit/Exit  %s=Back	Enter=Info  A=Akcie  Bksp=Upraviť/Koniec  %s=Späť
+Enter=Info  A=Actions  Space=Filter  %s=Back	Enter=Info  A=Akcie  Space=Filter  %s=Späť
+Enter=Next	Enter=Ďalej
+Enter=Next    Bksp(empty)=Back	Enter=Ďalej    Bksp(prázdne)=Späť
+Enter=Next   Bksp(empty)=Back	Enter=Ďalej   Bksp(prázdne)=Späť
+Enter=OK  %s=Erase/Back	Enter=OK  %s=Zmazať/Späť
+Enter=OK  Bksp=Erase  %s=Back	Enter=OK  Bksp=Zmazať  %s=Späť
+Enter=Save  Tab=Field  %s=Erase/Back	Enter=Uložiť  Tab=Pole  %s=Zmazať/Späť
+Enter=Send   %s=Cancel	Enter=Odoslať   %s=Zrušiť
+Enter=Send  Bksp(empty)=Cancel	Enter=Odoslať  Bksp(prázdne)=Zrušiť
+Enter=Send  Esc=Cancel  Bksp=Del	Enter=Odoslať  Esc=Zrušiť  Bksp=Zmazať
+Environment	Prostredie
+Errors	Chyby
+Examined %u file%s. Nothing matching Windows malware was found.\n\nThis reads names and file headers, not contents, so it is a good sign rather than a guarantee.	Preverených %u súb.%.0s Nič nezodpovedá malvéru pre Windows.\n\nČítajú sa názvy a hlavičky súborov, nie obsah, takže je to dobré znamenie, nie záruka.
+Export Config	Exportovať konfiguráciu
+Export FAILED (no SD?)	Export ZLYHAL (chýba SD?)
+Export FAILED. The card formatted, but the configuration could not be written back to it - try Export from the Config screen.	Export ZLYHAL. Karta sa naformátovala, ale konfiguráciu sa na ňu nepodarilo zapísať späť - skúste Export na obrazovke Nastavenia.
+Exported to /camillia/config.yaml	Exportované do /camillia/config.yaml
+Extra Large	Extra veľké
+Factory Reset	Obnoviť výrobné nastavenia
+Factory reset - rebooting...	Výrobné nastavenia - reštartujem...
+Favorite	Obľúbený
+Feb	feb
+February	februára
+Feels %d%s   Hum %d%%\nWind %d %s %s\nGusting %d %s	Pocit. %d%s   Vlhk. %d%%\nVietor %d %s %s\nNárazy %d %s
+Feels like   %d%s\nHumidity     %d%%\nWind         %d %s from %s\nGusting      %d %s	Pocitovo     %d%s\nVlhkosť      %d%%\nVietor       %d %s od %s\nNárazy       %d %s
+Fetching...	Načítavam...
+Filter Nodes	Filtrovať uzly
+Finish	Dokončiť
+Firmware Update	Aktualizácia firmvéru
+Firmware Update Check	Kontrola aktualizácie firmvéru
+Firmware Update: Install %s	Aktualizácia firmvéru: nainštalovať %s
+Font Size	Veľkosť písma
+Font Size: %s	Veľkosť písma: %s
+Font Size: %s%s	Veľkosť písma: %s%s
+Forget	Zabudnúť
+Format FAILED, and the card could not be remounted.\n\nReboot the device, or format the card on a PC.	Formátovanie ZLYHALO a kartu sa nepodarilo znova pripojiť.\n\nReštartujte zariadenie alebo kartu naformátujte na PC.
+Format FAILED. The card was left as it was and is still mounted.\n\nFormatting it on a PC is the reliable way out.	Formátovanie ZLYHALO. Karta zostala bez zmeny a je stále pripojená.\n\nNaformátovať ju na PC je spoľahlivé riešenie.
+Format the SD card?\n\nThis erases EVERYTHING on it - chat and DM history, the node database, map tiles and your saved configuration - not just the files the scan matched.\n\nIt cannot be undone.	Naformátovať kartu SD?\n\nTým sa vymaže VŠETKO na nej - história chatov a DM, databáza uzlov, dlaždice máp aj uložená konfigurácia - nielen súbory nájdené kontrolou.\n\nNedá sa to vrátiť.
+Formatting SD Card	Formátujem kartu SD
+Found %d network(s)	Nájdených sietí: %d
+Found %u file%s matching Windows malware:\n	%u súb.%.0s zodpovedá malvéru pre Windows:\n
+Freq: %.3f MHz	Frekv: %.3f MHz
+Fri	pi
+From: %s	Od: %s
+Full node name when known	Celé meno uzla, ak je známe
+GPS disabled (using default coordinates)	GPS vypnuté (predvolené súradnice)
+GPS enabled (hardware)	GPS zapnuté (hardvér)
+GPS: Disabled (Default Coords)	GPS: Vypnuté (predv. súr.)
+GPS: Enabled (Hardware)	GPS: Zapnuté (hardvér)
+Gateway: not known	Brána: neznáma
+Grazes terrain - F1=%dm	Dotýka sa terénu - F1=%dm
+Green	Zelená
+HEARD ABOUT	HLÁSENÉ OSTATNÝMI
+Heard %s ago   %u seen, ~%s apart	Počutý pred %s   videný %u×, po ~%s
+Heard %s ago   1 seen	Počutý pred %s   videný 1×
+Help	Pomocník
+High	Vysoký
+Hops	Skoky
+Hops: %d of %d	Skoky: %d z %d
+Hour	Hodina
+I(g)nore	I(g)norovať
+Identity	Identita
+Ignore	Ignorovať
+Import Config	Importovať konfiguráciu
+Import FAILED (no file?)	Import ZLYHAL (chýba súbor?)
+Import failed - enter a name	Import zlyhal - zadajte meno
+Imported OK - rebooting...	Import OK - reštartujem...
+Indigo	Indigová
+Install now? The device reboots to update.	Nainštalovať teraz? Zariadenie sa kvôli aktualizácii reštartuje.
+Invalid base64 key	Neplatný kľúč base64
+Invalid date/time	Neplatný dátum/čas
+Invert Scrolling: %s	Obrátiť posun: %s
+J/K = Scroll   %s = Close	J/K = Posun   %s = Zavrieť
+J/K = Scroll   Bksp = Close	J/K = Posun   Bksp = Zavrieť
+J/K = Select   Space = Compose   Enter = Focus   D = Delete	J/K = Vybrať   Space = Písať   Enter = Fokus   D = Vymazať
+Jan	jan
+January	januára
+Jul	júl
+July	júla
+Jun	jún
+June	júna
+Just announced. Try again in %us.	Práve ohlásené. Skúste to znova o %us.
+Key	Kľúč
+Keyboard Blink: %s	Blikanie klávesnice: %s
+Keyboard Light	Podsvietenie klávesnice
+Keyboard Light: %s	Podsvietenie klávesnice: %s
+Keyboard blink: %s	Blikanie klávesnice: %s
+Keyboard light %s	Podsvietenie klávesnice %s
+Keyboard light %s - after a power cycle	Podsvietenie klávesnice %s - po vypnutí a zapnutí
+Keyboard light off	Podsvietenie klávesnice vyp.
+L/R=Change   Enter=Save   %s=Back	Ľ/P=Zmeniť   Enter=Uložiť   %s=Späť
+LINE OF SIGHT	PRIAMA VIDITEĽNOSŤ
+LIVE	NAŽIVO
+LONGEST SILENT	NAJDLHŠIE TICHÉ
+Landscape	Na šírku
+Language	Jazyk
+Language: %s	Jazyk: %s
+Large	Veľké
+Last heard	Naposledy počutý
+Last heard\nSNR\nHops\nChannel\nSigned	Naposledy počutý\nSNR\nSkoky\nKanál\nPodpísané
+Leave blank to clear	Na vymazanie nechajte prázdne
+Light reminds for %s	Svetlo pripomína %s
+Light reminds until read	Svetlo pripomína do prečítania
+Lime	Limetková
+Link	Spojenie
+Listening   %d sender%s heard	Počúvanie   počutých odosielateľov: %d%.0s
+Listening: off	Počúvanie: vyp.
+Live	Naživo
+Live Filter	Živý filter
+Live feed cleared	Živý prehľad vymazaný
+Loading map...	Načítavam mapu...
+Loc	Pol.
+Locate	Lokalizovať
+Locate: %s	Lokalizovať: %s
+Location	Poloha
+Location Precision	Presnosť polohy
+Location Precision: %s	Presnosť polohy: %s
+Location rounded to %s	Poloha zaokrúhlená na %s
+Location sent exactly	Poloha odoslaná presne
+Location sharing off (no position sent)	Zdieľanie polohy vyp. (poloha sa neodosiela)
+Location sharing on	Zdieľanie polohy zap.
+Location: %s	Poloha: %s
+Lock Screen Off	Vypnúť displej na zámku
+Lock Screen Off: %s	Vypnúť displej na zámku: %s
+Lock Screen: %s	Uzamknutá obrazovka: %s
+Lock screen	Uzamknutá obrazovka
+Lock screen stays on	Uzamknutá obrazovka zostáva zapnutá
+Long	Dlhé
+Long name	Dlhé meno
+Long name cannot be empty	Dlhé meno nesmie byť prázdne
+Long name: %s\nEnter a short name (up to 4 chars).	Dlhé meno: %s\nZadajte krátke meno (najviac 4 znaky).
+Long: %s	Dlhé: %s
+Looking for keyboards...	Hľadám klávesnice...
+Low	Nízky
+ME (ACK)	JA (ACK)
+MQTT Bridge: %s	Most MQTT: %s
+MQTT Bridge: %s - rebooting...	Most MQTT: %s - reštartujem...
+MQTT Bridge: Off (WiFi off)	Most MQTT: Vyp. (WiFi vyp.)
+MQTT Scan Settings	Nastavenia skenu MQTT
+MQTT bridge is off	Most MQTT je vypnutý
+Map (loading)	Mapa (načítava sa)
+Map (off)	Mapa (vyp.)
+Map memory unavailable	Chýba pamäť pre mapu
+Map unavailable	Mapa nie je k dispozícii
+Mar	mar
+March	marca
+Match the voltage to a meter reading.\nPercent comes from the fuel gauge and does not change.	Nastavte napätie podľa meracieho prístroja.\nPercentá sú z merača nabitia a nemenia sa.
+Match the voltage to a meter reading.\nPercent follows it. 0% = uncalibrated.	Nastavte napätie podľa meracieho prístroja.\nPercentá ho nasledujú. 0% = nekalibrované.
+May	máj
+Medium	Stredné
+Mesh Beacons is off.\n\nTurn it on in Config (or under Modules in web config) to decode beacons from other meshes. Receive-only: nothing is transmitted, and an offer is never applied to your radio.	Majáky siete sú vypnuté.\n\nZapnite ich v Nastaveniach (alebo v Moduloch vo webovej konfigurácii) a dekódujte majáky iných sietí. Len príjem: nič sa nevysiela a ponuka sa nikdy nepoužije na vaše rádio.
+Mesh Beacons: %s	Majáky siete: %s
+Mesh beacons: %s	Majáky siete: %s
+Message (I)nfo	(I)nfo o správe
+Message Actions	Akcie správy
+Message Info	Info o správe
+Messages	Správy
+Messages cleared - rebooting...	Správy vymazané - reštartujem...
+Metric	Metrické
+Minute	Minúta
+Modem preset	Preset modemu
+Mon	po
+Month	Mesiac
+Move  Enter=Apply  %s=Back	Pohyb  Enter=Použiť  %s=Späť
+Move  Enter=Apply  %s=Cancel	Pohyb  Enter=Použiť  %s=Zrušiť
+Move  Enter=Change  %s=Cancel	Pohyb  Enter=Zmeniť  %s=Zrušiť
+Move  Enter=Edit  %s=Back	Pohyb  Enter=Upraviť  %s=Späť
+Move  Enter=OK  %s=Cancel	Pohyb  Enter=OK  %s=Zrušiť
+Move  Enter=Open  %s=Back	Pohyb  Enter=Otvoriť  %s=Späť
+Move  Enter=Pick  %s=Back	Pohyb  Enter=Vybrať  %s=Späť
+Move  Enter=Scan  %s=Cancel	Pohyb  Enter=Skenovať  %s=Zrušiť
+Move • Enter=Add • %s=Close	Pohyb • Enter=Pridať • %s=Zavrieť
+Move • Enter=Insert • %s=Close	Pohyb • Enter=Vložiť • %s=Zavrieť
+Move • Enter=React • %s=Close	Pohyb • Enter=Reagovať • %s=Zavrieť
+Move • Enter=Send • %s=Close	Pohyb • Enter=Odoslať • %s=Zavrieť
+Move=Adjust  Enter=Save  %s=Cancel	Pohyb=Nastaviť  Enter=Uložiť  %s=Zrušiť
+Move=Adjust  Space=Toggle  Enter=Save  %s=Cancel	Pohyb=Nastaviť  Space=Prepnúť  Enter=Uložiť  %s=Zrušiť
+Move=Preview  Enter=OK  %s=Cancel	Pohyb=Náhľad  Enter=OK  %s=Zrušiť
+My Message Color	Farba mojich správ
+My Message Color: %s	Farba mojich správ: %s
+My Message Color: %s (unchanged)	Farba mojich správ: %s (bez zmeny)
+My Message Color: %s - rebooting...	Farba mojich správ: %s - reštartujem...
+N=Choose WiFi   Enter=Finish   Bksp=Back	N=Vybrať WiFi   Enter=Dokončiť   Bksp=Späť
+NO LINE OF SIGHT	BEZ PRIAMEJ VIDITEĽNOSTI
+NODEINFO + telemetry queued.	NODEINFO + telemetria vo fronte.
+NODES	UZLY
+NODES (%d%s)	UZLY (%d%s)
+NODES [%s] (%d%s)	UZLY [%s] (%d%s)
+Name	Meno
+Name: %s\nShort: %s\nID: !%08X\nLast heard: %s\nSNR: %.1f dB\nHops: %u\nChannel: %d\n\nPosition:\n%s\n\nTelemetry:\n%s	Meno: %s\nKrátke: %s\nID: !%08X\nNaposledy počutý: %s\nSNR: %.1f dB\nSkoky: %u\nKanál: %d\n\nPoloha:\n%s\n\nTelemetria:\n%s
+Name\nShort\nID	Meno\nKrátke\nID
+Nav Bar: %s	Navigačná lišta: %s
+Neighborhood Info: %s	Info o susedoch: %s
+Neighborhood info: %s	Info o susedoch: %s
+Never	Nikdy
+New	Nová
+New DM	Nová DM
+New DM: Select Node	Nová DM: vyberte uzol
+New DM: Select Node [%s]	Nová DM: vyberte uzol [%s]
+New Message	Nová správa
+Newest: %s %s	Najnovší: %s %s
+Newest: none heard yet	Najnovší: zatiaľ nikto nepočutý
+Next	Ďalej
+No %s - not saved	Bez %s - neuložené
+No %s - not saving	Bez %s - neukladá sa
+No %s traffic yet\n(filter is on - %s)	Zatiaľ žiadna prevádzka %s\n(filter zapnutý - %s)
+No S&F router heard yet	Zatiaľ nepočutý žiadny router S&F
+No SD card is mounted.	Nie je pripojená karta SD.
+No WiFi network configured	Nie je nastavená sieť WiFi
+No beacons heard yet.\n\nA beacon is only audible while its sender has retuned onto this channel, preset and region, and it repeats on that node's own schedule - minutes to hours apart. This list keeps what it hears until you clear it.	Zatiaľ nepočuť žiadne majáky.\n\nMaják je počuť len vtedy, keď sa jeho odosielateľ preladil na tento kanál, preset a región, a opakuje sa podľa rozvrhu toho uzla - po minútach až hodinách. Tento zoznam uchováva, čo zachytí, kým ho nevymažete.
+No elevation server set.\nWeb Config -> Elevation Server (LOS)	Nie je nastavený výškový server.\nWebová konf. -> Elevation Server (LOS)
+No hop path in reply	V odpovedi chýba trasa skokov
+No keyboards found yet.\n\nPut the keyboard into pairing mode, then press Scan.\n\nOnly Bluetooth LE keyboards can pair - this hardware has no Bluetooth Classic radio.	Zatiaľ sa nenašli žiadne klávesnice.\n\nPrepnite klávesnicu do režimu párovania a stlačte Skenovať.\n\nSpárovať možno len klávesnice Bluetooth LE - tento hardvér nemá rádio Bluetooth Classic.
+No known nodes yet	Zatiaľ žiadne známe uzly
+No live traffic yet	Zatiaľ žiadna živá prevádzka
+No matches for: %s	Žiadne výsledky pre: %s
+No messages yet	Zatiaľ žiadne správy
+No network in that slot	Na tomto mieste nie je sieť
+No network selected	Nie je vybraná sieť
+No networks found	Nenašli sa žiadne siete
+No new messages	Žiadne nové správy
+No nodes seen	Nezachytené žiadne uzly
+No nodes seen yet.	Zatiaľ nezachytené žiadne uzly.
+No position data	Žiadne údaje o polohe
+No position recorded	Žiadna zaznamenaná poloha
+No position yet.\nNeeds a GPS fix or a set location.	Zatiaľ bez polohy.\nPotrebuje fix GPS alebo nastavenú polohu.
+No release notes in this build.	V tomto builde nie sú poznámky k verzii.
+No reply (%lus)	Bez odpovede (%lus)
+No result details available.	Podrobnosti nie sú k dispozícii.
+No telemetry data	Žiadna telemetria
+No weather server set.\nWeb Config -> Weather Server	Nie je nastavený server počasia.\nWebová konf. -> Weather Server
+Node Actions	Akcie uzla
+Node DB cleared - rebooting...	Databáza uzlov vymazaná - reštartujem...
+Node ID: !%08lx	ID uzla: !%08lx
+Node Name	Meno uzla
+Node Name: %s (%s)	Meno uzla: %s (%s)
+Node Name: %s (%s)%s	Meno uzla: %s (%s)%s
+Node id: !%08lx	Id uzla: !%08lx
+Node info	Info o uzle
+Nodes and SD archive cleared - rebooting...	Uzly a archív na SD vymazané - reštartujem...
+None	Žiadny
+Not counting - out of memory	Nepočíta sa - málo pamäte
+Not enough free heap to hold the topic table.\n\nClose a few screens (or reboot) and try again.	Málo voľnej pamäte pre tabuľku tém.\n\nZavrite niekoľko obrazoviek (alebo reštartujte) a skúste to znova.
+Nothing heard yet	Zatiaľ nič nepočuť
+Nothing recorded yet - nothing to send	Zatiaľ nič nezaznamenané - nie je čo odoslať
+Nothing was removed. The files may have gone already, or the card may be write-protected.	Nič nebolo odstránené. Súbory už možno zmizli, alebo je karta chránená proti zápisu.
+Notification Light Timeout	Trvanie svetla upozornení
+Notification Light Timeout: %s	Trvanie svetla upozornení: %s
+Notification Sound	Zvuk upozornenia
+Notification Sound: %s	Zvuk upozornenia: %s
+Notification sound: %s	Zvuk upozornenia: %s
+Nov	nov
+November	novembra
+OFF	VYP
+OTA disabled on Cardputer build	OTA vypnuté v builde pre Cardputer
+OTA needs the factory image (flash layout)	OTA vyžaduje výrobný obraz (rozloženie flash)
+OTA request failed (NVS write). Retry.	Požiadavka OTA zlyhala (zápis NVS). Skúste znova.
+OTA worker completed. Check status.	OTA dokončené. Skontrolujte stav.
+Oct	okt
+October	októbra
+Off	Vyp.
+Offers: %s	Ponuky: %s
+Old Map Files Found	Našli sa staré súbory máp
+Oldest: %s %s	Najstarší: %s %s
+Oldest: none heard yet	Najstarší: zatiaľ nikto nepočutý
+On	Zap.
+On (global off)	Zap. (globálne vyp.)
+On (listening)	Zap. (počúva)
+Open network (leave blank)	Otvorená sieť (nechajte prázdne)
+Optional WiFi setup.\nNo network selected.\nChoose WiFi now or finish without WiFi.	Voliteľné nastavenie WiFi.\nNie je vybraná sieť.\nVyberte WiFi teraz, alebo dokončite bez WiFi.
+Optional WiFi setup.\nSelected: %s\nChoose a different network or finish.	Voliteľné nastavenie WiFi.\nVybrané: %s\nVyberte inú sieť alebo dokončite.
+Orange	Oranžová
+Orientation: %s	Orientácia: %s
+Other	Ostatné
+Outline	Obrys
+PKI key: %s	Kľúč PKI: %s
+PSRAM free: %lu KB\nPSRAM total: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	Voľná PSRAM: %lu KB\nPSRAM celkom: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nVoľné pre aplikáciu: %lu KB
+PSRAM: none\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	PSRAM: žiadna\nFlash: %lu KB\nSketch: %lu KB\nVoľné pre aplikáciu: %lu KB
+Pair	Spárovať
+Pair BT Keyboard: %s	Spárovať BT klávesnicu: %s
+Pair BT Keyboard: (none)	Spárovať BT klávesnicu: (žiadna)
+Percent	Percentá
+Pink	Ružová
+Please re-flash from Camillia's website for language support.	Pre podporu jazykov nahrajte firmvér znova z webu Camillia.
+Portrait	Na výšku
+Portrait 180	Na výšku 180
+Position	Poloha
+Precise	Presná
+Preparing state maps...	Pripravujem mapy regiónov...
+Preset already %s.	Preset už je %s.
+Preset scan already running	Sken presetu už beží
+Preset: %s - rebooting...	Preset: %s - reštartujem...
+Public key preserved\n\n	Verejný kľúč zachovaný\n\n
+Purple	Fialová
+Pwr %d dBm Hops %d	Výk %d dBm Skoky %d
+R=Refresh  %s=Back	R=Obnoviť  %s=Späť
+RECENTLY HEARD	NEDÁVNO POČUTÉ
+Radio busy - retry in %lus	Rádio je zaneprázdnené - znova o %lus
+Radio not ready	Rádio nie je pripravené
+Re(q)uest Node	Vyžiadať uzol (Q)
+Ready	Pripravené
+Rebooting into OTA minimal mode...	Reštart do minimálneho režimu OTA...
+Received over: %s %s	Prijaté cez: %s %s
+Red	Červená
+Relayed to us by: %s	Preposlal: %s
+Relayed to us by: %s (from MQTT)	Preposlal: %s (z MQTT)
+Relayed to us by: nobody, heard directly	Preposlal: nikto, počuté priamo
+Relayed to us by: not reported by the relaying node	Preposlal: preposielajúci uzol neuviedol
+Relayed to us by: the sender itself	Preposlal: sám odosielateľ
+Relayed: %lu	Preposlané: %lu
+Release Channel: %s - checking...	Kanál vydaní: %s - kontrolujem...
+Release Channel: %s%s	Kanál vydaní: %s%s
+Release Notes	Poznámky k verzii
+Release Notes  %s	Poznámky k verzii  %s
+Remove	Odstrániť
+Removed %s	%s odstránená
+Removed %s - no networks left, AP mode	%s odstránená - nezostali žiadne siete, režim AP
+Removed %s - now %s	%s odstránená - teraz %s
+Removed %u file%s. %u could not be deleted - the card may be write-protected.\n\nRe-run the scan to check.	Odstránených %u súb.%.0s %u nemožno vymazať - karta môže byť chránená proti zápisu.\n\nSpustite kontrolu znova na overenie.
+Removed %u file%s.\n\nThis card looked clean afterwards, but the scan reads names and headers, not contents - it cannot promise the card is clean. Reformatting is the only answer that can.	Odstránených %u súb.%.0s\n\nKarta potom vyzerala čistá, ale kontrola číta názvy a hlavičky, nie obsah - nemôže zaručiť, že je karta čistá. To zaručí len nové formátovanie.
+Removing Files	Odstraňujem súbory
+Removing legacy maps...	Odstraňujem staré mapy...
+Replay already requested	Prehratie už vyžiadané
+Replay not sent: %s	Prehratie neodoslané: %s
+Replay requested (last %lu min)	Prehratie vyžiadané (posledných %lu min)
+Reply	Odpovedať
+Reply from %s	Odpoveď od %s
+Reply from %s (%lus)	Odpoveď od %s (%lus)
+Request (P)osition	Vyžiadať (p)olohu
+Request Node	Vyžiadať uzol
+Request Position	Vyžiadať polohu
+Request S&F Replay (%s)	Vyžiadať prehratie S&F (%s)
+Request S&F Replay (no router)	Vyžiadať prehratie S&F (bez routera)
+Requested (last %lu min)	Vyžiadané (posledných %lu min)
+Rescan	Znova skenovať
+Reset	Resetovať
+Reset Chat Colors	Resetovať farby chatu
+Reset to Default	Obnoviť predvolené
+Restore failed: every slot is favorited, so there is no room. Unfavorite a node and try again.	Obnova zlyhala: všetky miesta sú obľúbené, nie je voľné miesto. Odstráňte uzol z obľúbených a skúste znova.
+Restore failed: the archived record could not be read.	Obnova zlyhala: archivovaný záznam nemožno prečítať.
+Restore node?	Obnoviť uzol?
+Role: %s%s	Rola: %s%s
+S(h)are	Zdieľať (H)
+SD Card Format	Formátovanie karty SD
+SD Card Scan	Kontrola karty SD
+SD scan cancelled	Kontrola SD zrušená
+SD: %s, %s, %u fails	SD: %s, %s, chýb: %u
+SD: no card	SD: bez karty
+SNR   cur %s  avg %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  cur %s  avg %.0fdBm min %.0f  max %.0f   n=%d	SNR   akt %s  priem %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  akt %s  priem %.0fdBm min %.0f  max %.0f   n=%d
+SNR   cur --  avg --  min --  max --   n=0\nRSSI  cur --  avg --  min --  max --   n=0	SNR   akt --  priem --  min --  max --   n=0\nRSSI  akt --  priem --  min --  max --   n=0
+Sat	so
+Save	Uložiť
+Save failed - cannot write %s	Uloženie zlyhalo - nemožno zapisovať na %s
+Save failed - too many this second	Uloženie zlyhalo - príliš veľa v tejto sekunde
+Save while discovering	Ukladať počas detekcie
+Save while scanning	Ukladať počas skenovania
+Saved %s	Uložené %s
+Saved: %s	Uložené: %s
+Scan	Skenovať
+Scan %s	Sken %s
+Scan %s - saved %s	Sken %s - uložené %s
+Scan Networks	Skenovať siete
+Scan SD Card for Malware%s	Skontrolovať kartu SD na malvér%s
+Scan a preset	Skenovať preset
+Scan cancelled	Sken zrušený
+Scan failed - Rescan to try again	Sken zlyhal - skenujte znova
+Scan send failed	Odoslanie skenu zlyhalo
+Scanning %s %s/%s	Skenujem %s %s/%s
+Scanning %s...	Skenujem %s...
+Scanning SD Card	Kontrolujem kartu SD
+Scanning WiFi networks...	Hľadám siete WiFi...
+Screen	Displej
+Screen Timeout	Vypnutie displeja
+Screen Timeout: %s	Vypnutie displeja: %s
+Screen off after %s on lock	Displej zhasne po %s na zámku
+Screen orientation	Orientácia displeja
+Screen sleeps after %s	Displej zaspí po %s
+Screen stays on	Displej zostáva zapnutý
+Select a conversation	Vyberte konverzáciu
+Select this node's role.	Vyberte rolu tohto uzla.
+Select your radio region/preset.	Vyberte región/preset rádia.
+Selection settling - press Enter again	Výber sa ustaľuje - stlačte Enter znova
+Sen(d) DM	Poslať DM (D)
+Send	Odoslať
+Send DM	Poslať DM
+Send failed	Odoslanie zlyhalo
+Send to channel?	Odoslať do kanála?
+Send top 5 to	Poslať top 5 do
+Sending request...	Odosielam požiadavku...
+Sent by this node.	Odoslané týmto uzlom.
+Sent to %s	Odoslané do %s
+Sent. Waiting for route ACK...	Odoslané. Čakám na ACK trasy...
+Sep	sep
+September	septembra
+Server answered, but not with\nelevation data. Check the proxy\npoints at the elevation service.	Server odpovedal, ale nie\nvýškovými údajmi. Skontrolujte, či proxy\nukazuje na výškovú službu.
+Server answered, but not with\nweather data. Check the proxy.	Server odpovedal, ale nie\núdajmi o počasí. Skontrolujte proxy.
+Set message colour to %s and reboot?	Nastaviť farbu správ na %s a reštartovať?
+Share	Zdieľať
+Share Location: %s	Zdieľať polohu: %s
+Short	Krátke
+Short name	Krátke meno
+Short name cannot be empty	Krátke meno nesmie byť prázdne
+Short: %s	Krátke: %s
+Show Archived Nodes: %s	Zobraziť archivované uzly: %s
+Show Archived Nodes: %s%s	Zobraziť archivované uzly: %s%s
+Signal: SNR %.1f dB, RSSI %.0f dBm	Signál: SNR %.1f dB, RSSI %.0f dBm
+Silver	Strieborná
+Sky	Nebeská
+Small	Malé
+Source	Zdroj
+Splash Melody: %s	Úvodná melódia: %s
+Splash melody: %s	Úvodná melódia: %s
+Stale - 	Zastarané -
+State Map	Mapa regiónu
+State map disabled	Mapa regiónu vypnutá
+State map unavailable	Mapa regiónu nie je k dispozícii
+Stay on	Stále zapnuté
+Storage: %s %s	Úložisko: %s %s
+Storage: %s (not mounted)	Úložisko: %s (nepripojené)
+Store&Fwd Client: %s	Klient Store&Fwd: %s
+Store&Fwd client is off	Klient Store&Fwd je vypnutý
+Sun	ne
+Sweep	Prieskum
+Sweep already running	Prieskum už beží
+Sweep cancelled	Prieskum zrušený
+Sweep done: %d new (%lus)	Prieskum hotový: %d nových (%lus)
+Sweep send failed	Odoslanie prieskumu zlyhalo
+Sweep/Scan Settings	Nastavenia prieskumu/skenu
+Sweeping...	Prieskum...
+Sweeping... %s/%s	Prieskum... %s/%s
+Switch to %s and reboot?	Prepnúť na %s a reštartovať?
+Switch to theme %s and reboot?	Prepnúť na motív %s a reštartovať?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	Prepnutie na externú môže poškodiť rádio, ak anténa nie je pripojená.  Pred stlačením Áno pripojte externú anténu
+System Stats	Štatistiky systému
+Tall	Vysoké
+Tall, turned 180	Vysoké, otočené o 180
+Tap = Open   Long-press 3s = Delete   DM below = Back	Ťuknutie = Otvoriť   Podržanie 3 s = Vymazať   DM dole = Späť
+Tap Next to continue	Pokračujte ťuknutím na Ďalej
+Tap Next to continue, or Back	Pokračujte ťuknutím na Ďalej, alebo Späť
+Tap a channel	Ťuknite na kanál
+Tap a channel to edit	Ťuknite na kanál na úpravu
+Tap a field to change it	Ťuknite na pole na zmenu
+Tap a field to edit, then Save	Ťuknite na pole, upravte, potom Uložiť
+Tap a node for actions   Nodes below = Back	Ťuknite na uzol pre akcie   Uzly dole = Späť
+Tap a node to start a DM	Ťuknite na uzol a začnite DM
+Tap a preset to apply.	Ťuknite na preset na použitie.
+Tap a preset, then Scan	Ťuknite na preset, potom Skenovať
+Tap a size to apply	Ťuknite na veľkosť na použitie
+Tap one to apply.	Ťuknite na jeden na použitie.
+Tap to preview	Ťuknite pre náhľad
+Teal	Modrozelená
+Telemetry	Telemetria
+Temp: %.1f C\nHumidity: %.1f%%\nPressure: %.1f hPa	Tepl: %.1f C\nVlhkosť: %.1f%%\nTlak: %.1f hPa
+Temp: %.1f F\nHumidity: %.1f%%\nPressure: %.2f inHg	Tepl: %.1f F\nVlhkosť: %.1f%%\nTlak: %.2f inHg
+The card was formatted but could not be remounted. Reboot the device and it should come up clean.	Karta bola naformátovaná, ale nepodarilo sa ju znova pripojiť. Reštartujte zariadenie a mala by nabehnúť čistá.
+Theme	Motív
+Theme: %s	Motív: %s
+Theme: %s (unchanged)	Motív: %s (bez zmeny)
+Theme: %s - rebooting...	Motív: %s - reštartujem...
+These files are not used by the new tile map. Remove them to reclaim storage?	Tieto súbory nová dlaždicová mapa nepoužíva. Odstrániť ich a uvoľniť úložisko?
+This node	Tento uzol
+This node has no position yet.\nNeeds a GPS fix or a set location.	Tento uzol zatiaľ nemá polohu.\nPotrebuje fix GPS alebo nastavenú polohu.
+Thu	št
+Time and Date	Čas a dátum
+Time and Date: %s	Čas a dátum: %s
+Time source: Internet / GPS	Zdroj času: Internet / GPS
+To close hit backspace.  (I)nformation	Zatvorte klávesom backspace.  (I)nformácie
+Tools	Nástroje
+Touch Navigation:	Dotykové ovládanie:
+Transport Symbols:\n%s Radio Transmission\n%s MQTT Transmission	Symboly prenosu:\n%s Rádiový prenos\n%s Prenos MQTT
+Tue	ut
+Turn BT Keyboard on first	Najprv zapnite BT klávesnicu
+Turn MQTT Bridge %s and reboot?	Prepnúť most MQTT na %s a reštartovať?
+Type = Filter   Bksp = Edit Filter   Enter = Open DM   Esc = Back	Písanie = Filter   Bksp = Upraviť filter   Enter = Otvoriť DM   Esc = Späť
+Type = Filter   Bksp = Edit/Close Filter   Enter = Open DM	Písanie = Filter   Bksp = Upraviť/zavrieť filter   Enter = Otvoriť DM
+Type = Filter   Enter = Open DM   Bksp = Back	Písanie = Filter   Enter = Otvoriť DM   Bksp = Späť
+Type = Filter   Enter = Open DM   Esc = Back	Písanie = Filter   Enter = Otvoriť DM   Esc = Späť
+Type message...	Napíšte správu...
+Type to filter nodes	Píšte na filtrovanie uzlov
+Type, then tap OK	Napíšte, potom ťuknite na OK
+Type=Filter  Enter=Done  Bksp=Edit/Exit  %s=Back	Písanie=Filter  Enter=Hotovo  Bksp=Upraviť/Koniec  %s=Späť
+Un(f)avorite	Odobrať z obľúbených (F)
+Un(m)ute	Zapnúť zvuk (M)
+Unfavorite	Odobrať z obľúbených
+Uni(g)nore	Prestať i(g)norovať
+Unignore	Prestať ignorovať
+Units: %s	Jednotky: %s
+Unknown	Neznámy
+Until read	Do prečítania
+Up to date (%s)	Aktuálne (%s)
+Up/Down	Hore/Dole
+Up/Down = Select   Space = Compose   Enter = Focus   %s = Delete   %s = Back	Hore/Dole = Vybrať   Space = Písať   Enter = Fokus   %s = Vymazať   %s = Späť
+Up/Down = Select   Space = Compose   Enter = Focus   D = Delete	Hore/Dole = Vybrať   Space = Písať   Enter = Fokus   D = Vymazať
+Up/Down/J/K = Scroll   %s = Close	Hore/Dole/J/K = Posun   %s = Zavrieť
+Up/Down/J/K = Scroll   Bksp = Close	Hore/Dole/J/K = Posun   Bksp = Zavrieť
+Up/Down=Change  Enter=Save  %s=Cancel	Hore/Dole=Zmeniť  Enter=Uložiť  %s=Zrušiť
+Up/Down=Select  Left/Right=Change  Enter=Save  %s=Cancel	Hore/Dole=Vybrať  Vľavo/Vpravo=Zmeniť  Enter=Uložiť  %s=Zrušiť
+Update	Aktualizácia
+Update check failed: %s	Kontrola aktualizácie zlyhala: %s
+Update check needs WiFi connected	Kontrola aktualizácie vyžaduje pripojenú WiFi
+Update check needs WiFi on	Kontrola aktualizácie vyžaduje zapnutú WiFi
+Update check skipped (a dialog was open)	Kontrola aktualizácie preskočená (bolo otvorené okno)
+Uplinked by: %s	Do MQTT poslal: %s
+Uplinked by: the sender itself	Do MQTT poslal: sám odosielateľ
+Use arrows to choose, then tap Next	Vyberte šípkami, potom ťuknite na Ďalej
+Used: %lu KB (%lu%%)\nTotal: %lu KB\nFree: %lu KB\nMin free: %lu KB\nMax block: %lu KB	Použité: %lu KB (%lu%%)\nCelkom: %lu KB\nVoľné: %lu KB\nMin. voľné: %lu KB\nMax. blok: %lu KB
+VIA MQTT	CEZ MQTT
+VNC Host failed to allocate PSRAM	VNC Host nemohol alokovať PSRAM
+VNC Host off	VNC Host vyp.
+VNC Host on\nOpen http://%s/ and select the Remote tab	VNC Host zap.\nOtvorte http://%s/ a vyberte kartu Remote
+VNC Host on\nhttp://%s:%u/	VNC Host zap.\nhttp://%s:%u/
+VNC Host: Off	VNC Host: Vyp.
+VNC Host: Off (WiFi off)	VNC Host: Vyp. (WiFi vyp.)
+VNC Host: On (browser connected)	VNC Host: Zap. (prehliadač pripojený)
+VNC Host: On (network disconnected)	VNC Host: Zap. (sieť odpojená)
+VNC Host: Unavailable (WiFi not connected)	VNC Host: Nedostupné (WiFi nepripojená)
+Voltage	Napätie
+Volume	Hlasitosť
+Volume: %u%%	Hlasitosť: %u%%
+W = Scan   S = Send   C = Reset   %s = Back	W = Skenovať   S = Odoslať   C = Resetovať   %s = Späť
+W = Sweep   P = Preset   C = %s   %s = Back	W = Prieskum   P = Preset   C = %s   %s = Späť
+W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Prieskum   P = Preset   C = %s   S = Uložiť   %s = Späť
+Wait %lus before sending again	Pred ďalším odoslaním počkajte %lus
+Wait %lus between sweeps	Medzi prieskumami počkajte %lus
+Waiting for Wi-Fi...	Čakám na Wi-Fi...
+Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Sledujem %s/2/e/#\n\nZatiaľ žiadne správy. Kanály sa tu objavujú, ako sú publikované, najnovšie dole, s počtom správ zachytených na každom.
+Weather	Počasie
+Weather - %s	Počasie - %s
+Weather server error (HTTP %d).	Chyba servera počasia (HTTP %d).
+Web Config disabled	Webová konfigurácia vypnutá
+Web Config locked while MQTT is on	Webová konfigurácia zamknutá, kým je zapnuté MQTT
+Web Config start failed	Spustenie webovej konfigurácie zlyhalo
+Web Config stopped.\n\nThe Bluetooth keyboard and Web Config share one radio and cannot run at the same time.\n\nTurn the keyboard off to use Web Config again.	Webová konfigurácia zastavená.\n\nKlávesnica Bluetooth a webová konfigurácia zdieľajú jedno rádio a nemôžu bežať súčasne.\n\nVypnite klávesnicu, aby ste mohli webovú konfiguráciu znova používať.
+Web Config: Disabled	Webová konfigurácia: Vypnutá
+Web Config: Enabled	Webová konfigurácia: Zapnutá
+Web Config: Off (MQTT on)	Webová konfigurácia: Vyp. (MQTT zap.)
+Web Config: Off (WiFi off)	Webová konfigurácia: Vyp. (WiFi vyp.)
+Web Config: On	Webová konfigurácia: Zap.
+Web Config: On (Lite)	Webová konfigurácia: Zap. (Lite)
+Web Config: On (chat PAUSED)	Webová konfigurácia: Zap. (chat POZASTAVENÝ)
+Web config: %s\n\nChat is PAUSED while web config runs - this device needs that memory for Wi-Fi. Messages sent to you now are not received or stored.\n\nTurn web config off to resume messaging.	Webová konfigurácia: %s\n\nChat je POZASTAVENÝ, kým beží webová konfigurácia - zariadenie potrebuje túto pamäť pre Wi-Fi. Správy, ktoré vám teraz prídu, sa neprijmú ani neuložia.\n\nVypnite webovú konfiguráciu a pokračujte v písaní správ.
+Wed	st
+Welcome to Camillia for Meshtastic	Vitajte v Camillia pre Meshtastic
+Wheel/j-k=Change   Enter=Next	Koliesko/j-k=Zmeniť   Enter=Ďalej
+White	Biela
+Wi-Fi needed to fetch conditions.	Na načítanie počasia je potrebná Wi-Fi.
+Wi-Fi needed to fetch the\nterrain profile for this path.	Na načítanie výškového profilu\ntejto trasy je potrebná Wi-Fi.
+WiFi connected: %s	WiFi pripojená: %s
+WiFi is off	WiFi je vypnutá
+WiFi not connected	WiFi nepripojená
+WiFi password	Heslo WiFi
+WiFi selected: %s	Vybraná WiFi: %s
+WiFi: Off	WiFi: Vyp.
+WiFi: On (%s)	WiFi: Zap. (%s)
+WiFi: On (AP MODE ONLY)	WiFi: Zap. (LEN REŽIM AP)
+WiFi: On (AP mode)	WiFi: Zap. (režim AP)
+WiFi: On (connecting %s)	WiFi: Zap. (pripájam %s)
+Wide	Široké
+Within %s	V okruhu %s
+Writing a new filesystem...	Zapisujem nový súborový systém...
+X-Large	Extra veľké
+Y/Enter=Import   N/Bksp=Skip	Y/Enter=Importovať   N/Bksp=Preskočiť
+Year	Rok
+Yellow	Žltá
+Yes	Áno
+[%s] no match	[%s] bez zhody
+[radio] init failed	[radio] inicializácia zlyhala
+\n%lu min ago	\npred %lu min
+\n%s, %lu min ago	\n%s, pred %lu min
+\n+%u more	\n+%u ďalších
+\nT-Deck trackball: hold click 2s to sleep	\nTrackball T-Decku: podržte klik 2 s na uspanie
+\n\nDelete them? Nothing else on the card is touched.\n\nFormat erases the whole card instead - the only certain fix.	\n\nZmazať ich? Nič iné na karte sa nezmení.\n\nFormátovanie namiesto toho vymaže celú kartu - jediné isté riešenie.
+all rates tried	vyskúšané všetky rýchlosti
+base64 key	kľúč base64
+ch %s   air %s	kan %s   éter %s
+channel	kanál
+check requested	kontrola vyžiadaná
+exact	presná
+external	externá
+internal	interná
+j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k alebo </>=Nastaviť  Hore/Dole=Riadok  Enter=Uložiť  Back=Zrušiť
+j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Nastaviť  </>=Riadok  Enter=Uložiť  Backspace=Zrušiť
+j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Nastaviť  Enter=Uložiť  Backspace=Zrušiť
+j/k=Adjust  Wheel=Row  Enter=Save  Backspace=Cancel	j/k=Nastaviť  Koliesko=Riadok  Enter=Uložiť  Backspace=Zrušiť
+j/k=Change   Enter=Next   Bksp=Back	j/k=Zmeniť   Enter=Ďalej   Bksp=Späť
+low	nízky
+missing	chýba
+never	nikdy
+no key	bez kľúča
+not seen	nezachytené
+off	vyp.
+on	zap.
+one of: 	jeden z:
+one rate tried	vyskúšaná jedna rýchlosť
+present	prítomný
+press F to change	na zmenu stlačte F
+retry %lus	znova o %lus
+retry now	skúsiť teraz
+sensor %.2f V    trim %s	senzor %.2f V    korekcia %s
+sensor: read failed	senzor: chyba čítania
+stay on	stále zapnuté
+tap Filter to change	na zmenu ťuknite na Filter
+unavailable	nedostupné
+unknown	neznámy
+unknown date	neznámy dátum
+unknown error	neznáma chyba
+unknown node (id ends ..%02x)	neznámy uzol (id končí na ..%02x)
+unset	nenastavené
+until read	do prečítania
+vague	približná

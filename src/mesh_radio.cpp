@@ -245,14 +245,31 @@ void MeshRadio::setRxBoostedGain(bool enabled) {
     }
 }
 
+void MeshRadio::setExternalAntenna(bool external) {
+    _externalAntenna = external;
+#if defined(DEVICE_TDISPLAY_P4)
+    // Before init() the expander is not up yet; init() applies the choice.
+    // transmit() blocks the calling thread, and this is called from that same
+    // thread, so the switch never moves under a packet on the air.
+    if (_ready && !tdisplayP4IoSelectInternalAntenna(!external)) {
+        Serial.println("[radio] T-Display P4 antenna select failed");
+    } else {
+        Serial.printf("[radio] antenna: %s\n", external ? "external" : "internal");
+    }
+#endif
+}
+
 bool MeshRadio::init(uint8_t txPower, bool rxBoostedGain) {
     _rxBoostedGain = rxBoostedGain;
 #if defined(DEVICE_TLORA_PAGER_TFT)
     (void)pagerPrimeLoRaRail(false);
 #endif
 #if defined(DEVICE_TDISPLAY_P4)
+    // The antenna is chosen before the radio exists, so the first transmit
+    // lands on it. tdisplayP4IoBegin() parks the selector on the on-board
+    // antenna; the external socket only if the user confirmed one is fitted.
     if (!tdisplayP4IoBegin()
-        || !tdisplayP4IoSelectInternalAntenna(true)) {
+        || !tdisplayP4IoSelectInternalAntenna(!_externalAntenna)) {
         Serial.println("[radio] T-Display P4 XL9535 initialization failed");
         return false;
     }

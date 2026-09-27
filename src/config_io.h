@@ -633,11 +633,27 @@ struct RhinoConfig {
     // and zero is English, which is what every build before it showed. The
     // struct size and every offset are unchanged.
     uint8_t  uiLanguage;
-    // For whoever appends next: two pad bytes remain, and the stored blob
-    // carries whatever older builds wrote into them. Past them is the old
+    // ── T-Display P4 antenna ─────────────────────────────────────────────────
+    // Which antenna the board's SKY13453 selector routes the LoRa radio to.
+    // Only kP4AntennaExternal means the external socket; every other value --
+    // including whatever an older build left in this pad byte -- is the
+    // on-board antenna. Keying the PA into an empty socket can damage the radio,
+    // so an unknown value must never read as "external". Ignored off the P4.
+    //
+    // Deliberately not in the YAML export: it describes this unit's hardware,
+    // and restoring a backup onto a unit with nothing in the socket must not
+    // be able to select it without the confirmation the UI asks for.
+    uint8_t  p4Antenna;
+    // For whoever appends next: one pad byte remains, and the stored blob
+    // carries whatever older builds wrote into it. Past it is the old
     // sizeof(RhinoConfig), where a new field is safe.
-    uint8_t  _reservedPad15[2];
+    uint8_t  _reservedPad15[1];
 };
+
+static constexpr uint8_t kP4AntennaExternal = 0x5A;
+inline bool cfgP4AntennaExternal(const RhinoConfig &c) {
+    return c.p4Antenna == kP4AntennaExternal;
+}
 
 // ── Keypad auto-light levels ──────────────────────────────────────────
 // Four stops rather than a free 0..255: the value sets the brightness of a light

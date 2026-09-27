@@ -8,9 +8,30 @@
 #include "i18n_builtin.h"   // generated from lang/*.lang by tools/gen_lang_builtin.py
 #endif
 
-const char *const kUiLangCodes[LANG_COUNT] = { "en", "es", "fr", "ro", "it" };
+const char *const kUiLangCodes[LANG_COUNT] = {
+    "en", "es", "fr", "ro", "it", "de", "pt", "pl", "nl", "cs", "sv",
+    "nb", "da", "fi", "hu", "sk", "hr", "sl", "tr", "lt", "lv", "et",
+};
 const char *const kUiLangNames[LANG_COUNT] = {
     "English", "Espa\xC3\xB1ol", "Fran\xC3\xA7" "ais", "Rom\xC3\xA2n\xC4\x83", "Italiano",
+    // UTF-8 as-is from here on; the file is UTF-8 and the fonts carry these.
+    "Deutsch",
+    "Português (Brasil)",
+    "Polski",
+    "Nederlands",
+    "Čeština",
+    "Svenska",
+    "Norsk bokmål",
+    "Dansk",
+    "Suomi",
+    "Magyar",
+    "Slovenčina",
+    "Hrvatski",
+    "Slovenščina",
+    "Türkçe",
+    "Lietuvių",
+    "Latviešu",
+    "Eesti",
 };
 
 static uint8_t s_lang = LANG_EN;

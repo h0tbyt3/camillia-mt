@@ -114,6 +114,13 @@ bool     s_pairingDirty   = false;
 
 ScanEntry s_scan[kMaxScanResults];
 int       s_scanCount = 0;
+// Everything the scan heard, not only keyboards, for the end-of-scan summary.
+// "Heard nothing at all" (antenna, coexistence) and "heard the keyboard but it
+// did not say it was one" (filter) look identical in the picker; these two
+// numbers tell them apart in the log. Host task only, so no lock.
+int       s_advSeen   = 0;
+int       s_otherLogged = 0;
+constexpr int kMaxOtherLogged = 16;
 
 NimBLEClient *s_client = nullptr;
 NimBLERemoteCharacteristic *s_batteryChar = nullptr;
@@ -382,12 +389,23 @@ class ScanCallbacks : public NimBLEAdvertisedDeviceCallbacks {
         // address and appearance from real hardware is what turns the
         // compatibility guidance in docs/BLUETOOTH_KEYBOARDS.md from inference
         // into something tested.
+        s_advSeen++;
         if (hasHid || looksLikeKeyboard) {
             Serial.printf("[blekbd] candidate %s \"%s\" rssi=%d appearance=0x%04X hid=%d\n",
                           dev->getAddress().toString().c_str(),
                           dev->haveName() ? dev->getName().c_str() : "",
                           dev->getRSSI(), (unsigned)appearance, (int)hasHid);
         } else {
+            // Not offered in the picker, but logged (named devices only, and a
+            // bounded number) so a keyboard that hides both the HID service and
+            // its appearance shows up here by name instead of vanishing.
+            if (dev->haveName() && s_otherLogged < kMaxOtherLogged) {
+                s_otherLogged++;
+                Serial.printf("[blekbd] not a keyboard? %s \"%s\" rssi=%d appearance=0x%04X\n",
+                              dev->getAddress().toString().c_str(),
+                              dev->getName().c_str(), dev->getRSSI(),
+                              (unsigned)appearance);
+            }
             return;
         }
 
@@ -418,7 +436,14 @@ void onScanEnded(NimBLEScanResults results) {
         Lock lock;
         found = s_scanCount;
     }
-    Serial.printf("[blekbd] scan complete, %d candidate(s)\n", found);
+    // Unique devices, not adverts: onResult() fires once per address because
+    // the scan is started with duplicates filtered.
+    Serial.printf("[blekbd] scan complete, %d candidate(s) among %d device(s) heard\n",
+                  found, s_advSeen);
+    if (s_advSeen == 0) {
+        Serial.println("[blekbd] heard no BLE devices at all: radio/antenna or "
+                       "Wi-Fi coexistence, not the keyboard filter");
+    }
     char detail[32];
     snprintf(detail, sizeof(detail), "%d found", found);
     setState(s_pairedAddr[0] ? BLE_KBD_RETRYING : BLE_KBD_IDLE, detail);
@@ -649,6 +674,11 @@ void doScan() {
         Lock lock;
         s_scanCount = 0;
     }
+    s_advSeen = 0;
+    s_otherLogged = 0;
+    Serial.printf("[blekbd] scan starting (Wi-Fi %s)\n",
+                  WiFi.getMode() == WIFI_OFF ? "off"
+                  : (WiFi.status() == WL_CONNECTED ? "connected" : "on"));
     scan->clearResults();
     scan->setAdvertisedDeviceCallbacks(&s_scanCallbacks, false);
     scan->setActiveScan(true);   // ask for scan responses; that is where names live

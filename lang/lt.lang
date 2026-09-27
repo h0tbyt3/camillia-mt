@@ -1,0 +1,886 @@
+# Camillia language file (issue #99)
+# code: lt
+# name: Lietuvių
+#
+# One translation per line: the English exactly as it appears in the source,
+# a TAB, then the translation. Escape a newline as \n, a tab as \t, a backslash
+# as \\. Keep every %d / %s / %u ... in the same order and of the same type as the
+# English -- a line whose placeholders differ is ignored on the device and the
+# English is shown. Mesh terms that are names (LongFast, MQTT, LoRa) stay as they
+# are. Lines are kept sorted by the English, for review; the build sorts anyway.
+# First draft: review by a native speaker welcome (see docs/TRANSLATING.md).
+#
+# Compiled in by tools/gen_lang_builtin.py.
+  %s via %s (%.0f dB)\n	  %s per %s (%.0f dB)\n
+  CONFIRM?	  PATVIRTINTI?
+  Humid  %.1f %%	  Drėgm. %.1f %%
+  Press  %.1f hPa	  Slėg.  %.1f hPa
+  lock	  apsaugotas
+  open	  atviras
+ (no card)	 (nėra kortelės)
+ (not sharing location)	 (vieta nebendrinama)
+ (unchanged)	 (nepakeista)
+ - %s available	 - yra %s
+ - check failed	 - patikra nepavyko
+ - check unavailable	 - patikra nepasiekiama
+ - checking...	 - tikrinama...
+ - saving to %s	 - įrašoma į %s
+ - up to date	 - naujausia
+! TX failed	! Nepavyko išsiųsti
+! TX failed (node id)	! Nepavyko išsiųsti (mazgo id)
+%d chans  %s msgs  %s%s	%d kan.  %s žin.  %s%s
+%d chans  %s msgs  %s%s  (+%s off-list)	%d kan.  %s žin.  %s%s  (+%s ne sąraše)
+%d node(s), %d report(s)	%d mazg., %d ataskaitos
+%d%s  %s\nFeels %d%s, humidity %d%%\nWind %s %d %s%s%s	%d%s  %s\nJuntama %d%s, drėgmė %d%%\nVėjas %s %d %s%s%s
+%luh ago	prieš %lu val.
+%lum ago	prieš %lu min.
+%lus ago	prieš %lu s
+%s   -   %u match%s so far	%s   -   %u atitikm.%.0s kol kas
+%s  (current)	%s  (dabartinis)
+%s (this node)	%s (šis mazgas)
+%s - WiFi off	%s - WiFi išj.
+%s - rebooting...	%s - paleidžiama iš naujo...
+%s - saved	%s - įrašyta
+%s = Back   C = Clear   F = Filter	%s = Atgal   C = Išvalyti   F = Filtras
+%s = Back   green=SNR  pink=RSSI	%s = Atgal   žalia=SNR  rožinė=RSSI
+%s = Back   teal=ChUtil  orange=AirTx	%s = Atgal   žydra=ChUtil  oranžinė=AirTx
+%s = Close	%s = Uždaryti
+%s returns to the live list.\nIf it is full, the oldest non-favorite is archived to make room.	%s grįžta į aktyvų sąrašą.\nJei jis pilnas, seniausias nemėgstamas mazgas archyvuojamas vietai atlaisvinti.
+%s to close Help	%s uždaro Pagalbą
+%s will be removed from the node list.	%s bus pašalintas iš mazgų sąrašo.
+%s x%u\nClock: %u MHz\nRevision: %u\nUptime: %luh %02lum %02lus\nLoop rate: %lu /s\nBattery: %u%% %.3fV	%s x%u\nDažnis: %u MHz\nRevizija: %u\nVeikimo laikas: %luh %02lum %02lus\nCiklai: %lu /s\nBaterija: %u%% %.3fV
+%s%.2f, %.2f (rounded)	%s%.2f, %.2f (suapvalinta)
+%s%lu min ago - %.2f, %.2f (rounded)	%sprieš %lu min - %.2f, %.2f (suapvalinta)
+%s.\n\nNothing can arrive until the bridge has a broker session. Fix it in Config (or web config) and this list fills in on its own.	%s.\n\nNieko neateis, kol tiltas neturės sesijos su tarpininku. Pataisykite tai Nustatymuose (arba žiniatinklio nustatymuose), ir šis sąrašas užsipildys pats.
+%s: %d node(s) heard	%s: išgirsta mazgų %d
+%s: %d on preset (%lus)	%s: %d išankstinėje nuostatoje (%lus)
+%s=Scroll  A=Actions  %s=List	%s=Slinkti  A=Veiksmai  %s=Sąrašas
+%s\n%.1f km - brg %03d %s\n%s\nyou %dm - peer %dm - %.0f MHz	%s\n%.1f km - azimutas %03d %s\n%s\njūs %dm - kitas %dm - %.0f MHz
+%s\n%lu min old	%s\nprieš %lu min
+%s\nIn use - will switch to the next configured WiFi network, or AP mode if none is available	%s\nNaudojamas - persijungs į kitą nustatytą WiFi tinklą arba į AP režimą, jei tinklų nėra
+%s\nMessage history will be erased	%s\nŽinučių istorija bus ištrinta
+%s\nType %06u then Enter on the keyboard	%s\nKlaviatūroje įveskite %06u ir paspauskite Enter
+%u of %d	%u iš %d
+%u sec	%u s
+(A)nnounce	Skelbti (A)
+(B)eacons	Švyturiai (B)
+(C)FG   (D)M   (N)odes   Too(l)s   (A)ctions	(C)FG   (D)M   Mazgai (N)   Įrankiai (L)   Veiksmai (A)
+(C)FG  C(h)an  (D)M  (N)odes  Too(l)s  (A)ct	(C)FG  Kanalas (H)  (D)M  Mazg. (N)  Įrank. (L)  Veiks. (A)
+(D) Direct Messages\n(C) Configuration\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(H) Channel selector\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(D) Tiesioginės žinutės\n(C) Nustatymai\n(N) Mazgai\n(L) Įrankiai (Live, grafikai)\n(A) Kanalo veiksmai\n(H) Kanalo pasirinkimas\n(P) Pagalba (šis ekranas)\n(E) Emoji\n(Space) Rašyti/Atsakyti\n(Enter) Pereiti prie žinučių
+(D)iscovery	Paieška (D)
+(F)avorite	Mėgstamas (F)
+(H) Home dashboard\n(C) Chat (again: channels)\n(F) Configuration\n(D) Direct Messages\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(H) Pradžios skydelis\n(C) Pokalbis (vėl: kanalai)\n(F) Nustatymai\n(D) Tiesioginės žinutės\n(N) Mazgai\n(L) Įrankiai (Live, grafikai)\n(A) Kanalo veiksmai\n(P) Pagalba (šis ekranas)\n(E) Emoji\n(Space) Rašyti/Atsakyti\n(Enter) Pereiti prie žinučių
+(H)ome (C)hat C(f)g (D)M (N)odes Too(l)s	Pradžia (H) Pokalb. (C) Nust. (F) (D)M Mazg. (N) Įrank. (L)
+(L)ocate	(L)okalizuoti
+(L)ocation: %s	Vieta (L): %s
+(M)ute	Nutildyti (M)
+(R)eply	Atsakyti (R)
+(W)eather	Orai (W)
+(Y)es	Taip (Y)
+(no name)	(be vardo)
+(not set)	(nenustatyta)
+(nothing)	(nieko)
+(unknown)	(nežinomas)
+(unnamed)	(be pavadinimo)
+, gusts %d	, gūsiai %d
+1 hour	1 valanda
+12-hour	12 valandų
+15 sec	15 s
+2 hours	2 valandos
+24-hour	24 valandų
+30 sec	30 s
+4-char short name (ABCD)	4 simbolių trumpasis vardas (ABCD)
+5 min on that preset. This node hears nothing on its own while it runs, and finds only meshes sharing your primary channel key.	5 min toje išankstinėje nuostatoje. Kol tai vyksta, šis mazgas negirdi nieko iš savo tinklo ir randa tik tinklus, kurie naudoja jūsų pagrindinio kanalo raktą.
+5 sec	5 s
+6 hours	6 valandos
+? hops	? šuoliai
+ACK from %s. Waiting for reply...	ACK iš %s. Laukiama atsakymo...
+ACKed, no reply (%lus)	ACK gautas, atsakymo nėra (%lus)
+AP mode cannot be removed	AP režimo pašalinti negalima
+AP mode selected	Pasirinktas AP režimas
+AP mode selected - enable WiFi first	Pasirinktas AP režimas - pirmiausia įjunkite WiFi
+AP mode: %s	AP režimas: %s
+ARCHIVED %s\n\n%s\nShort: %s\nID: !%08lX\n\nLast heard: %s\n%s\n\n%sNot on the live list. Restore it to message,\nfavorite or trace it.	ARCHYVUOTA %s\n\n%s\nTrumpas: %s\nID: !%08lX\n\nPaskutinį kartą girdėtas: %s\n%s\n\n%sNėra aktyviame sąraše. Atkurkite jį, kad galėtumėte rašyti,\npažymėti mėgstamu ar sekti.
+Act	Veiks.
+Action Result	Rezultatas
+Action: %s	Veiksmas: %s
+Actions	Veiksmai
+All	Visi
+All live traffic will be erased	Visas tiesioginis srautas bus ištrintas
+All live traffic will be erased, including lines hidden by the filter	Visas tiesioginis srautas bus ištrintas, įskaitant filtro paslėptas eilutes
+Already %s.	Jau %s.
+Already on that preset	Jau toje išankstinėje nuostatoje
+Analyzing terrain...	Analizuojamas reljefas...
+Announce	Skelbti
+Antenna: %s	Antena: %s
+Any key / %s = Close	Bet kuris klavišas / %s = Uždaryti
+Apply	Taikyti
+Apr	bal
+April	balandžio
+Archive Dropped Nodes: %s	Archyvuoti išstumtus mazgus: %s
+Archive Dropped Nodes: %s%s	Archyvuoti išstumtus mazgus: %s%s
+Asks first, then reboots.	Pirmiausia paklausia, tada paleidžia iš naujo.
+Asks first, then reboots. Only nodes on the same preset can hear each other.	Pirmiausia paklausia, tada paleidžia iš naujo. Vienas kitą girdi tik tos pačios išankstinės nuostatos mazgai.
+Aug	rgp
+August	rugpjūčio
+Auto-update gave up on %s after %u failed installs	Automatinis atnaujinimas atsisakė %s po %u nesėkmingų diegimų
+BT Keyboard failed to start (low memory)	BT klaviatūra nepasileido (mažai atminties)
+BT Keyboard off	BT klaviatūra išj.
+BT Keyboard on - connecting to %s	BT klaviatūra įj. - jungiamasi prie %s
+BT Keyboard on - use Pair to choose one	BT klaviatūra įj. - pasirinkite per Susieti
+BT Keyboard turned off.\n\nWeb Config and the Bluetooth keyboard share one radio and cannot run at the same time.\n\nTurn Web Config off to use the keyboard again.	BT klaviatūra išjungta.\n\nŽiniatinklio nustatymai ir Bluetooth klaviatūra naudoja tą patį radiją ir negali veikti vienu metu.\n\nIšjunkite žiniatinklio nustatymus, kad vėl galėtumėte naudoti klaviatūrą.
+BT Keyboard: %s	BT klaviatūra: %s
+BT Keyboard: Off	BT klaviatūra: Išj.
+Back	Atgal
+Back = Cancel	Atgal = Atšaukti
+Bass	Žemi tonai
+Battery Calibration	Baterijos kalibravimas
+Battery Calibration: %s	Baterijos kalibravimas: %s
+Battery Calibration: Off	Baterijos kalibravimas: Išj.
+Battery Display: %s	Baterijos rodymas: %s
+Battery critical - shedding load	Baterija kritinė - mažinama apkrova
+Battery empty	Baterija išsikrovusi
+Battery low	Baterija senka
+Battery trim: %s	Baterijos korekcija: %s
+Battery: %.0f%%\nVoltage: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%	Baterija: %.0f%%\nĮtampa: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%
+Battery\nVoltage\nChUtil\nAirTx\nTemp\nHumidity\nPressure	Baterija\nĮtampa\nChUtil\nAirTx\nTemp.\nDrėgmė\nSlėgis
+Beacons	Švyturiai
+Bksp=Back  solid=ChUtil  dash=AirTx	Bksp=Atgal  ištisinė=ChUtil  punktyrinė=AirTx
+Bksp=Back  solid=SNR  dash=RSSI	Bksp=Atgal  ištisinė=SNR  punktyrinė=RSSI
+Bksp=Close	Bksp=Uždaryti
+Blink Flashes (Channel): %u	Mirksėjimų sk. (kanalas): %u
+Blink Flashes (DM): %u	Mirksėjimų sk. (DM): %u
+Blocked @ %.1f km, %dm over sight	Užstota ties %.1f km, %dm virš matomumo linijos
+Blue	Mėlyna
+Bluetooth Keyboard	Bluetooth klaviatūra
+Bottom buttons: Chats, DM, Nodes, Tools, Config, Help.	Apatiniai mygtukai: Pokalbiai, DM, Mazgai, Įrankiai, Nustatymai, Pagalba.
+Bottom buttons: Home, Chats, DM, Nodes, Tools, Config, Help.\nHome is the dashboard; Chats is the messages, and its icon\nblinks when a channel has something unread.	Apatiniai mygtukai: Pradžia, Pokalbiai, DM, Mazgai, Įrankiai, Nustatymai, Pagalba.\nPradžia yra skydelis; Pokalbiai yra žinutės, o jų piktograma\nmirksi, kai kanale yra neskaitytų.
+Brightness	Ryškumas
+Brightness: %u%%	Ryškumas: %u%%
+Brightness: %u%%  Lock: %u%%	Ryškumas: %u%%  Užraktas: %u%%
+Brown	Ruda
+Bubbles	Burbulai
+C = Clear   %s = Back	C = Išvalyti   %s = Atgal
+C = Clear   F = Filter	C = Išvalyti   F = Filtras
+C:Cfg H:Ch D:DM N:Node L:Tools A:Act	C:Nust H:Kan D:DM N:Mazg L:Įrank A:Veiks
+CHANNEL UTIL	KANALO APKROVA
+CHANNEL UTILIZATION (%)	KANALO APKROVA (%)
+Can't resolve the weather server.\nCheck the address and DNS.	Nepavyksta rasti orų serverio.\nPatikrinkite adresą ir DNS.
+Cancel	Atšaukti
+Cancelled after removing %u file%s. The rest were left alone - run the scan again to see what is still there.	Atšaukta pašalinus %u failus%.0s. Likę nepaliesti - paleiskite patikrą iš naujo ir pamatysite, kas liko.
+Cannot send: no node id	Negalima išsiųsti: nėra mazgo id
+Card formatted.\n\nWrite your configuration back to it as /camillia/config.yaml?	Kortelė suformatuota.\n\nĮrašyti nustatymus atgal kaip /camillia/config.yaml?
+ChUtil  cur %s  avg %.1f%%  max %.1f%%   n=%d\nAirTx   cur %s  avg %.1f%%  max %.1f%%   n=%d	ChUtil  dab %s  vid %.1f%%  maks %.1f%%   n=%d\nAirTx   dab %s  vid %.1f%%  maks %.1f%%   n=%d
+ChUtil  cur --  avg --  max --   n=0\nAirTx   cur --  avg --  max --   n=0	ChUtil  dab --  vid --  maks --   n=0\nAirTx   dab --  vid --  maks --   n=0
+Channel	Kanalas
+Channel %d	Kanalas %d
+Channel %d  %s	Kanalas %d  %s
+Channel Actions\n%s	Kanalo veiksmai\n%s
+Channel Configuration	Kanalo nustatymai
+Channel Key	Kanalo raktas
+Channel Message LED	Kanalo žinučių LED
+Channel Message LED: %s	Kanalo žinučių LED: %s
+Channel Name	Kanalo pavadinimas
+Channel blink: %u flash%s	Kanalo mirksėjimas: %u k.%.0s
+Channel busy (%.0f%%) - not sweeping	Kanalas užimtas (%.0f%%) - be paieškos
+Channels	Kanalai
+Chat Colors: %s	Pokalbio spalvos: %s
+Chat Names	Vardai pokalbyje
+Chat Names: %s	Vardai pokalbyje: %s
+Chat Names: %s%s	Vardai pokalbyje: %s%s
+Chat Style	Pokalbio stilius
+Chat Style: %s	Pokalbio stilius: %s
+Chat Style: %s%s	Pokalbio stilius: %s%s
+Chat Type	Pokalbio tipas
+Chat Type: %s	Pokalbio tipas: %s
+Chat Type: %s%s	Pokalbio tipas: %s%s
+Chat colors reassigned	Pokalbio spalvos priskirtos iš naujo
+Checking %u of %u   %u%%	Tikrinama %u iš %u   %u%%
+Chirpy	Čiulbėjimas
+Choose WiFi	Pasirinkti WiFi
+Choose WiFi or Finish	Pasirinkite WiFi arba Baigti
+Choose WiFi: %s	Pasirinkti WiFi: %s
+Choose WiFi: (none)	Pasirinkti WiFi: (nėra)
+Classic	Klasikinis
+Clear	Išvalyti
+Clear Messages	Išvalyti žinutes
+Clear Nodes (All)	Išvalyti mazgus (visus)
+Clear Nodes (Keep Favorites)	Išvalyti mazgus (palikti mėgstamus)
+Clear by %dm at tightest	Laisva %dm siauriausioje vietoje
+Clear entire live feed?	Išvalyti visą tiesioginį srautą?
+Cleared %d nodes, kept %d favorites - rebooting...	Išvalyta %d mazgų, palikta %d mėgstamų - paleidžiama iš naujo...
+Cleared (%d report(s)) - rebuilding from traffic	Išvalyta (%d ataskaitos) - atkuriama iš srauto
+Clock Format: %s	Laikrodžio formatas: %s
+Clock set from web config	Laikrodis nustatytas iš žiniatinklio nustatymų
+Clock set: %04d-%02d-%02d %02d:%02d	Laikrodis nustatytas: %04d-%02d-%02d %02d:%02d
+Close	Uždaryti
+Configuration	Nustatymai
+Configuration exported to /camillia/config.yaml.\n\nThe card is formatted and holds nothing else. Chat history, the node database and any map tiles were on the old filesystem and are gone.	Nustatymai eksportuoti į /camillia/config.yaml.\n\nKortelė suformatuota ir daugiau nieko neturi. Pokalbių istorija, mazgų duomenų bazė ir žemėlapio plytelės buvo senoje failų sistemoje ir dingo.
+Configured WiFi is empty	Nustatytas WiFi tuščias
+Confirm Chat Style	Patvirtinti pokalbio stilių
+Confirm?	Patvirtinti?
+Connect	Prisijungti
+Connect to WiFi before enabling VNC	Prieš įjungdami VNC prisijunkite prie WiFi
+Connect: %s	Prisijungti: %s
+Connecting to %s...	Jungiamasi prie %s...
+Connecting to broker...	Jungiamasi prie tarpininko...
+Connection failed: %s	Prisijungti nepavyko: %s
+Conversation deleted	Pokalbis ištrintas
+Conversations	Pokalbiai
+Could not reach the weather server.	Nepavyko pasiekti orų serverio.
+Could not remove every file. Check storage and retry.	Nepavyko pašalinti visų failų. Patikrinkite saugyklą ir bandykite dar kartą.
+Counting files on the card...	Skaičiuojami failai kortelėje...
+Counting files... %u found	Skaičiuojami failai... rasta %u
+Custom	Pasirinktinis
+Custom (%u B)	Pasirinktinis (%u B)
+Cyan	Žydra
+DIRECT MESSAGES	TIESIOGINĖS ŽINUTĖS
+DISTANCE UNKNOWN	ATSTUMAS NEŽINOMAS
+DM blink: %u flash%s	DM mirksėjimas: %u k.%.0s
+DMs	DM
+Date unavailable	Data nepasiekiama
+Day	Diena
+Dec	grd
+December	gruodžio
+Default	Numatytasis
+Default (%u)	Numatytasis (%u)
+Default +%u	Numatytasis +%u
+Del(e)te	Ištrinti (E)
+Delete	Ištrinti
+Delete WiFi?	Ištrinti WiFi?
+Delete conversation?	Ištrinti pokalbį?
+Delete failed	Ištrinti nepavyko
+Delete node?	Ištrinti mazgą?
+Delivery details not recorded: received before this boot, or too many messages ago.	Pristatymo duomenys neįrašyti: gauta prieš šį paleidimą arba prieš per daug žinučių.
+Detail Map	Išsamus žemėlapis
+Device Info	Įrenginio informacija
+Device switched off last time: battery empty	Įrenginys paskutinį kartą išsijungė: išsikrovė baterija
+Direct Message LED	Tiesioginių žinučių LED
+Direct Message LED: %s	Tiesioginių žinučių LED: %s
+Discovery	Paieška
+Do not remove the card	Neišimkite kortelės
+Elevation data too sparse\nfor this path.	Per mažai aukščio duomenų\nšiam maršrutui.
+Elevation fetch failed (%d).\nCheck the server URL - it must be http://	Aukščio gauti nepavyko (%d).\nPatikrinkite serverio URL - jis turi būti http://
+Enable WiFi first	Pirmiausia įjunkite WiFi
+Enc	Šifr.
+Encrypted	Šifruota
+Encryption	Šifravimas
+Enter password, then tap Connect	Įveskite slaptažodį ir bakstelėkite Prisijungti
+Enter this node's long name.	Įveskite šio mazgo ilgąjį vardą.
+Enter=Connect  Backspace=Back	Enter=Prisijungti  Backspace=Atgal
+Enter=Info  A=Actions  Bksp=Edit/Exit  %s=Back	Enter=Info  A=Veiksmai  Bksp=Redag./Išeiti  %s=Atgal
+Enter=Info  A=Actions  Space=Filter  %s=Back	Enter=Info  A=Veiksmai  Space=Filtras  %s=Atgal
+Enter=Next	Enter=Toliau
+Enter=Next    Bksp(empty)=Back	Enter=Toliau    Bksp(tuščia)=Atgal
+Enter=Next   Bksp(empty)=Back	Enter=Toliau   Bksp(tuščia)=Atgal
+Enter=OK  %s=Erase/Back	Enter=OK  %s=Trinti/Atgal
+Enter=OK  Bksp=Erase  %s=Back	Enter=OK  Bksp=Trinti  %s=Atgal
+Enter=Save  Tab=Field  %s=Erase/Back	Enter=Įrašyti  Tab=Laukas  %s=Trinti/Atgal
+Enter=Send   %s=Cancel	Enter=Siųsti   %s=Atšaukti
+Enter=Send  Bksp(empty)=Cancel	Enter=Siųsti  Bksp(tuščia)=Atšaukti
+Enter=Send  Esc=Cancel  Bksp=Del	Enter=Siųsti  Esc=Atšaukti  Bksp=Trinti
+Environment	Aplinka
+Errors	Klaidos
+Examined %u file%s. Nothing matching Windows malware was found.\n\nThis reads names and file headers, not contents, so it is a good sign rather than a guarantee.	Patikrinta failų: %u%.0s. Nieko panašaus į Windows kenkėjišką programą nerasta.\n\nSkaitomi pavadinimai ir failų antraštės, ne turinys, todėl tai geras ženklas, o ne garantija.
+Export Config	Eksportuoti nustatymus
+Export FAILED (no SD?)	Eksportuoti NEPAVYKO (nėra SD?)
+Export FAILED. The card formatted, but the configuration could not be written back to it - try Export from the Config screen.	Eksportuoti NEPAVYKO. Kortelė suformatuota, bet nustatymų nepavyko įrašyti atgal - bandykite Eksportuoti Nustatymų ekrane.
+Exported to /camillia/config.yaml	Eksportuota į /camillia/config.yaml
+Extra Large	Labai didelis
+Factory Reset	Gamykliniai nustatymai
+Factory reset - rebooting...	Gamykliniai nustatymai - paleidžiama iš naujo...
+Favorite	Mėgstamas
+Feb	vas
+February	vasario
+Feels %d%s   Hum %d%%\nWind %d %s %s\nGusting %d %s	Junt. %d%s   Drėgm. %d%%\nVėjas %d %s %s\nGūsiai %d %s
+Feels like   %d%s\nHumidity     %d%%\nWind         %d %s from %s\nGusting      %d %s	Juntama      %d%s\nDrėgmė       %d%%\nVėjas        %d %s iš %s\nGūsiai       %d %s
+Fetching...	Gaunama...
+Filter	Filtras
+Filter Nodes	Filtruoti mazgus
+Filter: %s	Filtras: %s
+Finish	Baigti
+Firmware Update	Programinės įrangos atnaujinimas
+Firmware Update Check	Atnaujinimo patikra
+Firmware Update: Install %s	Atnaujinimas: įdiegti %s
+Font Size	Šrifto dydis
+Font Size: %s	Šrifto dydis: %s
+Font Size: %s%s	Šrifto dydis: %s%s
+Forget	Pamiršti
+Format FAILED, and the card could not be remounted.\n\nReboot the device, or format the card on a PC.	Formatuoti NEPAVYKO ir kortelės nepavyko vėl prijungti.\n\nPaleiskite įrenginį iš naujo arba suformatuokite kortelę kompiuteriu.
+Format FAILED. The card was left as it was and is still mounted.\n\nFormatting it on a PC is the reliable way out.	Formatuoti NEPAVYKO. Kortelė liko nepakeista ir vis dar prijungta.\n\nPatikimiausia ją suformatuoti kompiuteriu.
+Format the SD card?\n\nThis erases EVERYTHING on it - chat and DM history, the node database, map tiles and your saved configuration - not just the files the scan matched.\n\nIt cannot be undone.	Formatuoti SD kortelę?\n\nTai ištrina VISKĄ joje - pokalbių ir DM istoriją, mazgų duomenų bazę, žemėlapio plyteles ir įrašytus nustatymus - ne tik patikros rastus failus.\n\nAnuliuoti negalima.
+Formatting SD Card	Formatuojama SD kortelė
+Found %d network(s)	Rasta tinklų: %d
+Found %u file%s matching Windows malware:\n	Failai, panašūs į Windows kenkėjišką programą: %u%.0s\n
+Freq: %.3f MHz	Dažn: %.3f MHz
+Fri	pn
+From: %s	Nuo: %s
+Full node name when known	Visas mazgo vardas, jei žinomas
+GPS disabled (using default coordinates)	GPS išjungtas (numatytosios koordinatės)
+GPS enabled (hardware)	GPS įjungtas (aparatinė įranga)
+GPS: Disabled (Default Coords)	GPS: Išj. (numat. koord.)
+GPS: Enabled (Hardware)	GPS: Įj. (aparatinė įranga)
+Gateway: not known	Tinklų sietuvas: nežinomas
+Grazes terrain - F1=%dm	Liečia reljefą - F1=%dm
+Green	Žalia
+HEARD ABOUT	PRANEŠĖ KITI
+Heard %s ago   %u seen, ~%s apart	Girdėtas prieš %s   matytas %u k., kas ~%s
+Heard %s ago   1 seen	Girdėtas prieš %s   matytas 1 k.
+Help	Pagalba
+High	Aukštas
+Hops	Šuoliai
+Hops: %d of %d	Šuoliai: %d iš %d
+Hour	Valanda
+I(g)nore	I(g)noruoti
+Identity	Tapatybė
+Ignore	Ignoruoti
+Import Config	Importuoti nustatymus
+Import FAILED (no file?)	Importuoti NEPAVYKO (nėra failo?)
+Import failed - enter a name	Importuoti nepavyko - įveskite vardą
+Imported OK - rebooting...	Importuota - paleidžiama iš naujo...
+Install now? The device reboots to update.	Įdiegti dabar? Įrenginys bus paleistas iš naujo atnaujinimui.
+Invalid base64 key	Neteisingas base64 raktas
+Invalid date/time	Neteisinga data/laikas
+Invert Scrolling: %s	Atvirkštinis slinkimas: %s
+J/K = Scroll   %s = Close	J/K = Slinkti   %s = Uždaryti
+J/K = Scroll   Bksp = Close	J/K = Slinkti   Bksp = Uždaryti
+J/K = Select   Space = Compose   Enter = Focus   D = Delete	J/K = Pasirinkti   Space = Rašyti   Enter = Fokusas   D = Ištrinti
+Jan	sau
+January	sausio
+Jul	lie
+July	liepos
+Jun	bir
+June	birželio
+Just announced. Try again in %us.	Ką tik paskelbta. Bandykite vėl po %us.
+Key	Raktas
+Keyboard Blink: %s	Klaviatūros mirksėjimas: %s
+Keyboard Light	Klaviatūros apšvietimas
+Keyboard Light: %s	Klaviatūros apšvietimas: %s
+Keyboard blink: %s	Klaviatūros mirksėjimas: %s
+Keyboard light %s	Klaviatūros apšvietimas %s
+Keyboard light %s - after a power cycle	Klaviatūros apšvietimas %s - išjungus ir įjungus maitinimą
+Keyboard light off	Klaviatūros apšvietimas išj.
+L/R=Change   Enter=Save   %s=Back	K/D=Keisti   Enter=Įrašyti   %s=Atgal
+LINE OF SIGHT	MATOMUMO LINIJA
+LIVE	TIESIOGIAI
+LONGEST SILENT	ILGIAUSIAI TYLINTYS
+Landscape	Gulsčias
+Language	Kalba
+Language: %s	Kalba: %s
+Large	Didelis
+Last heard	Paskutinį kartą girdėtas
+Last heard\nSNR\nHops\nChannel\nSigned	Paskutinį kartą girdėtas\nSNR\nŠuoliai\nKanalas\nPasirašyta
+Leave blank to clear	Palikite tuščią, kad išvalytumėte
+Light reminds for %s	Lemputė primena %s
+Light reminds until read	Lemputė primena, kol perskaitoma
+Lime	Salotinė
+Link	Ryšys
+Listening   %d sender%s heard	Klausomasi   išgirsta siuntėjų: %d%.0s
+Listening: off	Klausymas: išj.
+Live	Tiesiogiai
+Live Filter	Tiesioginis filtras
+Live feed cleared	Tiesioginis srautas išvalytas
+Loading map...	Įkeliamas žemėlapis...
+Loc	Vieta
+Locate	Lokalizuoti
+Locate: %s	Lokalizuoti: %s
+Location	Vieta
+Location Precision	Vietos tikslumas
+Location Precision: %s	Vietos tikslumas: %s
+Location rounded to %s	Vieta suapvalinta iki %s
+Location sent exactly	Vieta išsiųsta tiksliai
+Location sharing off (no position sent)	Vietos bendrinimas išj. (padėtis nesiunčiama)
+Location sharing on	Vietos bendrinimas įj.
+Location: %s	Vieta: %s
+Lock Screen Off	Ekranas išj. užrakinus
+Lock Screen Off: %s	Ekranas išj. užrakinus: %s
+Lock Screen: %s	Užrakinimo ekranas: %s
+Lock screen	Užrakinimo ekranas
+Lock screen stays on	Užrakinimo ekranas lieka įjungtas
+Long	Ilgas
+Long name	Ilgasis vardas
+Long name cannot be empty	Ilgasis vardas negali būti tuščias
+Long name: %s\nEnter a short name (up to 4 chars).	Ilgasis vardas: %s\nĮveskite trumpąjį vardą (iki 4 simbolių).
+Long: %s	Ilgas: %s
+Looking for keyboards...	Ieškoma klaviatūrų...
+Low	Žemas
+ME (ACK)	AŠ (ACK)
+MQTT Bridge: %s	MQTT tiltas: %s
+MQTT Bridge: %s - rebooting...	MQTT tiltas: %s - paleidžiama iš naujo...
+MQTT Bridge: Off (WiFi off)	MQTT tiltas: Išj. (WiFi išj.)
+MQTT Scan Settings	MQTT paieškos nustatymai
+MQTT bridge is off	MQTT tiltas išjungtas
+Map (loading)	Žemėlapis (įkeliamas)
+Map (off)	Žemėlapis (išj.)
+Map memory unavailable	Žemėlapiui trūksta atminties
+Map unavailable	Žemėlapis nepasiekiamas
+Mar	kov
+March	kovo
+Match the voltage to a meter reading.\nPercent comes from the fuel gauge and does not change.	Suderinkite įtampą su matuoklio rodmeniu.\nProcentai gaunami iš įkrovos matuoklio ir nesikeičia.
+Match the voltage to a meter reading.\nPercent follows it. 0% = uncalibrated.	Suderinkite įtampą su matuoklio rodmeniu.\nProcentai ją seka. 0% = nekalibruota.
+May	geg
+Medium	Vidutinis
+Mesh Beacons is off.\n\nTurn it on in Config (or under Modules in web config) to decode beacons from other meshes. Receive-only: nothing is transmitted, and an offer is never applied to your radio.	Tinklo švyturiai išjungti.\n\nĮjunkite juos Nustatymuose (arba Moduliuose žiniatinklio nustatymuose), kad dekoduotumėte kitų tinklų švyturius. Tik priėmimas: niekas nesiunčiama, o pasiūlymas niekada netaikomas jūsų radijui.
+Mesh Beacons: %s	Tinklo švyturiai: %s
+Mesh beacons: %s	Tinklo švyturiai: %s
+Message (I)nfo	Žinutės (i)nfo
+Message Actions	Žinutės veiksmai
+Message Info	Žinutės info
+Messages	Žinutės
+Messages cleared - rebooting...	Žinutės išvalytos - paleidžiama iš naujo...
+Metric	Metrinė
+Minute	Minutė
+Modem preset	Modemo išankstinė nuostata
+Mon	pr
+Month	Mėnuo
+Move  Enter=Apply  %s=Back	Judinti  Enter=Taikyti  %s=Atgal
+Move  Enter=Apply  %s=Cancel	Judinti  Enter=Taikyti  %s=Atšaukti
+Move  Enter=Change  %s=Cancel	Judinti  Enter=Keisti  %s=Atšaukti
+Move  Enter=Edit  %s=Back	Judinti  Enter=Redaguoti  %s=Atgal
+Move  Enter=OK  %s=Cancel	Judinti  Enter=OK  %s=Atšaukti
+Move  Enter=Open  %s=Back	Judinti  Enter=Atverti  %s=Atgal
+Move  Enter=Pick  %s=Back	Judinti  Enter=Pasirinkti  %s=Atgal
+Move  Enter=Scan  %s=Cancel	Judinti  Enter=Ieškoti  %s=Atšaukti
+Move • Enter=Add • %s=Close	Judinti • Enter=Pridėti • %s=Uždaryti
+Move • Enter=Insert • %s=Close	Judinti • Enter=Įterpti • %s=Uždaryti
+Move • Enter=React • %s=Close	Judinti • Enter=Reaguoti • %s=Uždaryti
+Move • Enter=Send • %s=Close	Judinti • Enter=Siųsti • %s=Uždaryti
+Move=Adjust  Enter=Save  %s=Cancel	Judinti=Reguliuoti  Enter=Įrašyti  %s=Atšaukti
+Move=Adjust  Space=Toggle  Enter=Save  %s=Cancel	Judinti=Reguliuoti  Space=Perjungti  Enter=Įrašyti  %s=Atšaukti
+Move=Preview  Enter=OK  %s=Cancel	Judinti=Peržiūra  Enter=OK  %s=Atšaukti
+My Message Color	Mano žinučių spalva
+My Message Color: %s	Mano žinučių spalva: %s
+My Message Color: %s (unchanged)	Mano žinučių spalva: %s (nepakeista)
+My Message Color: %s - rebooting...	Mano žinučių spalva: %s - paleidžiama iš naujo...
+N=Choose WiFi   Enter=Finish   Bksp=Back	N=Pasirinkti WiFi   Enter=Baigti   Bksp=Atgal
+NO LINE OF SIGHT	NĖRA MATOMUMO LINIJOS
+NODEINFO + telemetry queued.	NODEINFO + telemetrija eilėje.
+NODES	MAZGAI
+NODES (%d%s)	MAZGAI (%d%s)
+NODES [%s] (%d%s)	MAZGAI [%s] (%d%s)
+Name	Vardas
+Name: %s\nShort: %s\nID: !%08X\nLast heard: %s\nSNR: %.1f dB\nHops: %u\nChannel: %d\n\nPosition:\n%s\n\nTelemetry:\n%s	Vardas: %s\nTrumpas: %s\nID: !%08X\nPaskutinį kartą girdėtas: %s\nSNR: %.1f dB\nŠuoliai: %u\nKanalas: %d\n\nPadėtis:\n%s\n\nTelemetrija:\n%s
+Name\nShort\nID	Vardas\nTrumpas\nID
+Nav Bar: %s	Naršymo juosta: %s
+Neighborhood Info: %s	Kaimynų info: %s
+Neighborhood info: %s	Kaimynų info: %s
+Never	Niekada
+New	Nauja
+New DM	Nauja DM
+New DM: Select Node	Nauja DM: pasirinkite mazgą
+New DM: Select Node [%s]	Nauja DM: pasirinkite mazgą [%s]
+New Message	Nauja žinutė
+Newest: %s %s	Naujausias: %s %s
+Newest: none heard yet	Naujausias: dar niekas negirdėtas
+Next	Toliau
+No %s - not saved	Nėra %s - neįrašyta
+No %s - not saving	Nėra %s - neįrašoma
+No %s traffic yet\n(filter is on - %s)	Dar nėra %s srauto\n(filtras įjungtas - %s)
+No S&F router heard yet	Dar negirdėtas joks S&F maršrutizatorius
+No SD card is mounted.	SD kortelė neprijungta.
+No WiFi network configured	WiFi tinklas nenustatytas
+No beacons heard yet.\n\nA beacon is only audible while its sender has retuned onto this channel, preset and region, and it repeats on that node's own schedule - minutes to hours apart. This list keeps what it hears until you clear it.	Dar negirdėta jokių švyturių.\n\nŠvyturys girdimas tik tada, kai jo siuntėjas persijungęs į šį kanalą, išankstinę nuostatą ir regioną, ir kartojasi pagal to mazgo tvarkaraštį - kas kelias minutes ar valandas. Šis sąrašas saugo, ką girdi, kol jo neišvalysite.
+No elevation server set.\nWeb Config -> Elevation Server (LOS)	Aukščio serveris nenustatytas.\nŽiniatinklio nust. -> Elevation Server (LOS)
+No hop path in reply	Atsakyme nėra šuolių kelio
+No keyboards found yet.\n\nPut the keyboard into pairing mode, then press Scan.\n\nOnly Bluetooth LE keyboards can pair - this hardware has no Bluetooth Classic radio.	Dar nerasta klaviatūrų.\n\nĮjunkite klaviatūros susiejimo režimą, tada paspauskite Ieškoti.\n\nSusieti galima tik Bluetooth LE klaviatūras - ši aparatinė įranga neturi Bluetooth Classic radijo.
+No known nodes yet	Dar nėra žinomų mazgų
+No live traffic yet	Dar nėra tiesioginio srauto
+No matches for: %s	Nėra rezultatų: %s
+No messages yet	Dar nėra žinučių
+No network in that slot	Toje vietoje nėra tinklo
+No network selected	Tinklas nepasirinktas
+No networks found	Tinklų nerasta
+No new messages	Naujų žinučių nėra
+No nodes seen	Mazgų nematyta
+No nodes seen yet.	Mazgų dar nematyta.
+No position data	Nėra padėties duomenų
+No position recorded	Padėtis neįrašyta
+No position yet.\nNeeds a GPS fix or a set location.	Dar nėra padėties.\nReikia GPS fiksavimo arba nustatytos vietos.
+No release notes in this build.	Šioje versijoje nėra leidimo pastabų.
+No reply (%lus)	Atsakymo nėra (%lus)
+No result details available.	Išsamios informacijos nėra.
+No telemetry data	Nėra telemetrijos duomenų
+No weather server set.\nWeb Config -> Weather Server	Orų serveris nenustatytas.\nŽiniatinklio nust. -> Weather Server
+Node Actions	Mazgo veiksmai
+Node DB cleared - rebooting...	Mazgų duomenų bazė išvalyta - paleidžiama iš naujo...
+Node ID: !%08lx	Mazgo ID: !%08lx
+Node Name	Mazgo vardas
+Node Name: %s (%s)	Mazgo vardas: %s (%s)
+Node Name: %s (%s)%s	Mazgo vardas: %s (%s)%s
+Node id: !%08lx	Mazgo id: !%08lx
+Node info	Mazgo info
+Nodes and SD archive cleared - rebooting...	Mazgai ir SD archyvas išvalyti - paleidžiama iš naujo...
+None	Nėra
+Not counting - out of memory	Neskaičiuojama - trūksta atminties
+Not enough free heap to hold the topic table.\n\nClose a few screens (or reboot) and try again.	Temų lentelei neužtenka laisvos atminties.\n\nUždarykite kelis ekranus (arba paleiskite iš naujo) ir bandykite vėl.
+Nothing heard yet	Dar nieko negirdėta
+Nothing recorded yet - nothing to send	Dar nieko neįrašyta - nėra ką siųsti
+Nothing was removed. The files may have gone already, or the card may be write-protected.	Nieko nepašalinta. Failų galbūt jau nėra, arba kortelė apsaugota nuo įrašymo.
+Notification Light Timeout	Pranešimų lemputės trukmė
+Notification Light Timeout: %s	Pranešimų lemputės trukmė: %s
+Notification Sound	Pranešimo garsas
+Notification Sound: %s	Pranešimo garsas: %s
+Notification sound: %s	Pranešimo garsas: %s
+Nov	lap
+November	lapkričio
+OFF	IŠJ
+OTA disabled on Cardputer build	OTA išjungtas Cardputer versijoje
+OTA needs the factory image (flash layout)	OTA reikia gamyklinio atvaizdo (flash išdėstymas)
+OTA request failed (NVS write). Retry.	OTA užklausa nepavyko (NVS įrašymas). Bandykite dar kartą.
+OTA worker completed. Check status.	OTA baigtas. Patikrinkite būseną.
+Oct	spl
+October	spalio
+Off	Išj.
+Offers: %s	Pasiūlymai: %s
+Old Map Files Found	Rasta senų žemėlapio failų
+Oldest: %s %s	Seniausias: %s %s
+Oldest: none heard yet	Seniausias: dar niekas negirdėtas
+On	Įj.
+On (global off)	Įj. (globaliai išj.)
+On (listening)	Įj. (klausosi)
+Open network (leave blank)	Atviras tinklas (palikite tuščią)
+Optional WiFi setup.\nNo network selected.\nChoose WiFi now or finish without WiFi.	Pasirenkama WiFi sąranka.\nTinklas nepasirinktas.\nPasirinkite WiFi dabar arba baikite be WiFi.
+Optional WiFi setup.\nSelected: %s\nChoose a different network or finish.	Pasirenkama WiFi sąranka.\nPasirinkta: %s\nPasirinkite kitą tinklą arba baikite.
+Orange	Oranžinė
+Orientation: %s	Orientacija: %s
+Other	Kita
+Outline	Kontūras
+PKI key: %s	PKI raktas: %s
+PSRAM free: %lu KB\nPSRAM total: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	Laisva PSRAM: %lu KB\nIš viso PSRAM: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nLaisva programai: %lu KB
+PSRAM: none\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	PSRAM: nėra\nFlash: %lu KB\nSketch: %lu KB\nLaisva programai: %lu KB
+Pair	Susieti
+Pair BT Keyboard: %s	Susieti BT klaviatūrą: %s
+Pair BT Keyboard: (none)	Susieti BT klaviatūrą: (nėra)
+Percent	Procentai
+Pink	Rožinė
+Please re-flash from Camillia's website for language support.	Kalbų palaikymui iš naujo įdiekite programinę įrangą iš Camillia svetainės.
+Portrait	Stačias
+Portrait 180	Stačias 180
+Position	Padėtis
+Precise	Tiksli
+Preparing state maps...	Ruošiami regionų žemėlapiai...
+Preset	Išankstinė nuostata
+Preset (%s)	Išankstinė nuostata (%s)
+Preset already %s.	Išankstinė nuostata jau %s.
+Preset scan already running	Išankstinės nuostatos paieška jau vyksta
+Preset: %s	Išankstinė nuostata: %s
+Preset: %s - rebooting...	Išankstinė nuostata: %s - paleidžiama iš naujo...
+Public key preserved\n\n	Viešasis raktas išsaugotas\n\n
+Purple	Violetinė
+Pwr %d dBm Hops %d	Galia %d dBm Šuoliai %d
+R=Refresh  %s=Back	R=Atnaujinti  %s=Atgal
+RECENTLY HEARD	NESENIAI GIRDĖTI
+Radio busy - retry in %lus	Radijas užimtas - vėl po %lus
+Radio not ready	Radijas neparengtas
+Re(q)uest Node	Užklausti mazgo (Q)
+Ready	Paruošta
+Rebooting into OTA minimal mode...	Paleidžiama OTA minimaliu režimu...
+Received over: %s %s	Gauta per: %s %s
+Red	Raudona
+Relayed to us by: %s	Persiuntė: %s
+Relayed to us by: %s (from MQTT)	Persiuntė: %s (iš MQTT)
+Relayed to us by: nobody, heard directly	Persiuntė: niekas, girdėta tiesiogiai
+Relayed to us by: not reported by the relaying node	Persiuntė: persiuntęs mazgas nenurodė
+Relayed to us by: the sender itself	Persiuntė: pats siuntėjas
+Relayed: %lu	Persiųsta: %lu
+Release Channel: %s - checking...	Leidimų kanalas: %s - tikrinama...
+Release Channel: %s%s	Leidimų kanalas: %s%s
+Release Notes	Leidimo pastabos
+Release Notes  %s	Leidimo pastabos  %s
+Remove	Pašalinti
+Removed %s	%s pašalintas
+Removed %s - no networks left, AP mode	%s pašalintas - tinklų neliko, AP režimas
+Removed %s - now %s	%s pašalintas - dabar %s
+Removed %u file%s. %u could not be deleted - the card may be write-protected.\n\nRe-run the scan to check.	Pašalinta failų: %u%.0s %u ištrinti nepavyko - kortelė gali būti apsaugota nuo įrašymo.\n\nPaleiskite patikrą iš naujo, kad patikrintumėte.
+Removed %u file%s.\n\nThis card looked clean afterwards, but the scan reads names and headers, not contents - it cannot promise the card is clean. Reformatting is the only answer that can.	Pašalinta failų: %u%.0s\n\nKortelė po to atrodė švari, bet patikra skaito pavadinimus ir antraštes, ne turinį - ji negali garantuoti, kad kortelė švari. Tai gali tik formatavimas iš naujo.
+Removing Files	Šalinami failai
+Removing legacy maps...	Šalinami seni žemėlapiai...
+Replay already requested	Pakartojimas jau užklaustas
+Replay not sent: %s	Pakartojimas neišsiųstas: %s
+Replay requested (last %lu min)	Pakartojimas užklaustas (paskutinės %lu min)
+Reply	Atsakyti
+Reply from %s	Atsakymas iš %s
+Reply from %s (%lus)	Atsakymas iš %s (%lus)
+Request (P)osition	Užklausti (p)adėties
+Request Node	Užklausti mazgo
+Request Position	Užklausti padėties
+Request S&F Replay (%s)	Užklausti S&F pakartojimo (%s)
+Request S&F Replay (no router)	Užklausti S&F pakartojimo (nėra maršrutizatoriaus)
+Requested (last %lu min)	Užklausta (paskutinės %lu min)
+Rescan	Ieškoti iš naujo
+Reset	Atstatyti
+Reset Chat Colors	Atstatyti pokalbio spalvas
+Reset to Default	Atkurti numatytuosius
+Restore failed: every slot is favorited, so there is no room. Unfavorite a node and try again.	Atkurti nepavyko: visos vietos mėgstamos, vietos nėra. Pašalinkite mazgą iš mėgstamų ir bandykite dar kartą.
+Restore failed: the archived record could not be read.	Atkurti nepavyko: archyvuoto įrašo nepavyko nuskaityti.
+Restore node?	Atkurti mazgą?
+Role: %s%s	Vaidmuo: %s%s
+S(h)are	Bendrinti (H)
+SD Card Format	SD kortelės formatavimas
+SD Card Scan	SD kortelės patikra
+SD scan cancelled	SD patikra atšaukta
+SD: %s, %s, %u fails	SD: %s, %s, klaidų: %u
+SD: no card	SD: nėra kortelės
+SNR   cur %s  avg %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  cur %s  avg %.0fdBm min %.0f  max %.0f   n=%d	SNR   dab %s  vid %.1fdB  min %.1f  maks %.1f   n=%d\nRSSI  dab %s  vid %.0fdBm min %.0f  maks %.0f   n=%d
+SNR   cur --  avg --  min --  max --   n=0\nRSSI  cur --  avg --  min --  max --   n=0	SNR   dab --  vid --  min --  maks --   n=0\nRSSI  dab --  vid --  min --  maks --   n=0
+Sat	š
+Save	Įrašyti
+Save failed - cannot write %s	Įrašyti nepavyko - negalima rašyti į %s
+Save failed - too many this second	Įrašyti nepavyko - per daug per šią sekundę
+Save while discovering	Įrašyti paieškos metu
+Save while scanning	Įrašyti skenavimo metu
+Saved %s	%s įrašyta
+Saved: %s	Įrašyta: %s
+Scan	Ieškoti
+Scan %s	Paieška %s
+Scan %s - saved %s	Paieška %s - įrašyta %s
+Scan Networks	Ieškoti tinklų
+Scan SD Card for Malware%s	Tikrinti SD kortelę dėl kenkėjiškų programų%s
+Scan a preset	Ieškoti išankstinėje nuostatoje
+Scan cancelled	Paieška atšaukta
+Scan failed - Rescan to try again	Paieška nepavyko - ieškokite iš naujo
+Scan send failed	Paieškos išsiųsti nepavyko
+Scanning %s %s/%s	Ieškoma %s %s/%s
+Scanning %s...	Ieškoma %s...
+Scanning SD Card	Tikrinama SD kortelė
+Scanning WiFi networks...	Ieškoma WiFi tinklų...
+Screen	Ekranas
+Screen Timeout	Ekrano laikas
+Screen Timeout: %s	Ekrano laikas: %s
+Screen off after %s on lock	Ekranas užgęsta po %s užrakinus
+Screen orientation	Ekrano orientacija
+Screen sleeps after %s	Ekranas užmiega po %s
+Screen stays on	Ekranas lieka įjungtas
+Select a conversation	Pasirinkite pokalbį
+Select this node's role.	Pasirinkite šio mazgo vaidmenį.
+Select your radio region/preset.	Pasirinkite radijo regioną/išankstinę nuostatą.
+Selection settling - press Enter again	Pasirinkimas nusistovi - vėl paspauskite Enter
+Sen(d) DM	Siųsti DM (D)
+Send	Siųsti
+Send DM	Siųsti DM
+Send failed	Išsiųsti nepavyko
+Send to channel?	Siųsti į kanalą?
+Send top 5 to	Siųsti top 5 į
+Sending request...	Siunčiama užklausa...
+Sent by this node.	Išsiuntė šis mazgas.
+Sent to %s	Išsiųsta į %s
+Sent. Waiting for route ACK...	Išsiųsta. Laukiama maršruto ACK...
+Sep	rgs
+September	rugsėjo
+Server answered, but not with\nelevation data. Check the proxy\npoints at the elevation service.	Serveris atsakė, bet ne\naukščio duomenimis. Patikrinkite, ar tarpinis serveris\nnukreiptas į aukščio paslaugą.
+Server answered, but not with\nweather data. Check the proxy.	Serveris atsakė, bet ne\norų duomenimis. Patikrinkite tarpinį serverį.
+Set message colour to %s and reboot?	Nustatyti žinučių spalvą %s ir paleisti iš naujo?
+Share	Bendrinti
+Share Location: %s	Bendrinti vietą: %s
+Short	Trumpas
+Short name	Trumpasis vardas
+Short name cannot be empty	Trumpasis vardas negali būti tuščias
+Short: %s	Trumpas: %s
+Show Archived Nodes: %s	Rodyti archyvuotus mazgus: %s
+Show Archived Nodes: %s%s	Rodyti archyvuotus mazgus: %s%s
+Signal: SNR %.1f dB, RSSI %.0f dBm	Signalas: SNR %.1f dB, RSSI %.0f dBm
+Silver	Sidabrinė
+Sky	Dangaus mėlyna
+Small	Mažas
+Source	Šaltinis
+Splash Melody: %s	Paleidimo melodija: %s
+Splash melody: %s	Paleidimo melodija: %s
+Stale - 	Pasenę -
+State Map	Regiono žemėlapis
+State map disabled	Regiono žemėlapis išjungtas
+State map unavailable	Regiono žemėlapis nepasiekiamas
+Stay on	Visada įjungta
+Storage: %s %s	Saugykla: %s %s
+Storage: %s (not mounted)	Saugykla: %s (neprijungta)
+Store&Fwd Client: %s	Store&Fwd klientas: %s
+Store&Fwd client is off	Store&Fwd klientas išjungtas
+Sun	s
+Sweep	Šukavimas
+Sweep already running	Šukavimas jau vyksta
+Sweep cancelled	Šukavimas atšauktas
+Sweep done: %d new (%lus)	Šukavimas baigtas: %d naujų (%lus)
+Sweep send failed	Šukavimo išsiųsti nepavyko
+Sweep/Scan Settings	Šukavimo/paieškos nustatymai
+Sweeping...	Šukuojama...
+Sweeping... %s/%s	Šukuojama... %s/%s
+Switch to %s and reboot?	Perjungti į %s ir paleisti iš naujo?
+Switch to theme %s and reboot?	Perjungti į temą %s ir paleisti iš naujo?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	Perjungimas į išorinę anteną gali sugadinti radiją, jei antena neprijungta.  Prieš spausdami Taip prijunkite išorinę anteną
+System Stats	Sistemos statistika
+Tall	Aukštas
+Tall, turned 180	Aukštas, pasuktas 180
+Tap = Open   Long-press 3s = Delete   DM below = Back	Bakstelėti = Atverti   Laikyti 3 s = Ištrinti   DM apačioje = Atgal
+Tap Next to continue	Norėdami tęsti, bakstelėkite Toliau
+Tap Next to continue, or Back	Norėdami tęsti, bakstelėkite Toliau arba Atgal
+Tap a channel	Bakstelėkite kanalą
+Tap a channel to edit	Bakstelėkite kanalą, kad redaguotumėte
+Tap a field to change it	Bakstelėkite lauką, kad jį pakeistumėte
+Tap a field to edit, then Save	Bakstelėkite lauką, redaguokite, tada Įrašyti
+Tap a node for actions   Nodes below = Back	Bakstelėkite mazgą veiksmams   Mazgai apačioje = Atgal
+Tap a node to start a DM	Bakstelėkite mazgą, kad pradėtumėte DM
+Tap a preset to apply.	Bakstelėkite išankstinę nuostatą, kad pritaikytumėte.
+Tap a preset, then Scan	Bakstelėkite išankstinę nuostatą, tada Ieškoti
+Tap a size to apply	Bakstelėkite dydį, kad pritaikytumėte
+Tap one to apply.	Bakstelėkite vieną, kad pritaikytumėte.
+Tap to preview	Bakstelėkite peržiūrai
+Teal	Žalsvai mėlyna
+Telemetry	Telemetrija
+Temp: %.1f C\nHumidity: %.1f%%\nPressure: %.1f hPa	Temp: %.1f C\nDrėgmė: %.1f%%\nSlėgis: %.1f hPa
+Temp: %.1f F\nHumidity: %.1f%%\nPressure: %.2f inHg	Temp: %.1f F\nDrėgmė: %.1f%%\nSlėgis: %.2f inHg
+Text	Tekstas
+The card was formatted but could not be remounted. Reboot the device and it should come up clean.	Kortelė suformatuota, bet jos nepavyko vėl prijungti. Paleiskite įrenginį iš naujo, ir ji turėtų veikti švari.
+Theme	Tema
+Theme: %s	Tema: %s
+Theme: %s (unchanged)	Tema: %s (nepakeista)
+Theme: %s - rebooting...	Tema: %s - paleidžiama iš naujo...
+These files are not used by the new tile map. Remove them to reclaim storage?	Šių failų naujasis plytelių žemėlapis nenaudoja. Pašalinti juos, kad atlaisvintumėte vietos?
+This node	Šis mazgas
+This node has no position yet.\nNeeds a GPS fix or a set location.	Šis mazgas dar neturi padėties.\nReikia GPS fiksavimo arba nustatytos vietos.
+Thu	kt
+Time and Date	Laikas ir data
+Time and Date: %s	Laikas ir data: %s
+Time source: Internet / GPS	Laiko šaltinis: internetas / GPS
+To close hit backspace.  (I)nformation	Uždarykite klavišu backspace.  (I)nformacija
+Tools	Įrankiai
+Touch Navigation:	Lietimo valdymas:
+Transport Symbols:\n%s Radio Transmission\n%s MQTT Transmission	Perdavimo simboliai:\n%s Radijo perdavimas\n%s MQTT perdavimas
+Tue	an
+Turn BT Keyboard on first	Pirmiausia įjunkite BT klaviatūrą
+Turn MQTT Bridge %s and reboot?	Nustatyti MQTT tiltą į %s ir paleisti iš naujo?
+Type = Filter   Bksp = Edit Filter   Enter = Open DM   Esc = Back	Rašyti = Filtras   Bksp = Redaguoti filtrą   Enter = Atverti DM   Esc = Atgal
+Type = Filter   Bksp = Edit/Close Filter   Enter = Open DM	Rašyti = Filtras   Bksp = Redaguoti/uždaryti filtrą   Enter = Atverti DM
+Type = Filter   Enter = Open DM   Bksp = Back	Rašyti = Filtras   Enter = Atverti DM   Bksp = Atgal
+Type = Filter   Enter = Open DM   Esc = Back	Rašyti = Filtras   Enter = Atverti DM   Esc = Atgal
+Type message...	Įveskite žinutę...
+Type to filter nodes	Rašykite, kad filtruotumėte mazgus
+Type, then tap OK	Įveskite, tada bakstelėkite OK
+Type=Filter  Enter=Done  Bksp=Edit/Exit  %s=Back	Rašyti=Filtras  Enter=Atlikta  Bksp=Redag./Išeiti  %s=Atgal
+Un(f)avorite	Pašalinti iš mėgstamų (F)
+Un(m)ute	Įjungti garsą (M)
+Unfavorite	Pašalinti iš mėgstamų
+Uni(g)nore	Nebeignoruoti (G)
+Unignore	Nebeignoruoti
+Units: %s	Vienetai: %s
+Unknown	Nežinomas
+Until read	Kol perskaitoma
+Up to date (%s)	Naujausia (%s)
+Up/Down	Aukštyn/Žemyn
+Up/Down = Select   Space = Compose   Enter = Focus   %s = Delete   %s = Back	Aukštyn/Žemyn = Pasirinkti   Space = Rašyti   Enter = Fokusas   %s = Ištrinti   %s = Atgal
+Up/Down = Select   Space = Compose   Enter = Focus   D = Delete	Aukštyn/Žemyn = Pasirinkti   Space = Rašyti   Enter = Fokusas   D = Ištrinti
+Up/Down/J/K = Scroll   %s = Close	Aukštyn/Žemyn/J/K = Slinkti   %s = Uždaryti
+Up/Down/J/K = Scroll   Bksp = Close	Aukštyn/Žemyn/J/K = Slinkti   Bksp = Uždaryti
+Up/Down=Change  Enter=Save  %s=Cancel	Aukštyn/Žemyn=Keisti  Enter=Įrašyti  %s=Atšaukti
+Up/Down=Select  Left/Right=Change  Enter=Save  %s=Cancel	Aukštyn/Žemyn=Pasirinkti  Kairėn/Dešinėn=Keisti  Enter=Įrašyti  %s=Atšaukti
+Update	Atnaujinimas
+Update check failed: %s	Atnaujinimo patikra nepavyko: %s
+Update check needs WiFi connected	Atnaujinimo patikrai reikia prijungto WiFi
+Update check needs WiFi on	Atnaujinimo patikrai reikia įjungto WiFi
+Update check skipped (a dialog was open)	Atnaujinimo patikra praleista (buvo atidarytas dialogas)
+Uplinked by: %s	Į MQTT išsiuntė: %s
+Uplinked by: the sender itself	Į MQTT išsiuntė: pats siuntėjas
+Use arrows to choose, then tap Next	Pasirinkite rodyklėmis, tada bakstelėkite Toliau
+Used: %lu KB (%lu%%)\nTotal: %lu KB\nFree: %lu KB\nMin free: %lu KB\nMax block: %lu KB	Naudojama: %lu KB (%lu%%)\nIš viso: %lu KB\nLaisva: %lu KB\nMin. laisva: %lu KB\nDid. blokas: %lu KB
+VIA MQTT	PER MQTT
+VNC Host failed to allocate PSRAM	VNC Host nepavyko išskirti PSRAM
+VNC Host off	VNC Host išj.
+VNC Host on\nOpen http://%s/ and select the Remote tab	VNC Host įj.\nAtverkite http://%s/ ir pasirinkite skirtuką Remote
+VNC Host on\nhttp://%s:%u/	VNC Host įj.\nhttp://%s:%u/
+VNC Host: Off	VNC Host: Išj.
+VNC Host: Off (WiFi off)	VNC Host: Išj. (WiFi išj.)
+VNC Host: On (browser connected)	VNC Host: Įj. (naršyklė prijungta)
+VNC Host: On (network disconnected)	VNC Host: Įj. (tinklas atjungtas)
+VNC Host: Unavailable (WiFi not connected)	VNC Host: Nepasiekiamas (WiFi neprijungtas)
+Voltage	Įtampa
+Volume	Garsumas
+Volume: %u%%	Garsumas: %u%%
+W = Scan   S = Send   C = Reset   %s = Back	W = Ieškoti   S = Siųsti   C = Atstatyti   %s = Atgal
+W = Sweep   P = Preset   C = %s   %s = Back	W = Šukuoti   P = Nuostata   C = %s   %s = Atgal
+W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Šukuoti   P = Nuostata   C = %s   S = Įrašyti   %s = Atgal
+Wait %lus before sending again	Prieš siųsdami vėl palaukite %lus
+Wait %lus between sweeps	Tarp šukavimų palaukite %lus
+Waiting for Wi-Fi...	Laukiama Wi-Fi...
+Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Stebima %s/2/e/#\n\nDar nėra žinučių. Kanalai čia atsiranda, kai yra paskelbiami, naujausi apačioje, su kiekviename matytų žinučių skaičiumi.
+Weather	Orai
+Weather - %s	Orai - %s
+Weather server error (HTTP %d).	Orų serverio klaida (HTTP %d).
+Web Config disabled	Žiniatinklio nustatymai išjungti
+Web Config locked while MQTT is on	Žiniatinklio nustatymai užrakinti, kol MQTT įjungtas
+Web Config start failed	Nepavyko paleisti žiniatinklio nustatymų
+Web Config stopped.\n\nThe Bluetooth keyboard and Web Config share one radio and cannot run at the same time.\n\nTurn the keyboard off to use Web Config again.	Žiniatinklio nustatymai sustabdyti.\n\nBluetooth klaviatūra ir žiniatinklio nustatymai naudoja tą patį radiją ir negali veikti vienu metu.\n\nIšjunkite klaviatūrą, kad vėl galėtumėte naudoti žiniatinklio nustatymus.
+Web Config: Disabled	Žiniatinklio nustatymai: Išjungti
+Web Config: Enabled	Žiniatinklio nustatymai: Įjungti
+Web Config: Off (MQTT on)	Žiniatinklio nustatymai: Išj. (MQTT įj.)
+Web Config: Off (WiFi off)	Žiniatinklio nustatymai: Išj. (WiFi išj.)
+Web Config: On	Žiniatinklio nustatymai: Įj.
+Web Config: On (Lite)	Žiniatinklio nustatymai: Įj. (Lite)
+Web Config: On (chat PAUSED)	Žiniatinklio nustatymai: Įj. (pokalbis PRISTABDYTAS)
+Web config: %s\n\nChat is PAUSED while web config runs - this device needs that memory for Wi-Fi. Messages sent to you now are not received or stored.\n\nTurn web config off to resume messaging.	Žiniatinklio nustatymai: %s\n\nPokalbis PRISTABDYTAS, kol veikia žiniatinklio nustatymai - įrenginiui ta atmintis reikalinga Wi-Fi. Dabar jums siunčiamos žinutės nebus gautos ir neįrašytos.\n\nIšjunkite žiniatinklio nustatymus, kad tęstumėte susirašinėjimą.
+Wed	tr
+Welcome to Camillia for Meshtastic	Sveiki atvykę į Camillia, skirtą Meshtastic
+Wheel/j-k=Change   Enter=Next	Ratukas/j-k=Keisti   Enter=Toliau
+White	Balta
+Wi-Fi needed to fetch conditions.	Orams gauti reikia Wi-Fi.
+Wi-Fi needed to fetch the\nterrain profile for this path.	Šio maršruto reljefo profiliui\ngauti reikia Wi-Fi.
+WiFi connected: %s	WiFi prijungtas: %s
+WiFi is off	WiFi išjungtas
+WiFi not connected	WiFi neprijungtas
+WiFi password	WiFi slaptažodis
+WiFi selected: %s	Pasirinktas WiFi: %s
+WiFi: Off	WiFi: Išj.
+WiFi: On (%s)	WiFi: Įj. (%s)
+WiFi: On (AP MODE ONLY)	WiFi: Įj. (TIK AP REŽIMAS)
+WiFi: On (AP mode)	WiFi: Įj. (AP režimas)
+WiFi: On (connecting %s)	WiFi: Įj. (jungiamasi %s)
+Wide	Platus
+Within %s	%s tikslumu
+Writing a new filesystem...	Rašoma nauja failų sistema...
+X-Large	Labai didelis
+Y/Enter=Import   N/Bksp=Skip	Y/Enter=Importuoti   N/Bksp=Praleisti
+Year	Metai
+Yellow	Geltona
+Yes	Taip
+[%s] no match	[%s] atitikmenų nėra
+[radio] init failed	[radio] paleisti nepavyko
+\n%lu min ago	\nprieš %lu min
+\n%s, %lu min ago	\n%s, prieš %lu min
+\n+%u more	\n+%u daugiau
+\nT-Deck trackball: hold click 2s to sleep	\nT-Deck rutuliukas: laikykite paspaudę 2 s, kad užmigtų
+\n\nDelete them? Nothing else on the card is touched.\n\nFormat erases the whole card instead - the only certain fix.	\n\nIštrinti juos? Niekas kitas kortelėje nebus paliesta.\n\nFormatavimas vietoje to ištrina visą kortelę - vienintelis patikimas sprendimas.
+all rates tried	išbandyti visi greičiai
+base64 key	base64 raktas
+ch %s   air %s	kan %s   eteris %s
+channel	kanalas
+check requested	patikra užklausta
+exact	tiksli
+external	išorinė
+internal	vidinė
+j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k arba </>=Reguliuoti  Aukštyn/Žemyn=Eilutė  Enter=Įrašyti  Back=Atšaukti
+j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Reguliuoti  </>=Eilutė  Enter=Įrašyti  Backspace=Atšaukti
+j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Reguliuoti  Enter=Įrašyti  Backspace=Atšaukti
+j/k=Adjust  Wheel=Row  Enter=Save  Backspace=Cancel	j/k=Reguliuoti  Ratukas=Eilutė  Enter=Įrašyti  Backspace=Atšaukti
+j/k=Change   Enter=Next   Bksp=Back	j/k=Keisti   Enter=Toliau   Bksp=Atgal
+low	žemas
+missing	trūksta
+never	niekada
+no key	nėra rakto
+not seen	nematytas
+off	išj.
+on	įj.
+one of: 	vienas iš:
+one rate tried	išbandytas vienas greitis
+present	yra
+press F to change	norėdami keisti, spauskite F
+retry %lus	vėl po %lus
+retry now	bandyti dabar
+sensor %.2f V    trim %s	jutiklis %.2f V    korekcija %s
+sensor: read failed	jutiklis: skaitymo klaida
+stay on	visada įjungta
+tap Filter to change	norėdami keisti, bakstelėkite Filtras
+unavailable	nepasiekiama
+unknown	nežinomas
+unknown date	nežinoma data
+unknown error	nežinoma klaida
+unknown node (id ends ..%02x)	nežinomas mazgas (id baigiasi ..%02x)
+unset	nenustatyta
+until read	kol perskaitoma
+vague	apytikslė

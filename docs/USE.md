@@ -998,10 +998,24 @@ node sees it.
   — reaches the broker through the ordinary uplink instead, which needs the
   channel's uplink flag on.
 
+### Antenna (T-Display P4)
+
+**Antenna: internal / external** picks which antenna the LoRa radio uses: the
+board's on-board antenna (the default) or the external antenna socket. Switching
+to external asks first — *transmitting with nothing in the socket can damage the
+radio* — so attach the antenna, then press **Yes**; **No** changes nothing.
+Switching back to internal never asks. The change is immediate, no reboot, and
+it is remembered. Web Config has the same **Antenna** choice under LoRa Radio,
+with the same warning. It is left out of config exports on purpose, so restoring
+a backup can never select the socket on a unit without an antenna fitted.
+
 ### Language
 
 **Language: <name>** picks the language of the on-device interface: English
-(the default), Español, Français, Română or Italiano. Activating it opens a
+(the default), Español, Français, Română, Italiano, Deutsch, Português (Brasil),
+Polski, Nederlands, Čeština, Svenska, Norsk bokmål, Dansk, Suomi, Magyar,
+Slovenčina, Hrvatski, Slovenščina, Türkçe, Lietuvių, Latviešu or Eesti. The
+Cardputer is English-only. Activating it opens a
 dropdown of the languages, each written in its own language, with Cancel and
 Save. On a keyboard build, Up/Down (or the wheel/trackball) changes the choice,
 Enter saves and Backspace/Esc cancels.

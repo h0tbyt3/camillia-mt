@@ -3180,6 +3180,9 @@ enum CfgActionId {
     CFG_ACTION_WEBCFG = 0,
     CFG_ACTION_NODE_NAME,
     CFG_ACTION_PRESET,
+#if defined(DEVICE_TDISPLAY_P4)
+    CFG_ACTION_ANTENNA,        // on-board vs external antenna socket
+#endif
 #if HAS_VNC_HOST
     CFG_ACTION_VNC_HOST,
 #endif
@@ -5053,6 +5056,12 @@ static const char *cfgActionLabel(int actionId, char *buf, size_t bufLen) {
                      s_cfg.nodeLong[0]  ? s_cfg.nodeLong  : TR("unset"),
                      s_cfg.nodeShort[0] ? s_cfg.nodeShort : "----");
             break;
+#if defined(DEVICE_TDISPLAY_P4)
+        case CFG_ACTION_ANTENNA:
+            snprintf(buf, bufLen, TR("Antenna: %s"),
+                     cfgP4AntennaExternal(s_cfg) ? TR("external") : TR("internal"));
+            break;
+#endif
         case CFG_ACTION_PRESET:
             // "Custom" rather than a preset name when loraUsePreset is false:
             // modemPreset still holds the last preset in that state (it is what
@@ -11356,6 +11365,240 @@ static const AccentSet kAccentsIt[] = {
     ACCENT_SET('o', "\xC3\xB2", "\xC3\xB3"), ACCENT_SET('O', "\xC3\x92", "\xC3\x93"),
     ACCENT_SET('u', "\xC3\xB9", "\xC3\xBA"), ACCENT_SET('U', "\xC3\x99", "\xC3\x9A"),
 };
+// UTF-8 as-is from here on, like kUiLangNames: every letter is in the Latin fonts.
+static const AccentSet kAccentsDe[] = {
+    ACCENT_SET('a', "ä"),
+    ACCENT_SET('A', "Ä"),
+    ACCENT_SET('o', "ö"),
+    ACCENT_SET('O', "Ö"),
+    ACCENT_SET('u', "ü"),
+    ACCENT_SET('U', "Ü"),
+    ACCENT_SET('s', "ß"),
+};
+static const AccentSet kAccentsPt[] = {
+    ACCENT_SET('a', "ã", "á", "â", "à"),
+    ACCENT_SET('A', "Ã", "Á", "Â", "À"),
+    ACCENT_SET('e', "é", "ê"),
+    ACCENT_SET('E', "É", "Ê"),
+    ACCENT_SET('i', "í"),
+    ACCENT_SET('I', "Í"),
+    ACCENT_SET('o', "õ", "ó", "ô"),
+    ACCENT_SET('O', "Õ", "Ó", "Ô"),
+    ACCENT_SET('u', "ú"),
+    ACCENT_SET('U', "Ú"),
+    ACCENT_SET('c', "ç"),
+    ACCENT_SET('C', "Ç"),
+};
+static const AccentSet kAccentsPl[] = {
+    ACCENT_SET('a', "ą"),
+    ACCENT_SET('A', "Ą"),
+    ACCENT_SET('c', "ć"),
+    ACCENT_SET('C', "Ć"),
+    ACCENT_SET('e', "ę"),
+    ACCENT_SET('E', "Ę"),
+    ACCENT_SET('l', "ł"),
+    ACCENT_SET('L', "Ł"),
+    ACCENT_SET('n', "ń"),
+    ACCENT_SET('N', "Ń"),
+    ACCENT_SET('o', "ó"),
+    ACCENT_SET('O', "Ó"),
+    ACCENT_SET('s', "ś"),
+    ACCENT_SET('S', "Ś"),
+    ACCENT_SET('z', "ż", "ź"),
+    ACCENT_SET('Z', "Ż", "Ź"),
+};
+static const AccentSet kAccentsNl[] = {
+    ACCENT_SET('e', "é", "ë", "è"),
+    ACCENT_SET('E', "É", "Ë", "È"),
+    ACCENT_SET('i', "ï"),
+    ACCENT_SET('I', "Ï"),
+    ACCENT_SET('o', "ó", "ö"),
+    ACCENT_SET('O', "Ó", "Ö"),
+    ACCENT_SET('u', "ü"),
+    ACCENT_SET('U', "Ü"),
+};
+static const AccentSet kAccentsCs[] = {
+    ACCENT_SET('a', "á"),
+    ACCENT_SET('A', "Á"),
+    ACCENT_SET('c', "č"),
+    ACCENT_SET('C', "Č"),
+    ACCENT_SET('d', "ď"),
+    ACCENT_SET('D', "Ď"),
+    ACCENT_SET('e', "é", "ě"),
+    ACCENT_SET('E', "É", "Ě"),
+    ACCENT_SET('i', "í"),
+    ACCENT_SET('I', "Í"),
+    ACCENT_SET('n', "ň"),
+    ACCENT_SET('N', "Ň"),
+    ACCENT_SET('o', "ó"),
+    ACCENT_SET('O', "Ó"),
+    ACCENT_SET('r', "ř"),
+    ACCENT_SET('R', "Ř"),
+    ACCENT_SET('s', "š"),
+    ACCENT_SET('S', "Š"),
+    ACCENT_SET('t', "ť"),
+    ACCENT_SET('T', "Ť"),
+    ACCENT_SET('u', "ú", "ů"),
+    ACCENT_SET('U', "Ú", "Ů"),
+    ACCENT_SET('y', "ý"),
+    ACCENT_SET('Y', "Ý"),
+    ACCENT_SET('z', "ž"),
+    ACCENT_SET('Z', "Ž"),
+};
+static const AccentSet kAccentsSv[] = {
+    ACCENT_SET('a', "å", "ä"),
+    ACCENT_SET('A', "Å", "Ä"),
+    ACCENT_SET('o', "ö"),
+    ACCENT_SET('O', "Ö"),
+};
+static const AccentSet kAccentsNb[] = {
+    ACCENT_SET('a', "å", "æ"),
+    ACCENT_SET('A', "Å", "Æ"),
+    ACCENT_SET('o', "ø"),
+    ACCENT_SET('O', "Ø"),
+    ACCENT_SET('e', "é"),
+    ACCENT_SET('E', "É"),
+};
+static const AccentSet kAccentsDa[] = {
+    ACCENT_SET('a', "å", "æ"),
+    ACCENT_SET('A', "Å", "Æ"),
+    ACCENT_SET('o', "ø"),
+    ACCENT_SET('O', "Ø"),
+    ACCENT_SET('e', "é"),
+    ACCENT_SET('E', "É"),
+};
+static const AccentSet kAccentsFi[] = {
+    ACCENT_SET('a', "ä", "å"),
+    ACCENT_SET('A', "Ä", "Å"),
+    ACCENT_SET('o', "ö"),
+    ACCENT_SET('O', "Ö"),
+};
+static const AccentSet kAccentsHu[] = {
+    ACCENT_SET('a', "á"),
+    ACCENT_SET('A', "Á"),
+    ACCENT_SET('e', "é"),
+    ACCENT_SET('E', "É"),
+    ACCENT_SET('i', "í"),
+    ACCENT_SET('I', "Í"),
+    ACCENT_SET('o', "ó", "ö", "ő"),
+    ACCENT_SET('O', "Ó", "Ö", "Ő"),
+    ACCENT_SET('u', "ú", "ü", "ű"),
+    ACCENT_SET('U', "Ú", "Ü", "Ű"),
+};
+static const AccentSet kAccentsSk[] = {
+    ACCENT_SET('a', "á", "ä"),
+    ACCENT_SET('A', "Á", "Ä"),
+    ACCENT_SET('c', "č"),
+    ACCENT_SET('C', "Č"),
+    ACCENT_SET('d', "ď"),
+    ACCENT_SET('D', "Ď"),
+    ACCENT_SET('e', "é"),
+    ACCENT_SET('E', "É"),
+    ACCENT_SET('i', "í"),
+    ACCENT_SET('I', "Í"),
+    ACCENT_SET('l', "ľ", "ĺ"),
+    ACCENT_SET('L', "Ľ", "Ĺ"),
+    ACCENT_SET('n', "ň"),
+    ACCENT_SET('N', "Ň"),
+    ACCENT_SET('o', "ó", "ô"),
+    ACCENT_SET('O', "Ó", "Ô"),
+    ACCENT_SET('r', "ŕ"),
+    ACCENT_SET('R', "Ŕ"),
+    ACCENT_SET('s', "š"),
+    ACCENT_SET('S', "Š"),
+    ACCENT_SET('t', "ť"),
+    ACCENT_SET('T', "Ť"),
+    ACCENT_SET('u', "ú"),
+    ACCENT_SET('U', "Ú"),
+    ACCENT_SET('y', "ý"),
+    ACCENT_SET('Y', "Ý"),
+    ACCENT_SET('z', "ž"),
+    ACCENT_SET('Z', "Ž"),
+};
+static const AccentSet kAccentsHr[] = {
+    ACCENT_SET('c', "č", "ć"),
+    ACCENT_SET('C', "Č", "Ć"),
+    ACCENT_SET('d', "đ"),
+    ACCENT_SET('D', "Đ"),
+    ACCENT_SET('s', "š"),
+    ACCENT_SET('S', "Š"),
+    ACCENT_SET('z', "ž"),
+    ACCENT_SET('Z', "Ž"),
+};
+static const AccentSet kAccentsSl[] = {
+    ACCENT_SET('c', "č"),
+    ACCENT_SET('C', "Č"),
+    ACCENT_SET('s', "š"),
+    ACCENT_SET('S', "Š"),
+    ACCENT_SET('z', "ž"),
+    ACCENT_SET('Z', "Ž"),
+};
+static const AccentSet kAccentsTr[] = {
+    ACCENT_SET('c', "ç"),
+    ACCENT_SET('C', "Ç"),
+    ACCENT_SET('g', "ğ"),
+    ACCENT_SET('G', "Ğ"),
+    ACCENT_SET('i', "ı"),
+    ACCENT_SET('I', "İ"),
+    ACCENT_SET('o', "ö"),
+    ACCENT_SET('O', "Ö"),
+    ACCENT_SET('s', "ş"),
+    ACCENT_SET('S', "Ş"),
+    ACCENT_SET('u', "ü"),
+    ACCENT_SET('U', "Ü"),
+};
+static const AccentSet kAccentsLt[] = {
+    ACCENT_SET('a', "ą"),
+    ACCENT_SET('A', "Ą"),
+    ACCENT_SET('c', "č"),
+    ACCENT_SET('C', "Č"),
+    ACCENT_SET('e', "ę", "ė"),
+    ACCENT_SET('E', "Ę", "Ė"),
+    ACCENT_SET('i', "į"),
+    ACCENT_SET('I', "Į"),
+    ACCENT_SET('s', "š"),
+    ACCENT_SET('S', "Š"),
+    ACCENT_SET('u', "ų", "ū"),
+    ACCENT_SET('U', "Ų", "Ū"),
+    ACCENT_SET('z', "ž"),
+    ACCENT_SET('Z', "Ž"),
+};
+static const AccentSet kAccentsLv[] = {
+    ACCENT_SET('a', "ā"),
+    ACCENT_SET('A', "Ā"),
+    ACCENT_SET('c', "č"),
+    ACCENT_SET('C', "Č"),
+    ACCENT_SET('e', "ē"),
+    ACCENT_SET('E', "Ē"),
+    ACCENT_SET('g', "ģ"),
+    ACCENT_SET('G', "Ģ"),
+    ACCENT_SET('i', "ī"),
+    ACCENT_SET('I', "Ī"),
+    ACCENT_SET('k', "ķ"),
+    ACCENT_SET('K', "Ķ"),
+    ACCENT_SET('l', "ļ"),
+    ACCENT_SET('L', "Ļ"),
+    ACCENT_SET('n', "ņ"),
+    ACCENT_SET('N', "Ņ"),
+    ACCENT_SET('s', "š"),
+    ACCENT_SET('S', "Š"),
+    ACCENT_SET('u', "ū"),
+    ACCENT_SET('U', "Ū"),
+    ACCENT_SET('z', "ž"),
+    ACCENT_SET('Z', "Ž"),
+};
+static const AccentSet kAccentsEt[] = {
+    ACCENT_SET('a', "ä"),
+    ACCENT_SET('A', "Ä"),
+    ACCENT_SET('o', "õ", "ö"),
+    ACCENT_SET('O', "Õ", "Ö"),
+    ACCENT_SET('u', "ü"),
+    ACCENT_SET('U', "Ü"),
+    ACCENT_SET('s', "š"),
+    ACCENT_SET('S', "Š"),
+    ACCENT_SET('z', "ž"),
+    ACCENT_SET('Z', "Ž"),
+};
 #undef ACCENT_SET
 
 static const AccentSet *accentSetFor(char c) {
@@ -11366,6 +11609,23 @@ static const AccentSet *accentSetFor(char c) {
         case LANG_FR: sets = kAccentsFr; count = sizeof(kAccentsFr) / sizeof(kAccentsFr[0]); break;
         case LANG_RO: sets = kAccentsRo; count = sizeof(kAccentsRo) / sizeof(kAccentsRo[0]); break;
         case LANG_IT: sets = kAccentsIt; count = sizeof(kAccentsIt) / sizeof(kAccentsIt[0]); break;
+        case LANG_DE: sets = kAccentsDe; count = sizeof(kAccentsDe) / sizeof(kAccentsDe[0]); break;
+        case LANG_PT: sets = kAccentsPt; count = sizeof(kAccentsPt) / sizeof(kAccentsPt[0]); break;
+        case LANG_PL: sets = kAccentsPl; count = sizeof(kAccentsPl) / sizeof(kAccentsPl[0]); break;
+        case LANG_NL: sets = kAccentsNl; count = sizeof(kAccentsNl) / sizeof(kAccentsNl[0]); break;
+        case LANG_CS: sets = kAccentsCs; count = sizeof(kAccentsCs) / sizeof(kAccentsCs[0]); break;
+        case LANG_SV: sets = kAccentsSv; count = sizeof(kAccentsSv) / sizeof(kAccentsSv[0]); break;
+        case LANG_NB: sets = kAccentsNb; count = sizeof(kAccentsNb) / sizeof(kAccentsNb[0]); break;
+        case LANG_DA: sets = kAccentsDa; count = sizeof(kAccentsDa) / sizeof(kAccentsDa[0]); break;
+        case LANG_FI: sets = kAccentsFi; count = sizeof(kAccentsFi) / sizeof(kAccentsFi[0]); break;
+        case LANG_HU: sets = kAccentsHu; count = sizeof(kAccentsHu) / sizeof(kAccentsHu[0]); break;
+        case LANG_SK: sets = kAccentsSk; count = sizeof(kAccentsSk) / sizeof(kAccentsSk[0]); break;
+        case LANG_HR: sets = kAccentsHr; count = sizeof(kAccentsHr) / sizeof(kAccentsHr[0]); break;
+        case LANG_SL: sets = kAccentsSl; count = sizeof(kAccentsSl) / sizeof(kAccentsSl[0]); break;
+        case LANG_TR: sets = kAccentsTr; count = sizeof(kAccentsTr) / sizeof(kAccentsTr[0]); break;
+        case LANG_LT: sets = kAccentsLt; count = sizeof(kAccentsLt) / sizeof(kAccentsLt[0]); break;
+        case LANG_LV: sets = kAccentsLv; count = sizeof(kAccentsLv) / sizeof(kAccentsLv[0]); break;
+        case LANG_ET: sets = kAccentsEt; count = sizeof(kAccentsEt) / sizeof(kAccentsEt[0]); break;
         default: return nullptr;   // English: no box at all
     }
     for (size_t i = 0; i < count; i++) {
@@ -12933,6 +13193,10 @@ static void initCfgActions() {
     // what the rest of the mesh sees of this node, and a node on the wrong
     // preset is invisible to it entirely.
     s_cfgActions[s_cfgActionCount++] = CFG_ACTION_PRESET;
+#if defined(DEVICE_TDISPLAY_P4)
+    // Under the preset: the other half of "can this node be heard at all".
+    s_cfgActions[s_cfgActionCount++] = CFG_ACTION_ANTENNA;
+#endif
 
     // The radios themselves, each with whatever picks what it talks to.
     s_cfgActions[s_cfgActionCount++] = CFG_ACTION_WIFI_TOGGLE;
@@ -20561,6 +20825,28 @@ static void openCfgOrientModal() {
 }
 #endif  // HAS_RUNTIME_ORIENTATION
 
+#if defined(DEVICE_TDISPLAY_P4)
+// ── Antenna (T-Display P4) ───────────────────────────────────────────────────
+// The board routes the radio to its on-board antenna or to the external socket
+// through a SKY13453 selector (MeshRadio::setExternalAntenna()). Transmitting
+// into an empty socket can damage the radio, so moving to external is asked
+// first; moving back to the on-board antenna never is. Applied live -- the
+// selector is a GPIO on the expander, the radio itself is not touched.
+static const char *const kAntennaExternalWarning = TR_NOOP(
+    "Switching to external can damage the radio if the antenna is not attached.  "
+    "Please attach the external antenna before pressing Yes");
+
+static void cfgAntennaCommit(int external) {
+    s_cfg.p4Antenna = external ? kP4AntennaExternal : 0;
+    Radio.setExternalAntenna(external != 0);
+    persistConfigToPrefs();
+    snprintf(s_cfgStatus, sizeof(s_cfgStatus), TR("Antenna: %s"),
+             external ? TR("external") : TR("internal"));
+    refreshCfgModal();
+}
+#endif
+
+
 // ── UI language picker (issue #99) ───────────────────────────────────────────
 // Config -> Language. A dropdown of every built-in language, each in its own
 // name ("Español", "Français"), with Cancel/Save; Save stores the choice and
@@ -20672,7 +20958,8 @@ static void openCfgLangModal() {
 
     // Options in each language's own name, so the list is readable whatever
     // language the device is currently in.
-    char options[160] = "";
+    // 22 names at up to ~20 bytes each, plus separators.
+    char options[512] = "";
     for (int i = 0; i < (int)LANG_COUNT; i++) {
         if (i) strlcat(options, "\n", sizeof(options));
         strlcat(options, kUiLangNames[i], sizeof(options));
@@ -38144,6 +38431,21 @@ static void performCfgAction(int actionId) {
             openCfgNodeNameModal();
             break;
 
+#if defined(DEVICE_TDISPLAY_P4)
+        case CFG_ACTION_ANTENNA:
+            if (s_cfgDebugLog) Serial.println("[lvgl-cfg] exec ANTENNA");
+            showActionPopup = false;   // the row reads the result
+            if (cfgP4AntennaExternal(s_cfg)) {
+                // Back to the on-board antenna, which is always attached:
+                // nothing to warn about, so no question either.
+                cfgAntennaCommit(0);
+            } else {
+                // No changes nothing; Yes is the user saying an antenna is on.
+                openCfgConfirmModal(-1, TR(kAntennaExternalWarning), cfgAntennaCommit, 1);
+            }
+            break;
+#endif
+
         case CFG_ACTION_PRESET:
             if (s_cfgDebugLog) Serial.println("[lvgl-cfg] exec PRESET");
             showActionPopup = false;   // the modal is the whole interaction
@@ -38956,11 +39258,11 @@ static void openCfgConfirmModal(int actionId, const char *text,
         return btn;
     };
 #if UI_TOUCH_ONLY_PROFILE
-    makeConfirmBtn(btnRow, "No", noBtnBg, btnTextColor, onCfgConfirmNoPressed, btnMinW);
+    makeConfirmBtn(btnRow, TR_NOOP("No"), noBtnBg, btnTextColor, onCfgConfirmNoPressed, btnMinW);
     makeConfirmBtn(btnRow, TR_NOOP("Yes"), yesBtnBg, btnTextColor, onCfgConfirmYesPressed, btnMinW);
 #else
-    makeConfirmBtn(btnRow, "(N)o", noBtnBg, btnTextColor, onCfgConfirmNoPressed, btnMinW);
-    makeConfirmBtn(btnRow, "(Y)es", yesBtnBg, btnTextColor, onCfgConfirmYesPressed, btnMinW);
+    makeConfirmBtn(btnRow, TR_NOOP("(N)o"), noBtnBg, btnTextColor, onCfgConfirmNoPressed, btnMinW);
+    makeConfirmBtn(btnRow, TR_NOOP("(Y)es"), yesBtnBg, btnTextColor, onCfgConfirmYesPressed, btnMinW);
 #endif
     if (s_cfgConfirmAltFn) {
         makeConfirmBtn(btnRow, s_cfgConfirmAltLabel, altBtnBg, btnTextColor,
@@ -53231,6 +53533,7 @@ void setup() {
     // Before the first transmission of the session, since the TX paths read this
     // rather than the compiled default.
     meshSetHopLimit(s_cfg.loraHopLimit);
+    Radio.setExternalAntenna(cfgP4AntennaExternal(s_cfg));   // P4 only; recorded for init()
     s_radioReady = Radio.init(s_cfg.loraPower, s_cfg.loraRxBoostedGain);
     // Deliberately after Radio.init(). On the pager, pagerPrimeLoRaRail() arms
     // every peripheral rail on the expander including GPS_EN, so starting GPS

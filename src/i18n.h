@@ -27,6 +27,23 @@ enum UiLang : uint8_t {
     LANG_FR = 2,
     LANG_RO = 3,
     LANG_IT = 4,
+    LANG_DE = 5,
+    LANG_PT = 6,
+    LANG_PL = 7,
+    LANG_NL = 8,
+    LANG_CS = 9,
+    LANG_SV = 10,
+    LANG_NB = 11,
+    LANG_DA = 12,
+    LANG_FI = 13,
+    LANG_HU = 14,
+    LANG_SK = 15,
+    LANG_HR = 16,
+    LANG_SL = 17,
+    LANG_TR = 18,
+    LANG_LT = 19,
+    LANG_LV = 20,
+    LANG_ET = 21,
     LANG_COUNT
 };
 

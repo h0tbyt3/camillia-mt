@@ -1,0 +1,887 @@
+# Camillia language file (issue #99)
+# code: tr
+# name: Türkçe
+#
+# One translation per line: the English exactly as it appears in the source,
+# a TAB, then the translation. Escape a newline as \n, a tab as \t, a backslash
+# as \\. Keep every %d / %s / %u ... in the same order and of the same type as the
+# English -- a line whose placeholders differ is ignored on the device and the
+# English is shown. Mesh terms that are names (LongFast, MQTT, LoRa) stay as they
+# are. Lines are kept sorted by the English, for review; the build sorts anyway.
+# First draft: review by a native speaker welcome (see docs/TRANSLATING.md).
+#
+# Compiled in by tools/gen_lang_builtin.py.
+  %s via %s (%.0f dB)\n	  %s üzerinden %s (%.0f dB)\n
+  CONFIRM?	  ONAYLIYOR MUSUNUZ?
+  Humid  %.1f %%	  Nem    %.1f %%
+  Press  %.1f hPa	  Basınç %.1f hPa
+  lock	  korumalı
+  open	  açık
+ (no card)	 (kart yok)
+ (not sharing location)	 (konum paylaşılmıyor)
+ (unchanged)	 (değişmedi)
+ - %s available	 - %s mevcut
+ - check failed	 - denetim başarısız
+ - check unavailable	 - denetim kullanılamıyor
+ - checking...	 - denetleniyor...
+ - saving to %s	 - %s konumuna kaydediliyor
+ - up to date	 - güncel
+! TX failed	! Gönderim başarısız
+! TX failed (node id)	! Gönderim başarısız (düğüm kimliği)
+%d chans  %s msgs  %s%s	%d kanal  %s msj  %s%s
+%d chans  %s msgs  %s%s  (+%s off-list)	%d kanal  %s msj  %s%s  (+%s liste dışı)
+%d node(s), %d report(s)	%d düğüm, %d rapor
+%d%s  %s\nFeels %d%s, humidity %d%%\nWind %s %d %s%s%s	%d%s  %s\nHissedilen %d%s, nem %d%%\nRüzgar %s %d %s%s%s
+%luh ago	%lu sa önce
+%lum ago	%lu dk önce
+%lus ago	%lu sn önce
+%s   -   %u match%s so far	%s   -   şimdiye kadar %u eşleşme%.0s
+%s  (current)	%s  (geçerli)
+%s (this node)	%s (bu düğüm)
+%s - WiFi off	%s - WiFi kapalı
+%s - rebooting...	%s - yeniden başlatılıyor...
+%s - saved	%s - kaydedildi
+%s = Back   C = Clear   F = Filter	%s = Geri   C = Temizle   F = Filtre
+%s = Back   green=SNR  pink=RSSI	%s = Geri   yeşil=SNR  pembe=RSSI
+%s = Back   teal=ChUtil  orange=AirTx	%s = Geri   camgöbeği=ChUtil  turuncu=AirTx
+%s = Close	%s = Kapat
+%s returns to the live list.\nIf it is full, the oldest non-favorite is archived to make room.	%s etkin listeye geri döner.\nListe doluysa yer açmak için en eski favori olmayan düğüm arşivlenir.
+%s to close Help	%s Yardım'ı kapatır
+%s will be removed from the node list.	%s düğüm listesinden kaldırılacak.
+%s x%u\nClock: %u MHz\nRevision: %u\nUptime: %luh %02lum %02lus\nLoop rate: %lu /s\nBattery: %u%% %.3fV	%s x%u\nSaat: %u MHz\nRevizyon: %u\nÇalışma: %luh %02lum %02lus\nDöngü: %lu /s\nPil: %u%% %.3fV
+%s%.2f, %.2f (rounded)	%s%.2f, %.2f (yuvarlanmış)
+%s%lu min ago - %.2f, %.2f (rounded)	%s%lu dk önce - %.2f, %.2f (yuvarlanmış)
+%s.\n\nNothing can arrive until the bridge has a broker session. Fix it in Config (or web config) and this list fills in on its own.	%s.\n\nKöprünün aracıyla bir oturumu olana kadar hiçbir şey gelmez. Bunu Yapılandırma'dan (veya web yapılandırmasından) düzeltin; bu liste kendiliğinden dolar.
+%s: %d node(s) heard	%s: %d düğüm duyuldu
+%s: %d on preset (%lus)	%s: ön ayarda %d (%lus)
+%s=Scroll  A=Actions  %s=List	%s=Kaydır  A=Eylemler  %s=Liste
+%s\n%.1f km - brg %03d %s\n%s\nyou %dm - peer %dm - %.0f MHz	%s\n%.1f km - kerteriz %03d %s\n%s\nsiz %dm - karşı %dm - %.0f MHz
+%s\n%lu min old	%s\n%lu dk önce
+%s\nIn use - will switch to the next configured WiFi network, or AP mode if none is available	%s\nKullanımda - sıradaki yapılandırılmış WiFi ağına ya da hiçbiri yoksa AP moduna geçecek
+%s\nMessage history will be erased	%s\nMesaj geçmişi silinecek
+%s\nType %06u then Enter on the keyboard	%s\nKlavyede %06u yazıp Enter'a basın
+%u of %d	%u / %d
+%u sec	%u sn
+(A)nnounce	Duyur (A)
+(B)eacons	İşaretçiler (B)
+(C)FG   (D)M   (N)odes   Too(l)s   (A)ctions	(C)FG   (D)M   Düğümler (N)   Araçlar (L)   Eylemler (A)
+(C)FG  C(h)an  (D)M  (N)odes  Too(l)s  (A)ct	(C)FG  Kanal (H)  (D)M  Düğüm (N)  Araç (L)  Eylem (A)
+(D) Direct Messages\n(C) Configuration\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(H) Channel selector\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(D) Doğrudan mesajlar\n(C) Yapılandırma\n(N) Düğümler\n(L) Araçlar (Canlı, grafikler)\n(A) Kanal eylemleri\n(H) Kanal seçici\n(P) Yardım (bu ekran)\n(E) Emoji\n(Space) Yaz/Yanıtla\n(Enter) Mesajlara odaklan
+(D)iscovery	Keşif (D)
+(F)avorite	Favori (F)
+(H) Home dashboard\n(C) Chat (again: channels)\n(F) Configuration\n(D) Direct Messages\n(N) Nodes\n(L) Tools (Live, charts)\n(A) Channel Actions\n(P) Help (this screen)\n(E) Emoji\n(Space) Compose/Reply\n(Enter) Focus Messages	(H) Ana panel\n(C) Sohbet (tekrar: kanallar)\n(F) Yapılandırma\n(D) Doğrudan mesajlar\n(N) Düğümler\n(L) Araçlar (Canlı, grafikler)\n(A) Kanal eylemleri\n(P) Yardım (bu ekran)\n(E) Emoji\n(Space) Yaz/Yanıtla\n(Enter) Mesajlara odaklan
+(H)ome (C)hat C(f)g (D)M (N)odes Too(l)s	Ana (H) Sohbet (C) Yapl. (F) (D)M Düğüm (N) Araç (L)
+(L)ive	Canlı (L)
+(L)ocate	Konum bul (L)
+(L)ocation: %s	Konum (L): %s
+(M)ute	Sessiz (M)
+(R)eply	Yanıtla (R)
+(W)eather	Hava (W)
+(Y)es	Evet (Y)
+(no name)	(ad yok)
+(not set)	(ayarlanmamış)
+(nothing)	(hiçbir şey)
+(unknown)	(bilinmiyor)
+(unnamed)	(adsız)
+, gusts %d	, esinti %d
+1 hour	1 saat
+12-hour	12 saat
+15 sec	15 sn
+2 hours	2 saat
+24-hour	24 saat
+30 sec	30 sn
+4-char short name (ABCD)	4 karakterli kısa ad (ABCD)
+5 min on that preset. This node hears nothing on its own while it runs, and finds only meshes sharing your primary channel key.	Bu ön ayarda 5 dk. Çalışırken bu düğüm kendi ağından hiçbir şey duymaz ve yalnızca birincil kanal anahtarınızı paylaşan ağları bulur.
+5 sec	5 sn
+6 hours	6 saat
+? hops	? atlama
+ACK from %s. Waiting for reply...	%s kaynağından ACK. Yanıt bekleniyor...
+ACKed, no reply (%lus)	ACK alındı, yanıt yok (%lus)
+AP mode cannot be removed	AP modu kaldırılamaz
+AP mode selected	AP modu seçildi
+AP mode selected - enable WiFi first	AP modu seçildi - önce WiFi'yi açın
+AP mode: %s	AP modu: %s
+ARCHIVED %s\n\n%s\nShort: %s\nID: !%08lX\n\nLast heard: %s\n%s\n\n%sNot on the live list. Restore it to message,\nfavorite or trace it.	ARŞİVLENDİ %s\n\n%s\nKısa: %s\nID: !%08lX\n\nSon duyulma: %s\n%s\n\n%sEtkin listede değil. Mesaj göndermek,\nfavorilere eklemek veya izlemek için geri yükleyin.
+Act	Eylem
+Action Result	Sonuç
+Action: %s	Eylem: %s
+Actions	Eylemler
+All	Tümü
+All live traffic will be erased	Tüm canlı trafik silinecek
+All live traffic will be erased, including lines hidden by the filter	Filtrenin gizlediği satırlar dahil tüm canlı trafik silinecek
+Already %s.	Zaten %s.
+Already on that preset	Zaten o ön ayarda
+Analyzing terrain...	Arazi analiz ediliyor...
+Announce	Duyur
+Antenna: %s	Anten: %s
+Any key / %s = Close	Herhangi bir tuş / %s = Kapat
+Apply	Uygula
+Apr	Nis
+April	Nisan
+Archive Dropped Nodes: %s	Düşen düğümleri arşivle: %s
+Archive Dropped Nodes: %s%s	Düşen düğümleri arşivle: %s%s
+Asks first, then reboots.	Önce sorar, sonra yeniden başlatır.
+Asks first, then reboots. Only nodes on the same preset can hear each other.	Önce sorar, sonra yeniden başlatır. Yalnızca aynı ön ayardaki düğümler birbirini duyar.
+Aug	Ağu
+August	Ağustos
+Auto-update gave up on %s after %u failed installs	Otomatik güncelleme %s için vazgeçti, %u başarısız kurulum sonrası
+BT Keyboard failed to start (low memory)	BT klavye başlatılamadı (az bellek)
+BT Keyboard off	BT klavye kapalı
+BT Keyboard on - connecting to %s	BT klavye açık - %s ile bağlanıyor
+BT Keyboard on - use Pair to choose one	BT klavye açık - Eşleştir ile birini seçin
+BT Keyboard turned off.\n\nWeb Config and the Bluetooth keyboard share one radio and cannot run at the same time.\n\nTurn Web Config off to use the keyboard again.	BT klavye kapatıldı.\n\nWeb yapılandırması ve Bluetooth klavye aynı radyoyu paylaşır ve aynı anda çalışamaz.\n\nKlavyeyi yeniden kullanmak için web yapılandırmasını kapatın.
+BT Keyboard: %s	BT klavye: %s
+BT Keyboard: Off	BT klavye: Kapalı
+Back	Geri
+Back = Cancel	Geri = İptal
+Bass	Bas
+Battery Calibration	Pil kalibrasyonu
+Battery Calibration: %s	Pil kalibrasyonu: %s
+Battery Calibration: Off	Pil kalibrasyonu: Kapalı
+Battery Display: %s	Pil gösterimi: %s
+Battery critical - shedding load	Pil kritik - yük azaltılıyor
+Battery empty	Pil bitti
+Battery low	Pil zayıf
+Battery trim: %s	Pil düzeltmesi: %s
+Battery: %.0f%%\nVoltage: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%	Pil: %.0f%%\nGerilim: %.2f V\nChUtil: %.1f%%\nAirTx: %.1f%%
+Battery\nVoltage\nChUtil\nAirTx\nTemp\nHumidity\nPressure	Pil\nGerilim\nChUtil\nAirTx\nSıcaklık\nNem\nBasınç
+Beacons	İşaretçiler
+Bksp=Back  solid=ChUtil  dash=AirTx	Bksp=Geri  düz=ChUtil  kesikli=AirTx
+Bksp=Back  solid=SNR  dash=RSSI	Bksp=Geri  düz=SNR  kesikli=RSSI
+Bksp=Close	Bksp=Kapat
+Blink Flashes (Channel): %u	Yanıp sönme (kanal): %u
+Blink Flashes (DM): %u	Yanıp sönme (DM): %u
+Blocked @ %.1f km, %dm over sight	%.1f km'de engellendi, görüş hattının %dm üstünde
+Blue	Mavi
+Bluetooth Keyboard	Bluetooth klavye
+Bottom buttons: Chats, DM, Nodes, Tools, Config, Help.	Alt düğmeler: Sohbetler, DM, Düğümler, Araçlar, Yapılandırma, Yardım.
+Bottom buttons: Home, Chats, DM, Nodes, Tools, Config, Help.\nHome is the dashboard; Chats is the messages, and its icon\nblinks when a channel has something unread.	Alt düğmeler: Ana, Sohbetler, DM, Düğümler, Araçlar, Yapılandırma, Yardım.\nAna, paneldir; Sohbetler mesajlardır ve simgesi\nbir kanalda okunmamış bir şey olduğunda yanıp söner.
+Brightness	Parlaklık
+Brightness: %u%%	Parlaklık: %u%%
+Brightness: %u%%  Lock: %u%%	Parlaklık: %u%%  Kilit: %u%%
+Brown	Kahverengi
+Bubbles	Balonlar
+C = Clear   %s = Back	C = Temizle   %s = Geri
+C = Clear   F = Filter	C = Temizle   F = Filtre
+C:Cfg H:Ch D:DM N:Node L:Tools A:Act	C:Yapl H:Kanal D:DM N:Düğüm L:Araç A:Eylem
+CHANNEL UTIL	KANAL KULLANIMI
+CHANNEL UTILIZATION (%)	KANAL KULLANIMI (%)
+Can't resolve the weather server.\nCheck the address and DNS.	Hava durumu sunucusu çözümlenemiyor.\nAdresi ve DNS'i kontrol edin.
+Cancel	İptal
+Cancelled after removing %u file%s. The rest were left alone - run the scan again to see what is still there.	%u dosya%.0s kaldırıldıktan sonra iptal edildi. Geri kalanına dokunulmadı - neyin kaldığını görmek için taramayı yeniden çalıştırın.
+Cannot send: no node id	Gönderilemiyor: düğüm kimliği yok
+Card formatted.\n\nWrite your configuration back to it as /camillia/config.yaml?	Kart biçimlendirildi.\n\nYapılandırmanız /camillia/config.yaml olarak geri yazılsın mı?
+ChUtil  cur %s  avg %.1f%%  max %.1f%%   n=%d\nAirTx   cur %s  avg %.1f%%  max %.1f%%   n=%d	ChUtil  şu an %s  ort %.1f%%  maks %.1f%%   n=%d\nAirTx   şu an %s  ort %.1f%%  maks %.1f%%   n=%d
+ChUtil  cur --  avg --  max --   n=0\nAirTx   cur --  avg --  max --   n=0	ChUtil  şu an --  ort --  maks --   n=0\nAirTx   şu an --  ort --  maks --   n=0
+Channel	Kanal
+Channel %d	Kanal %d
+Channel %d  %s	Kanal %d  %s
+Channel Actions\n%s	Kanal eylemleri\n%s
+Channel Configuration	Kanal yapılandırması
+Channel Key	Kanal anahtarı
+Channel Message LED	Kanal mesajı LED'i
+Channel Message LED: %s	Kanal mesajı LED'i: %s
+Channel Name	Kanal adı
+Channel blink: %u flash%s	Kanal yanıp sönme: %u kez%.0s
+Channel busy (%.0f%%) - not sweeping	Kanal meşgul (%.0f%%) - tarama yok
+Channels	Kanallar
+Chat Colors: %s	Sohbet renkleri: %s
+Chat Names	Sohbette adlar
+Chat Names: %s	Sohbette adlar: %s
+Chat Names: %s%s	Sohbette adlar: %s%s
+Chat Style	Sohbet stili
+Chat Style: %s	Sohbet stili: %s
+Chat Style: %s%s	Sohbet stili: %s%s
+Chat Type	Sohbet türü
+Chat Type: %s	Sohbet türü: %s
+Chat Type: %s%s	Sohbet türü: %s%s
+Chat colors reassigned	Sohbet renkleri yeniden atandı
+Checking %u of %u   %u%%	Denetleniyor %u / %u   %u%%
+Chirpy	Cıvıltı
+Choose WiFi	WiFi seç
+Choose WiFi or Finish	WiFi seçin veya Bitir
+Choose WiFi: %s	WiFi seç: %s
+Choose WiFi: (none)	WiFi seç: (yok)
+Classic	Klasik
+Clear	Temizle
+Clear Messages	Mesajları temizle
+Clear Nodes (All)	Düğümleri temizle (tümü)
+Clear Nodes (Keep Favorites)	Düğümleri temizle (favoriler kalsın)
+Clear by %dm at tightest	En dar noktada %dm açıklık
+Clear entire live feed?	Tüm canlı akış temizlensin mi?
+Cleared %d nodes, kept %d favorites - rebooting...	%d düğüm silindi, %d favori tutuldu - yeniden başlatılıyor...
+Cleared (%d report(s)) - rebuilding from traffic	Temizlendi (%d rapor) - trafikten yeniden oluşturuluyor
+Clock Format: %s	Saat biçimi: %s
+Clock set from web config	Saat web yapılandırmasından ayarlandı
+Clock set: %04d-%02d-%02d %02d:%02d	Saat ayarlandı: %04d-%02d-%02d %02d:%02d
+Close	Kapat
+Configuration	Yapılandırma
+Configuration exported to /camillia/config.yaml.\n\nThe card is formatted and holds nothing else. Chat history, the node database and any map tiles were on the old filesystem and are gone.	Yapılandırma /camillia/config.yaml konumuna aktarıldı.\n\nKart biçimlendirildi ve başka bir şey içermiyor. Sohbet geçmişi, düğüm veritabanı ve harita karoları eski dosya sistemindeydi ve silindi.
+Configured WiFi is empty	Yapılandırılmış WiFi boş
+Confirm Chat Style	Sohbet stilini onayla
+Confirm?	Onaylıyor musunuz?
+Connect	Bağlan
+Connect to WiFi before enabling VNC	VNC'yi açmadan önce WiFi'ye bağlanın
+Connect: %s	Bağlan: %s
+Connecting to %s...	%s ile bağlanılıyor...
+Connecting to broker...	Aracıya bağlanılıyor...
+Connection failed: %s	Bağlantı başarısız: %s
+Conversation deleted	Görüşme silindi
+Conversations	Görüşmeler
+Could not reach the weather server.	Hava durumu sunucusuna ulaşılamadı.
+Could not remove every file. Check storage and retry.	Tüm dosyalar kaldırılamadı. Depolamayı kontrol edip yeniden deneyin.
+Counting files on the card...	Karttaki dosyalar sayılıyor...
+Counting files... %u found	Dosyalar sayılıyor... %u bulundu
+Custom	Özel
+Custom (%u B)	Özel (%u B)
+Cyan	Camgöbeği
+DIRECT MESSAGES	DOĞRUDAN MESAJLAR
+DISTANCE UNKNOWN	MESAFE BİLİNMİYOR
+DM blink: %u flash%s	DM yanıp sönme: %u kez%.0s
+DMs	DM'ler
+Date unavailable	Tarih kullanılamıyor
+Day	Gün
+Dec	Ara
+December	Aralık
+Default	Varsayılan
+Default (%u)	Varsayılan (%u)
+Default +%u	Varsayılan +%u
+Del(e)te	Sil (E)
+Delete	Sil
+Delete WiFi?	WiFi silinsin mi?
+Delete conversation?	Görüşme silinsin mi?
+Delete failed	Silme başarısız
+Delete node?	Düğüm silinsin mi?
+Delivery details not recorded: received before this boot, or too many messages ago.	Teslim ayrıntıları kaydedilmedi: bu açılıştan önce ya da çok fazla mesaj önce alındı.
+Detail Map	Ayrıntılı harita
+Device Info	Cihaz bilgisi
+Device switched off last time: battery empty	Cihaz geçen sefer kapandı: pil bitti
+Direct Message LED	Doğrudan mesaj LED'i
+Direct Message LED: %s	Doğrudan mesaj LED'i: %s
+Discovery	Keşif
+Do not remove the card	Kartı çıkarmayın
+Elevation data too sparse\nfor this path.	Bu yol için yükseklik\nverisi çok seyrek.
+Elevation fetch failed (%d).\nCheck the server URL - it must be http://	Yükseklik alınamadı (%d).\nSunucu URL'sini kontrol edin - http:// olmalı
+Enable WiFi first	Önce WiFi'yi açın
+Enc	Şifre
+Encrypted	Şifreli
+Encryption	Şifreleme
+Enter password, then tap Connect	Parolayı girin, ardından Bağlan'a dokunun
+Enter this node's long name.	Bu düğümün uzun adını girin.
+Enter=Connect  Backspace=Back	Enter=Bağlan  Backspace=Geri
+Enter=Info  A=Actions  Bksp=Edit/Exit  %s=Back	Enter=Bilgi  A=Eylemler  Bksp=Düzenle/Çık  %s=Geri
+Enter=Info  A=Actions  Space=Filter  %s=Back	Enter=Bilgi  A=Eylemler  Space=Filtre  %s=Geri
+Enter=Next	Enter=İleri
+Enter=Next    Bksp(empty)=Back	Enter=İleri    Bksp(boş)=Geri
+Enter=Next   Bksp(empty)=Back	Enter=İleri   Bksp(boş)=Geri
+Enter=OK  %s=Erase/Back	Enter=Tamam  %s=Sil/Geri
+Enter=OK  Bksp=Erase  %s=Back	Enter=Tamam  Bksp=Sil  %s=Geri
+Enter=Save  Tab=Field  %s=Erase/Back	Enter=Kaydet  Tab=Alan  %s=Sil/Geri
+Enter=Send   %s=Cancel	Enter=Gönder   %s=İptal
+Enter=Send  Bksp(empty)=Cancel	Enter=Gönder  Bksp(boş)=İptal
+Enter=Send  Esc=Cancel  Bksp=Del	Enter=Gönder  Esc=İptal  Bksp=Sil
+Environment	Ortam
+Errors	Hatalar
+Examined %u file%s. Nothing matching Windows malware was found.\n\nThis reads names and file headers, not contents, so it is a good sign rather than a guarantee.	%u dosya%.0s incelendi. Windows kötü amaçlı yazılımına benzeyen bir şey bulunmadı.\n\nİçerik değil adlar ve dosya başlıkları okunur; bu bir garanti değil, iyi bir işarettir.
+Export Config	Yapılandırmayı dışa aktar
+Export FAILED (no SD?)	Dışa aktarma BAŞARISIZ (SD yok mu?)
+Export FAILED. The card formatted, but the configuration could not be written back to it - try Export from the Config screen.	Dışa aktarma BAŞARISIZ. Kart biçimlendirildi ancak yapılandırma geri yazılamadı - Yapılandırma ekranından Dışa Aktar'ı deneyin.
+Exported to /camillia/config.yaml	/camillia/config.yaml konumuna aktarıldı
+Extra Large	Çok büyük
+Factory Reset	Fabrika ayarlarına sıfırla
+Factory reset - rebooting...	Fabrika ayarları - yeniden başlatılıyor...
+Favorite	Favori
+Feb	Şub
+February	Şubat
+Feels %d%s   Hum %d%%\nWind %d %s %s\nGusting %d %s	His %d%s   Nem %d%%\nRüzgar %d %s %s\nEsinti %d %s
+Feels like   %d%s\nHumidity     %d%%\nWind         %d %s from %s\nGusting      %d %s	Hissedilen   %d%s\nNem          %d%%\nRüzgar       %d %s yön %s\nEsinti       %d %s
+Fetching...	Alınıyor...
+Filter	Filtre
+Filter Nodes	Düğümleri filtrele
+Filter: %s	Filtre: %s
+Finish	Bitir
+Firmware Update	Donanım yazılımı güncellemesi
+Firmware Update Check	Donanım yazılımı güncelleme denetimi
+Firmware Update: Install %s	Donanım yazılımı güncellemesi: %s kur
+Font Size	Yazı boyutu
+Font Size: %s	Yazı boyutu: %s
+Font Size: %s%s	Yazı boyutu: %s%s
+Forget	Unut
+Format FAILED, and the card could not be remounted.\n\nReboot the device, or format the card on a PC.	Biçimlendirme BAŞARISIZ ve kart yeniden bağlanamadı.\n\nCihazı yeniden başlatın veya kartı bir bilgisayarda biçimlendirin.
+Format FAILED. The card was left as it was and is still mounted.\n\nFormatting it on a PC is the reliable way out.	Biçimlendirme BAŞARISIZ. Kart olduğu gibi bırakıldı ve hâlâ bağlı.\n\nBir bilgisayarda biçimlendirmek güvenilir çözümdür.
+Format the SD card?\n\nThis erases EVERYTHING on it - chat and DM history, the node database, map tiles and your saved configuration - not just the files the scan matched.\n\nIt cannot be undone.	SD kart biçimlendirilsin mi?\n\nBu, üzerindeki HER ŞEYİ siler - sohbet ve DM geçmişi, düğüm veritabanı, harita karoları ve kayıtlı yapılandırmanız - yalnızca taramanın bulduğu dosyaları değil.\n\nGeri alınamaz.
+Formatting SD Card	SD kart biçimlendiriliyor
+Found %d network(s)	%d ağ bulundu
+Found %u file%s matching Windows malware:\n	%u dosya%.0s Windows kötü amaçlı yazılımına benziyor:\n
+Freq: %.3f MHz	Frek: %.3f MHz
+Fri	Cum
+From: %s	Gönderen: %s
+Full node name when known	Biliniyorsa tam düğüm adı
+GPS disabled (using default coordinates)	GPS kapalı (varsayılan koordinatlar)
+GPS enabled (hardware)	GPS açık (donanım)
+GPS: Disabled (Default Coords)	GPS: Kapalı (varsayılan koord.)
+GPS: Enabled (Hardware)	GPS: Açık (donanım)
+Gateway: not known	Ağ geçidi: bilinmiyor
+Grazes terrain - F1=%dm	Araziyi sıyırıyor - F1=%dm
+Green	Yeşil
+HEARD ABOUT	BAŞKALARINCA BİLDİRİLEN
+Heard %s ago   %u seen, ~%s apart	%s önce duyuldu   %u görüldü, ~%s arayla
+Heard %s ago   1 seen	%s önce duyuldu   1 görüldü
+Help	Yardım
+High	Yüksek
+Hops	Atlamalar
+Hops: %d of %d	Atlamalar: %d / %d
+Hour	Saat
+I(g)nore	Yoksay (G)
+Identity	Kimlik
+Ignore	Yoksay
+Import Config	Yapılandırmayı içe aktar
+Import FAILED (no file?)	İçe aktarma BAŞARISIZ (dosya yok mu?)
+Import failed - enter a name	İçe aktarma başarısız - bir ad girin
+Imported OK - rebooting...	İçe aktarma tamam - yeniden başlatılıyor...
+Indigo	Çivit
+Info	Bilgi
+Install now? The device reboots to update.	Şimdi kurulsun mu? Cihaz güncellemek için yeniden başlar.
+Invalid base64 key	Geçersiz base64 anahtarı
+Invalid date/time	Geçersiz tarih/saat
+Invert Scrolling: %s	Ters kaydırma: %s
+J/K = Scroll   %s = Close	J/K = Kaydır   %s = Kapat
+J/K = Scroll   Bksp = Close	J/K = Kaydır   Bksp = Kapat
+J/K = Select   Space = Compose   Enter = Focus   D = Delete	J/K = Seç   Space = Yaz   Enter = Odak   D = Sil
+Jan	Oca
+January	Ocak
+Jul	Tem
+July	Temmuz
+Jun	Haz
+June	Haziran
+Just announced. Try again in %us.	Az önce duyuruldu. %us sonra yeniden deneyin.
+Key	Anahtar
+Keyboard Blink: %s	Klavye yanıp sönme: %s
+Keyboard Light	Klavye ışığı
+Keyboard Light: %s	Klavye ışığı: %s
+Keyboard blink: %s	Klavye yanıp sönme: %s
+Keyboard light %s	Klavye ışığı %s
+Keyboard light %s - after a power cycle	Klavye ışığı %s - güç kapatılıp açıldıktan sonra
+Keyboard light off	Klavye ışığı kapalı
+L/R=Change   Enter=Save   %s=Back	S/S=Değiştir   Enter=Kaydet   %s=Geri
+LINE OF SIGHT	GÖRÜŞ HATTI
+LIVE	CANLI
+LONGEST SILENT	EN UZUN SESSİZ
+Landscape	Yatay
+Language	Dil
+Language: %s	Dil: %s
+Large	Büyük
+Last heard	Son duyulma
+Last heard\nSNR\nHops\nChannel\nSigned	Son duyulma\nSNR\nAtlamalar\nKanal\nİmzalı
+Leave blank to clear	Temizlemek için boş bırakın
+Light reminds for %s	Işık %s boyunca hatırlatır
+Light reminds until read	Işık okunana kadar hatırlatır
+Lime	Limon yeşili
+Link	Bağlantı
+Listening   %d sender%s heard	Dinleniyor   %d gönderici%.0s duyuldu
+Listening: off	Dinleme: kapalı
+Live	Canlı
+Live Filter	Canlı filtre
+Live feed cleared	Canlı akış temizlendi
+Loading map...	Harita yükleniyor...
+Loc	Konum
+Locate	Konum bul
+Locate: %s	Konum bul: %s
+Location	Konum
+Location Precision	Konum hassasiyeti
+Location Precision: %s	Konum hassasiyeti: %s
+Location rounded to %s	Konum %s değerine yuvarlandı
+Location sent exactly	Konum tam olarak gönderildi
+Location sharing off (no position sent)	Konum paylaşımı kapalı (konum gönderilmiyor)
+Location sharing on	Konum paylaşımı açık
+Location: %s	Konum: %s
+Lock Screen Off	Kilitte ekran kapalı
+Lock Screen Off: %s	Kilitte ekran kapalı: %s
+Lock Screen: %s	Kilit ekranı: %s
+Lock screen	Kilit ekranı
+Lock screen stays on	Kilit ekranı açık kalır
+Long	Uzun
+Long name	Uzun ad
+Long name cannot be empty	Uzun ad boş olamaz
+Long name: %s\nEnter a short name (up to 4 chars).	Uzun ad: %s\nKısa bir ad girin (en fazla 4 karakter).
+Long: %s	Uzun: %s
+Looking for keyboards...	Klavyeler aranıyor...
+Low	Düşük
+ME (ACK)	BEN (ACK)
+MQTT Bridge: %s	MQTT köprüsü: %s
+MQTT Bridge: %s - rebooting...	MQTT köprüsü: %s - yeniden başlatılıyor...
+MQTT Bridge: Off (WiFi off)	MQTT köprüsü: Kapalı (WiFi kapalı)
+MQTT Scan Settings	MQTT tarama ayarları
+MQTT bridge is off	MQTT köprüsü kapalı
+Map (loading)	Harita (yükleniyor)
+Map (off)	Harita (kapalı)
+Map memory unavailable	Harita için bellek yok
+Map unavailable	Harita kullanılamıyor
+March	Mart
+Match the voltage to a meter reading.\nPercent comes from the fuel gauge and does not change.	Gerilimi bir ölçüm cihazının okumasına eşitleyin.\nYüzde şarj göstergesinden gelir ve değişmez.
+Match the voltage to a meter reading.\nPercent follows it. 0% = uncalibrated.	Gerilimi bir ölçüm cihazının okumasına eşitleyin.\nYüzde onu izler. 0% = kalibre edilmemiş.
+Medium	Orta
+Mesh Beacons is off.\n\nTurn it on in Config (or under Modules in web config) to decode beacons from other meshes. Receive-only: nothing is transmitted, and an offer is never applied to your radio.	Ağ işaretçileri kapalı.\n\nDiğer ağların işaretçilerini çözmek için Yapılandırma'dan (veya web yapılandırmasında Modüller altından) açın. Yalnızca alım: hiçbir şey gönderilmez ve bir teklif asla radyonuza uygulanmaz.
+Mesh Beacons: %s	Ağ işaretçileri: %s
+Mesh beacons: %s	Ağ işaretçileri: %s
+Message (I)nfo	Mesaj b(i)lgisi
+Message Actions	Mesaj eylemleri
+Message Info	Mesaj bilgisi
+Messages	Mesajlar
+Messages cleared - rebooting...	Mesajlar temizlendi - yeniden başlatılıyor...
+Metric	Metrik
+Minute	Dakika
+Modem preset	Modem ön ayarı
+Mon	Pzt
+Month	Ay
+Move  Enter=Apply  %s=Back	Taşı  Enter=Uygula  %s=Geri
+Move  Enter=Apply  %s=Cancel	Taşı  Enter=Uygula  %s=İptal
+Move  Enter=Change  %s=Cancel	Taşı  Enter=Değiştir  %s=İptal
+Move  Enter=Edit  %s=Back	Taşı  Enter=Düzenle  %s=Geri
+Move  Enter=OK  %s=Cancel	Taşı  Enter=Tamam  %s=İptal
+Move  Enter=Open  %s=Back	Taşı  Enter=Aç  %s=Geri
+Move  Enter=Pick  %s=Back	Taşı  Enter=Seç  %s=Geri
+Move  Enter=Scan  %s=Cancel	Taşı  Enter=Tara  %s=İptal
+Move • Enter=Add • %s=Close	Taşı • Enter=Ekle • %s=Kapat
+Move • Enter=Insert • %s=Close	Taşı • Enter=Yerleştir • %s=Kapat
+Move • Enter=React • %s=Close	Taşı • Enter=Tepki ver • %s=Kapat
+Move • Enter=Send • %s=Close	Taşı • Enter=Gönder • %s=Kapat
+Move=Adjust  Enter=Save  %s=Cancel	Taşı=Ayarla  Enter=Kaydet  %s=İptal
+Move=Adjust  Space=Toggle  Enter=Save  %s=Cancel	Taşı=Ayarla  Space=Değiştir  Enter=Kaydet  %s=İptal
+Move=Preview  Enter=OK  %s=Cancel	Taşı=Önizle  Enter=Tamam  %s=İptal
+My Message Color	Mesajlarımın rengi
+My Message Color: %s	Mesajlarımın rengi: %s
+My Message Color: %s (unchanged)	Mesajlarımın rengi: %s (değişmedi)
+My Message Color: %s - rebooting...	Mesajlarımın rengi: %s - yeniden başlatılıyor...
+N=Choose WiFi   Enter=Finish   Bksp=Back	N=WiFi seç   Enter=Bitir   Bksp=Geri
+NO LINE OF SIGHT	GÖRÜŞ HATTI YOK
+NODEINFO + telemetry queued.	NODEINFO + telemetri kuyruğa alındı.
+NODES	DÜĞÜMLER
+NODES (%d%s)	DÜĞÜMLER (%d%s)
+NODES [%s] (%d%s)	DÜĞÜMLER [%s] (%d%s)
+Name	Ad
+Name: %s\nShort: %s\nID: !%08X\nLast heard: %s\nSNR: %.1f dB\nHops: %u\nChannel: %d\n\nPosition:\n%s\n\nTelemetry:\n%s	Ad: %s\nKısa: %s\nID: !%08X\nSon duyulma: %s\nSNR: %.1f dB\nAtlamalar: %u\nKanal: %d\n\nKonum:\n%s\n\nTelemetri:\n%s
+Name\nShort\nID	Ad\nKısa\nID
+Nav Bar: %s	Gezinme çubuğu: %s
+Neighborhood Info: %s	Komşuluk bilgisi: %s
+Neighborhood info: %s	Komşuluk bilgisi: %s
+Never	Asla
+New	Yeni
+New DM	Yeni DM
+New DM: Select Node	Yeni DM: düğüm seçin
+New DM: Select Node [%s]	Yeni DM: düğüm seçin [%s]
+New Message	Yeni mesaj
+Newest: %s %s	En yeni: %s %s
+Newest: none heard yet	En yeni: henüz kimse duyulmadı
+Next	İleri
+No %s - not saved	%s yok - kaydedilmedi
+No %s - not saving	%s yok - kaydedilmiyor
+No %s traffic yet\n(filter is on - %s)	Henüz %s trafiği yok\n(filtre açık - %s)
+No S&F router heard yet	Henüz S&F yönlendiricisi duyulmadı
+No SD card is mounted.	Bağlı SD kart yok.
+No WiFi network configured	Yapılandırılmış WiFi ağı yok
+No beacons heard yet.\n\nA beacon is only audible while its sender has retuned onto this channel, preset and region, and it repeats on that node's own schedule - minutes to hours apart. This list keeps what it hears until you clear it.	Henüz işaretçi duyulmadı.\n\nBir işaretçi yalnızca göndericisi bu kanala, ön ayara ve bölgeye geçmişken duyulur ve o düğümün kendi takvimine göre tekrarlanır - dakikalar ile saatler arası aralıklarla. Bu liste, siz temizleyene kadar duyduklarını tutar.
+No elevation server set.\nWeb Config -> Elevation Server (LOS)	Yükseklik sunucusu ayarlanmadı.\nWeb yapl. -> Elevation Server (LOS)
+No hop path in reply	Yanıtta atlama yolu yok
+No keyboards found yet.\n\nPut the keyboard into pairing mode, then press Scan.\n\nOnly Bluetooth LE keyboards can pair - this hardware has no Bluetooth Classic radio.	Henüz klavye bulunamadı.\n\nKlavyeyi eşleştirme moduna alın, ardından Tara'ya basın.\n\nYalnızca Bluetooth LE klavyeler eşleştirilebilir - bu donanımda Bluetooth Classic radyosu yok.
+No known nodes yet	Henüz bilinen düğüm yok
+No live traffic yet	Henüz canlı trafik yok
+No matches for: %s	Sonuç yok: %s
+No messages yet	Henüz mesaj yok
+No network in that slot	O yuvada ağ yok
+No network selected	Ağ seçilmedi
+No networks found	Ağ bulunamadı
+No new messages	Yeni mesaj yok
+No nodes seen	Görülen düğüm yok
+No nodes seen yet.	Henüz düğüm görülmedi.
+No position data	Konum verisi yok
+No position recorded	Kayıtlı konum yok
+No position yet.\nNeeds a GPS fix or a set location.	Henüz konum yok.\nGPS konum tespiti veya ayarlanmış bir konum gerekli.
+No release notes in this build.	Bu derlemede sürüm notu yok.
+No reply (%lus)	Yanıt yok (%lus)
+No result details available.	Ayrıntı yok.
+No telemetry data	Telemetri verisi yok
+No weather server set.\nWeb Config -> Weather Server	Hava durumu sunucusu ayarlanmadı.\nWeb yapl. -> Weather Server
+Node Actions	Düğüm eylemleri
+Node DB cleared - rebooting...	Düğüm veritabanı temizlendi - yeniden başlatılıyor...
+Node ID: !%08lx	Düğüm kimliği: !%08lx
+Node Name	Düğüm adı
+Node Name: %s (%s)	Düğüm adı: %s (%s)
+Node Name: %s (%s)%s	Düğüm adı: %s (%s)%s
+Node id: !%08lx	Düğüm kimliği: !%08lx
+Node info	Düğüm bilgisi
+Nodes and SD archive cleared - rebooting...	Düğümler ve SD arşivi temizlendi - yeniden başlatılıyor...
+None	Yok
+Not counting - out of memory	Sayılmıyor - bellek yetersiz
+Not enough free heap to hold the topic table.\n\nClose a few screens (or reboot) and try again.	Konu tablosu için yeterli boş bellek yok.\n\nBirkaç ekranı kapatın (veya yeniden başlatın) ve yeniden deneyin.
+Nothing heard yet	Henüz hiçbir şey duyulmadı
+Nothing recorded yet - nothing to send	Henüz hiçbir şey kaydedilmedi - gönderilecek bir şey yok
+Nothing was removed. The files may have gone already, or the card may be write-protected.	Hiçbir şey kaldırılmadı. Dosyalar zaten gitmiş olabilir ya da kart yazmaya karşı korumalı olabilir.
+Notification Light Timeout	Bildirim ışığı süresi
+Notification Light Timeout: %s	Bildirim ışığı süresi: %s
+Notification Sound	Bildirim sesi
+Notification Sound: %s	Bildirim sesi: %s
+Notification sound: %s	Bildirim sesi: %s
+Nov	Kas
+November	Kasım
+OFF	KAPALI
+OTA disabled on Cardputer build	Cardputer derlemesinde OTA devre dışı
+OTA needs the factory image (flash layout)	OTA fabrika görüntüsüne ihtiyaç duyar (flash düzeni)
+OTA request failed (NVS write). Retry.	OTA isteği başarısız (NVS yazma). Yeniden deneyin.
+OTA worker completed. Check status.	OTA tamamlandı. Durumu kontrol edin.
+Oct	Eki
+October	Ekim
+Off	Kapalı
+Offers: %s	Teklifler: %s
+Old Map Files Found	Eski harita dosyaları bulundu
+Oldest: %s %s	En eski: %s %s
+Oldest: none heard yet	En eski: henüz kimse duyulmadı
+On	Açık
+On (global off)	Açık (genel kapalı)
+On (listening)	Açık (dinliyor)
+Open network (leave blank)	Açık ağ (boş bırakın)
+Optional WiFi setup.\nNo network selected.\nChoose WiFi now or finish without WiFi.	İsteğe bağlı WiFi kurulumu.\nAğ seçilmedi.\nŞimdi WiFi seçin veya WiFi olmadan bitirin.
+Optional WiFi setup.\nSelected: %s\nChoose a different network or finish.	İsteğe bağlı WiFi kurulumu.\nSeçilen: %s\nBaşka bir ağ seçin veya bitirin.
+Orange	Turuncu
+Orientation: %s	Yön: %s
+Other	Diğer
+Outline	Anahat
+PKI key: %s	PKI anahtarı: %s
+PSRAM free: %lu KB\nPSRAM total: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	Boş PSRAM: %lu KB\nToplam PSRAM: %lu KB\nFlash: %lu KB\nSketch: %lu KB\nUygulama için boş: %lu KB
+PSRAM: none\nFlash: %lu KB\nSketch: %lu KB\nApp free: %lu KB	PSRAM: yok\nFlash: %lu KB\nSketch: %lu KB\nUygulama için boş: %lu KB
+Pair	Eşleştir
+Pair BT Keyboard: %s	BT klavye eşleştir: %s
+Pair BT Keyboard: (none)	BT klavye eşleştir: (yok)
+Percent	Yüzde
+Pink	Pembe
+Please re-flash from Camillia's website for language support.	Dil desteği için lütfen Camillia'nın web sitesinden yeniden yükleyin.
+Portrait	Dikey
+Portrait 180	Dikey 180
+Position	Konum
+Precise	Tam
+Preparing state maps...	Bölge haritaları hazırlanıyor...
+Preset	Ön ayar
+Preset (%s)	Ön ayar (%s)
+Preset already %s.	Ön ayar zaten %s.
+Preset scan already running	Ön ayar taraması zaten çalışıyor
+Preset: %s	Ön ayar: %s
+Preset: %s - rebooting...	Ön ayar: %s - yeniden başlatılıyor...
+Public key preserved\n\n	Açık anahtar korundu\n\n
+Purple	Mor
+Pwr %d dBm Hops %d	Güç %d dBm Atlama %d
+R=Refresh  %s=Back	R=Yenile  %s=Geri
+RECENTLY HEARD	YAKINDA DUYULAN
+Radio busy - retry in %lus	Radyo meşgul - %lus sonra yeniden
+Radio not ready	Radyo hazır değil
+Re(q)uest Node	Düğüm iste (Q)
+Ready	Hazır
+Rebooting into OTA minimal mode...	OTA minimal modunda yeniden başlatılıyor...
+Received over: %s %s	Alındığı yol: %s %s
+Red	Kırmızı
+Relayed to us by: %s	Aktaran: %s
+Relayed to us by: %s (from MQTT)	Aktaran: %s (MQTT'den)
+Relayed to us by: nobody, heard directly	Aktaran: kimse, doğrudan duyuldu
+Relayed to us by: not reported by the relaying node	Aktaran: aktarıcı düğüm bildirmedi
+Relayed to us by: the sender itself	Aktaran: göndericinin kendisi
+Relayed: %lu	Aktarılan: %lu
+Release Channel: %s - checking...	Sürüm kanalı: %s - denetleniyor...
+Release Channel: %s%s	Sürüm kanalı: %s%s
+Release Notes	Sürüm notları
+Release Notes  %s	Sürüm notları  %s
+Remove	Kaldır
+Removed %s	%s kaldırıldı
+Removed %s - no networks left, AP mode	%s kaldırıldı - ağ kalmadı, AP modu
+Removed %s - now %s	%s kaldırıldı - şimdi %s
+Removed %u file%s. %u could not be deleted - the card may be write-protected.\n\nRe-run the scan to check.	%u dosya%.0s kaldırıldı. %u silinemedi - kart yazmaya karşı korumalı olabilir.\n\nKontrol için taramayı yeniden çalıştırın.
+Removed %u file%s.\n\nThis card looked clean afterwards, but the scan reads names and headers, not contents - it cannot promise the card is clean. Reformatting is the only answer that can.	%u dosya%.0s kaldırıldı.\n\nKart sonrasında temiz göründü, ancak tarama içerik değil ad ve başlık okur - kartın temiz olduğunu garanti edemez. Bunu yalnızca yeniden biçimlendirme sağlar.
+Removing Files	Dosyalar kaldırılıyor
+Removing legacy maps...	Eski haritalar kaldırılıyor...
+Replay already requested	Yeniden oynatma zaten istendi
+Replay not sent: %s	Yeniden oynatma gönderilmedi: %s
+Replay requested (last %lu min)	Yeniden oynatma istendi (son %lu dk)
+Reply	Yanıtla
+Reply from %s	%s kaynağından yanıt
+Reply from %s (%lus)	%s kaynağından yanıt (%lus)
+Request (P)osition	Konum iste (P)
+Request Node	Düğüm iste
+Request Position	Konum iste
+Request S&F Replay (%s)	S&F yeniden oynatma iste (%s)
+Request S&F Replay (no router)	S&F yeniden oynatma iste (yönlendirici yok)
+Requested (last %lu min)	İstendi (son %lu dk)
+Rescan	Yeniden tara
+Reset	Sıfırla
+Reset Chat Colors	Sohbet renklerini sıfırla
+Reset to Default	Varsayılana dön
+Restore failed: every slot is favorited, so there is no room. Unfavorite a node and try again.	Geri yükleme başarısız: tüm yuvalar favori, yer yok. Bir düğümü favorilerden çıkarıp yeniden deneyin.
+Restore failed: the archived record could not be read.	Geri yükleme başarısız: arşivlenen kayıt okunamadı.
+Restore node?	Düğüm geri yüklensin mi?
+Role: %s%s	Rol: %s%s
+S(h)are	Paylaş (H)
+SD Card Format	SD kart biçimlendirme
+SD Card Scan	SD kart taraması
+SD scan cancelled	SD taraması iptal edildi
+SD: %s, %s, %u fails	SD: %s, %s, %u hata
+SD: no card	SD: kart yok
+SNR   cur %s  avg %.1fdB  min %.1f  max %.1f   n=%d\nRSSI  cur %s  avg %.0fdBm min %.0f  max %.0f   n=%d	SNR   şu an %s  ort %.1fdB  min %.1f  maks %.1f   n=%d\nRSSI  şu an %s  ort %.0fdBm min %.0f  maks %.0f   n=%d
+SNR   cur --  avg --  min --  max --   n=0\nRSSI  cur --  avg --  min --  max --   n=0	SNR   şu an --  ort --  min --  maks --   n=0\nRSSI  şu an --  ort --  min --  maks --   n=0
+Sat	Cmt
+Save	Kaydet
+Save failed - cannot write %s	Kaydetme başarısız - %s konumuna yazılamıyor
+Save failed - too many this second	Kaydetme başarısız - bu saniyede çok fazla
+Save while discovering	Keşif sırasında kaydet
+Save while scanning	Tarama sırasında kaydet
+Saved %s	%s kaydedildi
+Saved: %s	Kaydedildi: %s
+Scan	Tara
+Scan %s	Tarama %s
+Scan %s - saved %s	Tarama %s - kaydedildi %s
+Scan Networks	Ağları tara
+Scan SD Card for Malware%s	SD kartta kötü amaçlı yazılım tara%s
+Scan a preset	Bir ön ayarı tara
+Scan cancelled	Tarama iptal edildi
+Scan failed - Rescan to try again	Tarama başarısız - yeniden tarayın
+Scan send failed	Tarama gönderimi başarısız
+Scanning %s %s/%s	Taranıyor %s %s/%s
+Scanning %s...	Taranıyor %s...
+Scanning SD Card	SD kart taranıyor
+Scanning WiFi networks...	WiFi ağları taranıyor...
+Screen	Ekran
+Screen Timeout	Ekran zaman aşımı
+Screen Timeout: %s	Ekran zaman aşımı: %s
+Screen off after %s on lock	Kilitte %s sonra ekran kapanır
+Screen orientation	Ekran yönü
+Screen sleeps after %s	Ekran %s sonra uyur
+Screen stays on	Ekran açık kalır
+Select a conversation	Bir görüşme seçin
+Select this node's role.	Bu düğümün rolünü seçin.
+Select your radio region/preset.	Radyonuzun bölgesini/ön ayarını seçin.
+Selection settling - press Enter again	Seçim oturuyor - Enter'a yeniden basın
+Sen(d) DM	DM gönder (D)
+Send	Gönder
+Send DM	DM gönder
+Send failed	Gönderim başarısız
+Send to channel?	Kanala gönderilsin mi?
+Send top 5 to	İlk 5'i gönder
+Sending request...	İstek gönderiliyor...
+Sent by this node.	Bu düğüm tarafından gönderildi.
+Sent to %s	%s konumuna gönderildi
+Sent. Waiting for route ACK...	Gönderildi. Rota ACK'si bekleniyor...
+Sep	Eyl
+September	Eylül
+Server answered, but not with\nelevation data. Check the proxy\npoints at the elevation service.	Sunucu yanıt verdi ancak\nyükseklik verisiyle değil. Proxy'nin\nyükseklik hizmetini gösterdiğini kontrol edin.
+Server answered, but not with\nweather data. Check the proxy.	Sunucu yanıt verdi ancak\nhava durumu verisiyle değil. Proxy'yi kontrol edin.
+Set message colour to %s and reboot?	Mesaj rengi %s yapılıp yeniden başlatılsın mı?
+Share	Paylaş
+Share Location: %s	Konum paylaş: %s
+Short	Kısa
+Short name	Kısa ad
+Short name cannot be empty	Kısa ad boş olamaz
+Short: %s	Kısa: %s
+Show Archived Nodes: %s	Arşivlenen düğümleri göster: %s
+Show Archived Nodes: %s%s	Arşivlenen düğümleri göster: %s%s
+Signal: SNR %.1f dB, RSSI %.0f dBm	Sinyal: SNR %.1f dB, RSSI %.0f dBm
+Silver	Gümüş
+Sky	Gök mavisi
+Small	Küçük
+Source	Kaynak
+Splash Melody: %s	Açılış melodisi: %s
+Splash melody: %s	Açılış melodisi: %s
+Stale - 	Eski -
+State Map	Bölge haritası
+State map disabled	Bölge haritası devre dışı
+State map unavailable	Bölge haritası kullanılamıyor
+Stay on	Hep açık
+Storage: %s %s	Depolama: %s %s
+Storage: %s (not mounted)	Depolama: %s (bağlı değil)
+Store&Fwd Client: %s	Store&Fwd istemcisi: %s
+Store&Fwd client is off	Store&Fwd istemcisi kapalı
+Sun	Paz
+Sweep	Tarama
+Sweep already running	Tarama zaten çalışıyor
+Sweep cancelled	Tarama iptal edildi
+Sweep done: %d new (%lus)	Tarama bitti: %d yeni (%lus)
+Sweep send failed	Tarama gönderimi başarısız
+Sweep/Scan Settings	Tarama ayarları
+Sweeping...	Taranıyor...
+Sweeping... %s/%s	Taranıyor... %s/%s
+Switch to %s and reboot?	%s seçeneğine geçilip yeniden başlatılsın mı?
+Switch to theme %s and reboot?	%s temasına geçilip yeniden başlatılsın mı?
+Switching to external can damage the radio if the antenna is not attached.  Please attach the external antenna before pressing Yes	Harici antene geçmek, anten takılı değilse radyoya zarar verebilir.  Evet'e basmadan önce lütfen harici anteni takın
+System Stats	Sistem istatistikleri
+Tall	Uzun
+Tall, turned 180	Uzun, 180 döndürülmüş
+Tap = Open   Long-press 3s = Delete   DM below = Back	Dokun = Aç   3 sn basılı tut = Sil   Aşağıda DM = Geri
+Tap Next to continue	Devam etmek için İleri'ye dokunun
+Tap Next to continue, or Back	Devam etmek için İleri'ye ya da Geri'ye dokunun
+Tap a channel	Bir kanala dokunun
+Tap a channel to edit	Düzenlemek için bir kanala dokunun
+Tap a field to change it	Değiştirmek için bir alana dokunun
+Tap a field to edit, then Save	Bir alana dokunun, düzenleyin, sonra Kaydedin
+Tap a node for actions   Nodes below = Back	Eylemler için bir düğüme dokunun   Aşağıda Düğümler = Geri
+Tap a node to start a DM	DM başlatmak için bir düğüme dokunun
+Tap a preset to apply.	Uygulamak için bir ön ayara dokunun.
+Tap a preset, then Scan	Bir ön ayara dokunun, sonra Tara
+Tap a size to apply	Uygulamak için bir boyuta dokunun
+Tap one to apply.	Uygulamak için birine dokunun.
+Tap to preview	Önizlemek için dokunun
+Teal	Deniz mavisi
+Telemetry	Telemetri
+Temp: %.1f C\nHumidity: %.1f%%\nPressure: %.1f hPa	Sıcaklık: %.1f C\nNem: %.1f%%\nBasınç: %.1f hPa
+Temp: %.1f F\nHumidity: %.1f%%\nPressure: %.2f inHg	Sıcaklık: %.1f F\nNem: %.1f%%\nBasınç: %.2f inHg
+Text	Metin
+The card was formatted but could not be remounted. Reboot the device and it should come up clean.	Kart biçimlendirildi ancak yeniden bağlanamadı. Cihazı yeniden başlatın; temiz açılması gerekir.
+Theme	Tema
+Theme: %s	Tema: %s
+Theme: %s (unchanged)	Tema: %s (değişmedi)
+Theme: %s - rebooting...	Tema: %s - yeniden başlatılıyor...
+These files are not used by the new tile map. Remove them to reclaim storage?	Bu dosyalar yeni karo haritası tarafından kullanılmıyor. Yer açmak için kaldırılsın mı?
+This node	Bu düğüm
+This node has no position yet.\nNeeds a GPS fix or a set location.	Bu düğümün henüz konumu yok.\nGPS konum tespiti veya ayarlanmış bir konum gerekli.
+Thu	Per
+Time and Date	Saat ve tarih
+Time and Date: %s	Saat ve tarih: %s
+Time source: Internet / GPS	Saat kaynağı: İnternet / GPS
+To close hit backspace.  (I)nformation	Kapatmak için backspace'e basın.  (I) Bilgi
+Tools	Araçlar
+Touch Navigation:	Dokunmatik gezinme:
+Transport Symbols:\n%s Radio Transmission\n%s MQTT Transmission	Aktarım simgeleri:\n%s Radyo iletimi\n%s MQTT iletimi
+Tue	Sal
+Turn BT Keyboard on first	Önce BT klavyeyi açın
+Turn MQTT Bridge %s and reboot?	MQTT köprüsü %s yapılıp yeniden başlatılsın mı?
+Type = Filter   Bksp = Edit Filter   Enter = Open DM   Esc = Back	Yaz = Filtre   Bksp = Filtreyi düzenle   Enter = DM aç   Esc = Geri
+Type = Filter   Bksp = Edit/Close Filter   Enter = Open DM	Yaz = Filtre   Bksp = Filtreyi düzenle/kapat   Enter = DM aç
+Type = Filter   Enter = Open DM   Bksp = Back	Yaz = Filtre   Enter = DM aç   Bksp = Geri
+Type = Filter   Enter = Open DM   Esc = Back	Yaz = Filtre   Enter = DM aç   Esc = Geri
+Type message...	Mesaj yazın...
+Type to filter nodes	Düğümleri filtrelemek için yazın
+Type, then tap OK	Yazın, sonra Tamam'a dokunun
+Type=Filter  Enter=Done  Bksp=Edit/Exit  %s=Back	Yaz=Filtre  Enter=Bitti  Bksp=Düzenle/Çık  %s=Geri
+Un(f)avorite	Favoriden çıkar (F)
+Un(m)ute	Sesi aç (M)
+Unfavorite	Favoriden çıkar
+Uni(g)nore	Yoksaymayı bırak (G)
+Unignore	Yoksaymayı bırak
+Units: %s	Birimler: %s
+Unknown	Bilinmiyor
+Until read	Okunana kadar
+Up to date (%s)	Güncel (%s)
+Up/Down	Yukarı/Aşağı
+Up/Down = Select   Space = Compose   Enter = Focus   %s = Delete   %s = Back	Yukarı/Aşağı = Seç   Space = Yaz   Enter = Odak   %s = Sil   %s = Geri
+Up/Down = Select   Space = Compose   Enter = Focus   D = Delete	Yukarı/Aşağı = Seç   Space = Yaz   Enter = Odak   D = Sil
+Up/Down/J/K = Scroll   %s = Close	Yukarı/Aşağı/J/K = Kaydır   %s = Kapat
+Up/Down/J/K = Scroll   Bksp = Close	Yukarı/Aşağı/J/K = Kaydır   Bksp = Kapat
+Up/Down=Change  Enter=Save  %s=Cancel	Yukarı/Aşağı=Değiştir  Enter=Kaydet  %s=İptal
+Up/Down=Select  Left/Right=Change  Enter=Save  %s=Cancel	Yukarı/Aşağı=Seç  Sol/Sağ=Değiştir  Enter=Kaydet  %s=İptal
+Update	Güncelleme
+Update check failed: %s	Güncelleme denetimi başarısız: %s
+Update check needs WiFi connected	Güncelleme denetimi için WiFi bağlı olmalı
+Update check needs WiFi on	Güncelleme denetimi için WiFi açık olmalı
+Update check skipped (a dialog was open)	Güncelleme denetimi atlandı (bir iletişim kutusu açıktı)
+Uplinked by: %s	MQTT'ye gönderen: %s
+Uplinked by: the sender itself	MQTT'ye gönderen: göndericinin kendisi
+Use arrows to choose, then tap Next	Oklarla seçin, sonra İleri'ye dokunun
+Used: %lu KB (%lu%%)\nTotal: %lu KB\nFree: %lu KB\nMin free: %lu KB\nMax block: %lu KB	Kullanılan: %lu KB (%lu%%)\nToplam: %lu KB\nBoş: %lu KB\nEn az boş: %lu KB\nEn büyük blok: %lu KB
+VIA MQTT	MQTT ÜZERİNDEN
+VNC Host failed to allocate PSRAM	VNC Host PSRAM ayıramadı
+VNC Host off	VNC Host kapalı
+VNC Host on\nOpen http://%s/ and select the Remote tab	VNC Host açık\nhttp://%s/ adresini açıp Remote sekmesini seçin
+VNC Host on\nhttp://%s:%u/	VNC Host açık\nhttp://%s:%u/
+VNC Host: Off	VNC Host: Kapalı
+VNC Host: Off (WiFi off)	VNC Host: Kapalı (WiFi kapalı)
+VNC Host: On (browser connected)	VNC Host: Açık (tarayıcı bağlı)
+VNC Host: On (network disconnected)	VNC Host: Açık (ağ bağlantısı kesik)
+VNC Host: Unavailable (WiFi not connected)	VNC Host: Kullanılamıyor (WiFi bağlı değil)
+Voltage	Gerilim
+Volume	Ses düzeyi
+Volume: %u%%	Ses düzeyi: %u%%
+W = Scan   S = Send   C = Reset   %s = Back	W = Tara   S = Gönder   C = Sıfırla   %s = Geri
+W = Sweep   P = Preset   C = %s   %s = Back	W = Tarama   P = Ön ayar   C = %s   %s = Geri
+W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Tarama   P = Ön ayar   C = %s   S = Kaydet   %s = Geri
+Wait %lus before sending again	Yeniden göndermeden önce %lus bekleyin
+Wait %lus between sweeps	Taramalar arasında %lus bekleyin
+Waiting for Wi-Fi...	Wi-Fi bekleniyor...
+Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	İzleniyor: %s/2/e/#\n\nHenüz mesaj yok. Kanallar yayımlandıkça burada görünür, en yeni altta, her birinde görülen mesaj sayısıyla.
+Weather	Hava durumu
+Weather - %s	Hava durumu - %s
+Weather server error (HTTP %d).	Hava durumu sunucusu hatası (HTTP %d).
+Web Config disabled	Web yapılandırması devre dışı
+Web Config locked while MQTT is on	MQTT açıkken web yapılandırması kilitli
+Web Config start failed	Web yapılandırması başlatılamadı
+Web Config stopped.\n\nThe Bluetooth keyboard and Web Config share one radio and cannot run at the same time.\n\nTurn the keyboard off to use Web Config again.	Web yapılandırması durduruldu.\n\nBluetooth klavye ve web yapılandırması aynı radyoyu paylaşır ve aynı anda çalışamaz.\n\nWeb yapılandırmasını yeniden kullanmak için klavyeyi kapatın.
+Web Config: Disabled	Web yapılandırması: Devre dışı
+Web Config: Enabled	Web yapılandırması: Etkin
+Web Config: Off (MQTT on)	Web yapılandırması: Kapalı (MQTT açık)
+Web Config: Off (WiFi off)	Web yapılandırması: Kapalı (WiFi kapalı)
+Web Config: On	Web yapılandırması: Açık
+Web Config: On (Lite)	Web yapılandırması: Açık (Lite)
+Web Config: On (chat PAUSED)	Web yapılandırması: Açık (sohbet DURAKLATILDI)
+Web config: %s\n\nChat is PAUSED while web config runs - this device needs that memory for Wi-Fi. Messages sent to you now are not received or stored.\n\nTurn web config off to resume messaging.	Web yapılandırması: %s\n\nWeb yapılandırması çalışırken sohbet DURAKLATILIR - cihazın bu belleğe Wi-Fi için ihtiyacı var. Şu an size gönderilen mesajlar alınmaz ve kaydedilmez.\n\nMesajlaşmaya devam etmek için web yapılandırmasını kapatın.
+Wed	Çar
+Welcome to Camillia for Meshtastic	Meshtastic için Camillia'ya hoş geldiniz
+Wheel/j-k=Change   Enter=Next	Tekerlek/j-k=Değiştir   Enter=İleri
+White	Beyaz
+Wi-Fi needed to fetch conditions.	Hava durumunu almak için Wi-Fi gerekli.
+Wi-Fi needed to fetch the\nterrain profile for this path.	Bu yolun arazi profilini\nalmak için Wi-Fi gerekli.
+WiFi connected: %s	WiFi bağlandı: %s
+WiFi is off	WiFi kapalı
+WiFi not connected	WiFi bağlı değil
+WiFi password	WiFi parolası
+WiFi selected: %s	Seçilen WiFi: %s
+WiFi: Off	WiFi: Kapalı
+WiFi: On (%s)	WiFi: Açık (%s)
+WiFi: On (AP MODE ONLY)	WiFi: Açık (YALNIZCA AP MODU)
+WiFi: On (AP mode)	WiFi: Açık (AP modu)
+WiFi: On (connecting %s)	WiFi: Açık (%s bağlanıyor)
+Wide	Geniş
+Within %s	%s içinde
+Writing a new filesystem...	Yeni dosya sistemi yazılıyor...
+X-Large	Çok büyük
+Y/Enter=Import   N/Bksp=Skip	Y/Enter=İçe aktar   N/Bksp=Atla
+Year	Yıl
+Yellow	Sarı
+Yes	Evet
+[%s] no match	[%s] eşleşme yok
+[radio] init failed	[radio] başlatma başarısız
+\n%lu min ago	\n%lu dk önce
+\n%s, %lu min ago	\n%s, %lu dk önce
+\n+%u more	\n+%u daha
+\nT-Deck trackball: hold click 2s to sleep	\nT-Deck iztopu: uyku için tıklamayı 2 sn basılı tutun
+\n\nDelete them? Nothing else on the card is touched.\n\nFormat erases the whole card instead - the only certain fix.	\n\nSilinsin mi? Karttaki başka hiçbir şeye dokunulmaz.\n\nBiçimlendirme bunun yerine tüm kartı siler - tek kesin çözüm budur.
+all rates tried	tüm hızlar denendi
+base64 key	base64 anahtarı
+ch %s   air %s	kan %s   hava %s
+channel	kanal
+check requested	denetim istendi
+exact	tam
+external	harici
+internal	dahili
+j/k or </>=Adjust  Up/Dn=Row  Enter=Save  Back=Cancel	j/k veya </>=Ayarla  Yukarı/Aşağı=Satır  Enter=Kaydet  Back=İptal
+j/k=Adjust  </>=Row  Enter=Save  Backspace=Cancel	j/k=Ayarla  </>=Satır  Enter=Kaydet  Backspace=İptal
+j/k=Adjust  Enter=Save  Backspace=Cancel	j/k=Ayarla  Enter=Kaydet  Backspace=İptal
+j/k=Adjust  Wheel=Row  Enter=Save  Backspace=Cancel	j/k=Ayarla  Tekerlek=Satır  Enter=Kaydet  Backspace=İptal
+j/k=Change   Enter=Next   Bksp=Back	j/k=Değiştir   Enter=İleri   Bksp=Geri
+low	düşük
+missing	eksik
+never	asla
+no key	anahtar yok
+not seen	görülmedi
+off	kapalı
+on	açık
+one of: 	bunlardan biri:
+one rate tried	tek hız denendi
+present	var
+press F to change	değiştirmek için F'ye basın
+retry %lus	%lus sonra yeniden
+retry now	şimdi dene
+sensor %.2f V    trim %s	sensör %.2f V    düzeltme %s
+sensor: read failed	sensör: okuma hatası
+stay on	hep açık
+tap Filter to change	değiştirmek için Filtre'ye dokunun
+unavailable	kullanılamıyor
+unknown	bilinmiyor
+unknown date	bilinmeyen tarih
+unknown error	bilinmeyen hata
+unknown node (id ends ..%02x)	bilinmeyen düğüm (kimlik ..%02x ile bitiyor)
+unset	ayarlanmamış
+until read	okunana kadar
+vague	yaklaşık

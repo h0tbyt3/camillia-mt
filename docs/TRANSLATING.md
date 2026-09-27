@@ -5,7 +5,12 @@ is the key; each language is one file in `lang/`, compiled into the firmware on 
 Anything without a translation shows in English — never blank.
 
 Languages today: **English** (the keys), **Spanish** (`es`), **French** (`fr`),
-**Romanian** (`ro`), **Italian** (`it`). All are first drafts and want review by native speakers.
+**Romanian** (`ro`), **Italian** (`it`), **German** (`de`), **Portuguese, Brazil** (`pt`),
+**Polish** (`pl`), **Dutch** (`nl`), **Czech** (`cs`), **Swedish** (`sv`), **Norwegian Bokmål**
+(`nb`), **Danish** (`da`), **Finnish** (`fi`), **Hungarian** (`hu`), **Slovak** (`sk`),
+**Croatian** (`hr`), **Slovenian** (`sl`), **Turkish** (`tr`), **Lithuanian** (`lt`),
+**Latvian** (`lv`) and **Estonian** (`et`). All are first drafts and want review by native
+speakers. The Cardputer build is English-only (`-DI18N_ENABLED=0`).
 
 ## The file format
 
@@ -84,6 +89,10 @@ A label whose closing `]` is missing is being cut off.
 3. Create `lang/<code>.lang` with the header of an existing one.
 4. If it needs letters outside Latin-1 / Extended-A, add their range to `tools/gen_latin_fonts.sh`
    and regenerate the fonts.
+5. Give it an accent-picker list in `main_lvgl.cpp` (`kAccentsXx`, up to four variants per base
+   letter, plus a `case` in `accentSetFor()`), so the keyboard offers its letters.
+6. The language picker's option buffer in `openCfgLangModal()` holds about 25 names; enlarge it
+   if the list grows past that.
 
 ## Making new UI text translatable
 

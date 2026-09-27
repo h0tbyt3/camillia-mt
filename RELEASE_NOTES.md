@@ -1,8 +1,9 @@
 ### New
-- Seventeen more display languages under Config → Language: German, Português (Brasil), Polski, Nederlands, Čeština, Svenska, Norsk bokmål, Dansk, Suomi, Magyar, Slovenčina, Hrvatski, Slovenščina, Türkçe, Lietuvių, Latviešu and Eesti, joining English, Spanish, French, Romanian and Italian (the Cardputer stays English-only).
-- The on-screen accent picker now offers the right letters for each of the new languages, so you can type ß, ł, č, å, ø, ő, ğ, ī and the rest from the keyboard.
-- T-Display P4: **Antenna** setting in Config picks the on-board antenna or the external socket — switching to external asks you to confirm an antenna is fitted first, takes effect immediately with no reboot, and is remembered.
-- T-Display P4: the same **Antenna** choice appears in Web Config under LoRa Radio, with the same warning; it is deliberately left out of config exports so restoring a backup can never select the socket on a unit with no antenna attached.
+- Tapping the weather reading on the Home dashboard opens the Weather screen.
+- Tapping the Channel Util or SNR / RSSI chart card on the Home dashboard opens its full chart, and tapping a node list opens the Nodes screen.
+- On boards with a keyboard, the Home dashboard now has a cursor. Press Up to highlight the weather or Down to highlight the cards, use Left/Right to move between cards, press Enter to open the highlighted item, and press Back to clear the highlight.
+- On the T-Deck Pro, tapping a Home dashboard card now opens it, and tapping the gaps between cards still switches pages.
 
 ### Fixed
-- The Yes/No buttons on confirmation dialogs now appear in the language you selected instead of always in English.
+- On the Seeed Wio Tracker L2 and LilyGo T-Display P4, the volume picker now has Cancel and Save buttons, so a new volume level can be saved.
+- On the LilyGo T-Display P4, the volume slider no longer crowds the text above it or the buttons below it.

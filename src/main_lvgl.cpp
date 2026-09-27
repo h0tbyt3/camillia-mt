@@ -305,6 +305,12 @@ struct GlanceHeader {
     bool      wxBelow;
     lv_obj_t *wxBelowRule;
     lv_obj_t *wxBelowText;
+    // The Home dashboard's way into the Weather screen: a box over whichever
+    // labels above are carrying the reading, tapped, or focused with Up and
+    // opened with Enter. Built and placed by the dashboard (buildHomeDashWxHit,
+    // homeDashPlaceWxHit), never by buildGlanceHeader() -- the lock screen's
+    // header takes no input, so its copy stays null.
+    lv_obj_t *wxHit;
 #endif
     // What the two icons above are currently showing, from glanceStatusIcons-
     // Key(). The clock and the battery are worth a repaint once a minute; GPS
@@ -15159,19 +15165,40 @@ static void openCfgVolumeModal() {
     lv_obj_set_style_bg_color(s_cfgVolSlider, lvColorFrom565(s_ui.selectAccent), LV_PART_INDICATOR);
     lv_obj_set_style_bg_color(s_cfgVolSlider, lv_color_hex(0xE8F1FF), LV_PART_KNOB);
     lv_obj_add_event_cb(s_cfgVolSlider, onCfgVolSliderChanged, LV_EVENT_VALUE_CHANGED, nullptr);
+#if defined(DEVICE_TDISPLAY_P4)
+    // Same crowding the brightness sliders have on this panel: the knob and its
+    // focus outline draw outside the slider's box, so the 6 px row gap leaves
+    // them touching the text above and the buttons below. See there.
+    constexpr int kVolSliderGap = 8;
+    constexpr int kVolButtonGap = 16;
+    lv_obj_set_style_margin_top(s_cfgVolSlider, kVolSliderGap, 0);
+    lv_obj_set_style_margin_bottom(s_cfgVolSlider, kVolSliderGap, 0);
+#endif
 
-    // No Heltec branch here, unlike the other staged modals: the whole volume
-    // picker lives inside HAS_VOLUME_CONTROL, which is
-    // HAS_AUDIO_ALERTS && (BOARD_BUZZER < 0), and Heltec declares BOARD_BUZZER 6
-    // — a passive buzzer with no amplitude control. Volume does not exist on
-    // that board, so a Cancel/Save row for it was unreachable code that read
-    // like a fourth working example.
+    // This modal used to skip the Cancel/Save row on the grounds that the only
+    // touch-only board was the Heltec, whose BOARD_BUZZER 6 puts it outside
+    // HAS_VOLUME_CONTROL — so the row was unreachable. The profile has since
+    // grown boards that do have amplitude control (the Wio Tracker L2's ES8311
+    // and the T-Display P4), where the slider stages a level with no way to
+    // commit it: no Enter, and a tap outside cancels.
+#if UI_TOUCH_ONLY_PROFILE
+    appendHeltecCancelSaveRow(
+        s_cfgVolModal,
+        [](lv_event_t *e) { LV_UNUSED(e); cancelCfgVolume(); },
+        [](lv_event_t *e) { LV_UNUSED(e); applyCfgVolume(); });
+#if defined(DEVICE_TDISPLAY_P4)
+    // The row is the modal's last child; set the gap on it from here rather
+    // than teach the shared builder about one board.
+    lv_obj_set_style_margin_top(lv_obj_get_child(s_cfgVolModal, -1), kVolButtonGap, 0);
+#endif
+#else
     lv_obj_t *hint = lv_label_create(s_cfgVolModal);
     lv_obj_set_width(hint, lv_pct(100));
     lv_obj_set_style_text_font(hint, &lv_font_montserrat_10, 0);
     lv_obj_set_style_text_color(hint, lv_color_hex(0xA7C7FF), 0);
     lv_obj_set_style_text_align(hint, LV_TEXT_ALIGN_CENTER, 0);
     lv_label_set_text(hint, TR("j/k=Adjust  Enter=Save  Backspace=Cancel"));
+#endif
 
     // Silent on open: announce the level visually, do not beep before asked.
     setCfgVolumePreview(s_cfgVolOriginal, false);
@@ -29869,6 +29896,8 @@ struct GlanceCarousel {
     uint8_t   at;       // which one is in front
     bool      themed;   // the dashboard takes the UI theme; the lock screen does not
 
+    lv_obj_t *chUtilCard;   // the cards themselves: the dashboard's tap
+    lv_obj_t *snrCard;      // targets, and what its cursor outlines
     lv_obj_t *chUtilChart;
     lv_obj_t *chUtilValue;
     lv_obj_t *snrChart;
@@ -29891,6 +29920,7 @@ struct GlanceCarousel {
     // the card, losing exactly the thing the page is sorted by. The name flexes
     // and ellipsizes; the age keeps its natural width against the right edge.
     // Same name/value pairing buildGlanceChartCard() uses for heading and value.
+    lv_obj_t *nodeCard[2];   // [0] recent, [1] oldest; dashboard tap targets
     lv_obj_t *nodeRow[2][kHomeDashNodeRowsMax];
     lv_obj_t *nodeAge[2][kHomeDashNodeRowsMax];
     int       nodeRows[2];
@@ -29917,6 +29947,59 @@ static void glanceCarouselForget(GlanceCarousel &c) {
 
 static GlanceCarousel s_homeCarousel;
 static uint32_t s_homeGlanceMinuteKey = UINT32_MAX;
+// The dashboard's cursor, for the boards with no touch to point with: Up puts
+// it on the weather, Down on the first card of the band's face in front (the
+// Channel Util chart, or a node list), Right steps across to the card beside
+// it, and Up/Down between the two rows. Enter opens whatever it is on. See
+// homeDashCursorKey().
+enum HomeDashCursor : uint8_t {
+    HOME_CURSOR_NONE = 0,
+    HOME_CURSOR_WEATHER,
+    HOME_CURSOR_CHUTIL,
+    HOME_CURSOR_SNR,
+    HOME_CURSOR_NODES_RECENT,   // nodeCard[0]
+    HOME_CURSOR_NODES_OLDEST,   // nodeCard[1]
+};
+static HomeDashCursor s_homeCursor = HOME_CURSOR_NONE;
+
+// The ink the cursor is drawn in. The Pro's 1-bit panel would threshold the
+// accent to whatever it lands nearest, so there it is the header's own ink.
+static lv_color_t homeDashCursorInk() {
+#if defined(DEVICE_TDECK_PRO)
+    return glancePalette(/*themed=*/true).ink;
+#else
+    return lvColorFrom565(s_ui.selectAccent);
+#endif
+}
+
+// Moves the cursor and repaints every target, so no path can leave two lit.
+// An outline on the cards rather than their border: they already carry a 1 px
+// border in the card colour, and an outline sits outside it without having to
+// remember what to put back. The page's 4 px padding leaves it room.
+static void homeDashSetCursor(HomeDashCursor to) {
+    s_homeCursor = to;
+#if HAS_WEATHER
+    if (lvObjValid(s_homeGlance.wxHit)) {
+        lv_obj_set_style_border_width(s_homeGlance.wxHit,
+                                      to == HOME_CURSOR_WEATHER ? 2 : 0, 0);
+    }
+#endif
+    if (lvObjValid(s_homeCarousel.chUtilCard)) {
+        lv_obj_set_style_outline_width(s_homeCarousel.chUtilCard,
+                                       to == HOME_CURSOR_CHUTIL ? 2 : 0, 0);
+    }
+    if (lvObjValid(s_homeCarousel.snrCard)) {
+        lv_obj_set_style_outline_width(s_homeCarousel.snrCard,
+                                       to == HOME_CURSOR_SNR ? 2 : 0, 0);
+    }
+    for (int i = 0; i < 2; i++) {
+        if (!lvObjValid(s_homeCarousel.nodeCard[i])) continue;
+        const HomeDashCursor mine = i == 0 ? HOME_CURSOR_NODES_RECENT
+                                           : HOME_CURSOR_NODES_OLDEST;
+        lv_obj_set_style_outline_width(s_homeCarousel.nodeCard[i],
+                                       to == mine ? 2 : 0, 0);
+    }
+}
 
 #if FEATURE_LOCK_SCREEN
 // The lock screen's. Built by showTdeckProSleepClock() and torn down with the
@@ -30164,6 +30247,7 @@ static void closeHomeDashboard() {
     // the bookkeeping that stops anything reaching a dangling pointer.
     s_homeGlance = GlanceHeader{};
     s_homeGlanceMinuteKey = UINT32_MAX;
+    s_homeCursor = HOME_CURSOR_NONE;
     // Keeps `at` — which face to rebuild on, not a child pointer. See
     // glanceCarouselForget().
     glanceCarouselForget(s_homeCarousel);
@@ -30587,6 +30671,7 @@ static void buildGlanceNodeCard(GlanceCarousel &c, lv_obj_t *page, int listIdx,
     if (row) lv_obj_set_height(card, lv_pct(100));
     else     lv_obj_set_width(card, lv_pct(100));
     homeDashStyleCard(card, c.themed);
+    c.nodeCard[listIdx] = card;
 
     lv_obj_t *heading = lv_label_create(card);
     lv_obj_set_width(heading, lv_pct(100));
@@ -30669,12 +30754,59 @@ static void refreshGlanceNodeList(GlanceCarousel &c, int listIdx) {
 // The chart face: both cards and all four series in one call. Two carousels
 // build it identically -- only the ground under it differs -- and a second copy
 // of the ranges and the series colours would drift the first time either moved.
+// Opens what a dashboard target stands for. The cursor is dropped on the way
+// out, so coming back finds the dashboard as it is normally left: nothing
+// under a cursor.
+static void homeDashOpen(HomeDashCursor target) {
+    homeDashSetCursor(HOME_CURSOR_NONE);
+    switch (target) {
+#if HAS_WEATHER
+        case HOME_CURSOR_WEATHER: openWeatherModal();      break;
+#endif
+        case HOME_CURSOR_CHUTIL:  openChUtilChartModal();  break;
+        case HOME_CURSOR_SNR:     openSnrRssiChartModal(); break;
+        case HOME_CURSOR_NODES_RECENT:
+        case HOME_CURSOR_NODES_OLDEST:
+                                  openNodesModal();        break;
+        default: break;
+    }
+}
+
+static void homeDashCardClickCb(lv_event_t *e) {
+    // Same guard as the weather's: a swipe across the band is the carousel's.
+    if (lv_indev_get_gesture_dir(lv_indev_active()) != LV_DIR_NONE) return;
+    homeDashOpen((HomeDashCursor)(uintptr_t)lv_event_get_user_data(e));
+}
+
+// Makes a band card (a chart, or a node list) one tap target. Everything inside it is made unclickable
+// so the tap lands on the card whichever part of it was touched -- lv_chart
+// and the stacked layout's label row are both CLICKABLE by default and would
+// otherwise take it. The card itself is made clickable again because the Pro's
+// band-wide tap clears it (homeDashStyleCard); on that board a tap on a card
+// now opens what it stands for, and the gaps around the cards still turn the
+// band.
+static void homeDashMakeCardTarget(lv_obj_t *card, lv_obj_t *chart,
+                                   HomeDashCursor which) {
+    if (!lvObjValid(card)) return;
+    const uint32_t n = lv_obj_get_child_count(card);
+    for (uint32_t i = 0; i < n; i++) {
+        lv_obj_clear_flag(lv_obj_get_child(card, (int32_t)i), LV_OBJ_FLAG_CLICKABLE);
+    }
+    if (lvObjValid(chart)) lv_obj_clear_flag(chart, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_flag(card, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_set_style_outline_color(card, homeDashCursorInk(), 0);
+    lv_obj_set_style_outline_width(card, 0, 0);
+    lv_obj_add_event_cb(card, homeDashCardClickCb, LV_EVENT_CLICKED,
+                        (void *)(uintptr_t)which);
+}
+
 static void glanceBuildChartPage(GlanceCarousel &c, lv_obj_t *host) {
     lv_obj_t *page = glanceAddPage(c, buildHomeDashPage(host, homeDashSideBySide()),
                                    GLANCE_PAGE_CHARTS);
     if (!page) return;
 
-    buildGlanceChartCard(c, page, TR("CHANNEL UTIL"), &c.chUtilChart, &c.chUtilValue);
+    c.chUtilCard = buildGlanceChartCard(c, page, TR("CHANNEL UTIL"),
+                                        &c.chUtilChart, &c.chUtilValue);
     // Same colours the Tools modal uses for the same two series, so the legend
     // someone learned there still reads here.
     c.chUtilSeries = lv_chart_add_series(c.chUtilChart, homeDashSeriesColor(0x4FD1C5),
@@ -30689,7 +30821,7 @@ static void glanceBuildChartPage(GlanceCarousel &c, lv_obj_t *host) {
         lv_chart_set_all_value(c.chUtilChart, c.airUtilSeries, LV_CHART_POINT_NONE);
     }
 
-    buildGlanceChartCard(c, page, "SNR / RSSI", &c.snrChart, &c.snrValue);
+    c.snrCard = buildGlanceChartCard(c, page, "SNR / RSSI", &c.snrChart, &c.snrValue);
     c.snrSeries = lv_chart_add_series(c.snrChart, homeDashSeriesColor(0x68D391),
                                       LV_CHART_AXIS_PRIMARY_Y);
     c.rssiSeries = lv_chart_add_series(c.snrChart, homeDashSeriesColor(0xF687B3),
@@ -30701,6 +30833,13 @@ static void glanceBuildChartPage(GlanceCarousel &c, lv_obj_t *host) {
     }
     if (c.rssiSeries) {
         lv_chart_set_all_value(c.snrChart, c.rssiSeries, LV_CHART_POINT_NONE);
+    }
+
+    // The dashboard's cards open their Tools charts; the lock screen's take no
+    // input (every press there dismisses it), so they stay as they are.
+    if (&c == &s_homeCarousel) {
+        homeDashMakeCardTarget(c.chUtilCard, c.chUtilChart, HOME_CURSOR_CHUTIL);
+        homeDashMakeCardTarget(c.snrCard, c.snrChart, HOME_CURSOR_SNR);
     }
 }
 
@@ -30910,6 +31049,12 @@ static void glanceCarouselGo(GlanceCarousel &c, int delta) {
 // serviceLockCarousel() and by nothing else.
 static void homeDashCarouselGo(int delta) {
     if (!homeDashboardVisible()) return;
+    // The cards go with the page. A swipe gets here without passing through
+    // homeDashCursorKey(), so the outline would otherwise ride off on a face
+    // that is no longer in front.
+    if (s_homeCursor != HOME_CURSOR_NONE && s_homeCursor != HOME_CURSOR_WEATHER) {
+        homeDashSetCursor(HOME_CURSOR_NONE);
+    }
     glanceCarouselGo(s_homeCarousel, delta);
 }
 
@@ -30927,6 +31072,196 @@ static void homeDashGestureCb(lv_event_t *e) {
     // scrolls, but claiming them would swallow whatever is put here next.
     if (dir == LV_DIR_RIGHT)     homeDashCarouselGo(+1);
     else if (dir == LV_DIR_LEFT) homeDashCarouselGo(-1);
+}
+
+#if HAS_WEATHER
+// ---- Weather shortcut -------------------------------------------------------
+// The conditions in the header open the Weather screen: a tap on the touch
+// boards, and on the rest Up to put the cursor over them and Enter to go in.
+// Only while there is a reading to point at -- with the reading hidden there
+// is nothing on screen to tap or to put a cursor over, so Up keeps its
+// carousel meaning.
+//
+// The target is a box of its own rather than the labels made clickable: the
+// reading is two labels in the side column and one in the P4's column below,
+// and the cursor should be one outline around all of it, not one per label.
+// Labels are not hit-tested unless clickable, so taps on the text land here.
+
+static bool homeDashWxShown() {
+    const GlanceHeader &w = s_homeGlance;
+    if (!lvObjValid(w.wxHit)) return false;
+    if (w.wxBelow) {
+        return lvObjValid(w.wxBelowText)
+            && !lv_obj_has_flag(w.wxBelowText, LV_OBJ_FLAG_HIDDEN);
+    }
+    return lvObjValid(w.wxTemp) && !lv_obj_has_flag(w.wxTemp, LV_OBJ_FLAG_HIDDEN);
+}
+
+// Fits the box to the reading, or hides it when there is none. Run after every
+// header repaint, since that is what shows, hides and rewrites the labels.
+static void homeDashPlaceWxHit() {
+    GlanceHeader &w = s_homeGlance;
+    if (!lvObjValid(w.wxHit)) return;
+    if (!homeDashWxShown()) {
+        lv_obj_add_flag(w.wxHit, LV_OBJ_FLAG_HIDDEN);
+        if (s_homeCursor == HOME_CURSOR_WEATHER) homeDashSetCursor(HOME_CURSOR_NONE);
+        return;
+    }
+
+    // The labels were just rewritten, so their sizes are stale until a layout
+    // pass. Once a minute, on the header's own cadence.
+    lv_obj_update_layout(w.wxHit);
+    lv_area_t box;
+    if (w.wxBelow) {
+        lv_obj_get_coords(w.wxBelowText, &box);
+    } else {
+        lv_area_t temp;
+        lv_obj_get_coords(w.wxDesc, &box);
+        lv_obj_get_coords(w.wxTemp, &temp);
+        box.x1 = min(box.x1, temp.x1);
+        box.y1 = min(box.y1, temp.y1);
+        box.x2 = max(box.x2, temp.x2);
+        box.y2 = max(box.y2, temp.y2);
+    }
+    // Relative to the header's parent, which has no padding of its own (both
+    // candidates are lv_obj_remove_style_all()'d), so coords map straight across.
+    lv_area_t parent;
+    lv_obj_get_coords(lv_obj_get_parent(w.wxHit), &parent);
+    constexpr int kPad = 4;   // clears the 2 px cursor off the glyphs
+    const int x = box.x1 - parent.x1 - kPad;
+    const int y = box.y1 - parent.y1 - kPad;
+    const int bw = lv_area_get_width(&box) + (2 * kPad);
+    const int bh = lv_area_get_height(&box) + (2 * kPad);
+    // Only on a change: a set invalidates, and on the Pro's e-paper that is a
+    // refresh spent on a box that did not move.
+    if (lv_obj_get_x(w.wxHit) != x || lv_obj_get_y(w.wxHit) != y) {
+        lv_obj_set_pos(w.wxHit, x, y);
+    }
+    if (lv_obj_get_width(w.wxHit) != bw || lv_obj_get_height(w.wxHit) != bh) {
+        lv_obj_set_size(w.wxHit, bw, bh);
+    }
+    lv_obj_clear_flag(w.wxHit, LV_OBJ_FLAG_HIDDEN);
+}
+
+static void homeDashWxClickCb(lv_event_t *e) {
+    LV_UNUSED(e);
+    // A swipe that happened to start on the reading is the carousel's, which
+    // the gesture bubbled up to already. Not also a tap.
+    if (lv_indev_get_gesture_dir(lv_indev_active()) != LV_DIR_NONE) return;
+    homeDashOpen(HOME_CURSOR_WEATHER);
+}
+
+static void buildHomeDashWxHit(lv_obj_t *parent) {
+    lv_obj_t *hit = lv_obj_create(parent);
+    lv_obj_remove_style_all(hit);
+    lv_obj_add_flag(hit, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_clear_flag(hit, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_style_radius(hit, 4, 0);
+    lv_obj_set_style_border_width(hit, 0, 0);
+    lv_obj_set_style_border_color(hit, homeDashCursorInk(), 0);
+    lv_obj_add_event_cb(hit, homeDashWxClickCb, LV_EVENT_CLICKED, nullptr);
+    lv_obj_add_flag(hit, LV_OBJ_FLAG_HIDDEN);   // until a reading places it
+    s_homeGlance.wxHit = hit;
+}
+
+#endif  // HAS_WEATHER
+
+// The weather, when there is a reading on screen to put the cursor on.
+static bool homeDashCanFocusWeather() {
+#if HAS_WEATHER
+    return homeDashWxShown();
+#else
+    return false;
+#endif
+}
+
+// Where Down lands: the first card on the band's face in front -- Channel Util
+// on the charts, the list on a one-list page, the recent list where both share
+// a page. NONE if that card was never built (a panel too short for the band).
+static HomeDashCursor homeDashBandFirst() {
+    const GlanceCarousel &c = s_homeCarousel;
+    switch (glanceFacing(c)) {
+        case GLANCE_PAGE_CHARTS:
+            return lvObjValid(c.chUtilCard) ? HOME_CURSOR_CHUTIL : HOME_CURSOR_NONE;
+        case GLANCE_PAGE_RECENT:
+        case GLANCE_PAGE_BOTH_LISTS:
+            return lvObjValid(c.nodeCard[0]) ? HOME_CURSOR_NODES_RECENT : HOME_CURSOR_NONE;
+        case GLANCE_PAGE_OLDEST:
+            return lvObjValid(c.nodeCard[1]) ? HOME_CURSOR_NODES_OLDEST : HOME_CURSOR_NONE;
+        default:
+            return HOME_CURSOR_NONE;
+    }
+}
+
+// The card beside the one under the cursor, in the direction pressed, or NONE
+// at the end of the pair. The node lists only have a neighbour where both are
+// on one page; apart, each is its own face and Left/Right turn the band.
+static HomeDashCursor homeDashBandStep(HomeDashCursor from, bool right) {
+    const bool bothLists = glanceFacing(s_homeCarousel) == GLANCE_PAGE_BOTH_LISTS;
+    if (right) {
+        if (from == HOME_CURSOR_CHUTIL) return HOME_CURSOR_SNR;
+        if (from == HOME_CURSOR_NODES_RECENT && bothLists) return HOME_CURSOR_NODES_OLDEST;
+    } else {
+        if (from == HOME_CURSOR_SNR) return HOME_CURSOR_CHUTIL;
+        if (from == HOME_CURSOR_NODES_OLDEST && bothLists) return HOME_CURSOR_NODES_RECENT;
+    }
+    return HOME_CURSOR_NONE;
+}
+
+// The dashboard's keys, ahead of the carousel's. Returns true when the key was
+// the cursor's to take; false leaves it to the carousel below.
+//
+// Two rows: the weather on top, the band's cards below. Up and Down move
+// between the rows, and moving off either end -- Up from the weather, Down
+// from the cards -- puts the cursor away and hands the arrows back to the
+// carousel. Left and Right move across the cards; stepping off the pair with
+// them lets the cursor go and turns the band, the way those keys always did.
+static bool homeDashCursorKey(char k) {
+    const bool up    = (k == KEY_SCROLL_UP || k == 'j' || k == 'J');
+    const bool down  = (k == KEY_SCROLL_DN || k == 'k' || k == 'K');
+    const bool left  = (k == KEY_PREV_CHAN);
+    const bool right = (k == KEY_NEXT_CHAN);
+    const bool enter = (k == KEY_ENTER || k == KEY_ROLLER);
+    const bool back  = (k == KEY_ESCAPE || k == KEY_BACKSPACE);
+
+    switch (s_homeCursor) {
+    case HOME_CURSOR_NONE:
+        if (up && homeDashCanFocusWeather()) {
+            homeDashSetCursor(HOME_CURSOR_WEATHER);
+            return true;
+        }
+        if (down && homeDashBandFirst() != HOME_CURSOR_NONE) {
+            homeDashSetCursor(homeDashBandFirst());
+            return true;
+        }
+        return false;
+    case HOME_CURSOR_WEATHER:
+        if (enter) { homeDashOpen(HOME_CURSOR_WEATHER); return true; }
+        if (up) { homeDashSetCursor(HOME_CURSOR_NONE); return true; }
+        if (down) { homeDashSetCursor(homeDashBandFirst()); return true; }
+        break;
+    case HOME_CURSOR_CHUTIL:
+    case HOME_CURSOR_SNR:
+    case HOME_CURSOR_NODES_RECENT:
+    case HOME_CURSOR_NODES_OLDEST: {
+        if (enter) { homeDashOpen(s_homeCursor); return true; }
+        if (up) {
+            homeDashSetCursor(homeDashCanFocusWeather() ? HOME_CURSOR_WEATHER
+                                                        : HOME_CURSOR_NONE);
+            return true;
+        }
+        if (down) { homeDashSetCursor(HOME_CURSOR_NONE); return true; }
+        if (left || right) {
+            const HomeDashCursor next = homeDashBandStep(s_homeCursor, right);
+            if (next != HOME_CURSOR_NONE) { homeDashSetCursor(next); return true; }
+        }
+        break;
+    }
+    }
+    // Back clears the cursor and stops there. Anything else -- stepping off
+    // the cards, or a letter -- clears it and goes on to do its own job.
+    homeDashSetCursor(HOME_CURSOR_NONE);
+    return back;
 }
 
 static void refreshHomeDashboard(bool force) {
@@ -30949,6 +31284,9 @@ static void refreshHomeDashboard(bool force) {
     const bool minuteRolled = (minuteKey != s_homeGlanceMinuteKey);
     if (force || minuteRolled) {
         updateGlanceHeader(s_homeGlance);
+#if HAS_WEATHER
+        homeDashPlaceWxHit();
+#endif
         s_homeGlanceMinuteKey = minuteKey;
     }
 #if !defined(DEVICE_TDECK_PRO)
@@ -31098,6 +31436,11 @@ static void openHomeDashboard() {
 #endif
     buildGlanceHeader(headerParent, s_homeGlance, !homeDashFooterShowsStatus(),
                       /*themed=*/true);
+#if HAS_WEATHER
+    // Before the short-panel return below: the header is all that path shows,
+    // and the reading in it opens Weather there too.
+    buildHomeDashWxHit(headerParent);
+#endif
 
     // Under the header, where the lock screen puts its message previews. Its
     // widgets are positioned absolutely from the top, so the first free row is
@@ -31179,6 +31522,10 @@ static void openHomeDashboard() {
     // A card gets the band less its page's own padding, and that height is what
     // decides how many rows it fits.
     glanceBuildNodePages(s_homeCarousel, pageHost, chartsH - kTdeckProBandInset);
+    // Either list opens the Nodes screen. Here rather than in the page builder,
+    // which has three layouts to return from and serves the lock screen too.
+    homeDashMakeCardTarget(s_homeCarousel.nodeCard[0], nullptr, HOME_CURSOR_NODES_RECENT);
+    homeDashMakeCardTarget(s_homeCarousel.nodeCard[1], nullptr, HOME_CURSOR_NODES_OLDEST);
 
     // The remembered page can outlive the layout that had it: the Heltec and
     // Wio boards rotate on a setting, and landscape has one fewer face than
@@ -41345,13 +41692,19 @@ static void pumpKeyboardInput() {
         // in: neither screen has a button there, the board has no touch, and the
         // device boots onto the dashboard. Both screens simply would not scroll.
         if (homeDashboardIsForeground() && !typingContext) {
+            // The cursor goes first: Up and Down put it on the weather or the
+            // charts rather than turning the band, and Enter under it opens
+            // what it is on instead of being the swallowed activation below.
+            // See homeDashCursorKey().
+            if (homeDashCursorKey(k)) continue;
             if (k == KEY_NEXT_CHAN || k == KEY_SCROLL_DN
                 || k == 'k' || k == 'K') { homeDashCarouselGo(+1); continue; }
             if (k == KEY_PREV_CHAN || k == KEY_SCROLL_UP
                 || k == 'j' || k == 'J') { homeDashCarouselGo(-1); continue; }
             // Activation does nothing here, and that is the whole behaviour.
-            // The dashboard is a glance surface: no row sits under a cursor, no
-            // message is in front of you, and nothing on it opens.
+            // The dashboard is a glance surface: no message is in front of you,
+            // and the things on it that open -- the weather and the charts --
+            // have already taken their Enter above, when the cursor was up.
             //
             // Swallowed rather than left to fall through, which is the bug.
             // Down in the chat fall-through these three drive the chat cursor

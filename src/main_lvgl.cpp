@@ -47116,9 +47116,10 @@ static void channelDrawerAttachTouch(lv_indev_t *indev) {
 
 static void setChannelDropdownVisible(bool visible) {
 #if !UI_CHANNEL_LIST_DROPDOWN
+    // Not just an early return: the drawer (channelDrawerSlide()) is compiled
+    // only where there is a dropdown, so the body below cannot be either.
     LV_UNUSED(visible);
-    return;
-#endif
+#else
     if (!channelListIsDropdown()) return;   // anchored: never hidden or raised
     if (!s_channelList) return;
 
@@ -47144,6 +47145,7 @@ static void setChannelDropdownVisible(bool visible) {
 
     refreshChannelSelectorLabel();
     refreshChannelGlow(true);
+#endif
 }
 
 static void onChannelSelectorPressed(lv_event_t *e) {

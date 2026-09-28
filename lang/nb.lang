@@ -16,6 +16,7 @@
   Press  %.1f hPa	  Trykk  %.1f hPa
   lock	  sikret
   open	  åpent
+ (English only)	 (kun engelsk)
  (no card)	 (intet kort)
  (not sharing location)	 (posisjon deles ikke)
  (unchanged)	 (uendret)
@@ -671,6 +672,8 @@ Silver	Sølv
 Sky	Himmelblå
 Small	Liten
 Source	Kilde
+Spell Check: %s	Stavekontroll: %s
+Spell Check: %s%s	Stavekontroll: %s%s
 Splash Melody: %s	Oppstartsmelodi: %s
 Splash melody: %s	Oppstartsmelodi: %s
 Stale - 	Utdatert -

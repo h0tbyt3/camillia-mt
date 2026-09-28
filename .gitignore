@@ -22,3 +22,6 @@ src/release_notes.h
 
 # Generated from lang/*.lang by tools/gen_lang_builtin.py on every build (#99).
 src/i18n_builtin.h
+
+# Generated from dict/en.txt by tools/gen_spell_dict.py on every build.
+src/spell_dict_en.h

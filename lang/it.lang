@@ -12,6 +12,7 @@
   Press  %.1f hPa	  Press. %.1f hPa
   lock	  protetta
   open	  aperta
+ (English only)	 (solo inglese)
  (no card)	 (nessuna scheda)
  (not sharing location)	 (posizione non condivisa)
  (unchanged)	 (invariato)
@@ -677,6 +678,8 @@ Silver	Argento
 Sky	Celeste
 Small	Piccolo
 Source	Origine
+Spell Check: %s	Controllo ortografico: %s
+Spell Check: %s%s	Controllo ortografico: %s%s
 Splash Melody: %s	Melodia di avvio: %s
 Splash melody: %s	Melodia di avvio: %s
 Stale - 	Obsoleto -

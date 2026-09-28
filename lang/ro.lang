@@ -13,6 +13,7 @@
   Press  %.1f hPa	  Pres.  %.1f hPa
   lock	  securizată
   open	  deschisă
+ (English only)	 (doar engleză)
  (no card)	 (fără card)
  (not sharing location)	 (locația nu e partajată)
  (unchanged)	 (neschimbat)
@@ -679,6 +680,8 @@ Silver	Argintiu
 Sky	Bleu
 Small	Mic
 Source	Sursă
+Spell Check: %s	Corector ortografic: %s
+Spell Check: %s%s	Corector ortografic: %s%s
 Splash Melody: %s	Melodie de pornire: %s
 Splash melody: %s	Melodie de pornire: %s
 Stale - 	Învechit - 

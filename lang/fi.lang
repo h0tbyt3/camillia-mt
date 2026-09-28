@@ -17,6 +17,7 @@
   Press  %.1f hPa	  Paine  %.1f hPa
   lock	  suojattu
   open	  avoin
+ (English only)	 (vain englanti)
  (no card)	 (ei korttia)
  (not sharing location)	 (sijaintia ei jaeta)
  (unchanged)	 (ennallaan)
@@ -683,6 +684,8 @@ Silver	Hopea
 Sky	Taivaansininen
 Small	Pieni
 Source	Lähde
+Spell Check: %s	Oikoluku: %s
+Spell Check: %s%s	Oikoluku: %s%s
 Splash Melody: %s	Käynnistysmelodia: %s
 Splash melody: %s	Käynnistysmelodia: %s
 Stale - 	Vanhentunut -

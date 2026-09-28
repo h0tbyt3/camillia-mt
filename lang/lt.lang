@@ -17,6 +17,7 @@
   Press  %.1f hPa	  Slėg.  %.1f hPa
   lock	  apsaugotas
   open	  atviras
+ (English only)	 (tik anglų k.)
  (no card)	 (nėra kortelės)
  (not sharing location)	 (vieta nebendrinama)
  (unchanged)	 (nepakeista)
@@ -683,6 +684,8 @@ Silver	Sidabrinė
 Sky	Dangaus mėlyna
 Small	Mažas
 Source	Šaltinis
+Spell Check: %s	Rašybos tikrinimas: %s
+Spell Check: %s%s	Rašybos tikrinimas: %s%s
 Splash Melody: %s	Paleidimo melodija: %s
 Splash melody: %s	Paleidimo melodija: %s
 Stale - 	Pasenę -

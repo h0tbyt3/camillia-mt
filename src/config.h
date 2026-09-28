@@ -685,6 +685,14 @@
 #define HAS_COMPOSE_EMOJI_BTN 0
 #endif
 
+// Spell suggestions in the compose box (English; see src/spell.h). Turned on
+// with -DHAS_SPELLCHECK=1 in platformio.ini, on the boards whose app partition
+// has room for the ~115 KB word list -- every 6 MB-slot board. Not the
+// Cardputer: its 3 MB slot is the one with no room to spare.
+#ifndef HAS_SPELLCHECK
+#define HAS_SPELLCHECK 0
+#endif
+
 // Which boards have a keyboard light with a brightness rather than a state.
 //
 // M9: KB_REG_BACKLIGHT sets how bright its controller's own keypress

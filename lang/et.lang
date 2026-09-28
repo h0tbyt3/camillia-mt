@@ -17,6 +17,7 @@
   Press  %.1f hPa	  Rõhk   %.1f hPa
   lock	  kaitstud
   open	  avatud
+ (English only)	 (ainult inglise)
  (no card)	 (kaarti pole)
  (not sharing location)	 (asukohta ei jagata)
  (unchanged)	 (muutmata)
@@ -681,6 +682,8 @@ Silver	Hõbe
 Sky	Taevasinine
 Small	Väike
 Source	Allikas
+Spell Check: %s	Õigekirjakontroll: %s
+Spell Check: %s%s	Õigekirjakontroll: %s%s
 Splash Melody: %s	Käivitusmeloodia: %s
 Splash melody: %s	Käivitusmeloodia: %s
 Stale - 	Aegunud -

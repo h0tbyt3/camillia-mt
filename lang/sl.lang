@@ -17,6 +17,7 @@
   Press  %.1f hPa	  Tlak   %.1f hPa
   lock	  zaščiteno
   open	  odprto
+ (English only)	 (samo angleščina)
  (no card)	 (ni kartice)
  (not sharing location)	 (lokacija se ne deli)
  (unchanged)	 (nespremenjeno)
@@ -681,6 +682,8 @@ Silver	Srebrna
 Sky	Nebesna
 Small	Majhno
 Source	Vir
+Spell Check: %s	Preverjanje črkovanja: %s
+Spell Check: %s%s	Preverjanje črkovanja: %s%s
 Splash Melody: %s	Zagonska melodija: %s
 Splash melody: %s	Zagonska melodija: %s
 Stale - 	Zastarelo -

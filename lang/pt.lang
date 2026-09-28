@@ -16,6 +16,7 @@
   Press  %.1f hPa	  Press. %.1f hPa
   lock	  protegida
   open	  aberta
+ (English only)	 (só inglês)
  (no card)	 (sem cartão)
  (not sharing location)	 (localização não compartilhada)
  (unchanged)	 (sem alteração)
@@ -679,6 +680,8 @@ Silver	Prata
 Sky	Céu
 Small	Pequeno
 Source	Origem
+Spell Check: %s	Corretor ortográfico: %s
+Spell Check: %s%s	Corretor ortográfico: %s%s
 Splash Melody: %s	Melodia de abertura: %s
 Splash melody: %s	Melodia de abertura: %s
 Stale - 	Antigo -

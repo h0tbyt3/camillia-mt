@@ -4030,6 +4030,16 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
     }
     html += "</select></label>";
 #endif
+#if HAS_SPELLCHECK
+    // Next to Language because it depends on it: the suggestions are English
+    // and only offered while the device UI is. A select rather than a checkbox,
+    // like Lock Screen, so the save can tell "off" from "not on this page".
+    html += "<label>Spell Check<select name='spell_check'>"
+            "<option value='0'"; if (!gCfg->spellCheckEnabled) html += " selected";
+    html += ">Off</option>"
+            "<option value='1'"; if ( gCfg->spellCheckEnabled) html += " selected";
+    html += ">On (English UI only)</option></select></label>";
+#endif
     // Brightness: a range input in the same 10% steps as the on-device slider,
     // with the value mirrored next to it since a bare range shows no number.
     {
@@ -7595,6 +7605,11 @@ static void handlePostSave() {
         const long lang = server.arg("ui_lang").toInt();
         gCfg->uiLanguage = (lang >= 0 && lang < LANG_COUNT) ? (uint8_t)lang : LANG_EN;
     }
+    // hasArg-guarded like splash_melody below: absent on builds without the
+    // word list, and on a page cached from before the setting existed.
+    if (server.hasArg("spell_check")) {
+        gCfg->spellCheckEnabled = server.arg("spell_check").toInt() != 0;
+    }
 #if defined(DEVICE_TDISPLAY_P4)
     // Absent (lite, or a cached page from before this field) leaves it alone.
     // The confirmation happened in the browser before the form was submitted.
@@ -7895,13 +7910,19 @@ static void handlePostSave() {
     // rather than a setting that silently never takes effect. Both structs come
     // from the same live object, so their padding bytes match and memcmp is
     // meaningful.
+    //
+    // Spell check is masked out the same way: the compose box reads it on
+    // every word typed, so it takes effect without a restart too.
     RhinoConfig cfgMasked = *gCfg;
     cfgMasked.fontSize = cfgBefore.fontSize;
-    const bool fontSizeOnly = (memcmp(&cfgMasked, &cfgBefore, sizeof(RhinoConfig)) == 0)
-                              && (gCfg->fontSize != cfgBefore.fontSize);
+    cfgMasked.spellCheckEnabled = cfgBefore.spellCheckEnabled;
+    const bool fontChanged  = (gCfg->fontSize != cfgBefore.fontSize);
+    const bool spellChanged = (gCfg->spellCheckEnabled != cfgBefore.spellCheckEnabled);
+    const bool liveOnly = (memcmp(&cfgMasked, &cfgBefore, sizeof(RhinoConfig)) == 0)
+                          && (fontChanged || spellChanged);
 
-    if (fontSizeOnly) {
-        redirectHomeWithFlash("Saved. Font size applied.");
+    if (liveOnly) {
+        redirectHomeWithFlash(fontChanged ? "Saved. Font size applied." : "Saved.");
         return;
     }
 

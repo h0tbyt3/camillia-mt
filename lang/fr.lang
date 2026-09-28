@@ -11,6 +11,7 @@
   Press  %.1f hPa	  Press. %.1f hPa
   lock	  sécurisé
   open	  ouvert
+ (English only)	 (anglais uniquement)
  (no card)	 (pas de carte)
  (not sharing location)	 (position non partagée)
  (unchanged)	 (inchangé)
@@ -680,6 +681,8 @@ Signal: SNR %.1f dB, RSSI %.0f dBm	Signal : SNR %.1f dB, RSSI %.0f dBm
 Silver	Argent
 Sky	Ciel
 Small	Petit
+Spell Check: %s	Correcteur orthographique : %s
+Spell Check: %s%s	Correcteur orthographique : %s%s
 Splash Melody: %s	Mélodie de démarrage : %s
 Splash melody: %s	Mélodie de démarrage : %s
 Stale - 	Périmé - 

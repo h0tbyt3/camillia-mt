@@ -17,6 +17,7 @@
   Press  %.1f hPa	  Spied. %.1f hPa
   lock	  aizsargāts
   open	  atvērts
+ (English only)	 (tikai angļu val.)
  (no card)	 (nav kartes)
  (not sharing location)	 (atrašanās vieta netiek kopīgota)
  (unchanged)	 (nemainīts)
@@ -683,6 +684,8 @@ Silver	Sudraba
 Sky	Debeszils
 Small	Mazs
 Source	Avots
+Spell Check: %s	Pareizrakstības pārbaude: %s
+Spell Check: %s%s	Pareizrakstības pārbaude: %s%s
 Splash Melody: %s	Palaišanas melodija: %s
 Splash melody: %s	Palaišanas melodija: %s
 Stale - 	Novecojis -

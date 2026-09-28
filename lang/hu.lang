@@ -17,6 +17,7 @@
   Press  %.1f hPa	  Nyomás %.1f hPa
   lock	  védett
   open	  nyílt
+ (English only)	 (csak angol)
  (no card)	 (nincs kártya)
  (not sharing location)	 (hely nincs megosztva)
  (unchanged)	 (változatlan)
@@ -684,6 +685,8 @@ Silver	Ezüst
 Sky	Égszínkék
 Small	Kicsi
 Source	Forrás
+Spell Check: %s	Helyesírás-ellenőrzés: %s
+Spell Check: %s%s	Helyesírás-ellenőrzés: %s%s
 Splash Melody: %s	Indító dallam: %s
 Splash melody: %s	Indító dallam: %s
 Stale - 	Elavult -

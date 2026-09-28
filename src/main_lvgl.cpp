@@ -53,6 +53,9 @@ LV_FONT_DECLARE(lv_font_montserrat_bold_12);
 #include "ble_keyboard.h"
 #endif
 #include "ota_update.h"
+#if HAS_SPELLCHECK
+#include "spell.h"
+#endif
 #include "debug_flags.h"
 #include "release_notes.h"   // generated from RELEASE_NOTES.md at build time
 #include "utf8_utils.h"
@@ -3221,6 +3224,9 @@ enum CfgActionId {
     CFG_ACTION_FONT_SIZE,
     CFG_ACTION_ORIENTATION,
     CFG_ACTION_LANGUAGE,       // UI language (issue #99)
+    #if HAS_SPELLCHECK
+    CFG_ACTION_SPELL_CHECK,
+    #endif
     CFG_ACTION_BRIGHTNESS,
     CFG_ACTION_SCREEN_TIMEOUT,
     #if FEATURE_LOCK_SCREEN
@@ -5115,6 +5121,17 @@ static const char *cfgActionLabel(int actionId, char *buf, size_t bufLen) {
             snprintf(buf, bufLen, TR("Language: %s"),
                      kUiLangNames[s_cfg.uiLanguage < LANG_COUNT ? s_cfg.uiLanguage : LANG_EN]);
             break;
+#if HAS_SPELLCHECK
+        case CFG_ACTION_SPELL_CHECK:
+            // The word list is English, so in any other language the setting
+            // is kept but has nothing to act on -- and the row says so, rather
+            // than reading On over a compose box that never offers anything.
+            snprintf(buf, bufLen, TR("Spell Check: %s%s"),
+                     s_cfg.spellCheckEnabled ? TR("On") : TR("Off"),
+                     (s_cfg.spellCheckEnabled && i18nGetLang() != LANG_EN)
+                         ? TR(" (English only)") : "");
+            break;
+#endif
         case CFG_ACTION_BATT_DISPLAY:
             snprintf(buf, bufLen, TR("Battery Display: %s"),
                      s_cfg.battDisplayMode == BATT_DISPLAY_VOLTAGE ? TR("Voltage") : TR("Percent"));
@@ -11865,6 +11882,259 @@ static bool accentHandleKey(char k) {
     }
 }
 
+// ── Spell suggestions ─────────────────────────────────────────────────────────
+// The English counterpart of the accent box, in the same place and driven the
+// same way. Finish a word -- a space or punctuation after it -- and if the word
+// is not in the list, a row of what it might have been opens above the field.
+// The word as typed is the first cell, so the row reads "what you wrote, or one
+// of these" and leaving it alone changes nothing. Tab and the trackball/wheel
+// step through the row, swapping the word in place; Enter keeps the choice
+// (untouched, Enter is still Send); any other key closes the row and does its
+// own job, so typing straight on is never slowed down.
+//
+// English only, because the list is -- which is also exactly when the accent
+// box is never up, so the two never want the same keys. Message fields only:
+// names, passwords and keys are not dictionary words.
+#if HAS_SPELLCHECK
+static lv_obj_t *s_spellBox = nullptr;
+static lv_obj_t *s_spellTa = nullptr;      // the field the row edits
+static lv_obj_t *s_spellCells[spell::kMaxSuggest + 1] = {};
+static char s_spellOpts[spell::kMaxSuggest + 1][spell::kMaxWord + 1] = {};
+static int s_spellCount = 0;               // options, the typed word included
+static int s_spellIdx = 0;                 // 0 = as typed, i = suggestion i
+static uint32_t s_spellWordByte = 0;       // where the word starts, in bytes
+static uint32_t s_spellWordChar = 0;       // ... and in characters
+static uint32_t s_spellPrevLen = 0;        // s_spellTa's byte length last seen
+static bool s_spellEditing = false;        // our own edit: ignore its VALUE_CHANGED
+
+static void spellBoxHide() {
+    // Async for the same reason as the accent box: a tap on a cell closes it.
+    if (lvObjValid(s_spellBox)) lv_obj_delete_async(s_spellBox);
+    s_spellBox = nullptr;
+    s_spellCount = 0;
+    for (auto &c : s_spellCells) c = nullptr;
+}
+
+static bool spellBoxVisible() {
+    return s_spellCount > 0 && lvObjValid(s_spellBox) && lvObjValid(s_spellTa);
+}
+
+static void spellBoxHighlight() {
+    for (int i = 0; i < s_spellCount; i++) {
+        if (!s_spellCells[i]) continue;
+        const bool sel = (i == s_spellIdx);
+        lv_obj_set_style_bg_color(s_spellCells[i],
+                                  themedColorHex(sel ? 0x2F6BD8 : 0x16386F), 0);
+        lv_obj_set_style_border_width(s_spellCells[i], sel ? 2 : 0, 0);
+    }
+}
+
+// Swap the word for option `idx`. The word is just behind the space or
+// punctuation that opened the row; if it is no longer there (a tap moved the
+// caret and something else changed it), the row has nothing left to edit.
+static void spellReplaceWith(int idx) {
+    if (!spellBoxVisible() || idx == s_spellIdx) return;
+    const char *t = lv_textarea_get_text(s_spellTa);
+    const char *cur = s_spellOpts[s_spellIdx];
+    const size_t curLen = strlen(cur);
+    if (!t || strlen(t) < s_spellWordByte + curLen
+        || memcmp(t + s_spellWordByte, cur, curLen) != 0) {
+        spellBoxHide();
+        return;
+    }
+    const char *next = s_spellOpts[idx];
+    s_spellEditing = true;
+    lv_textarea_set_cursor_pos(s_spellTa, (int32_t)(s_spellWordChar + curLen));
+    for (size_t i = 0; i < curLen; i++) lv_textarea_delete_char(s_spellTa);
+    lv_textarea_add_text(s_spellTa, next);
+    // Back past the space or punctuation, where the caret was.
+    lv_textarea_set_cursor_pos(s_spellTa, (int32_t)(s_spellWordChar + strlen(next) + 1));
+    s_spellEditing = false;
+    t = lv_textarea_get_text(s_spellTa);
+    s_spellPrevLen = t ? (uint32_t)strlen(t) : 0;
+    s_spellIdx = idx;
+    if (s_spellTa == s_composeInput) updateComposeCharCount();
+    spellBoxHighlight();
+}
+
+static void onSpellCellClicked(lv_event_t *e) {
+    const int idx = (int)(intptr_t)lv_event_get_user_data(e);
+    spellReplaceWith(idx);
+    spellBoxHide();
+}
+
+static void spellBoxShow(lv_obj_t *ta) {
+    if (!s_rootScreen || s_spellCount < 2) return;
+    const lv_font_t *font = &lv_font_montserrat_14;
+    const int cellH = 28, gap = 4, pad = 4;
+
+    s_spellBox = lv_obj_create(s_rootScreen);
+    lv_obj_remove_style_all(s_spellBox);
+    lv_obj_clear_flag(s_spellBox, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_style_bg_color(s_spellBox, themedColorHex(0x0E285B), 0);
+    lv_obj_set_style_bg_opa(s_spellBox, LV_OPA_COVER, 0);
+    lv_obj_set_style_radius(s_spellBox, 6, 0);
+    lv_obj_set_style_border_width(s_spellBox, 1, 0);
+    lv_obj_set_style_border_color(s_spellBox, lv_color_hex(0x8FB5E6), 0);
+    lv_obj_set_style_pad_all(s_spellBox, pad, 0);
+    lv_obj_set_style_pad_column(s_spellBox, gap, 0);
+    lv_obj_set_flex_flow(s_spellBox, LV_FLEX_FLOW_ROW);
+    lv_obj_set_size(s_spellBox, LV_SIZE_CONTENT, cellH + pad * 2);
+
+    for (int i = 0; i < s_spellCount; i++) {
+        lv_obj_t *cell = lv_btn_create(s_spellBox);
+        lv_obj_set_size(cell, LV_SIZE_CONTENT, cellH);
+        lv_obj_set_style_radius(cell, 4, 0);
+        lv_obj_set_style_pad_hor(cell, 6, 0);
+        lv_obj_set_style_pad_ver(cell, 0, 0);
+        lv_obj_set_style_shadow_width(cell, 0, 0);
+        lv_obj_set_style_border_color(cell, lv_color_hex(0xE8F1FF), 0);
+        lv_obj_add_event_cb(cell, onSpellCellClicked, LV_EVENT_CLICKED, (void *)(intptr_t)i);
+        lv_obj_t *lbl = lv_label_create(cell);
+        lv_obj_set_style_text_font(lbl, font, 0);
+        // The typed word dimmer: it is the "no thanks", not a suggestion.
+        lv_obj_set_style_text_color(lbl, lv_color_hex(i == 0 ? 0xA7C7FF : 0xE8F1FF), 0);
+        lv_label_set_text(lbl, s_spellOpts[i]);
+        lv_obj_center(lbl);
+        s_spellCells[i] = cell;
+    }
+
+    // Long words on a narrow panel: drop suggestions from the end until the
+    // row fits, keeping the typed word and at least one suggestion.
+    const int32_t rw = lv_obj_get_width(s_rootScreen);
+    lv_obj_update_layout(s_spellBox);
+    while (s_spellCount > 2 && lv_obj_get_width(s_spellBox) > rw - 8) {
+        s_spellCount--;
+        lv_obj_delete(s_spellCells[s_spellCount]);
+        s_spellCells[s_spellCount] = nullptr;
+        lv_obj_update_layout(s_spellBox);
+    }
+    spellBoxHighlight();
+
+    // Placed like the accent box: above the field, below it if there is no room.
+    lv_area_t fa, ra;
+    lv_obj_get_coords(ta, &fa);
+    lv_obj_get_coords(s_rootScreen, &ra);
+    const int32_t bw = lv_obj_get_width(s_spellBox);
+    const int32_t bh = lv_obj_get_height(s_spellBox);
+    int32_t y = fa.y1 - ra.y1 - bh - 4;
+    if (y < 0) y = fa.y2 - ra.y1 + 4;
+    lv_obj_set_pos(s_spellBox, (rw - bw) / 2, y);
+    lv_obj_move_foreground(s_spellBox);
+}
+
+static bool spellIsWordChar(char c) {
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '\'';
+}
+
+// What ends a word and so gets it checked.
+static bool spellIsBoundary(char c) {
+    return c == ' ' || c == ',' || c == '.' || c == '!' || c == '?' || c == ';'
+           || c == ':' || c == ')' || c == '"';
+}
+
+static void onSpellFieldChanged(lv_event_t *e) {
+    if (s_spellEditing) return;
+    lv_obj_t *ta = lv_event_get_target_obj(e);
+    const char *t = lv_textarea_get_text(ta);
+    const uint32_t len = t ? (uint32_t)strlen(t) : 0;
+    const uint32_t prevLen = (ta == s_spellTa) ? s_spellPrevLen : len;
+    s_spellTa = ta;
+    s_spellPrevLen = len;
+    spellBoxHide();
+    // One byte more than last time: a key typed. A paste, an emoji or a
+    // delete never opens the row.
+    if (len != prevLen + 1 || !s_cfg.spellCheckEnabled || i18nGetLang() != LANG_EN) return;
+    const uint32_t cur = accentCursorByte(ta, t);
+    if (cur < 3 || !spellIsBoundary(t[cur - 1])) return;
+
+    const uint32_t end = cur - 1;
+    uint32_t start = end;
+    while (start > 0 && spellIsWordChar(t[start - 1])) start--;
+    // Only a word that stands on its own: not the tail of a URL, a number, an
+    // @mention or a #channel.
+    if (start > 0 && t[start - 1] != ' ' && t[start - 1] != '(' && t[start - 1] != '"') return;
+    const size_t n = end - start;
+    if (!spell::shouldCheck(t + start, n)) return;
+
+    const spell::Dict &d = spell::english();
+    const uint32_t t0 = micros();
+    if (spell::known(d, t + start, n)) return;
+    char opts[spell::kMaxSuggest][spell::kMaxWord + 1];
+    const int found = spell::suggest(d, t + start, n, opts, spell::kMaxSuggest);
+    Serial.printf("[spell] \"%.*s\": %d suggestion(s) in %lu us\n",
+                  (int)n, t + start, found, (unsigned long)(micros() - t0));
+    if (found == 0) return;
+
+    memcpy(s_spellOpts[0], t + start, n);
+    s_spellOpts[0][n] = '\0';
+    for (int i = 0; i < found; i++) memcpy(s_spellOpts[i + 1], opts[i], sizeof(opts[i]));
+    s_spellCount = found + 1;
+    s_spellIdx = 0;
+    s_spellWordByte = start;
+    // The word and the character after it are ASCII, so the caret sits n + 1
+    // characters past the word's first letter.
+    s_spellWordChar = lv_textarea_get_cursor_pos(ta) - (uint32_t)(n + 1);
+    spellBoxShow(ta);
+}
+
+static void onSpellFieldFocus(lv_event_t *e) {
+    lv_obj_t *ta = lv_event_get_target_obj(e);
+    const char *t = lv_textarea_get_text(ta);
+    s_spellTa = ta;
+    s_spellPrevLen = t ? (uint32_t)strlen(t) : 0;
+}
+
+static void onSpellFieldDeleted(lv_event_t *e) {
+    if (lv_event_get_target_obj(e) != s_spellTa) return;
+    spellBoxHide();
+    s_spellTa = nullptr;
+    s_spellPrevLen = 0;
+}
+
+static void spellAttach(lv_obj_t *ta) {
+    if (!ta) return;
+    const char *t = lv_textarea_get_text(ta);
+    s_spellTa = ta;
+    s_spellPrevLen = t ? (uint32_t)strlen(t) : 0;
+    lv_obj_add_event_cb(ta, onSpellFieldChanged, LV_EVENT_VALUE_CHANGED, nullptr);
+    lv_obj_add_event_cb(ta, onSpellFieldFocus, LV_EVENT_FOCUSED, nullptr);
+    lv_obj_add_event_cb(ta, onSpellFieldDeleted, LV_EVENT_DELETE, nullptr);
+}
+
+// Physical keys while the row is up. Returns true when the key was the row's.
+static bool spellHandleKey(char k) {
+    if (!spellBoxVisible()) return false;
+    const int n = s_spellCount;
+    switch (k) {
+        case KEY_TAB:
+        case KEY_SCROLL_DN:
+        case KEY_NEXT_CHAN:
+            spellReplaceWith((s_spellIdx + 1) % n);
+            return true;
+        case KEY_SCROLL_UP:
+        case KEY_PREV_CHAN:
+            spellReplaceWith((s_spellIdx + n - 1) % n);
+            return true;
+        case KEY_ENTER:
+        case KEY_ROLLER:
+            // Only when the row has been used. Untouched, Enter is still Send.
+            if (s_spellIdx == 0) {
+                spellBoxHide();
+                return false;
+            }
+            spellBoxHide();
+            return true;
+        default:
+            spellBoxHide();
+            return false;
+    }
+}
+#else
+static void spellAttach(lv_obj_t *) {}
+static bool spellHandleKey(char) { return false; }
+#endif  // HAS_SPELLCHECK
+
 static void closeComposePrompt() {
     // The emoji picker is a child of compose; never leave it orphaned.
     closeEmojiPicker();
@@ -12719,6 +12989,7 @@ static void openComposePrompt(uint32_t replyPacketId,
     showTextareaCursor(s_composeInput);
     lv_obj_add_event_cb(s_composeInput, onComposeInputChanged, LV_EVENT_VALUE_CHANGED, nullptr);
     accentAttach(s_composeInput);
+    spellAttach(s_composeInput);
 
     s_composeCharCount = lv_label_create(s_composeModal);
     lv_obj_set_width(s_composeCharCount, lv_pct(100));
@@ -12980,6 +13251,7 @@ static void openComposePrompt(uint32_t replyPacketId,
     showTextareaCursor(s_composeInput);
     lv_obj_add_event_cb(s_composeInput, onComposeInputChanged, LV_EVENT_VALUE_CHANGED, nullptr);
     accentAttach(s_composeInput);
+    spellAttach(s_composeInput);
 
 #if HAS_COMPOSE_EMOJI_BTN
     // The emoji button, at the right-hand end of the row the box shares. Narrow
@@ -13305,6 +13577,11 @@ static void initCfgActions() {
     // setting of the same kind. Absent from English-only builds.
     #if I18N_ENABLED
     s_cfgActions[s_cfgActionCount++] = CFG_ACTION_LANGUAGE;
+    #endif
+    // How typing behaves, next to the language it depends on: the suggestions
+    // are English, and only offered while the UI is.
+    #if HAS_SPELLCHECK
+    s_cfgActions[s_cfgActionCount++] = CFG_ACTION_SPELL_CHECK;
     #endif
     // A comfort setting, changed once to taste. Only on boards with a trackball
     // to invert.
@@ -39305,6 +39582,19 @@ static void performCfgAction(int actionId) {
             break;
         }
 
+#if HAS_SPELLCHECK
+        case CFG_ACTION_SPELL_CHECK:
+            if (s_cfgDebugLog) Serial.println("[lvgl-cfg] exec SPELL_CHECK");
+            showActionPopup = false;   // row already reads On/Off
+            s_cfg.spellCheckEnabled = !s_cfg.spellCheckEnabled;
+            persistConfigToPrefs();
+            // Read on every word typed, so nothing to apply: the next word
+            // finished in a compose box is checked or not accordingly.
+            snprintf(s_cfgStatus, sizeof(s_cfgStatus), TR("Spell Check: %s"),
+                     s_cfg.spellCheckEnabled ? TR("On") : TR("Off"));
+            break;
+#endif
+
         case CFG_ACTION_ARCHIVE_NODES:
             if (s_cfgDebugLog) Serial.println("[lvgl-cfg] exec ARCHIVE_NODES");
             showActionPopup = false;   // row already reads On/Off
@@ -41701,7 +41991,9 @@ static void pumpKeyboardInput() {
         // The accent box, when one is up, gets first look at the keys that
         // step through it (Tab, the trackball/wheel, arrows) and Enter. It is
         // only ever up over a field being typed in.
-        if (typingContext && accentHandleKey(k)) continue;
+        // The spell row likewise; it is only ever up in English, when the
+        // accent box never is.
+        if (typingContext && (accentHandleKey(k) || spellHandleKey(k))) continue;
 #if HAS_HOME_DASHBOARD
         // The glance carousel, on every board at once. KEY_PREV_CHAN and
         // KEY_NEXT_CHAN are what the T-Deck trackball's horizontal, the M9 and

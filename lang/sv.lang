@@ -16,6 +16,7 @@
   Press  %.1f hPa	  Tryck  %.1f hPa
   lock	  skyddat
   open	  öppet
+ (English only)	 (endast engelska)
  (no card)	 (inget kort)
  (not sharing location)	 (plats delas inte)
  (unchanged)	 (oförändrad)
@@ -670,6 +671,8 @@ Show Archived Nodes: %s%s	Visa arkiverade noder: %s%s
 Sky	Himmelsblå
 Small	Liten
 Source	Källa
+Spell Check: %s	Stavningskontroll: %s
+Spell Check: %s%s	Stavningskontroll: %s%s
 Splash Melody: %s	Startmelodi: %s
 Splash melody: %s	Startmelodi: %s
 Stale - 	Inaktuell -

@@ -256,6 +256,15 @@ static inline bool anyChannelNeedsAttention() {
 }
 static lv_obj_t *s_channelStrip = nullptr;
 static lv_obj_t *s_channelList = nullptr;
+// Where the channel list is a dropdown, it is a drawer now: pinned to the
+// left edge at the chat's full height, sliding in over the chat and back out.
+// Open is this flag, not the list's HIDDEN flag -- the list stays drawn while
+// it slides out, and every caller asking "is the list open" means the answer
+// the user just chose, not whether the last frame has left the screen yet.
+static bool s_channelDrawerOpen = false;
+// Dims the chat behind the open drawer and closes it on a tap, which is the
+// touch boards' way out now that the selector in the header is only a label.
+static lv_obj_t *s_channelDrawerScrim = nullptr;
 static lv_obj_t *s_channelSelectorBtn = nullptr;
 static lv_obj_t *s_channelSelectorLabel = nullptr;
 static lv_obj_t *s_channelSelectorCaretLabel = nullptr;
@@ -2754,8 +2763,8 @@ static const char *channelName(int idx);
 static void sizeChannelButtonToLabel(int idx);
 static bool isChannelDropdownVisible();
 static void setChannelDropdownVisible(bool visible);
-static void refreshChannelSelectorLabel();
 static void onChannelSelectorPressed(lv_event_t *e);
+static void refreshChannelSelectorLabel();
 static void drawBootSplash();
 // Boot-progress line on the splash. Defined with drawBootSplash(); declared here
 // because the station-connect wait in bootTimeNtpSyncDirectSta() sits above it
@@ -37535,6 +37544,34 @@ static const char *legendTransportText() {
     return buf;
 }
 
+// How to reach the channel list on this board, for Help. Empty where there is
+// nothing to reach it for: the Pager and the P4 in landscape keep the list
+// anchored beside the chat, always in view. Everywhere else it is the drawer
+// (channelDrawerSlide()), and what opens it differs by what the board has --
+// a swipe where there is touch, the chat key where there is a keyboard, the
+// Messages button on the M9.
+static const char *legendChannelListText() {
+#if UI_CHANNEL_LIST_DROPDOWN
+    if (!channelListIsDropdown()) return "";
+#if defined(DEVICE_M9)
+    return TR("Channels: press Messages again on the\n"
+              "chat screen. Enter picks one.");
+#elif defined(DEVICE_CARDPUTER_LORA_HAT)
+    return TR("Channels: H on the chat screen.\nEnter picks one.");
+#elif UI_TOUCH_ONLY_PROFILE
+    return TR("Channels: tap the channel name at the\n"
+              "top, or swipe in from the left edge.");
+#elif HAS_TOUCH
+    return TR("Channels: C on the chat screen, tap the\n"
+              "channel name, or swipe in from the left.");
+#else
+    return TR("Channels: C on the chat screen.\nEnter picks one.");
+#endif
+#else
+    return "";
+#endif
+}
+
 static void openLegendModal() {
     if (s_legendModal && !lvObjAlive(s_legendModal)) {
         s_legendModal = nullptr;
@@ -37645,9 +37682,10 @@ static void openLegendModal() {
     lv_label_set_long_mode(body, LV_LABEL_LONG_WRAP);
     // One TR() key per paragraph: a single literal cannot span the #if, so
     // the pieces are translated separately and joined here.
+    const char *channelsHelp = legendChannelListText();
     lv_label_set_text_fmt(
         body,
-        "%s\n%s\n\n%s",
+        "%s\n%s%s%s\n\n%s",
         TR("Touch Navigation:"),
 #if HAS_HOME_DASHBOARD
         TR("Bottom buttons: Home, Chats, DM, Nodes, Tools, Config, Help.\n"
@@ -37659,6 +37697,7 @@ static void openLegendModal() {
         // changes ago: Live left the bar for Tools, and Chats joined it.
         TR("Bottom buttons: Chats, DM, Nodes, Tools, Config, Help."),
 #endif
+        channelsHelp[0] ? "\n\n" : "", channelsHelp,
         legendTransportText());
 #elif defined(DEVICE_TLORA_PAGER_TFT) || defined(DEVICE_TDECK)
     lv_obj_t *bodyRow = lv_obj_create(s_legendModal);
@@ -37722,6 +37761,16 @@ static void openLegendModal() {
     lv_label_set_long_mode(rightMain, LV_LABEL_LONG_WRAP);
     lv_label_set_text(rightMain, legendTransportText());
 
+    // Empty on the Pager, whose list is anchored beside the chat.
+    if (legendChannelListText()[0]) {
+        lv_obj_t *rightChannels = lv_label_create(rightCol);
+        lv_obj_set_width(rightChannels, lv_pct(100));
+        lv_obj_set_style_text_font(rightChannels, legendBodyFont, 0);
+        lv_obj_set_style_text_color(rightChannels, lv_color_hex(0xD9E8FF), 0);
+        lv_label_set_long_mode(rightChannels, LV_LABEL_LONG_WRAP);
+        lv_label_set_text_fmt(rightChannels, "\n%s", legendChannelListText());
+    }
+
 #if defined(DEVICE_TDECK)
     lv_obj_t *rightNote = lv_label_create(rightCol);
     lv_obj_set_width(rightNote, lv_pct(100));
@@ -37737,9 +37786,10 @@ static void openLegendModal() {
     lv_obj_set_style_text_font(body, legendBodyFont, 0);
     lv_obj_set_style_text_color(body, lv_color_hex(0xD9E8FF), 0);
     lv_label_set_long_mode(body, LV_LABEL_LONG_WRAP);
+    const char *channelsHelp = legendChannelListText();
     lv_label_set_text_fmt(
         body,
-        "%s\n\n%s",
+        "%s\n\n%s%s%s",
 #if HAS_HOME_DASHBOARD
         TR("(H) Home dashboard\n"
            "(C) Chat (again: channels)\n"
@@ -37764,6 +37814,7 @@ static void openLegendModal() {
            "(Space) Compose/Reply\n"
            "(Enter) Focus Messages"),
 #endif
+        channelsHelp, channelsHelp[0] ? "\n\n" : "",
         legendTransportText());
 #endif
 
@@ -46570,9 +46621,10 @@ static void refreshChannelGlow(bool force) {
         selectorShouldGlow = anyUnread && !isChannelDropdownVisible();
 #endif
     #if defined(DEVICE_TDECK_PRO)
+        // Bare text, like everywhere else now (see buildUi()). The Pro never
+        // pulsed -- a halo is animation -- so there is nothing to keep here.
         lv_obj_set_style_bg_opa(s_channelSelectorBtn, LV_OPA_TRANSP, 0);
-        lv_obj_set_style_border_width(s_channelSelectorBtn, 2, 0);
-        lv_obj_set_style_border_color(s_channelSelectorBtn, lv_color_make(0, 0, 0), 0);
+        lv_obj_set_style_border_width(s_channelSelectorBtn, 0, 0);
         lv_obj_set_style_outline_opa(s_channelSelectorBtn, LV_OPA_TRANSP, 0);
         lv_obj_set_style_outline_width(s_channelSelectorBtn, 0, 0);
         lv_obj_set_style_shadow_opa(s_channelSelectorBtn, LV_OPA_TRANSP, 0);
@@ -46606,12 +46658,9 @@ static void refreshChannelGlow(bool force) {
                                    && sp.glow == selectorShouldGlow
                                    && sp.navCursor == selectorNavCursor
                                    && sp.uiMode == uiMode;
-            const bool pulsing = selectorShouldGlow && !selectorNavCursor;
-            const bool pulseSame = !pulsing
-                                   || (sp.pulseOpa == pulseOpa
-                                       && sp.outlineW == outlineW
-                                       && sp.shadowW == shadowW);
-            if (stateSame && pulseSame) return;
+            // Nothing here pulses any more (the selector is header text), so
+            // the pulse frame is no reason to repaint it.
+            if (stateSame) return;
 
             sp.btn = s_channelSelectorBtn;
             sp.valid = true;
@@ -46633,52 +46682,21 @@ static void refreshChannelGlow(bool force) {
             lv_obj_set_style_outline_opa(s_channelSelectorBtn, LV_OPA_70, 0);
             lv_obj_set_style_shadow_opa(s_channelSelectorBtn, LV_OPA_TRANSP, 0);
             lv_obj_set_style_shadow_width(s_channelSelectorBtn, 0, 0);
-        } else if (selectorShouldGlow) {
-    #else
-        if (selectorShouldGlow) {
-    #endif
-#if defined(DEVICE_HELTEC_V4_EXPANSION)
-        // Portrait has no room for the pulsing halo — the outline and shadow
-        // spread into the rows either side — so it glows with a plain border.
-        if (uiPortrait()) {
-            lv_obj_set_style_border_width(s_channelSelectorBtn, 1, 0);
-            lv_obj_set_style_border_color(s_channelSelectorBtn, lv_color_hex(0x8EEBFF), 0);
-            lv_obj_set_style_outline_opa(s_channelSelectorBtn, LV_OPA_TRANSP, 0);
+        } else {
+            lv_obj_set_style_border_width(s_channelSelectorBtn, 0, 0);
             lv_obj_set_style_outline_width(s_channelSelectorBtn, 0, 0);
-            lv_obj_set_style_shadow_opa(s_channelSelectorBtn, LV_OPA_TRANSP, 0);
-            lv_obj_set_style_shadow_width(s_channelSelectorBtn, 0, 0);
-        } else {
-#endif
-            lv_obj_set_style_border_width(s_channelSelectorBtn, 2, 0);
-            lv_obj_set_style_border_color(s_channelSelectorBtn, lv_color_hex(0x8EEBFF), 0);
-            lv_obj_set_style_outline_color(s_channelSelectorBtn, lv_color_hex(0x8EEBFF), 0);
-            lv_obj_set_style_outline_pad(s_channelSelectorBtn, 0, 0);
-            lv_obj_set_style_outline_width(s_channelSelectorBtn, outlineW, 0);
-            lv_obj_set_style_outline_opa(s_channelSelectorBtn, pulseOpa, 0);
-            lv_obj_set_style_shadow_color(s_channelSelectorBtn, lv_color_hex(0x4EC9FF), 0);
-            lv_obj_set_style_shadow_spread(s_channelSelectorBtn, 1, 0);
-            lv_obj_set_style_shadow_width(s_channelSelectorBtn, shadowW, 0);
-            lv_obj_set_style_shadow_opa(s_channelSelectorBtn, pulseOpa, 0);
-#if defined(DEVICE_HELTEC_V4_EXPANSION)
+            lv_obj_set_style_outline_opa(s_channelSelectorBtn, LV_OPA_TRANSP, 0);
         }
-#endif
-        } else {
-            const bool lightMode = (s_cfg.uiMode == UI_MODE_LIGHT);
-            const lv_color_t selectorIdleBorder =
-                lvColorFrom565(blend565(s_ui.panelAlt, s_ui.accent, lightMode ? 96 : 120));
-            const lv_color_t selectorIdleOutline =
-                lvColorFrom565(blend565(s_ui.panelBg, s_ui.accent, lightMode ? 88 : 112));
-            lv_obj_set_style_border_width(s_channelSelectorBtn, 2, 0);
-            lv_obj_set_style_border_color(s_channelSelectorBtn, selectorIdleBorder, 0);
-            lv_obj_set_style_outline_color(s_channelSelectorBtn, selectorIdleOutline, 0);
-            lv_obj_set_style_outline_pad(s_channelSelectorBtn, 0, 0);
-            lv_obj_set_style_outline_width(s_channelSelectorBtn, 1, 0);
-            lv_obj_set_style_outline_opa(s_channelSelectorBtn, lightMode ? LV_OPA_40 : LV_OPA_50, 0);
-            lv_obj_set_style_shadow_color(s_channelSelectorBtn, lv_color_hex(0x4EC9FF), 0);
-            lv_obj_set_style_shadow_spread(s_channelSelectorBtn, 1, 0);
-            lv_obj_set_style_shadow_width(s_channelSelectorBtn, 4, 0);
-            lv_obj_set_style_shadow_opa(s_channelSelectorBtn, lightMode ? LV_OPA_20 : LV_OPA_30, 0);
-        }
+    #else
+        // Header text, not a control: no border, halo or unread pulse on any
+        // board. The unread state lives on the rows in the channel drawer.
+        LV_UNUSED(selectorShouldGlow);
+        lv_obj_set_style_border_width(s_channelSelectorBtn, 0, 0);
+        lv_obj_set_style_outline_width(s_channelSelectorBtn, 0, 0);
+        lv_obj_set_style_outline_opa(s_channelSelectorBtn, LV_OPA_TRANSP, 0);
+        lv_obj_set_style_shadow_width(s_channelSelectorBtn, 0, 0);
+        lv_obj_set_style_shadow_opa(s_channelSelectorBtn, LV_OPA_TRANSP, 0);
+    #endif
 #endif
     }
 }
@@ -46729,42 +46747,20 @@ static void applyChannelButtonTheme() {
     }
 
     if (s_channelSelectorBtn) {
-#if defined(DEVICE_TDECK_PRO)
+        // Header text, not a button: no fill of its own, so the header shows
+        // through, and no border, outline or shadow. This used to paint the
+        // selector as a raised button on every theme pass -- after buildUi()
+        // had already made it bare, which is why it kept coming back.
         lv_obj_set_style_bg_opa(s_channelSelectorBtn, LV_OPA_TRANSP, 0);
-        lv_obj_set_style_border_width(s_channelSelectorBtn, 2, 0);
-        lv_obj_set_style_border_color(s_channelSelectorBtn, lv_color_make(0, 0, 0), 0);
+        lv_obj_set_style_border_width(s_channelSelectorBtn, 0, 0);
+        lv_obj_set_style_outline_width(s_channelSelectorBtn, 0, 0);
         lv_obj_set_style_outline_opa(s_channelSelectorBtn, LV_OPA_TRANSP, 0);
+        lv_obj_set_style_shadow_width(s_channelSelectorBtn, 0, 0);
         lv_obj_set_style_shadow_opa(s_channelSelectorBtn, LV_OPA_TRANSP, 0);
-#else
-        const bool lightMode = (s_cfg.uiMode == UI_MODE_LIGHT);
-        const lv_color_t selectorBaseBorder =
-            lvColorFrom565(blend565(s_ui.panelAlt, s_ui.accent, lightMode ? 96 : 120));
-        const lv_color_t selectorBaseOutline =
-            lvColorFrom565(blend565(s_ui.panelBg, s_ui.accent, lightMode ? 88 : 112));
-        lv_obj_set_style_bg_color(
-            s_channelSelectorBtn,
-            lightMode
-                ? lvColorFrom565(blend565(s_ui.panelBg, s_ui.accent, 78))
-                : lv_color_hex(0x15356B),
-            0);
-        lv_obj_set_style_bg_opa(s_channelSelectorBtn, lightMode ? LV_OPA_90 : LV_OPA_80, 0);
-        lv_obj_set_style_border_width(s_channelSelectorBtn, 2, 0);
-        lv_obj_set_style_border_color(s_channelSelectorBtn, selectorBaseBorder, 0);
-        lv_obj_set_style_outline_color(s_channelSelectorBtn, selectorBaseOutline, 0);
-        lv_obj_set_style_outline_pad(s_channelSelectorBtn, 0, 0);
-        lv_obj_set_style_outline_width(s_channelSelectorBtn, 1, 0);
-        lv_obj_set_style_outline_opa(s_channelSelectorBtn, lightMode ? LV_OPA_40 : LV_OPA_50, 0);
-        lv_obj_set_style_shadow_color(s_channelSelectorBtn, lv_color_hex(0x4EC9FF), 0);
-        lv_obj_set_style_shadow_spread(s_channelSelectorBtn, 1, 0);
-        lv_obj_set_style_shadow_width(s_channelSelectorBtn, 4, 0);
-        lv_obj_set_style_shadow_opa(s_channelSelectorBtn, lightMode ? LV_OPA_20 : LV_OPA_30, 0);
-    #endif
     }
     if (s_channelSelectorLabel) {
-        lv_obj_set_style_text_color(
-            s_channelSelectorLabel,
-            (s_cfg.uiMode == UI_MODE_LIGHT) ? lv_color_hex(0x1B243D) : lv_color_hex(0xD9E8FF),
-            0);
+        // The clock's ink, as refreshChannelSelectorLabel() sets it.
+        lv_obj_set_style_text_color(s_channelSelectorLabel, lv_color_hex(0xD9E8FF), 0);
     }
     if (s_channelSelectorCaretLabel) {
         lv_obj_set_style_text_color(
@@ -46820,7 +46816,7 @@ static bool isChannelDropdownVisible() {
 #if UI_CHANNEL_LIST_DROPDOWN
     // Anchored, the list is always showing -- and is not a dropdown to close.
     if (!channelListIsDropdown()) return false;
-    return s_channelList && !lv_obj_has_flag(s_channelList, LV_OBJ_FLAG_HIDDEN);
+    return s_channelList && s_channelDrawerOpen;
 #else
     return false;
 #endif
@@ -46856,7 +46852,9 @@ static void refreshChannelSelectorLabel() {
 #if defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO) || defined(DEVICE_MESH_DECK) || defined(DEVICE_M9)
     const bool showSelectorCaret = false;
 #elif UI_TOUCH_ONLY_PROFILE
-    const bool showSelectorCaret = useCompactVerticalHeltecSelector();
+    // The caret said "this opens"; the selector no longer does (it is only the
+    // chat's name now, and the list is the drawer).
+    const bool showSelectorCaret = false;
 #elif defined(DEVICE_CARDPUTER_LORA_HAT)
     const bool showSelectorCaret = false;
 #else
@@ -46864,10 +46862,9 @@ static void refreshChannelSelectorLabel() {
 #endif
 
     lv_label_set_text(s_channelSelectorLabel, name);
-    lv_obj_set_style_text_color(
-        s_channelSelectorLabel,
-        (s_cfg.uiMode == UI_MODE_LIGHT) ? lv_color_hex(0x1B243D) : lv_color_hex(0xD9E8FF),
-        0);
+    // The clock's ink, through the same themed mapping it uses, so the two
+    // pieces of header text always match whatever the theme turns it into.
+    lv_obj_set_style_text_color(s_channelSelectorLabel, lv_color_hex(0xD9E8FF), 0);
     if (s_channelSelectorCaretLabel) {
         if (showSelectorCaret) {
             lv_obj_clear_flag(s_channelSelectorCaretLabel, LV_OBJ_FLAG_HIDDEN);
@@ -46952,16 +46949,170 @@ static void refreshChannelSelectorLabel() {
                 lv_obj_align(s_channelSelectorCaretLabel, LV_ALIGN_RIGHT_MID, -5, 1);
             }
         } else {
-            // Non-caret selector uses centered text in a centered text box for equal left/right padding.
-            lv_obj_set_style_text_align(s_channelSelectorLabel, LV_TEXT_ALIGN_CENTER, 0);
+            // Left-aligned: it is the header's title now, reading from the same
+            // edge the battery mirrors on the right, not a label centred in a
+            // button. The box keeps its fixed width so the clock stays put
+            // whichever channel is showing.
+            lv_obj_set_style_text_align(s_channelSelectorLabel, LV_TEXT_ALIGN_LEFT, 0);
             lv_obj_set_width(s_channelSelectorLabel, max((lv_coord_t)1, (lv_coord_t)(s_channelSelectorFixedBtnW - (selectorEdgePad * 2))));
-            lv_obj_align(s_channelSelectorLabel, LV_ALIGN_CENTER, 0, 1);
+            lv_obj_align(s_channelSelectorLabel, LV_ALIGN_LEFT_MID, 0, 1);
         }
 
         layoutHeaderInlineItems();
     }
 #endif
 }
+
+#if UI_CHANNEL_LIST_DROPDOWN
+// ── Channel drawer ───────────────────────────────────────────────────────────
+// The slide itself. Instant on the Pro, for the reason the dashboard carousel
+// is (HAS_HOME_CAROUSEL_ANIM): every animated frame there is an e-paper refresh.
+#if defined(DEVICE_TDECK_PRO)
+#define HAS_CHANNEL_DRAWER_ANIM 0
+#else
+#define HAS_CHANNEL_DRAWER_ANIM 1
+#endif
+static constexpr uint32_t kChannelDrawerSlideMs = 180;
+
+#if HAS_CHANNEL_DRAWER_ANIM
+static void channelDrawerSlideXCb(void *obj, int32_t x) {
+    lv_obj_set_x((lv_obj_t *)obj, x);
+}
+
+// Hidden only once it has actually left, and only if nothing reopened it on
+// the way out -- a swipe back in mid-slide restarts the animation from here.
+static void channelDrawerSlideDone(lv_anim_t *a) {
+    lv_obj_t *list = (lv_obj_t *)a->var;
+    if (!s_channelDrawerOpen && lvObjValid(list)) {
+        lv_obj_add_flag(list, LV_OBJ_FLAG_HIDDEN);
+    }
+}
+#endif
+
+static void channelDrawerSlide(bool open) {
+    if (!lvObjValid(s_channelList)) return;
+    if (open == s_channelDrawerOpen
+        && open != lv_obj_has_flag(s_channelList, LV_OBJ_FLAG_HIDDEN)) {
+        return;   // already where it was asked to be
+    }
+    s_channelDrawerOpen = open;
+
+    // Off screen is the drawer's own width to the left of the edge, which is
+    // read now rather than at build: fitChannelDropdownToButtonContent() sets
+    // the width after the first channel names are known.
+    lv_obj_update_layout(s_channelList);
+    const int32_t shownX = 0;
+    const int32_t hiddenX = -lv_obj_get_width(s_channelList) - 2;
+
+    if (lvObjValid(s_channelDrawerScrim)) {
+        if (open) {
+            lv_obj_clear_flag(s_channelDrawerScrim, LV_OBJ_FLAG_HIDDEN);
+            lv_obj_move_foreground(s_channelDrawerScrim);
+        } else {
+            lv_obj_add_flag(s_channelDrawerScrim, LV_OBJ_FLAG_HIDDEN);
+        }
+    }
+
+    if (open) {
+        if (lv_obj_has_flag(s_channelList, LV_OBJ_FLAG_HIDDEN)) {
+            lv_obj_set_x(s_channelList, hiddenX);
+            lv_obj_clear_flag(s_channelList, LV_OBJ_FLAG_HIDDEN);
+        }
+        lv_obj_move_foreground(s_channelList);
+    }
+
+#if HAS_CHANNEL_DRAWER_ANIM
+    lv_anim_delete(s_channelList, channelDrawerSlideXCb);
+    lv_anim_t a;
+    lv_anim_init(&a);
+    lv_anim_set_var(&a, s_channelList);
+    lv_anim_set_exec_cb(&a, channelDrawerSlideXCb);
+    lv_anim_set_values(&a, lv_obj_get_x(s_channelList), open ? shownX : hiddenX);
+    lv_anim_set_duration(&a, kChannelDrawerSlideMs);
+    lv_anim_set_path_cb(&a, lv_anim_path_ease_out);
+    lv_anim_set_completed_cb(&a, channelDrawerSlideDone);
+    lv_anim_start(&a);
+#else
+    lv_obj_set_x(s_channelList, open ? shownX : hiddenX);
+    if (!open) lv_obj_add_flag(s_channelList, LV_OBJ_FLAG_HIDDEN);
+#endif
+}
+
+static void onChannelDrawerScrimPressed(lv_event_t *e) {
+    LV_UNUSED(e);
+    setChannelDropdownVisible(false);
+}
+
+#if HAS_TOUCH
+// Whether a swipe in from the edge should open the drawer: the chat has to be
+// the screen in front. chatScreenIsForeground() names the modals it knows of;
+// the z-order check behind it catches the full-screen ones it does not (the
+// Tools charts, Weather, ...), all of which are children of the root screen
+// built after the chat panel and as wide as the display.
+static bool channelDrawerCanOpenFromEdge() {
+    if (!channelListIsDropdown() || !lvObjValid(s_channelList)) return false;
+    if (!lvObjValid(s_chatPanel)) return false;
+#if UI_TOUCH_ONLY_PROFILE || defined(DEVICE_M9) \
+    || (HAS_HOME_DASHBOARD && UI_CHANNEL_LIST_DROPDOWN)
+    if (!chatScreenIsForeground()) return false;
+#endif
+    lv_obj_t *parent = lv_obj_get_parent(s_chatPanel);
+    if (!parent) return false;
+    const int32_t from = lv_obj_get_index(s_chatPanel);
+    if (from < 0) return false;
+    const int32_t dispW = lv_disp_get_hor_res(NULL);
+    const int32_t dispH = lv_disp_get_ver_res(NULL);
+    const uint32_t n = lv_obj_get_child_count(parent);
+    for (uint32_t i = (uint32_t)from + 1; i < n; i++) {
+        lv_obj_t *o = lv_obj_get_child(parent, (int32_t)i);
+        if (!o || o == s_channelList || o == s_channelDrawerScrim) continue;
+        if (lv_obj_has_flag(o, LV_OBJ_FLAG_HIDDEN)) continue;
+        if (lv_obj_get_width(o) >= dispW * 3 / 4 && lv_obj_get_height(o) >= dispH / 2) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// How far in from the left edge a press may start and still count as a swipe
+// from the edge. Wide enough to land with a thumb, narrow enough that a swipe
+// across the middle of the chat is still nothing.
+static constexpr int32_t kChannelDrawerEdgePx = 18;
+static bool s_channelDrawerEdgePress = false;
+
+// Attached to the touch input device rather than to an object: LVGL sends
+// PRESSED and GESTURE to the indev whatever was under the finger, so the chat
+// needs no invisible edge strip over its messages to catch the swipe.
+static void channelDrawerIndevCb(lv_event_t *e) {
+    lv_indev_t *indev = (lv_indev_t *)lv_event_get_current_target(e);
+    if (!indev) return;
+    const lv_event_code_t code = lv_event_get_code(e);
+    if (code == LV_EVENT_PRESSED) {
+        lv_point_t p;
+        lv_indev_get_point(indev, &p);
+        s_channelDrawerEdgePress = (p.x <= kChannelDrawerEdgePx);
+        return;
+    }
+    if (code != LV_EVENT_GESTURE) return;
+    const lv_dir_t dir = lv_indev_get_gesture_dir(indev);
+    const bool fromEdge = s_channelDrawerEdgePress;
+    s_channelDrawerEdgePress = false;
+    if (dir == LV_DIR_RIGHT && fromEdge && !isChannelDropdownVisible()
+        && channelDrawerCanOpenFromEdge()) {
+        setChannelDropdownVisible(true);
+    } else if (dir == LV_DIR_LEFT && isChannelDropdownVisible()) {
+        // Pushed back the way it came, from anywhere on screen.
+        setChannelDropdownVisible(false);
+    }
+}
+
+static void channelDrawerAttachTouch(lv_indev_t *indev) {
+    if (!indev) return;
+    lv_indev_add_event_cb(indev, channelDrawerIndevCb, LV_EVENT_PRESSED, nullptr);
+    lv_indev_add_event_cb(indev, channelDrawerIndevCb, LV_EVENT_GESTURE, nullptr);
+}
+#endif  // HAS_TOUCH
+#endif  // UI_CHANNEL_LIST_DROPDOWN
 
 static void setChannelDropdownVisible(bool visible) {
 #if !UI_CHANNEL_LIST_DROPDOWN
@@ -46972,8 +47123,7 @@ static void setChannelDropdownVisible(bool visible) {
     if (!s_channelList) return;
 
     if (visible) {
-        lv_obj_clear_flag(s_channelList, LV_OBJ_FLAG_HIDDEN);
-        lv_obj_move_foreground(s_channelList);
+        channelDrawerSlide(true);
 #if defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO) || defined(DEVICE_CARDPUTER_LORA_HAT) || defined(DEVICE_MESH_DECK) \
     || defined(DEVICE_M9)
         if (s_cardputerDropdownSelection < 0 || s_cardputerDropdownSelection >= MESH_CHANNELS) {
@@ -46985,7 +47135,7 @@ static void setChannelDropdownVisible(bool visible) {
         }
 #endif
     } else {
-        lv_obj_add_flag(s_channelList, LV_OBJ_FLAG_HIDDEN);
+        channelDrawerSlide(false);
 #if defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO) || defined(DEVICE_CARDPUTER_LORA_HAT) || defined(DEVICE_MESH_DECK) \
     || defined(DEVICE_M9)
         s_cardputerDropdownSelection = -1;
@@ -46997,14 +47147,12 @@ static void setChannelDropdownVisible(bool visible) {
 }
 
 static void onChannelSelectorPressed(lv_event_t *e) {
-#if !UI_CHANNEL_LIST_DROPDOWN
     LV_UNUSED(e);
-    return;
-#endif
     if (!channelListIsDropdown()) return;
-    LV_UNUSED(e);
+    // A toggle, though a touch only ever opens with it: while the drawer is up
+    // the scrim covers the header, so a second tap on the name lands on the
+    // scrim and closes it from there.
     setChannelDropdownVisible(!isChannelDropdownVisible());
-    refreshChannelGlow(true);
 }
 
 static void onChannelPressed(lv_event_t *e) {
@@ -47072,8 +47220,12 @@ static void fitChannelDropdownToButtonContent() {
     if (maxLabelW <= 0) return;
 
 #if defined(DEVICE_TDECK_PRO)
-    const lv_coord_t listPadLeft = 2;
-    const lv_coord_t listPadRight = 2;
+    // Clear air between the rows and the drawer's edges: at 2 px the rows ran
+    // into its black border. The right side also has to step over that 2 px
+    // border itself, which LVGL takes out of the content area before padding.
+    const lv_coord_t listPadLeft = 6;
+    const lv_coord_t listPadRight = 6;
+    const lv_coord_t listBorderRight = 2;   // buildUi(): the drawer's edge
     const lv_coord_t buttonTextPad = 4;
     const lv_coord_t scrollbarGutter = 0;
 #elif defined(DEVICE_MESH_DECK)
@@ -47099,14 +47251,15 @@ static void fitChannelDropdownToButtonContent() {
     lv_coord_t dropdownW = listPadLeft + buttonW + scrollbarGutter + listPadRight;
 
 #if defined(DEVICE_TDECK_PRO)
-    // The open list is the selector button extended downward. Match the outer
-    // width exactly and give each row the remaining width inside the margins.
+    // At least as wide as the name box in the header, as the dropdown was, but
+    // grown rather than squeezed when the rows and their margins need more:
+    // the drawer is its own sheet now, not the selector opening downward, so
+    // there is no edge of the button it has to line up with.
+    dropdownW += listBorderRight;
     lv_coord_t selectorW = s_channelSelectorFixedBtnW;
     if (selectorW <= 0 && s_channelSelectorBtn) selectorW = lv_obj_get_width(s_channelSelectorBtn);
-    if (selectorW > 0) {
-        dropdownW = selectorW;
-        buttonW = dropdownW - listPadLeft - listPadRight;
-    }
+    if (selectorW > dropdownW) dropdownW = selectorW;
+    buttonW = dropdownW - listPadLeft - listPadRight - listBorderRight;
 #elif defined(DEVICE_MESH_DECK)
     // Take the selector button's width outright when it is the larger of the
     // two: the list is that button opening downward, so anything short of its
@@ -52237,6 +52390,8 @@ static void buildUi() {
 #if UI_CHANNEL_LIST_DROPDOWN
     s_channelStrip = nullptr;
     s_channelList = nullptr;
+    s_channelDrawerOpen = false;
+    s_channelDrawerScrim = nullptr;
 
     const int selectorBtnH = chatHeaderH - 6;
 #if UI_TOUCH_ONLY_PROFILE
@@ -52260,7 +52415,7 @@ static void buildUi() {
 #if defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO) || defined(DEVICE_MESH_DECK) || defined(DEVICE_M9)
     const bool showSelectorCaret = false;
 #elif UI_TOUCH_ONLY_PROFILE
-    const bool showSelectorCaret = compactHeltecSelector;
+    const bool showSelectorCaret = false;   // see refreshChannelSelectorLabel()
 #elif defined(DEVICE_CARDPUTER_LORA_HAT)
     const bool showSelectorCaret = false;
 #else
@@ -52273,24 +52428,20 @@ static void buildUi() {
     const lv_coord_t selectorTextYOffset = 1;
 #endif
 
-    const lv_font_t *selectorTextFont = headerTextFont;
-#if defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO) || defined(DEVICE_MESH_DECK) || defined(DEVICE_M9)
-    selectorTextFont = &lv_font_montserrat_14; // nearest built-in to requested size 13
-#elif UI_TOUCH_ONLY_PROFILE
-    if (!compactHeltecSelector) selectorTextFont = &lv_font_montserrat_14; // keep vertical Heltec unchanged
-#endif
-#if defined(DEVICE_TDISPLAY_P4)
-    // The taller portrait header's channel name. The button follows it: its
-    // width is measured from the widest name in this face (refreshChannel-
-    // SelectorLabel()).
-    if (uiPortrait()) selectorTextFont = &lv_font_montserrat_20;
-#endif
+    // The clock's face: the name is header text now, not a button's label, so
+    // it takes the one text style the header already has -- which also carries
+    // the per-board sizes (the P4 portrait header's larger face, the Pro's and
+    // Cardputer's smaller ones) without a second table of them. The selector's
+    // width is still measured from the widest name in it
+    // (refreshChannelSelectorLabel()).
+    const lv_font_t *selectorTextFont = clockTextFont;
 
     s_channelSelectorBtn = lv_btn_create(s_chatHeaderBar);
-#if defined(DEVICE_TDECK_PRO)
+    // Every board, not just the Pro now: the theme's button styles are what
+    // give it a fill, and a pressed state that darkens it -- neither of which
+    // header text should have. It stays clickable; see below.
     lv_obj_remove_style_all(s_channelSelectorBtn);
     lv_obj_add_flag(s_channelSelectorBtn, LV_OBJ_FLAG_CLICKABLE);
-#endif
     lv_obj_set_size(s_channelSelectorBtn, selectorBtnW, selectorBtnH);
     lv_obj_align(s_channelSelectorBtn, LV_ALIGN_LEFT_MID, selectorBtnOffsetX, 0);
     lv_obj_set_style_radius(s_channelSelectorBtn, 6, 0);
@@ -52313,7 +52464,20 @@ static void buildUi() {
     lv_obj_set_style_pad_bottom(s_channelSelectorBtn, 2, 0);
 #endif
     lv_obj_set_style_shadow_width(s_channelSelectorBtn, 0, 0);
-    lv_obj_add_event_cb(s_channelSelectorBtn, onChannelSelectorPressed, LV_EVENT_CLICKED, nullptr);
+    // Looks like header text, the name of the chat being read, but a tap on it
+    // still opens the channel drawer -- as does a swipe in from the left edge,
+    // or the keys that always opened it. Kept as the same object (the header
+    // lays itself out around it) with the button look taken off.
+    // refreshChannelGlow() and applyChannelButtonTheme() keep it bare.
+    lv_obj_add_event_cb(s_channelSelectorBtn, onChannelSelectorPressed,
+                        LV_EVENT_CLICKED, nullptr);
+    lv_obj_set_style_bg_opa(s_channelSelectorBtn, LV_OPA_TRANSP, 0);
+    lv_obj_set_style_border_width(s_channelSelectorBtn, 0, 0);
+    lv_obj_set_style_outline_width(s_channelSelectorBtn, 0, 0);
+    // The name starts at the header's own inset, the same distance in from
+    // the left that the battery sits from the right -- not a further 6 px
+    // in, which was the button's padding around its label.
+    lv_obj_set_style_pad_left(s_channelSelectorBtn, 0, 0);
 
     s_channelSelectorLabel = lv_label_create(s_channelSelectorBtn);
     lv_obj_set_style_text_font(s_channelSelectorLabel, selectorTextFont, 0);
@@ -52498,21 +52662,44 @@ static void buildUi() {
 #else
         const int dropdownW = min(max(chatW / 2, 120), 260);
 #endif
-        const int maxDropdownH = max(44, chatH - 8);
-        const int desiredDropdownH = (channelNavBtnH + 4) * MESH_CHANNELS + 8;
-        const int dropdownH = min(maxDropdownH, desiredDropdownH);
 
-        s_channelList = lv_obj_create(screen);
-        lv_obj_set_size(s_channelList, dropdownW, dropdownH);
-#if defined(DEVICE_MESH_DECK) || defined(DEVICE_TDECK_PRO)
-        // Same left edge as the button above it, for the same reason. The
-        // selector sits inside the header bar, so its left edge is the header's
-        // own border and padding further in than the bar itself.
-        lv_obj_align(s_channelList, LV_ALIGN_TOP_LEFT,
-                     chatX + kChatHeaderBorderW + kChatHeaderPad + selectorBtnOffsetX,
-                     chatY + 4);
+        // Behind the drawer and over everything else: a tap anywhere outside
+        // the list closes it. Built first so the list, raised after it on every
+        // open, sits on top. No dim on the Pro, where a partial opacity dithers.
+        s_channelDrawerScrim = lv_obj_create(screen);
+        lv_obj_remove_style_all(s_channelDrawerScrim);
+        lv_obj_set_size(s_channelDrawerScrim, lv_disp_get_hor_res(NULL),
+                        lv_disp_get_ver_res(NULL));
+        lv_obj_set_pos(s_channelDrawerScrim, 0, 0);
+        lv_obj_set_style_bg_color(s_channelDrawerScrim, lv_color_black(), 0);
+#if defined(DEVICE_TDECK_PRO)
+        lv_obj_set_style_bg_opa(s_channelDrawerScrim, LV_OPA_TRANSP, 0);
 #else
-        lv_obj_align(s_channelList, LV_ALIGN_TOP_LEFT, chatX + 4, chatY + 4);
+        lv_obj_set_style_bg_opa(s_channelDrawerScrim, LV_OPA_40, 0);
+#endif
+        lv_obj_add_flag(s_channelDrawerScrim,
+                        (lv_obj_flag_t)(LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_HIDDEN));
+        lv_obj_clear_flag(s_channelDrawerScrim, LV_OBJ_FLAG_SCROLLABLE);
+        lv_obj_add_event_cb(s_channelDrawerScrim, onChannelDrawerScrimPressed,
+                            LV_EVENT_CLICKED, nullptr);
+
+        // The drawer: the chat's full height, flush with the left edge of the
+        // display. Its x is the slide's (channelDrawerSlide()); it starts
+        // hidden, and is placed off screen each time it opens.
+        s_channelList = lv_obj_create(screen);
+#if defined(DEVICE_TDECK_PRO)
+        // From the top of the screen, not the top of the chat. At the chat's
+        // own height the drawer's edges fell exactly on the chat box's border
+        // lines, and with no shadow or dim on this 1-bit panel to lift it off
+        // the page, the chat box just looked narrower -- its border ending at
+        // the drawer as though it had moved over to make room. Covering the
+        // header too, with a border all round (below), makes it plainly a
+        // sheet laid over the screen.
+        lv_obj_set_size(s_channelList, dropdownW, chatY + chatH);
+        lv_obj_set_pos(s_channelList, 0, 0);
+#else
+        lv_obj_set_size(s_channelList, dropdownW, chatH);
+        lv_obj_set_pos(s_channelList, 0, chatY);
 #endif
         // v9 made lv_obj_flag_t a real enum, so an OR of two flags is an int in
         // C++ and needs the cast back.
@@ -52527,14 +52714,27 @@ static void buildUi() {
     #if defined(DEVICE_TDECK_PRO)
         lv_obj_set_style_bg_color(s_channelList, lv_color_make(255, 255, 255), 0);
         lv_obj_set_style_bg_opa(s_channelList, LV_OPA_COVER, 0);
-        lv_obj_set_style_border_width(s_channelList, 0, 0);
+        // White on white otherwise: the one edge that shows is the one that
+        // has to say where the drawer stops.
+        lv_obj_set_style_border_width(s_channelList, 2, 0);
+        lv_obj_set_style_border_color(s_channelList, lv_color_make(0, 0, 0), 0);
     #else
         lv_obj_set_style_bg_color(s_channelList, lv_color_hex(0x0F2A5C), 0);
         lv_obj_set_style_bg_opa(s_channelList, LV_OPA_COVER, 0);
         lv_obj_set_style_border_width(s_channelList, 1, 0);
         lv_obj_set_style_border_color(s_channelList, lv_color_hex(0x335D9D), 0);
     #endif
-        lv_obj_set_style_radius(s_channelList, 6, 0);
+        // A drawer, not a popup: square, and edged only on the side that
+        // faces the chat -- the others are the display's own edges. Except on
+        // the Pro, where the bottom edge sits over the chat and has to be
+        // drawn for the drawer to read as on top of it (see above).
+#if defined(DEVICE_TDECK_PRO)
+        lv_obj_set_style_border_side(s_channelList,
+            (lv_border_side_t)(LV_BORDER_SIDE_RIGHT | LV_BORDER_SIDE_BOTTOM), 0);
+#else
+        lv_obj_set_style_border_side(s_channelList, LV_BORDER_SIDE_RIGHT, 0);
+#endif
+        lv_obj_set_style_radius(s_channelList, 0, 0);
         lv_obj_set_style_pad_all(s_channelList, 4, 0);
         lv_obj_set_style_pad_row(s_channelList, 4, 0);
         lv_obj_set_style_width(s_channelList, 2, LV_PART_SCROLLBAR);
@@ -52915,6 +53115,10 @@ static void buildUi() {
         // The Pager panel's fill: a column of the screen, not a popup over it.
         lv_obj_set_style_bg_color(s_channelList, lv_color_hex(0x0E285B), 0);
         lv_obj_set_style_bg_opa(s_channelList, LV_OPA_70, 0);
+        // Undo the drawer's shape (square, right edge only): this is the
+        // rounded, fully edged panel the column always was.
+        lv_obj_set_style_border_side(s_channelList, LV_BORDER_SIDE_FULL, 0);
+        lv_obj_set_style_radius(s_channelList, 6, 0);
         for (int i = 0; i < MESH_CHANNELS; i++) {
             // Full column width rather than sized to the name, which is what a
             // dropdown wants and a list you read down does not.
@@ -52970,6 +53174,8 @@ static void rebuildUiForThemeChange(bool reopenCfg) {
     memset(s_channelLabels, 0, sizeof(s_channelLabels));
     s_channelStrip = nullptr;
     s_channelList = nullptr;
+    s_channelDrawerOpen = false;
+    s_channelDrawerScrim = nullptr;
     s_channelSelectorBtn = nullptr;
     s_channelSelectorLabel = nullptr;
     s_channelSelectorCaretLabel = nullptr;
@@ -53754,6 +53960,9 @@ void setup() {
     lv_indev_set_type(touchIndev, LV_INDEV_TYPE_POINTER);
     lv_indev_set_read_cb(touchIndev, lvglTouchRead);
     lv_indev_set_display(touchIndev, s_lvDisplay);
+#if UI_CHANNEL_LIST_DROPDOWN
+    channelDrawerAttachTouch(touchIndev);
+#endif
 #if UI_TOUCH_ONLY_PROFILE
     // Long-press has to survive a finger that does not hold perfectly still.
     //

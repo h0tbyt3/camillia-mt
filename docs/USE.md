@@ -90,6 +90,35 @@ hints are gone. The Cardputer feels the height most: 28 px is a fifth of its
 The T-Display P4 uses the same navigation model at a 56 px height with 28 px
 icons, scaled for its 568x1232 panel.
 
+### Channel list
+
+On most boards the channel list is a **drawer that slides in from the left**
+over the chat and stays there until you pick a channel; picking one switches to
+it and the drawer slides back. The top of the chat screen shows the current
+channel's name as plain header text; on a touchscreen, tapping it opens the
+list too.
+
+How you open it:
+
+- **Touch** (`heltec-v4*`, `wio-tracker-l2`, `p4-amoled-*` in portrait, and the
+  touchscreens on `tdeck`, `tdeck-pro` and `mesh-deck`) — on the chat screen,
+  **tap the channel name at the top**, or **swipe in from the left edge of the
+  screen**. The swipe has to start at the very edge; one across the middle of
+  the chat does nothing. To close it without switching, tap anywhere outside it
+  or swipe it back to the left.
+- **Keyboard boards with a Home dashboard** (`tdeck`, `tdeck-pro`, `mesh-deck`)
+  — **C** on the chat screen. Up/Down (or J/K) moves through the list, Enter
+  picks, and the close key shuts it.
+- **M9** — press **Messages** again while on the chat screen. The d-pad moves
+  through the list and Enter picks.
+- **Cardputer** — **H** on the chat screen opens and closes it; Enter picks.
+
+On `tdeck-pro` the drawer appears and disappears in one step rather than
+sliding — every frame of a slide would be an e-paper refresh. Where the list is
+anchored beside the chat instead (`tlora-pager-tft`, and the P4 in landscape),
+it is always in view and there is nothing to open. The Help screen names the
+way in for the board you are holding.
+
 If your board has the browser **Remote** (M9 and T-Lora Pager do), the bar's
 cells are clickable there even though the device itself has no touch panel — the
 Remote forwards its clicks to the panel as a real pointer.
@@ -107,7 +136,7 @@ These apply to all keyboard builds, including `tdeck`, `tdeck-pro`,
 - L opens Live
 - P opens Help — the key list, the transport symbols and what the nav cells do.
   P rather than H, which is Home on the boards with a dashboard and the channel
-  selector on the ones without, and rather than `?`, which needs Shift on every
+  list on the one without (the Cardputer), and rather than `?`, which needs Shift on every
   one of these keyboards
 - A opens Channel Actions — M mutes/unmutes the channel, L toggles whether this
   node broadcasts its position on it (Share Location in Config gates all channels)
@@ -152,10 +181,12 @@ These apply to all keyboard builds, including `tdeck`, `tdeck-pro`,
   the keyboard stayed dark and lit only to flag an unread message. Notification
   blinks work at any level: they pulse away from whatever you pick and settle
   back on it
-- H toggles the channel selector
+- C on the chat screen opens the [channel list](#channel-list), as does tapping
+  the channel name at the top or swiping in from the left edge of the
+  touchscreen
 - Alt+H returns directly to chat on keyboard-controller firmware with LilyGo's
   five-byte raw-matrix mode (2025-06-12 or newer). It closes things; it does not
-  open the channel selector — H alone does that
+  open the channel list — a plain C on the chat screen does that
 - J/K map to Up/Down navigation in lists and chat row selection
 - Trackball Up/Down follows the same Up/Down behavior as J/K
 - Modal close key is Backspace (Esc is also accepted)
@@ -171,8 +202,9 @@ These apply to all keyboard builds, including `tdeck`, `tdeck-pro`,
 - **Keyboard Light** (Config, and in web config) sets how bright the keyboard is
   when it is lit. **Alt+B** still turns it on and off; this is only how bright
   "on" is, and it defaults to full, which is what the board has always done
-- Uses the same letter shortcuts as T-Deck: H opens the channel selector, J/K
-  navigate, and D/C/N/L/A open the shared device surfaces.
+- Uses the same letter shortcuts as T-Deck: C on the chat screen opens the
+  [channel list](#channel-list) (as does a swipe in from the left edge of the
+  touchscreen), J/K navigate, and D/C/N/L/A open the shared device surfaces.
 - Shift and Symbol select the printed upper/symbol layers. Alt+E/F/S/X provide
   Up/Right/Left/Down, Alt+Q sends Esc, Alt+H returns to chat, and Alt+B toggles
   the keyboard backlight.
@@ -192,8 +224,9 @@ These apply to all keyboard builds, including `tdeck`, `tdeck-pro`,
   from both device and Web Config.
 - When the display sleeps, its retained frame shows Camillia, the node name,
   local time, and date. The time refreshes once per minute.
-- The expanded channel list matches the channel selector's width. In compose,
-  keyboard hints and the character count occupy separate footer lines.
+- The channel list drawer appears and disappears without sliding, since each
+  frame of a slide would be an e-paper refresh. In compose, keyboard hints and
+  the character count occupy separate footer lines.
 
 ### LilyGo T-Lora Pager TFT (tlora-pager-tft)
 
@@ -212,7 +245,8 @@ These apply to all keyboard builds, including `tdeck`, `tdeck-pro`,
 
 ### M5Stack Cardputer + Cap LoRa/GPS (cardputer-cap)
 
-- H toggles the channel selector
+- H opens and closes the [channel list](#channel-list), which slides in from the
+  left
 - Channel switch: comma (previous), slash (next)
 - Navigation: semicolon (Up), period (Down)
 - Arrow keys map to the same directional actions
@@ -378,8 +412,9 @@ How you reach it depends on the board:
   **Chats** cell beside it for the messages. Whichever of the two you are on is
   the lit cell
 - **Keyboard boards** — **H** on the chat screen, or the **Alt+H / Sym+H**
-  chord. **C** is the chat screen (a second C opens the channel list, where the
-  board has a dropdown rather than an anchored list), and **F** is Config, which
+  chord. **C** is the chat screen (a second C opens the
+  [channel list](#channel-list) drawer, where the board has one rather than an
+  anchored list), and **F** is Config, which
   used to be C. D, N and L are unchanged, and **P** is Help
 - The **Alt+C chord** goes to chat *without* opening the channel list. That is
   deliberate: the chord is the reflexive "get me out of here" gesture, and
@@ -473,11 +508,12 @@ channel raises nothing.
   cuts power below firmware at roughly the same two seconds that unlocks, so a
   hold on that pin could only ever end as a shutdown
 - Alt+H returns directly to chat from Config, filters, nested pickers, and the
-  other device surfaces. It closes things; it does not open the channel
-  selector — H alone does that, and leaving the channel list open on this board
-  slows the keyboard scan (see the note in `readKey()`, src/keyboard.cpp).
+  other device surfaces. It closes things; it does not open the channel list —
+  a plain C on the chat screen does that (or a swipe in from the left edge of
+  the touchscreen), and leaving the channel list open on this board slows the
+  keyboard scan (see the note in `readKey()`, src/keyboard.cpp).
 - Alt is read as a held modifier from the left keyboard expander at row 4,
-  column 2; an ordinary H remains available for the channel selector.
+  column 2; an ordinary H remains available for Home.
 
 ### Heltec WiFi LoRa 32 V4 + TFT expansion
 
@@ -784,7 +820,7 @@ standing next to you.
 
 - Press **S** (on Heltec, the **Send** button in the header) to start
 - Pick a channel from the grid — every configured channel is listed, the same
-  slots the channel selector shows. Move with Up/Down, hop columns with
+  slots the channel list shows. Move with Up/Down, hop columns with
   Left/Right, Enter picks; on Heltec, tap one
 - **A confirmation follows, showing the exact text that will be transmitted** and
   the channel it is going to. Enter sends, the close key cancels (on Heltec, the
@@ -2721,10 +2757,11 @@ Help explains shortcuts and transport symbols.
 
 Primary usage is touch plus keyboard shortcuts.
 
-- Use touch for channel chips and UI buttons
+- Use touch for UI buttons; tap the channel name at the top of the chat screen,
+  or swipe in from its left edge, for the [channel list](#channel-list)
 - Tap and hold a chat message to open Message Actions
 - D, C, N, L open main modals; A opens Channel Actions
-- H toggles channel selector
+- C on the chat screen opens the channel list
 - Space opens compose or reply compose; Enter moves the cursor into the channel's messages,
   and Enter again opens Message Actions for the highlighted message
 - Optional Vim-style helpers in navigation views: J maps to Up and K maps to Down
@@ -2752,7 +2789,7 @@ Primary usage is keyboard.
 - Channel switch: comma for previous, slash for next
 - Navigation: semicolon and period act as Up and Down in list views
 - Arrow keys map to the same directional actions
-- H toggles channel selector
+- H opens and closes the [channel list](#channel-list)
 - Escape closes modals and exits chat focus mode
 - Space (or Fn+Enter) opens compose; Enter confirms selected actions and moves the cursor into the channel's messages,
   and Enter again opens Message Actions for the highlighted message
@@ -2830,7 +2867,8 @@ Primary usage is touch.
 Primary usage is keyboard plus the d-pad and the dedicated function row.
 
 - Dedicated buttons open Chat, Home (the dashboard), DMs, Tools and Map from
-  anywhere; Chat pressed on the chat screen opens the channel list
+  anywhere; Chat pressed on the chat screen opens the
+  [channel list](#channel-list), which slides in from the left
 - Holding the d-pad centre sleeps the screen — or raises the lock screen, which
   a held centre then unlocks. A centre tap never reaches the UI; it only brings
   the lock screen up. See [Lock screen](#lock-screen)
@@ -2846,8 +2884,8 @@ Primary usage is keyboard plus the d-pad and the dedicated function row.
   they are laid out: Up/Down between rows, Left/Right between the two columns.
   In Message Actions, Up from the top row reaches the reaction strip, where
   Left/Right walks the reactions and Down drops back into the column below
-- H opens the home dashboard, C the chat screen (again for the channel
-  selector), F the configuration screen. D, N and L are unchanged — Direct
+- H opens the home dashboard, C the chat screen (again for the
+  [channel list](#channel-list)), F the configuration screen. D, N and L are unchanged — Direct
   Messages, Nodes and Tools
 - Space opens compose or reply compose; Enter moves the cursor into the
   channel's messages, and Enter again opens Message Actions for the highlighted

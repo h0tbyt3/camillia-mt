@@ -17,6 +17,7 @@
   Press  %.1f hPa	  Ciśn.  %.1f hPa
   lock	  zabezpieczona
   open	  otwarta
+ (English only)	 (tylko angielski)
  (no card)	 (brak karty)
  (not sharing location)	 (lokalizacja nieudostępniana)
  (unchanged)	 (bez zmian)
@@ -681,6 +682,8 @@ Silver	Srebrny
 Sky	Błękitny
 Small	Mały
 Source	Źródło
+Spell Check: %s	Sprawdzanie pisowni: %s
+Spell Check: %s%s	Sprawdzanie pisowni: %s%s
 Splash Melody: %s	Melodia startowa: %s
 Splash melody: %s	Melodia startowa: %s
 Stale - 	Nieaktualne -

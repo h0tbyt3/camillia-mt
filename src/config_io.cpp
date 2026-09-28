@@ -1123,6 +1123,7 @@ void cfgInitDefaults(RhinoConfig &cfg) {
     cfg.kbBacklightLevel   = MY_KB_BACKLIGHT_LEVEL;
     cfg.uiLanguage         = LANG_EN;
     cfg.p4Antenna          = 0;   // on-board antenna
+    cfg.spellCheckEnabled  = true;
     cfg.timeSource         = TIME_SOURCE_AUTO;
     cfg.mqttEnabled        = MY_MQTT_ENABLED;
     strncpy(cfg.mqttServer,  MY_MQTT_SERVER, sizeof(cfg.mqttServer) - 1);
@@ -1600,6 +1601,7 @@ void cfgToYaml(const RhinoConfig &cfg, String &out) {
     out += "    language: ";
     out += kUiLangCodes[cfg.uiLanguage < LANG_COUNT ? cfg.uiLanguage : LANG_EN];
     out += "\n";
+    snprintf(tmp, sizeof(tmp), "    spellCheck: %s\n", cfg.spellCheckEnabled ? "true" : "false"); out += tmp;
     snprintf(tmp, sizeof(tmp), "    splashMelodyEnabled: %s\n", cfg.splashMelodyEnabled ? "true" : "false"); out += tmp;
     snprintf(tmp, sizeof(tmp), "    volume: %u\n", (unsigned)cfg.volumePct); out += tmp;
     // Per-unit hardware trim, so it rides along with a config backup/restore of
@@ -2252,6 +2254,7 @@ bool cfgImportFromBuf(const char *buf, size_t len, RhinoConfig &cfg) {
                 else if (!strcmp(key, "orientation"))     cfg.uiOrientation   =
                         !strcmp(val, "PORTRAIT_180") ? 2 : (!strcmp(val, "PORTRAIT") ? 1 : 0);
                 else if (!strcmp(key, "language"))        cfg.uiLanguage = i18nLangFromCode(val);
+                else if (!strcmp(key, "spellCheck"))      cfg.spellCheckEnabled = parseBoolValue(val);
                 else if (!strcmp(key, "splashMelodyEnabled")) cfg.splashMelodyEnabled = (!strcmp(val,"true"));
                 else if (!strcmp(key, "volume"))          cfg.volumePct = cfgCoerceVolume(atoi(val));
                 else if (!strcmp(key, "batteryCalTrim"))  cfg.battCalTrim = cfgCoerceBattCalTrim(atoi(val));

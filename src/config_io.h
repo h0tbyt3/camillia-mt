@@ -648,6 +648,24 @@ struct RhinoConfig {
     // carries whatever older builds wrote into it. Past it is the old
     // sizeof(RhinoConfig), where a new field is safe.
     uint8_t  _reservedPad15[1];
+
+    // ── Compose spell suggestions ────────────────────────────────────────────
+    // The row of corrections over the compose box (src/spell.h). On by default,
+    // English UI only, and ignored on builds without HAS_SPELLCHECK --
+    // unconditional like the board-specific fields above, so the blob layout
+    // does not differ between boards.
+    //
+    // Safe at the end: _reservedPad15 above consumes the old struct's trailing
+    // padding, so this starts at exactly the previous sizeof(RhinoConfig), and
+    // an upgrading device keeps the compiled default (on) rather than reading
+    // a zero. It could not have gone into _reservedPad15 itself for exactly
+    // that reason.
+    bool     spellCheckEnabled;
+    // For whoever appends next: spellCheckEnabled is one byte at the end of a
+    // 4-aligned struct, so the stored blob carries three bytes past it that the
+    // load memcpy's straight over anything placed there. Same trap as every pad
+    // above.
+    uint8_t  _reservedPad16[3];
 };
 
 static constexpr uint8_t kP4AntennaExternal = 0x5A;

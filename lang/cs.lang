@@ -17,6 +17,7 @@
   Press  %.1f hPa	  Tlak   %.1f hPa
   lock	  zabezpečená
   open	  otevřená
+ (English only)	 (jen angličtina)
  (no card)	 (bez karty)
  (not sharing location)	 (poloha se nesdílí)
  (unchanged)	 (beze změny)
@@ -681,6 +682,8 @@ Silver	Stříbrná
 Sky	Nebeská
 Small	Malé
 Source	Zdroj
+Spell Check: %s	Kontrola pravopisu: %s
+Spell Check: %s%s	Kontrola pravopisu: %s%s
 Splash Melody: %s	Úvodní melodie: %s
 Splash melody: %s	Úvodní melodie: %s
 Stale - 	Zastaralé -

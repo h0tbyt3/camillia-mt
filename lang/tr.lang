@@ -17,6 +17,7 @@
   Press  %.1f hPa	  Basınç %.1f hPa
   lock	  korumalı
   open	  açık
+ (English only)	 (yalnızca İngilizce)
  (no card)	 (kart yok)
  (not sharing location)	 (konum paylaşılmıyor)
  (unchanged)	 (değişmedi)
@@ -684,6 +685,8 @@ Silver	Gümüş
 Sky	Gök mavisi
 Small	Küçük
 Source	Kaynak
+Spell Check: %s	Yazım denetimi: %s
+Spell Check: %s%s	Yazım denetimi: %s%s
 Splash Melody: %s	Açılış melodisi: %s
 Splash melody: %s	Açılış melodisi: %s
 Stale - 	Eski -

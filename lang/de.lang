@@ -17,6 +17,7 @@
   Press  %.1f hPa	  Druck  %.1f hPa
   lock	  gesichert
   open	  offen
+ (English only)	 (nur Englisch)
  (no card)	 (keine Karte)
  (not sharing location)	 (Standort nicht geteilt)
  (unchanged)	 (unverändert)
@@ -652,6 +653,8 @@ Silver	Silber
 Sky	Himmelblau
 Small	Klein
 Source	Quelle
+Spell Check: %s	Rechtschreibprüfung: %s
+Spell Check: %s%s	Rechtschreibprüfung: %s%s
 Splash Melody: %s	Startmelodie: %s
 Splash melody: %s	Startmelodie: %s
 Stale - 	Veraltet -

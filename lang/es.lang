@@ -16,6 +16,7 @@
   Press  %.1f hPa	  Pres.  %.1f hPa
   lock	  cerrada
   open	  abierta
+ (English only)	 (solo inglés)
  (no card)	 (sin tarjeta)
  (not sharing location)	 (sin compartir ubicación)
  (unchanged)	 (sin cambios)
@@ -704,6 +705,8 @@ Silver	Plata
 Sky	Cielo
 Small	Pequeño
 Source	Origen
+Spell Check: %s	Corrector ortográfico: %s
+Spell Check: %s%s	Corrector ortográfico: %s%s
 Splash Melody: %s	Melodía de inicio: %s
 Splash melody: %s	Melodía de inicio: %s
 Stale - 	Antiguo - 

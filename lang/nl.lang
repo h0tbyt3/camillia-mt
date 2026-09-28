@@ -15,6 +15,7 @@
   Humid  %.1f %%	  Vocht  %.1f %%
   Press  %.1f hPa	  Druk   %.1f hPa
   lock	  beveiligd
+ (English only)	 (alleen Engels)
  (no card)	 (geen kaart)
  (not sharing location)	 (locatie niet gedeeld)
  (unchanged)	 (ongewijzigd)
@@ -665,6 +666,8 @@ Silver	Zilver
 Sky	Hemelsblauw
 Small	Klein
 Source	Bron
+Spell Check: %s	Spellingcontrole: %s
+Spell Check: %s%s	Spellingcontrole: %s%s
 Splash Melody: %s	Opstartmelodie: %s
 Splash melody: %s	Opstartmelodie: %s
 Stale - 	Verouderd -

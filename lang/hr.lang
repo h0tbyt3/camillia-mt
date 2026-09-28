@@ -17,6 +17,7 @@
   Press  %.1f hPa	  Tlak   %.1f hPa
   lock	  zaštićena
   open	  otvorena
+ (English only)	 (samo engleski)
  (no card)	 (nema kartice)
  (not sharing location)	 (lokacija se ne dijeli)
  (unchanged)	 (bez promjene)
@@ -683,6 +684,8 @@ Silver	Srebrna
 Sky	Nebeska
 Small	Malo
 Source	Izvor
+Spell Check: %s	Provjera pravopisa: %s
+Spell Check: %s%s	Provjera pravopisa: %s%s
 Splash Melody: %s	Melodija pokretanja: %s
 Splash melody: %s	Melodija pokretanja: %s
 Stale - 	Zastarjelo -

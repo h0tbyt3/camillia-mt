@@ -685,6 +685,18 @@
 #define HAS_COMPOSE_EMOJI_BTN 0
 #endif
 
+// The screens Tools opens, laid out as a column when the panel is held upright:
+// a centred title, the screen's actions as a row of big buttons under it, the
+// content, and the nav bar. The two portrait touch panels -- the T-Display P4
+// and the Heltec V4 expansion (the R8 builds as one too). Everywhere else, and
+// in landscape, they keep their header bar. Either way none of them carries a
+// close X: the nav bar, which every one of them now has, is the way out.
+#if defined(DEVICE_TDISPLAY_P4) || defined(DEVICE_HELTEC_V4_EXPANSION)
+#define HAS_TOOL_STACK_LAYOUT 1
+#else
+#define HAS_TOOL_STACK_LAYOUT 0
+#endif
+
 // Spell suggestions in the compose box (English; see src/spell.h). Turned on
 // with -DHAS_SPELLCHECK=1 in platformio.ini, on the boards whose app partition
 // has room for the ~115 KB word list -- every 6 MB-slot board. Not the

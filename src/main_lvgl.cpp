@@ -2430,6 +2430,9 @@ static void onChannelActionMutePressed(lv_event_t *e);
 static void onChannelActionSharePressed(lv_event_t *e);
 static void logLvglMemDiag(const char *tag);
 static void onHeltecBottomNavPressed(lv_event_t *e);
+// Closes whichever screen Tools opened is up (all of them are null-safe), and
+// Live too when `closeLive`. Defined after the last of them.
+static void closeToolScreens(bool closeLive);
 static void populateHeltecBottomNav(lv_obj_t *bar, int activeTarget);
 static void appendHeltecBottomNav(lv_obj_t *parent, int activeTarget);
 static void refreshLiveView(bool force = false);
@@ -2964,6 +2967,46 @@ static void reserveHeltecCloseXRow(lv_obj_t *title, int size = kHeltecCloseXSize
     lv_obj_set_style_pad_top(title, padTop, 0);
     reserveHeltecCloseXGap(title, size);
 }
+
+#if HAS_TOOL_STACK_LAYOUT
+// The portrait screen title, first worked out on the P4's Tools: montserrat_18,
+// centred on the screen, on the line of a full-size corner X aligned
+// UI_CORNER_SAFE_X down from the top -- the baseline of the word on the X's
+// bottom edge -- with a gap under it before whatever comes next. Screens that
+// use it put the title straight in their column, with no header bar, so every
+// one of them reads the same.
+//
+// `reserveX` keeps the text clear of an X on that line, on both sides so it
+// stays on the centre line. Without one (the screens Tools opens, whose way
+// out is the nav bar) the title has the full width, and sits at the same
+// height, so moving between them nothing jumps.
+//
+// The Heltec's 240x320 upright has a third of the P4's height, so it takes a
+// size smaller and half the gap.
+#if defined(DEVICE_TDISPLAY_P4)
+static constexpr int kStackTitleGap = 12;
+#define STACK_TITLE_FONT (&lv_font_montserrat_18)
+#else
+static constexpr int kStackTitleGap = 6;
+#define STACK_TITLE_FONT (&lv_font_montserrat_16)
+#endif
+
+static void stackTitleOnXLine(lv_obj_t *title, bool reserveX = true) {
+    if (!title) return;
+    const lv_font_t *font = STACK_TITLE_FONT;
+    lv_obj_set_style_text_font(title, font, 0);
+    lv_obj_set_style_text_align(title, LV_TEXT_ALIGN_CENTER, 0);
+    lv_label_set_long_mode(title, LV_LABEL_LONG_DOT);
+    const int sidePad = reserveX ? kHeltecCloseXSize + 4 : 0;
+    lv_obj_set_style_pad_left(title, sidePad, 0);
+    lv_obj_set_style_pad_right(title, sidePad, 0);
+    const int xBottom = UI_CORNER_SAFE_X + kHeltecCloseXSize;
+    const int ascent = (int)lv_font_get_line_height(font) - font->base_line;
+    lv_obj_set_style_pad_top(title, (xBottom > ascent) ? xBottom - ascent : 0, 0);
+    lv_obj_set_style_pad_bottom(title, 0, 0);
+    lv_obj_set_height(title, xBottom + font->base_line + kStackTitleGap);
+}
+#endif
 #endif  // UI_TOUCH_ONLY_PROFILE
 
 static size_t decodeUtf8Codepoint(const char *src, size_t avail, uint32_t &cp) {
@@ -22257,6 +22300,13 @@ static void onLegendClosePressed(lv_event_t *e) {
 static void onHeltecBottomNavPressed(lv_event_t *e) {
 #if UI_TOUCH_NAV_BAR
     int target = (int)(intptr_t)lv_event_get_user_data(e);
+    // The screens Tools opens carry this bar on every build, with no X of
+    // their own, so any cell has to take down whichever one it was tapped from
+    // before going anywhere -- left standing, it would sit under the
+    // destination and come back when that closed. Live is closed only by the
+    // cells that already did (Home, Chat), and, upright on the stack-layout
+    // boards, by Tools itself.
+    if (target != HELTEC_NAV_TOOLS) closeToolScreens(false);
     switch (target) {
         case HELTEC_NAV_CFG:
             if (s_cfgModal) closeCfgModal();
@@ -22279,6 +22329,13 @@ static void onHeltecBottomNavPressed(lv_event_t *e) {
                 closeLiveToolsModal();
                 break;
             }
+            // From one of its tools: back to the list. Upright, Live is one of
+            // them like any other; elsewhere it stays, as below.
+#if HAS_TOOL_STACK_LAYOUT
+            closeToolScreens(uiPortrait());   // toolStackLayout(), defined further down
+#else
+            closeToolScreens(false);
+#endif
             // Clear the screens this cell can be tapped from before opening
             // Tools, as openNavToolsShortcut() does for the keyboard route.
             // Left standing, they stay under whatever tool is picked next, and
@@ -22944,6 +23001,91 @@ static void appendHeltecBottomNav(lv_obj_t *parent, int activeTarget) {
     LV_UNUSED(activeTarget);
 #endif
 }
+
+#if HAS_TOOL_STACK_LAYOUT
+// ── Portrait: the screens Tools opens ────────────────────────────────────────
+// Held upright (P4, Heltec V4), every one is laid out the same way: Tools'
+// title, the screen's own actions as a row of big buttons under it, its
+// content, and the nav bar with Tools lit. Landscape keeps the header bar.
+// On every build the bar is the way out of these screens -- Tools goes back to
+// the list, any other cell goes there (closeToolScreens()) -- and none of them
+// carries a close X.
+static inline bool toolStackLayout() { return uiPortrait(); }
+
+#if defined(DEVICE_TDISPLAY_P4)
+static constexpr int kStackBtnH = 40;
+#define STACK_BTN_FONT (&lv_font_montserrat_14)
+#else
+static constexpr int kStackBtnH = 30;
+#define STACK_BTN_FONT (&lv_font_montserrat_12)
+#endif
+
+static lv_obj_t *toolStackTitle(lv_obj_t *modal, const char *text,
+                             lv_color_t color = lv_color_hex(0xD9E8FF)) {
+    lv_obj_t *title = lv_label_create(modal);
+    lv_obj_set_width(title, lv_pct(100));
+    lv_obj_set_style_text_color(title, color, 0);
+    stackTitleOnXLine(title, /*reserveX=*/false);
+    lv_label_set_text(title, text);
+    return title;
+}
+
+#else
+static inline bool toolStackLayout() { return false; }
+static constexpr int kStackBtnH = 22;
+#define STACK_BTN_FONT (&lv_font_montserrat_10)
+#endif
+
+#if UI_TOUCH_ONLY_PROFILE
+// The screens Tools opens put their actions (Clear, Scan, Filter, Sweep...) in
+// a row of their own directly under the title, in either orientation, rather
+// than in the header beside it -- where there was room for two or three small
+// fixed-width buttons at most, and the title lost the width to them. Equal
+// shares of the width, so one button or four fill the row the same way.
+// Upright on the stack-layout boards the buttons are the big ones; otherwise
+// the size Discovery's row has always had.
+static lv_obj_t *toolActionRow(lv_obj_t *modal) {
+    const bool big = toolStackLayout();
+    lv_obj_t *row = lv_obj_create(modal);
+    lv_obj_set_width(row, lv_pct(100));
+    lv_obj_set_height(row, LV_SIZE_CONTENT);
+    lv_obj_clear_flag(row, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_style_bg_opa(row, LV_OPA_TRANSP, 0);
+    lv_obj_set_style_border_width(row, 0, 0);
+    lv_obj_set_style_pad_all(row, 0, 0);
+    lv_obj_set_style_pad_bottom(row, big ? 6 : 0, 0);
+    lv_obj_set_style_pad_column(row, big ? 6 : 4, 0);
+    lv_obj_set_flex_flow(row, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_align(row, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER,
+                          LV_FLEX_ALIGN_CENTER);
+    return row;
+}
+
+// Returns the label: the callers that keep a handle retitle it later.
+static lv_obj_t *toolActionBtn(lv_obj_t *row, const char *text, lv_event_cb_t cb) {
+    const bool big = toolStackLayout();
+    lv_obj_t *btn = lv_btn_create(row);
+    lv_obj_set_height(btn, big ? kStackBtnH : 22);
+    lv_obj_set_flex_grow(btn, 1);
+    lv_obj_set_style_radius(btn, 4, 0);
+    lv_obj_set_style_pad_hor(btn, 4, 0);
+    lv_obj_set_style_pad_ver(btn, 0, 0);
+    lv_obj_set_style_shadow_width(btn, 0, 0);
+    lv_obj_set_style_bg_color(btn, lv_color_hex(0x16386F), 0);
+    lv_obj_set_style_bg_opa(btn, LV_OPA_80, 0);
+    lv_obj_set_style_border_width(btn, 1, 0);
+    lv_obj_set_style_border_color(btn, lv_color_hex(0x8FB5E6), 0);
+    lv_obj_add_event_cb(btn, cb, LV_EVENT_CLICKED, nullptr);
+    lv_obj_t *lbl = lv_label_create(btn);
+    lv_obj_set_style_text_font(lbl, big ? STACK_BTN_FONT : &lv_font_montserrat_10, 0);
+    lv_obj_set_style_text_color(lbl, lv_color_hex(0xE8F1FF), 0);
+    lv_label_set_long_mode(lbl, LV_LABEL_LONG_DOT);
+    lv_obj_set_style_max_width(lbl, lv_pct(100), 0);
+    lv_label_set_text(lbl, text);
+    lv_obj_center(lbl);
+    return lbl;
+}
+#endif
 
 // Split a live-feed line into the clock liveBuildPrefix() put on it and the
 // body after it. Anchored: the feed's own lines start with the clock, so
@@ -26725,6 +26867,14 @@ static void refreshNodesListRows() {
 #if defined(DEVICE_TLORA_PAGER_TFT) || defined(DEVICE_TDECK_PRO)
     const lv_font_t *nodesListFont = emojiFont(&lv_font_montserrat_12);
     const int nodesListRowH = 28;
+#elif defined(DEVICE_TDISPLAY_P4) && !UI_LARGE_PANEL_PROFILE
+    // Portrait stacks the list over the details at full width (see
+    // openNodesModal), which leaves room for a bigger face than the side-by-side
+    // landscape split. Same size as the detail panel below it.
+    const bool nodesBig = uiPortrait();
+    const lv_font_t *nodesListFont = emojiFont(nodesBig ? &lv_font_montserrat_14
+                                                        : &lv_font_montserrat_10);
+    const int nodesListRowH = nodesBig ? 30 : 22;
 #else
     const lv_font_t *nodesListFont = emojiFont(&lv_font_montserrat_10);
     const int nodesListRowH = 22;
@@ -28969,6 +29119,14 @@ static void openLiveModal() {
     lv_obj_set_flex_flow(s_liveModal, LV_FLEX_FLOW_COLUMN);
     lv_obj_set_flex_align(s_liveModal, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START);
 
+    // Portrait (P4, Heltec V4): Tools' title in place of the header bar. On a
+    // touch build Filter is in the row under the title in either orientation.
+#if HAS_TOOL_STACK_LAYOUT
+    if (toolStackLayout()) {
+        toolStackTitle(s_liveModal, TR("LIVE"));
+    } else
+#endif
+    {
     lv_obj_t *header = lv_obj_create(s_liveModal);
     lv_obj_set_width(header, lv_pct(100));
     lv_obj_set_height(header, 26);
@@ -28998,52 +29156,7 @@ static void openLiveModal() {
     lv_label_set_text(title, TR("LIVE"));
     lv_obj_center(title);
 
-#if UI_TOUCH_ONLY_PROFILE
-    auto makeLiveHeaderBtn = [](lv_obj_t *parent, const char *text, int width,
-                                lv_align_t align,
-                                lv_event_cb_t cb) {
-        lv_obj_t *btn = lv_btn_create(parent);
-        lv_obj_set_size(btn, width, 20);
-        lv_obj_align(btn, align, 0, 0);
-        lv_obj_set_style_radius(btn, 4, 0);
-        lv_obj_set_style_pad_left(btn, 4, 0);
-        lv_obj_set_style_pad_right(btn, 4, 0);
-        lv_obj_set_style_pad_top(btn, 1, 0);
-        lv_obj_set_style_pad_bottom(btn, 1, 0);
-        lv_obj_set_style_shadow_width(btn, 0, 0);
-    #if defined(DEVICE_TDECK_PRO)
-        lv_obj_set_style_bg_opa(btn, LV_OPA_TRANSP, 0);
-        lv_obj_set_style_border_width(btn, 1, 0);
-        lv_obj_set_style_border_color(btn, lv_color_make(0, 0, 0), 0);
-    #else
-        lv_obj_set_style_bg_color(btn, lv_color_hex(0x16386F), 0);
-        lv_obj_set_style_bg_opa(btn, LV_OPA_70, 0);
-        lv_obj_set_style_border_width(btn, 1, 0);
-        lv_obj_set_style_border_color(btn, lv_color_hex(0x335D9D), 0);
-    #endif
-        lv_obj_add_event_cb(btn, cb, LV_EVENT_CLICKED, nullptr);
-        lv_obj_t *lbl = lv_label_create(btn);
-        lv_obj_set_style_text_font(lbl, &lv_font_montserrat_10, 0);
-    #if defined(DEVICE_TDECK_PRO)
-        lv_obj_set_style_text_color(lbl, lv_color_make(0, 0, 0), 0);
-    #else
-        lv_obj_set_style_text_color(lbl, lv_color_hex(0xD9E8FF), 0);
-    #endif
-        lv_label_set_text(lbl, TR(text));
-        lv_obj_center(lbl);
-        return btn;
-    };
-    // No Tools button here. Tools is the screen you arrive from now, and it
-    // carries a Live row of its own — a button back to it would only be a way
-    // of going in a circle.
-    // Touch build: the header chip is the control, since there is no F key.
-    // Size it before right-aligning so its long active-filter label stays
-    // anchored to the far edge instead of growing back toward the center.
-    lv_obj_t *filterBtn =
-        makeLiveHeaderBtn(header, TR_NOOP("Filter"), 92, LV_ALIGN_RIGHT_MID,
-                          [](lv_event_t *e) { LV_UNUSED(e); openLiveFilterModal(); });
-    s_liveFilterHeaderLabel = lv_obj_get_child(filterBtn, 0);
-#else
+#if !UI_TOUCH_ONLY_PROFILE
     // Keyboard builds: a plain chip on the right of the centered LIVE title. Not
     // a button — F opens the picker, and a tap target with no touch panel behind
     // it would just be decoration.
@@ -29055,6 +29168,19 @@ static void openLiveModal() {
     lv_obj_set_style_text_color(s_liveFilterHeaderLabel, lv_color_hex(0xA7C7FF), 0);
 #endif
     lv_obj_align(s_liveFilterHeaderLabel, LV_ALIGN_RIGHT_MID, 0, 0);
+#endif
+    }   // header bar
+#if UI_TOUCH_ONLY_PROFILE
+    // Touch build: no F key, so the filter is a button -- one that says which
+    // filter is in force (refreshLiveFilterHeader()) -- in the row under the
+    // title. No Tools button: Tools is the screen you arrive from and carries a
+    // Live row of its own, and the nav bar goes back to it.
+    {
+        lv_obj_t *actions = toolActionRow(s_liveModal);
+        s_liveFilterHeaderLabel = toolActionBtn(
+            actions, TR("Filter"),
+            [](lv_event_t *e) { LV_UNUSED(e); openLiveFilterModal(); });
+    }
 #endif
     refreshLiveFilterHeader();
 
@@ -29088,7 +29214,8 @@ static void openLiveModal() {
     lv_obj_set_flex_align(s_liveList, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START);
 
 #if UI_TOUCH_ONLY_PROFILE
-    appendHeltecBottomNav(s_liveModal, HELTEC_NAV_LIVE);
+    // Tools lit: Live is one of its screens, as every other it opens.
+    appendHeltecBottomNav(s_liveModal, HELTEC_NAV_TOOLS);
 #else
     lv_obj_t *hint = lv_label_create(s_liveModal);
     lv_obj_set_width(hint, lv_pct(100));
@@ -29112,7 +29239,7 @@ static void openLiveModal() {
     // hint so the bar's layout spacer is the last child and the hint is not
     // pushed under it. A no-op with the bar switched off, which is what leaves
     // this screen exactly as it looked before the bar existed.
-    appendHeltecBottomNav(s_liveModal, HELTEC_NAV_LIVE);
+    appendHeltecBottomNav(s_liveModal, HELTEC_NAV_TOOLS);
 #endif
 
     refreshLiveView(true);
@@ -29279,8 +29406,26 @@ static void openLiveToolsModal() {
     lv_obj_set_style_pad_all(s_liveToolsModal, 4, 0);
     lv_obj_set_style_pad_row(s_liveToolsModal, kChanModalGap, 0);
     lv_obj_set_flex_flow(s_liveToolsModal, LV_FLEX_FLOW_COLUMN);
-    lv_obj_set_flex_align(s_liveToolsModal, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER,
-                          LV_FLEX_ALIGN_CENTER);
+
+    // P4 portrait: on a tall panel a grid floating mid-screen read as a popup.
+    // There the title goes to the top and the tools stack one per row, as
+    // full-width buttons with room between them, two font sizes up.
+#if defined(DEVICE_TDISPLAY_P4)
+    const bool toolsStacked = uiPortrait();
+#else
+    constexpr bool toolsStacked = false;
+#endif
+    // The title at the top, as on the screens Tools opens, on both portrait
+    // boards; the Heltec keeps its two-column grid under it, the height not
+    // being there for a list of eight.
+    const bool toolsTop = toolStackLayout();
+    const lv_font_t *toolsTitleFont = toolsStacked ? &lv_font_montserrat_18 : kChanModalTitleFont;
+    const lv_font_t *toolsRowFont   = toolsStacked ? &lv_font_montserrat_14 : kChanModalRowFont;
+    const int toolsRowH   = toolsStacked ? 44 : kChanModalRowH;
+    const int toolsRowGap = toolsStacked ? 10 : kChanModalGap;
+    lv_obj_set_flex_align(s_liveToolsModal,
+                          toolsTop ? LV_FLEX_ALIGN_START : LV_FLEX_ALIGN_CENTER,
+                          LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
 
     // The panel went full bleed; the grid did not. This is the content width the
     // cells were laid out against and the one people have learned the positions
@@ -29291,7 +29436,7 @@ static void openLiveToolsModal() {
 
     lv_obj_t *title = lv_label_create(s_liveToolsModal);
     lv_obj_set_width(title, toolsContentW);
-    lv_obj_set_style_text_font(title, kChanModalTitleFont, 0);
+    lv_obj_set_style_text_font(title, toolsTitleFont, 0);
     lv_obj_set_style_text_color(title, lv_color_hex(0xD9E8FF), 0);
     lv_obj_set_style_text_align(title, LV_TEXT_ALIGN_CENTER, 0);
     lv_label_set_text(title, TR("Tools"));
@@ -29345,15 +29490,18 @@ static void openLiveToolsModal() {
     lv_obj_set_style_bg_opa(grid, LV_OPA_TRANSP, 0);
     lv_obj_set_style_border_width(grid, 0, 0);
     lv_obj_set_style_pad_all(grid, 0, 0);
-    lv_obj_set_style_pad_row(grid, kChanModalGap, 0);
+    lv_obj_set_style_pad_row(grid, toolsRowGap, 0);
     lv_obj_set_style_pad_column(grid, kChanModalGap, 0);
-    lv_obj_set_flex_flow(grid, LV_FLEX_FLOW_ROW_WRAP);
+    lv_obj_set_flex_flow(grid, toolsStacked ? LV_FLEX_FLOW_COLUMN : LV_FLEX_FLOW_ROW_WRAP);
     lv_obj_set_flex_align(grid, LV_FLEX_ALIGN_SPACE_BETWEEN, LV_FLEX_ALIGN_CENTER,
                           LV_FLEX_ALIGN_START);
 
     for (int pos = 0; pos < LIVE_TOOL_COUNT; pos++) {
         // Column-major, as in the channel grids: left column first, then right.
-        const int i = (pos % kChanModalCols) * kLiveToolRowsPerCol + (pos / kChanModalCols);
+        // Stacked, there is one column and the list order is the order.
+        const int i = toolsStacked
+                          ? pos
+                          : (pos % kChanModalCols) * kLiveToolRowsPerCol + (pos / kChanModalCols);
         if (i >= LIVE_TOOL_COUNT) continue;
 
         lv_obj_t *row = lv_btn_create(grid);
@@ -29362,8 +29510,8 @@ static void openLiveToolsModal() {
         lv_obj_add_flag(row, LV_OBJ_FLAG_CLICKABLE);
     #endif
         s_liveToolsRows[i] = row;
-        lv_obj_set_width(row, lv_pct(kChanModalCellPct));
-        lv_obj_set_height(row, kChanModalRowH);
+        lv_obj_set_width(row, lv_pct(toolsStacked ? 100 : kChanModalCellPct));
+        lv_obj_set_height(row, toolsRowH);
         lv_obj_set_style_radius(row, 4, 0);
         lv_obj_set_style_pad_left(row, 5, 0);
         lv_obj_set_style_pad_right(row, 5, 0);
@@ -29384,7 +29532,7 @@ static void openLiveToolsModal() {
 
         lv_obj_t *lbl = lv_label_create(row);
         lv_obj_set_width(lbl, lv_pct(100));
-        lv_obj_set_style_text_font(lbl, kChanModalRowFont, 0);
+        lv_obj_set_style_text_font(lbl, toolsRowFont, 0);
         lv_obj_set_style_text_color(lbl, enabled ? rowTextColor : lv_color_hex(0x7590BE), 0);
         lv_obj_set_style_text_align(lbl, LV_TEXT_ALIGN_CENTER, 0);
         lv_label_set_long_mode(lbl, LV_LABEL_LONG_CLIP);
@@ -29399,19 +29547,11 @@ static void openLiveToolsModal() {
         lv_obj_center(lbl);
     }
 
-#if UI_TOUCH_ONLY_PROFILE
-    // No close key on this build, so the way out has to be on screen — the same
-    // corner X the tools it opens are closed with.
-    reserveHeltecCloseXRow(title);
-    lv_obj_t *toolsCloseX = appendHeltecCloseX(
-        s_liveToolsModal, [](lv_event_t *e) { LV_UNUSED(e); closeLiveToolsModal(); });
-#if UI_CORNER_SAFE_X > 0
-    // Down out of the rounded top-right corner (board.h). Only the X moves:
-    // the grid is centred in the column and has no row shared with it.
-    if (toolsCloseX) lv_obj_align(toolsCloseX, LV_ALIGN_TOP_RIGHT, 0, UI_CORNER_SAFE_X);
-#else
-    (void)toolsCloseX;
-#endif
+    // No X on any build: the nav bar is the way out (its Tools cell closes
+    // this, any other cell goes there), as on every screen listed here.
+    // Upright the title matches theirs, so it stays put moving between them.
+#if HAS_TOOL_STACK_LAYOUT
+    if (toolsTop) stackTitleOnXLine(title, /*reserveX=*/false);
 #endif
 
     // Last, so the bar's layout spacer is the final child of the flex column and
@@ -29802,6 +29942,14 @@ static void openChUtilChartModal() {
     lv_obj_set_flex_flow(s_chUtilChartModal, LV_FLEX_FLOW_COLUMN);
     lv_obj_set_flex_align(s_chUtilChartModal, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START);
 
+    // Portrait (P4, Heltec V4): Tools' title and no X -- the nav bar added at the end is
+    // the way out. The units the header title carried are on the stats lines.
+#if HAS_TOOL_STACK_LAYOUT
+    if (toolStackLayout()) {
+        toolStackTitle(s_chUtilChartModal, TR("ChUtil"));
+    } else
+#endif
+    {
     lv_obj_t *header = lv_obj_create(s_chUtilChartModal);
     lv_obj_set_width(header, lv_pct(100));
     lv_obj_set_height(header, 26);
@@ -29820,23 +29968,9 @@ static void openChUtilChartModal() {
     lv_obj_set_style_text_font(title, &lv_font_montserrat_12, 0);
     lv_obj_set_style_text_color(title, lv_color_hex(0xD9E8FF), 0);
     lv_label_set_text(title, TR("CHANNEL UTILIZATION (%)"));
-#if defined(DEVICE_HELTEC_V4_EXPANSION)
-    // Centred, the title collides with the corner X on the narrower panel.
-    if (uiPortrait()) lv_obj_align(title, LV_ALIGN_LEFT_MID, 2, 0);
-    else              lv_obj_center(title);
-#else
     lv_obj_center(title);
-#endif
 
-#if UI_TOUCH_ONLY_PROFILE
-    // The corner X, sized to the header bar it sits in. This modal fills the
-    // panel, so the right end of its header is the top-right corner.
-    if (lv_obj_t *headerClose = appendHeltecCloseX(
-            header, [](lv_event_t *e) { LV_UNUSED(e); closeChUtilChartModal(); },
-            /*size=*/20)) {
-        lv_obj_align(headerClose, LV_ALIGN_RIGHT_MID, 0, 0);
-    }
-#endif
+    }   // header bar
 
     // Bottom-to-top, matching lv_scale's vertical tick order.
     static const char *kChUtilYLabels[] = { "0%", "25%", "50%", "75%", "100%", nullptr };
@@ -29901,6 +30035,11 @@ static void openChUtilChartModal() {
     lv_label_set_text_fmt(hint, TR("%s = Back   teal=ChUtil  orange=AirTx"), modalCloseKeyLabel());
 #endif
 #endif
+
+    // The way out of this screen on every build: it has no X. Tools lit, as
+    // the screen it was opened from. Last, so its spacer is the final child of
+    // the column. A no-op where the bar is switched off.
+    appendHeltecBottomNav(s_chUtilChartModal, HELTEC_NAV_TOOLS);
 
     s_chUtilRenderedSeq = 0;
     s_airUtilRenderedSeq = 0;
@@ -30000,6 +30139,14 @@ static void openSnrRssiChartModal() {
     lv_obj_set_flex_flow(s_snrChartModal, LV_FLEX_FLOW_COLUMN);
     lv_obj_set_flex_align(s_snrChartModal, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START);
 
+    // Portrait (P4, Heltec V4): Tools' title and no X -- the nav bar added at the end is
+    // the way out. The units the header title carried are on the stats lines.
+#if HAS_TOOL_STACK_LAYOUT
+    if (toolStackLayout()) {
+        toolStackTitle(s_snrChartModal, TR("SNR/RSSI"));
+    } else
+#endif
+    {
     lv_obj_t *header = lv_obj_create(s_snrChartModal);
     lv_obj_set_width(header, lv_pct(100));
     lv_obj_set_height(header, 26);
@@ -30018,23 +30165,9 @@ static void openSnrRssiChartModal() {
     lv_obj_set_style_text_font(title, &lv_font_montserrat_12, 0);
     lv_obj_set_style_text_color(title, lv_color_hex(0xD9E8FF), 0);
     lv_label_set_text(title, TR("SNR (dB)  /  RSSI (dBm)"));
-#if defined(DEVICE_HELTEC_V4_EXPANSION)
-    // Centred, the title collides with the corner X on the narrower panel.
-    if (uiPortrait()) lv_obj_align(title, LV_ALIGN_LEFT_MID, 2, 0);
-    else              lv_obj_center(title);
-#else
     lv_obj_center(title);
-#endif
 
-#if UI_TOUCH_ONLY_PROFILE
-    // The corner X, sized to the header bar it sits in. This modal fills the
-    // panel, so the right end of its header is the top-right corner.
-    if (lv_obj_t *headerClose = appendHeltecCloseX(
-            header, [](lv_event_t *e) { LV_UNUSED(e); closeSnrRssiChartModal(); },
-            /*size=*/20)) {
-        lv_obj_align(headerClose, LV_ALIGN_RIGHT_MID, 0, 0);
-    }
-#endif
+    }   // header bar
 
     // Bottom-to-top. Units live in the modal title ("SNR (dB) / RSSI (dBm)")
     // rather than on every tick — a per-tick suffix no longer fits now that the
@@ -30109,6 +30242,11 @@ static void openSnrRssiChartModal() {
     lv_label_set_text_fmt(hint, TR("%s = Back   green=SNR  pink=RSSI"), modalCloseKeyLabel());
 #endif
 #endif
+
+    // The way out of this screen on every build: it has no X. Tools lit, as
+    // the screen it was opened from. Last, so its spacer is the final child of
+    // the column. A no-op where the bar is switched off.
+    appendHeltecBottomNav(s_snrChartModal, HELTEC_NAV_TOOLS);
 
     s_snrRenderedSeq = 0;
     s_rssiRenderedSeq = 0;
@@ -30895,14 +31033,32 @@ static const char *homeDashNodeLabel(const NodeEntry *e, char *buf, size_t cap) 
     return deviceInfoNodeLabel(e, buf, cap);
 }
 
+// Faces for the node cards' rows and heading. P4 portrait gives each card the
+// full width of a tall panel, so it reads them larger; everywhere else the
+// band is short and these stay at the size its charts use.
+static const lv_font_t *glanceNodeRowFont() {
+#if defined(DEVICE_TDISPLAY_P4) && !UI_LARGE_PANEL_PROFILE
+    if (uiPortrait()) return &lv_font_montserrat_14;
+#endif
+    return &lv_font_montserrat_10;
+}
+
+static const lv_font_t *glanceNodeHeadingFont() {
+#if defined(DEVICE_TDISPLAY_P4) && !UI_LARGE_PANEL_PROFILE
+    if (uiPortrait()) return &lv_font_montserrat_12;
+#endif
+    return &lv_font_montserrat_10;
+}
+
 // How many rows the band holds, from the height it actually got rather than a
 // per-board constant: the same code runs against a 222 px Pager band and a
 // portrait Pro one, and the answer differs by more than a row.
 static int glanceNodeRowCapacity(int pageH) {
-    const int lineH = (int)lv_font_get_line_height(&lv_font_montserrat_10);
+    const int lineH = (int)lv_font_get_line_height(glanceNodeRowFont());
+    const int headH = (int)lv_font_get_line_height(glanceNodeHeadingFont());
     if (lineH <= 0) return 0;
     // Card padding top and bottom, the heading line, and the flex gap under it.
-    const int avail = pageH - (2 * 3) - lineH - 2;
+    const int avail = pageH - (2 * 3) - headH - 2;
     if (avail < lineH) return 0;
     int rows = avail / (lineH + 2);
     if (rows > kHomeDashNodeRowsMax) rows = kHomeDashNodeRowsMax;
@@ -30961,10 +31117,11 @@ static void buildGlanceNodeCard(GlanceCarousel &c, lv_obj_t *page, int listIdx,
 
     lv_obj_t *heading = lv_label_create(card);
     lv_obj_set_width(heading, lv_pct(100));
-    lv_obj_set_style_text_font(heading, &lv_font_montserrat_10, 0);
+    lv_obj_set_style_text_font(heading, glanceNodeHeadingFont(), 0);
     lv_obj_set_style_text_color(heading, homeDashMutedInk(c.themed), 0);
     lv_label_set_text(heading, title);
 
+    const lv_font_t *rowFont = glanceNodeRowFont();
     const int rows = glanceNodeRowCapacity(cardH);
     c.nodeRows[listIdx] = rows;
     for (int i = 0; i < rows; i++) {
@@ -30991,14 +31148,14 @@ static void buildGlanceNodeCard(GlanceCarousel &c, lv_obj_t *page, int listIdx,
         // its reading label, and the flex pass is what gives LONG_DOT the
         // bounded width it needs to know where to ellipsize.
         lv_obj_set_flex_grow(nameLbl, 1);
-        lv_obj_set_style_text_font(nameLbl, &lv_font_montserrat_10, 0);
+        lv_obj_set_style_text_font(nameLbl, rowFont, 0);
         lv_obj_set_style_text_color(nameLbl, glanceInk(c.themed), 0);
         lv_label_set_long_mode(nameLbl, LV_LABEL_LONG_DOT);
         lv_label_set_text(nameLbl, "");
 
         // Sized to its own text, so it is never the thing that gets squeezed.
         lv_obj_t *ageLbl = lv_label_create(rowObj);
-        lv_obj_set_style_text_font(ageLbl, &lv_font_montserrat_10, 0);
+        lv_obj_set_style_text_font(ageLbl, rowFont, 0);
         lv_obj_set_style_text_color(ageLbl, homeDashMutedInk(c.themed), 0);
         lv_label_set_long_mode(ageLbl, LV_LABEL_LONG_CLIP);
         lv_label_set_text(ageLbl, "");
@@ -32405,11 +32562,6 @@ static void closeWeatherModal() {
     weatherReset();
 }
 
-static void onWeatherClosePressed(lv_event_t *e) {
-    LV_UNUSED(e);
-    closeWeatherModal();
-}
-
 static void openWeatherModal() {
     if (!s_rootScreen || s_weatherModal) return;
 
@@ -32435,6 +32587,10 @@ static void openWeatherModal() {
     // Down out of the rounded top corners (board.h). The close X floats in the
     // top-right corner and would sit under the curve; floating children still
     // offset by the parent's padding, so the X and the title row move together.
+    // Not on the P4 upright: no X there, and the title places itself.
+#if HAS_TOOL_STACK_LAYOUT
+    if (!toolStackLayout())
+#endif
     lv_obj_set_style_pad_top(s_weatherModal, 4 + UI_CORNER_SAFE_X, 0);
 #endif
     lv_obj_set_style_pad_row(s_weatherModal, kWeatherRowPad, 0);
@@ -32451,15 +32607,10 @@ static void openWeatherModal() {
     lv_label_set_long_mode(title, LV_LABEL_LONG_DOT);
     lv_label_set_text(title, TR("Weather"));
 
-#if UI_TOUCH_ONLY_PROFILE
-    reserveHeltecCloseXRow(title);
-    appendHeltecCloseX(s_weatherModal, onWeatherClosePressed);
-    // reserveHeltecCloseXRow() pads the right to keep the title clear of the
-    // close button, which leaves a centre-aligned label centred inside the
-    // *reduced* width — that is the slight leftward shift. Matching the pad on
-    // the left puts the text back on the screen's centre line, and the X still
-    // has its gap because the reserved space is unchanged.
-    lv_obj_set_style_pad_left(title, kHeltecCloseXSize + 4, 0);
+    // No X on any build: the nav bar below is the way out. Upright, Tools'
+    // title.
+#if HAS_TOOL_STACK_LAYOUT
+    if (toolStackLayout()) stackTitleOnXLine(title, /*reserveX=*/false);
 #endif
 
     // The headline: the two things you opened the screen for, at a size that
@@ -32594,6 +32745,14 @@ static void openBeaconsModal() {
     lv_obj_set_flex_align(s_beaconsModal, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START,
                           LV_FLEX_ALIGN_START);
 
+    // Portrait (P4, Heltec V4): Tools' title in place of the header bar. No X
+    // in either orientation -- the nav bar added at the end is the way out.
+#if HAS_TOOL_STACK_LAYOUT
+    if (toolStackLayout()) {
+        toolStackTitle(s_beaconsModal, TR("Beacons"));
+    } else
+#endif
+    {
     lv_obj_t *header = lv_obj_create(s_beaconsModal);
     lv_obj_set_width(header, lv_pct(100));
     lv_obj_set_height(header, 26);
@@ -32612,41 +32771,17 @@ static void openBeaconsModal() {
     lv_obj_set_style_text_font(title, &lv_font_montserrat_12, 0);
     lv_obj_set_style_text_color(title, lv_color_hex(0xD9E8FF), 0);
     lv_label_set_text(title, TR("Beacons"));
-#if UI_TOUCH_ONLY_PROFILE
-    lv_obj_align(title, LV_ALIGN_LEFT_MID, 2, 0);
-
-    // Touch build: no keyboard, so the way out and the only action both have to
-    // be on screen, as on Discovery.
-    auto makeBeaconsBtn = [](lv_obj_t *parent, const char *text, int xOffset,
-                             lv_event_cb_t cb) {
-        lv_obj_t *btn = lv_btn_create(parent);
-        lv_obj_set_size(btn, 44, 20);
-        lv_obj_align(btn, LV_ALIGN_RIGHT_MID, xOffset, 0);
-        lv_obj_set_style_radius(btn, 4, 0);
-        lv_obj_set_style_pad_all(btn, 0, 0);
-        lv_obj_set_style_shadow_width(btn, 0, 0);
-        lv_obj_set_style_bg_color(btn, lv_color_hex(0x16386F), 0);
-        lv_obj_set_style_bg_opa(btn, LV_OPA_80, 0);
-        lv_obj_set_style_border_width(btn, 1, 0);
-        lv_obj_set_style_border_color(btn, lv_color_hex(0x8FB5E6), 0);
-        lv_obj_add_event_cb(btn, cb, LV_EVENT_CLICKED, nullptr);
-        lv_obj_t *lbl = lv_label_create(btn);
-        lv_obj_set_style_text_font(lbl, &lv_font_montserrat_10, 0);
-        lv_obj_set_style_text_color(lbl, lv_color_hex(0xE8F1FF), 0);
-        lv_label_set_text(lbl, TR(text));
-        lv_obj_center(lbl);
-    };
-    // Close is the corner X, at the right end of the bar; the actions queue up
-    // to its left, 24px per X and 48 per 44px button.
-    if (lv_obj_t *beaconsClose = appendHeltecCloseX(
-            header, [](lv_event_t *e) { LV_UNUSED(e); closeBeaconsModal(); },
-            /*size=*/20)) {
-        lv_obj_align(beaconsClose, LV_ALIGN_RIGHT_MID, 0, 0);
-    }
-    makeBeaconsBtn(header, TR_NOOP("Clear"), -24,
-                   [](lv_event_t *e) { LV_UNUSED(e); beaconsClear(); });
-#else
     lv_obj_center(title);
+    }   // header bar
+
+#if UI_TOUCH_ONLY_PROFILE
+    // Touch build: no keyboard, so the action is a button, in the row under
+    // the title (toolActionRow()).
+    {
+        lv_obj_t *actions = toolActionRow(s_beaconsModal);
+        toolActionBtn(actions, TR("Clear"),
+                      [](lv_event_t *e) { LV_UNUSED(e); beaconsClear(); });
+    }
 #endif
 
     s_beaconsStatusLabel = lv_label_create(s_beaconsModal);
@@ -32686,6 +32821,11 @@ static void openBeaconsModal() {
     lv_obj_set_style_text_color(hint, lv_color_hex(0xA7C7FF), 0);
     lv_label_set_text_fmt(hint, TR("C = Clear   %s = Back"), modalCloseKeyLabel());
 #endif
+
+    // The way out of this screen on every build: it has no X. Tools lit, as
+    // the screen it was opened from. Last, so its spacer is the final child of
+    // the column. A no-op where the bar is switched off.
+    appendHeltecBottomNav(s_beaconsModal, HELTEC_NAV_TOOLS);
 
     refreshBeaconsModal(true);
 }
@@ -33344,6 +33484,18 @@ static void openMqttMonitorModal() {
     lv_obj_set_flex_align(s_mqttMonModal, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START,
                           LV_FLEX_ALIGN_START);
 
+    // The topic is the title, across the whole width in either orientation --
+    // there is no X and nothing beside it; Scan / Send / Reset are in the row
+    // under it. Portrait (P4, Heltec V4): Tools' title in place of the header
+    // bar. The nav bar added at the end is the way out.
+#if HAS_TOOL_STACK_LAYOUT
+    if (toolStackLayout()) {
+        char topic[64];
+        snprintf(topic, sizeof(topic), "%s/2/e/#", s_cfg.mqttRoot);
+        toolStackTitle(s_mqttMonModal, topic);
+    } else
+#endif
+    {
     lv_obj_t *header = lv_obj_create(s_mqttMonModal);
     lv_obj_set_width(header, lv_pct(100));
     lv_obj_set_height(header, 26);
@@ -33366,45 +33518,21 @@ static void openMqttMonitorModal() {
     lv_obj_set_style_text_color(title, lv_color_hex(0xD9E8FF), 0);
     lv_label_set_long_mode(title, LV_LABEL_LONG_DOT);
     lv_label_set_text(title, titleText);
-#if UI_TOUCH_ONLY_PROFILE
-    // Three buttons and the corner X sit on the right of this header.
-    lv_obj_set_width(title, modalW - 184);
-    lv_obj_align(title, LV_ALIGN_LEFT_MID, 2, 0);
-
-    auto makeMqttMonBtn = [](lv_obj_t *parent, const char *text, int xOffset,
-                             lv_event_cb_t cb) {
-        lv_obj_t *btn = lv_btn_create(parent);
-        lv_obj_set_size(btn, 44, 20);
-        lv_obj_align(btn, LV_ALIGN_RIGHT_MID, xOffset, 0);
-        lv_obj_set_style_radius(btn, 4, 0);
-        lv_obj_set_style_pad_all(btn, 0, 0);
-        lv_obj_set_style_shadow_width(btn, 0, 0);
-        lv_obj_set_style_bg_color(btn, lv_color_hex(0x16386F), 0);
-        lv_obj_set_style_bg_opa(btn, LV_OPA_80, 0);
-        lv_obj_set_style_border_width(btn, 1, 0);
-        lv_obj_set_style_border_color(btn, lv_color_hex(0x8FB5E6), 0);
-        lv_obj_add_event_cb(btn, cb, LV_EVENT_CLICKED, nullptr);
-        lv_obj_t *lbl = lv_label_create(btn);
-        lv_obj_set_style_text_font(lbl, &lv_font_montserrat_10, 0);
-        lv_obj_set_style_text_color(lbl, lv_color_hex(0xE8F1FF), 0);
-        lv_label_set_text(lbl, TR(text));
-        lv_obj_center(lbl);
-    };
-    if (lv_obj_t *mqttMonClose = appendHeltecCloseX(
-            header, [](lv_event_t *e) { LV_UNUSED(e); closeMqttMonitorModal(); },
-            /*size=*/20)) {
-        lv_obj_align(mqttMonClose, LV_ALIGN_RIGHT_MID, 0, 0);
-    }
-    makeMqttMonBtn(header, TR_NOOP("Reset"), -24,
-                   [](lv_event_t *e) { LV_UNUSED(e); mqttMonitorReset(); });
-    makeMqttMonBtn(header, TR_NOOP("Send"), -72,
-                   [](lv_event_t *e) { LV_UNUSED(e); openMqttSendModal(); });
-    makeMqttMonBtn(header, TR_NOOP("Scan"), -120,
-                   [](lv_event_t *e) { LV_UNUSED(e); openMqttScanModal(); });
-#else
     lv_obj_set_width(title, lv_pct(100));
     lv_obj_set_style_text_align(title, LV_TEXT_ALIGN_CENTER, 0);
     lv_obj_center(title);
+    }   // header bar
+
+#if UI_TOUCH_ONLY_PROFILE
+    {
+        lv_obj_t *actions = toolActionRow(s_mqttMonModal);
+        toolActionBtn(actions, TR("Scan"),
+                      [](lv_event_t *e) { LV_UNUSED(e); openMqttScanModal(); });
+        toolActionBtn(actions, TR("Send"),
+                      [](lv_event_t *e) { LV_UNUSED(e); openMqttSendModal(); });
+        toolActionBtn(actions, TR("Reset"),
+                      [](lv_event_t *e) { LV_UNUSED(e); mqttMonitorReset(); });
+    }
 #endif
 
     s_mqttMonStatusLabel = lv_label_create(s_mqttMonModal);
@@ -33450,6 +33578,11 @@ static void openMqttMonitorModal() {
     lv_label_set_text_fmt(hint, TR("W = Scan   S = Send   C = Reset   %s = Back"),
                           modalCloseKeyLabel());
 #endif
+
+    // The way out of this screen on every build: it has no X. Tools lit, as
+    // the screen it was opened from. Last, so its spacer is the final child of
+    // the column. A no-op where the bar is switched off.
+    appendHeltecBottomNav(s_mqttMonModal, HELTEC_NAV_TOOLS);
 
     refreshMqttMonitorModal(true);
 }
@@ -35386,6 +35519,18 @@ static void openDiscoveryModal() {
     lv_obj_set_flex_align(s_discoveryModal, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START,
                           LV_FLEX_ALIGN_START);
 
+    // Portrait (P4, Heltec V4): Tools' title in place of the header bar, no X -- the nav
+    // bar added at the end is the way out -- and bigger action buttons under
+    // it, as on every screen Tools opens (toolStackLayout()).
+#if HAS_TOOL_STACK_LAYOUT
+    const bool discoveryBig = toolStackLayout();
+    if (discoveryBig) {
+        toolStackTitle(s_discoveryModal, TR("Discovery"));
+    } else
+#else
+    constexpr bool discoveryBig = false;
+#endif
+    {
     lv_obj_t *header = lv_obj_create(s_discoveryModal);
     lv_obj_set_width(header, lv_pct(100));
     lv_obj_set_height(header, 26);
@@ -35413,53 +35558,21 @@ static void openDiscoveryModal() {
     lv_obj_set_style_text_color(title, lv_color_hex(0xD9E8FF), 0);
 #endif
     lv_label_set_text(title, TR("Discovery"));
-#if UI_TOUCH_ONLY_PROFILE
-    lv_obj_align(title, LV_ALIGN_LEFT_MID, 2, 0);
-    if (lv_obj_t *discoveryClose = appendHeltecCloseX(
-            header, [](lv_event_t *e) { LV_UNUSED(e); closeDiscoveryModal(); },
-            /*size=*/20)) {
-        lv_obj_align(discoveryClose, LV_ALIGN_RIGHT_MID, 0, 0);
-    }
+    lv_obj_center(title);
+    }   // header bar
+    (void)discoveryBig;
 
+#if UI_TOUCH_ONLY_PROFILE
     // Actions get their own full-width row rather than sharing the header with
     // the title and the corner X, as they used to. Two right-aligned 44px
     // buttons fitted there; four do not — on the 240px vertical build they would
     // leave 28px for the title. A flex row of equal shares also gives bigger tap
     // targets (~55px on the narrowest panel) than the fixed widths did, and adding
     // a fifth action later is a line rather than a re-layout.
-    lv_obj_t *actionRow = lv_obj_create(s_discoveryModal);
-    lv_obj_set_width(actionRow, lv_pct(100));
-    lv_obj_set_height(actionRow, LV_SIZE_CONTENT);
-    lv_obj_clear_flag(actionRow, LV_OBJ_FLAG_SCROLLABLE);
-    lv_obj_set_style_bg_opa(actionRow, LV_OPA_TRANSP, 0);
-    lv_obj_set_style_border_width(actionRow, 0, 0);
-    lv_obj_set_style_pad_all(actionRow, 0, 0);
-    lv_obj_set_style_pad_column(actionRow, 4, 0);
-    lv_obj_set_flex_flow(actionRow, LV_FLEX_FLOW_ROW);
-    lv_obj_set_flex_align(actionRow, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER,
-                          LV_FLEX_ALIGN_CENTER);
-
-    // Returns the label rather than the button: the only caller that keeps a
-    // handle wants to retitle it later, and the button itself never changes.
+    lv_obj_t *actionRow = toolActionRow(s_discoveryModal);
     auto makeDiscoveryBtn = [](lv_obj_t *parent, const char *text,
                                lv_event_cb_t cb) -> lv_obj_t * {
-        lv_obj_t *btn = lv_btn_create(parent);
-        lv_obj_set_height(btn, 22);
-        lv_obj_set_flex_grow(btn, 1);
-        lv_obj_set_style_radius(btn, 4, 0);
-        lv_obj_set_style_pad_all(btn, 0, 0);
-        lv_obj_set_style_shadow_width(btn, 0, 0);
-        lv_obj_set_style_bg_color(btn, lv_color_hex(0x16386F), 0);
-        lv_obj_set_style_bg_opa(btn, LV_OPA_80, 0);
-        lv_obj_set_style_border_width(btn, 1, 0);
-        lv_obj_set_style_border_color(btn, lv_color_hex(0x8FB5E6), 0);
-        lv_obj_add_event_cb(btn, cb, LV_EVENT_CLICKED, nullptr);
-        lv_obj_t *lbl = lv_label_create(btn);
-        lv_obj_set_style_text_font(lbl, &lv_font_montserrat_10, 0);
-        lv_obj_set_style_text_color(lbl, lv_color_hex(0xE8F1FF), 0);
-        lv_label_set_text(lbl, TR(text));
-        lv_obj_center(lbl);
-        return lbl;
+        return toolActionBtn(parent, TR(text), cb);
     };
     makeDiscoveryBtn(actionRow, TR_NOOP("Sweep"), [](lv_event_t *e) {
         LV_UNUSED(e);
@@ -35501,9 +35614,7 @@ static void openDiscoveryModal() {
         refreshDiscoveryModal(true);
     });
 #endif
-#else
-    lv_obj_center(title);
-#endif
+#endif  // UI_TOUCH_ONLY_PROFILE
 
     s_discoveryStatusLabel = lv_label_create(s_discoveryModal);
     lv_obj_set_width(s_discoveryStatusLabel, lv_pct(100));
@@ -35590,10 +35701,34 @@ static void openDiscoveryModal() {
     discoverySetHintText();
 #endif
 
+    // The way out of this screen on every build: it has no X. Tools lit, as
+    // the screen it was opened from. Last, so its spacer is the final child of
+    // the column. A no-op where the bar is switched off.
+    appendHeltecBottomNav(s_discoveryModal, HELTEC_NAV_TOOLS);
+
     refreshDiscoveryModal(true);
 }
 
 #endif  // FEATURE_DISCOVERY
+
+static void closeToolScreens(bool closeLive) {
+    // Each guarded on its own screen being up, so a nav tap from anywhere else
+    // runs none of their side effects (Discovery's brings a preset scan home,
+    // Weather's resets the fetch state).
+    if (s_snrChartModal) closeSnrRssiChartModal();
+    if (s_chUtilChartModal) closeChUtilChartModal();
+#if FEATURE_DISCOVERY
+    if (s_discoveryModal) closeDiscoveryModal();
+#endif
+    if (s_beaconsModal) closeBeaconsModal();
+#if HAS_WEATHER
+    if (s_weatherModal) closeWeatherModal();
+#endif
+#if FEATURE_MQTT_MONITOR
+    if (s_mqttMonModal) closeMqttMonitorModal();
+#endif
+    if (closeLive && s_liveModal) closeLiveModal();
+}
 
 static DmConv *selectedDmConversation() {
     if (s_dmSelection <= 0) return nullptr;
@@ -36671,9 +36806,17 @@ static void refreshDmModal(bool force) {
     const lv_font_t *dmListFont = kMainScreenFont;
     const lv_font_t *dmMsgFont = scaledChatFont(kMainScreenFont);
 #if defined(DEVICE_TLORA_PAGER_TFT)
-    const int dmListRowH = 24;
+    int dmListRowH = 24;
 #else
-    const int dmListRowH = 22;
+    int dmListRowH = 22;
+#endif
+#if defined(DEVICE_TDISPLAY_P4) && !UI_LARGE_PANEL_PROFILE
+    // Portrait gives the contact list the whole width of a tall panel, which
+    // the main-screen size left mostly empty. Two sizes up, rows to match.
+    if (uiPortrait()) {
+        dmListFont = &lv_font_montserrat_16;
+        dmListRowH = 30;
+    }
 #endif
 
     {
@@ -37302,18 +37445,6 @@ static void openNodesModal() {
     int contentW = modalW - (modalPad * 2);
     if (contentW < 120) contentW = modalW;
 
-    // One size on every board. The Pager and T-Deck used to take montserrat_14
-    // here, which suited the old single-block description and is much too big
-    // for a two-column table: at that size the field names ate the row and the
-    // values ellipsized down to nothing. This is what the M9 renders on the same
-    // 320x240 panel the T-Deck has, and it is the size the tables were laid out
-    // against. The Cardputer, on its own layout, was already using it.
-#if defined(DEVICE_TDECK_PRO)
-    const lv_font_t *nodesDetailFont = emojiFont(&lv_font_montserrat_12);
-#else
-    const lv_font_t *nodesDetailFont = emojiFont(&lv_font_montserrat_10);
-#endif
-
     // List over details, both full width, rather than side by side: the T-Deck
     // Pro's portrait paper, and the T-Display P4 held upright, where 284 px is
     // too narrow to split and there is height to stack into.
@@ -37323,6 +37454,23 @@ static void openNodesModal() {
     const bool nodesStacked = uiPortrait();
 #else
     const bool nodesStacked = false;
+#endif
+
+    // One size on every board. The Pager and T-Deck used to take montserrat_14
+    // here, which suited the old single-block description and is much too big
+    // for a two-column table: at that size the field names ate the row and the
+    // values ellipsized down to nothing. This is what the M9 renders on the same
+    // 320x240 panel the T-Deck has, and it is the size the tables were laid out
+    // against. The Cardputer, on its own layout, was already using it.
+#if defined(DEVICE_TDECK_PRO)
+    const lv_font_t *nodesDetailFont = emojiFont(&lv_font_montserrat_12);
+#elif defined(DEVICE_TDISPLAY_P4) && !UI_LARGE_PANEL_PROFILE
+    // Stacked, the details have the full panel width and scroll for height, so
+    // they take the list's larger face (refreshNodesListRows).
+    const lv_font_t *nodesDetailFont =
+        emojiFont(nodesStacked ? &lv_font_montserrat_14 : &lv_font_montserrat_10);
+#else
+    const lv_font_t *nodesDetailFont = emojiFont(&lv_font_montserrat_10);
 #endif
 #if NODES_LAYOUT_WIDE
     int listW = contentW;

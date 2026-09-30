@@ -209,16 +209,30 @@ void tdisplayP4InstallFullRestart() {
 TwoWire &tdisplayP4I2c1(TdisplayP4I2c1Route route) {
     // Neither: nothing has begun Wire1 yet.
     static int s_current = -1;
-    if (s_current != (int)route) {
-        if (s_current >= 0) Wire1.end();
+    static bool s_failLogged[2] = {};
+    // Re-begun when it is not on this route, and also when it is not running
+    // at all: remembering that it was begun is not the same as it being up.
+    // Wire1 is handed to the codec library, which is free to end() it, and a
+    // bus that is only remembered fails every transaction that follows with
+    // "bus is not initialized" -- the keyboard's hotplug probe, every 1.5 s.
+    if (s_current != (int)route || !i2cIsInit(1)) {
+        if (i2cIsInit(1)) Wire1.end();
+        bool ok;
         if (route == TDISPLAY_P4_I2C1_AUDIO) {
             // LilyGO t_display_p4_config.h: es8311 on i2c::kPort2 (20/21).
-            Wire1.begin(BOARD_AUDIO_I2C_SDA, BOARD_AUDIO_I2C_SCL, 400000UL);
+            ok = Wire1.begin(BOARD_AUDIO_I2C_SDA, BOARD_AUDIO_I2C_SCL, 400000UL);
         } else {
             // The rate keyboard.cpp begins it at; its own begin() is then a no-op.
-            Wire1.begin(KB_SDA, KB_SCL, 100000UL);
+            ok = Wire1.begin(KB_SDA, KB_SCL, 100000UL);
         }
-        s_current = (int)route;
+        // Not recorded as current when it failed, so the next call tries again.
+        s_current = ok ? (int)route : -1;
+        const int r = (route == TDISPLAY_P4_I2C1_AUDIO) ? 1 : 0;
+        if (!ok && !s_failLogged[r]) {
+            s_failLogged[r] = true;
+            Serial.printf("[p4-i2c1] Wire1.begin for the %s route failed\n",
+                          r ? "audio" : "keyboard");
+        }
     }
     return Wire1;
 }

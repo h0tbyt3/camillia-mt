@@ -6746,6 +6746,12 @@ static void setPagerKeyboardBacklight(bool on) {
                                   : 0);
 #elif defined(DEVICE_TLORA_PAGER_TFT) && defined(KB_BL) && (KB_BL >= 0)
     digitalWrite(KB_BL, on ? HIGH : LOW);
+#elif defined(DEVICE_TDISPLAY_P4)
+    // The keyboard expansion's backlight: lit with the screen unless its own
+    // key (F7) has switched it off -- the same kbBacklightEnabled the T-Deck
+    // Pro's Alt+B keeps. Set whether or not the expansion is on; the driver
+    // holds the level and applies it when it arrives.
+    keyboardSetKeypadBacklight((on && s_cfg.kbBacklightEnabled) ? 255 : 0);
 #else
     LV_UNUSED(on);
 #endif
@@ -6759,14 +6765,29 @@ static void setPagerKeyboardBacklight(bool on) {
 // peripheral clock — UART, SPI, I2C, LEDC, esp_timer — is untouched, and
 // setCpuFrequencyMhz() doesn't even enter its APB-change path. It is also the
 // minimum Wi-Fi will run at.
+#if defined(DEVICE_TDISPLAY_P4)
+// None of that holds on the ESP32-P4. It runs at 360 MHz and offers 360, 180,
+// 90, 40 and below -- no 240, no 80 -- and what dropping it does to the MIPI
+// panel, the SDIO link to the C6 that carries Wi-Fi, and PSRAM has not been
+// measured. So no scaling: both ends are the clock it boots at, and nothing is
+// ever asked for.
+static constexpr uint32_t kCpuMhzActive = 360;
+static constexpr uint32_t kCpuMhzIdle   = 360;
+#else
 static constexpr uint32_t kCpuMhzActive = 240;
 static constexpr uint32_t kCpuMhzIdle   = 80;
+#endif
 static uint32_t s_cpuMhz = kCpuMhzActive;
+// A frequency the chip has refused once is not asked for again: this runs every
+// loop pass, and a refused one would otherwise log an error from the core on
+// each of them.
+static uint32_t s_cpuMhzRefused = 0;
 
 static void applyCpuMhz(uint32_t mhz) {
-    if (s_cpuMhz == mhz) return;
+    if (s_cpuMhz == mhz || s_cpuMhzRefused == mhz) return;
     if (!setCpuFrequencyMhz(mhz)) {
-        Serial.printf("[power] CPU %lu MHz rejected\n", (unsigned long)mhz);
+        s_cpuMhzRefused = mhz;
+        Serial.printf("[power] CPU %lu MHz rejected; not asking again\n", (unsigned long)mhz);
         return;
     }
     s_cpuMhz = mhz;
@@ -13001,7 +13022,10 @@ static void openComposePrompt(uint32_t replyPacketId,
     // leaves about that much. Measured from the face, with explicit padding
     // rather than the theme's, so the box is exactly that many lines.
     {
-        const lv_coord_t composeLines = uiPortrait() ? 4 : 2;
+        // With the keyboard expansion on there is no on-screen keyboard below
+        // (see the end of this function), and its room goes to the message.
+        const lv_coord_t composeLines = keyboardAttached() ? (uiPortrait() ? 8 : 4)
+                                                           : (uiPortrait() ? 4 : 2);
         const lv_coord_t composePad = 4;
         lv_obj_set_style_pad_all(s_composeInput, composePad, 0);
         lv_obj_set_height(s_composeInput,
@@ -13081,11 +13105,17 @@ static void openComposePrompt(uint32_t replyPacketId,
     lv_label_set_text(sendLbl, TR("Send"));
     lv_obj_center(sendLbl);
 
-    s_composeKeyboard = lv_keyboard_create(s_composeModal);
-    configureOnScreenKeyboard(s_composeKeyboard);
-    lv_keyboard_set_textarea(s_composeKeyboard, s_composeInput);
-    lv_obj_add_event_cb(s_composeKeyboard, onComposeKeyboardEvent, LV_EVENT_READY, nullptr);
-    lv_obj_add_event_cb(s_composeKeyboard, onComposeKeyboardEvent, LV_EVENT_CANCEL, nullptr);
+    // Not with a physical keyboard attached (the T-Display P4's expansion): it
+    // would take half the panel from a message typed on the keys under it.
+    // Checked as compose opens; attaching one mid-message takes effect on the
+    // next.
+    if (!keyboardAttached()) {
+        s_composeKeyboard = lv_keyboard_create(s_composeModal);
+        configureOnScreenKeyboard(s_composeKeyboard);
+        lv_keyboard_set_textarea(s_composeKeyboard, s_composeInput);
+        lv_obj_add_event_cb(s_composeKeyboard, onComposeKeyboardEvent, LV_EVENT_READY, nullptr);
+        lv_obj_add_event_cb(s_composeKeyboard, onComposeKeyboardEvent, LV_EVENT_CANCEL, nullptr);
+    }
 #else
     int modalW = lv_disp_get_hor_res(NULL) - 24;
     if (modalW < 140) modalW = lv_disp_get_hor_res(NULL) - 8;
@@ -18826,9 +18856,14 @@ static void openChanTextModal(int field) {
     lv_label_set_text(okLbl, TR("OK"));
     lv_obj_center(okLbl);
 
-    s_chanTextKeyboard = lv_keyboard_create(s_chanTextModal);
-    configureOnScreenKeyboard(s_chanTextKeyboard);
-    lv_keyboard_set_textarea(s_chanTextKeyboard, s_chanTextInput);
+    // Not with a physical keyboard attached (the T-Display P4's expansion):
+    // keys typed on it reach this field through pumpKeyboardInput(), and an
+    // on-screen one would only take half the panel. Checked as this opens.
+    if (!keyboardAttached()) {
+        s_chanTextKeyboard = lv_keyboard_create(s_chanTextModal);
+        configureOnScreenKeyboard(s_chanTextKeyboard);
+        lv_keyboard_set_textarea(s_chanTextKeyboard, s_chanTextInput);
+    }
 #endif
 }
 
@@ -20129,9 +20164,14 @@ static void openCfgWifiPassModal(int scanIdx) {
     lv_label_set_text(connectLbl, TR("Connect"));
     lv_obj_center(connectLbl);
 
-    s_cfgWifiPassKeyboard = lv_keyboard_create(s_cfgWifiPassModal);
-    configureOnScreenKeyboard(s_cfgWifiPassKeyboard);
-    lv_keyboard_set_textarea(s_cfgWifiPassKeyboard, s_cfgWifiPassInput);
+    // Not with a physical keyboard attached (the T-Display P4's expansion):
+    // keys typed on it reach this field through pumpKeyboardInput(), and an
+    // on-screen one would only take half the panel. Checked as this opens.
+    if (!keyboardAttached()) {
+        s_cfgWifiPassKeyboard = lv_keyboard_create(s_cfgWifiPassModal);
+        configureOnScreenKeyboard(s_cfgWifiPassKeyboard);
+        lv_keyboard_set_textarea(s_cfgWifiPassKeyboard, s_cfgWifiPassInput);
+    }
 #endif
 }
 
@@ -21651,8 +21691,14 @@ static void openCfgNodeNameModal() {
     lv_label_set_text(saveLbl, TR("Save"));
     lv_obj_center(saveLbl);
 
-    s_cfgNodeNameKeyboard = lv_keyboard_create(s_cfgNodeNameModal);
-    configureOnScreenKeyboard(s_cfgNodeNameKeyboard);
+    // Not with a physical keyboard attached (the T-Display P4's expansion):
+    // keys typed on it reach this field through pumpKeyboardInput(), and an
+    // on-screen one would only take half the panel. Checked as this opens.
+    // cfgNodeNameSetFocus() already copes with there being none.
+    if (!keyboardAttached()) {
+        s_cfgNodeNameKeyboard = lv_keyboard_create(s_cfgNodeNameModal);
+        configureOnScreenKeyboard(s_cfgNodeNameKeyboard);
+    }
 #endif
 
     cfgNodeNameSetFocus(0);
@@ -22819,6 +22865,38 @@ static void populateHeltecBottomNav(lv_obj_t *bar, int activeTarget) {
         // lists them, and turning the bar off still brings back the key-hint
         // strip under the chat.
         lv_obj_center(label);
+#if defined(DEVICE_TDISPLAY_P4)
+        // P4 landscape with the keyboard expansion on: the F-key that reaches
+        // each cell (kTloraTapMap), small beside its glyph -- F1..F6 left to
+        // right along the bar, F11 for Help. Only with the keyboard there, as
+        // it names keys that are otherwise nowhere; not in portrait, whose
+        // narrower cells have no room beside the glyph. Checked as the bar is
+        // built, which is on every screen change.
+        if (!uiPortrait() && keyboardAttached()) {
+            const char *fkey = nullptr;
+            switch (kItems[i].target) {
+                case HELTEC_NAV_HOME:   fkey = "F1";  break;
+                case HELTEC_NAV_CHAT:   fkey = "F2";  break;
+                case HELTEC_NAV_DM:     fkey = "F3";  break;
+                case HELTEC_NAV_NODES:  fkey = "F4";  break;
+                case HELTEC_NAV_TOOLS:  fkey = "F5";  break;
+                case HELTEC_NAV_CFG:    fkey = "F6";  break;
+                case HELTEC_NAV_LEGEND: fkey = "F11"; break;
+                default: break;
+            }
+            if (fkey) {
+                // Glyph and key side by side, the pair centred in the cell.
+                lv_obj_set_flex_flow(btn, LV_FLEX_FLOW_ROW);
+                lv_obj_set_flex_align(btn, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER,
+                                      LV_FLEX_ALIGN_CENTER);
+                lv_obj_set_style_pad_column(btn, 3, 0);
+                lv_obj_t *hint = lv_label_create(btn);
+                lv_obj_set_style_text_font(hint, &lv_font_montserrat_10, 0);
+                lv_obj_set_style_text_color(hint, lv_color_hex(0x8FB5E6), 0);
+                lv_label_set_text(hint, fkey);
+            }
+        }
+#endif
         // Registered on every board that draws this bar, not just the
         // touch-only ones: where the bar is a setting, the alert follows the
         // setting rather than the board.
@@ -24068,12 +24146,17 @@ static void openNodesFilterDialog() {
     lv_textarea_set_cursor_pos(s_nodesFilterInput, LV_TEXTAREA_CURSOR_LAST);
     lv_obj_add_event_cb(s_nodesFilterInput, onNodesFilterInputEvent, LV_EVENT_READY, nullptr);
 
-    s_nodesFilterKeyboard = lv_keyboard_create(s_nodesFilterDialog);
-    configureOnScreenKeyboard(s_nodesFilterKeyboard);
-    lv_keyboard_set_mode(s_nodesFilterKeyboard, LV_KEYBOARD_MODE_TEXT_LOWER);
-    lv_keyboard_set_textarea(s_nodesFilterKeyboard, s_nodesFilterInput);
-    lv_obj_add_event_cb(s_nodesFilterKeyboard, onNodesFilterKeyboardEvent, LV_EVENT_READY, nullptr);
-    lv_obj_add_event_cb(s_nodesFilterKeyboard, onNodesFilterKeyboardEvent, LV_EVENT_CANCEL, nullptr);
+    // Not with a physical keyboard attached (the T-Display P4's expansion):
+    // keys typed on it reach this field through pumpKeyboardInput(), and an
+    // on-screen one would only take half the panel. Checked as this opens.
+    if (!keyboardAttached()) {
+        s_nodesFilterKeyboard = lv_keyboard_create(s_nodesFilterDialog);
+        configureOnScreenKeyboard(s_nodesFilterKeyboard);
+        lv_keyboard_set_mode(s_nodesFilterKeyboard, LV_KEYBOARD_MODE_TEXT_LOWER);
+        lv_keyboard_set_textarea(s_nodesFilterKeyboard, s_nodesFilterInput);
+        lv_obj_add_event_cb(s_nodesFilterKeyboard, onNodesFilterKeyboardEvent, LV_EVENT_READY, nullptr);
+        lv_obj_add_event_cb(s_nodesFilterKeyboard, onNodesFilterKeyboardEvent, LV_EVENT_CANCEL, nullptr);
+    }
     lv_obj_move_foreground(s_nodesFilterDialog);
 #endif
 }
@@ -41222,6 +41305,9 @@ static void renderOnboardingStage() {
     #endif
 
 #if UI_TOUCH_ONLY_PROFILE
+        // Not with a physical keyboard attached (the T-Display P4's expansion):
+        // the name is typed on it, through pumpKeyboardInput().
+        if (!keyboardAttached()) {
         s_onboardingKeyboard = lv_keyboard_create(s_onboardingModal);
         configureOnScreenKeyboard(s_onboardingKeyboard);
 #if defined(DEVICE_TDISPLAY_P4)
@@ -41248,6 +41334,7 @@ static void renderOnboardingStage() {
                                 if (c == LV_EVENT_READY) onboardingCommitName();
                             },
                             LV_EVENT_READY, nullptr);
+        }   // !keyboardAttached()
 #endif
     }
 
@@ -41506,7 +41593,7 @@ static void onboardingFinalize() {
 #define HAS_GLOBAL_NAV_SHORTCUTS \
     (defined(DEVICE_M9) || defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO) \
      || defined(DEVICE_MESH_DECK) || defined(DEVICE_TLORA_PAGER_TFT) \
-     || defined(DEVICE_CARDPUTER_LORA_HAT))
+     || defined(DEVICE_CARDPUTER_LORA_HAT) || defined(DEVICE_TDISPLAY_P4))
 
 #if HAS_GLOBAL_NAV_SHORTCUTS
 static bool prepareGlobalNavigation() {
@@ -41708,14 +41795,6 @@ static void openNavHomeDashboardShortcut() {
 }
 #endif  // HAS_HOME_DASHBOARD
 
-#if defined(DEVICE_M9) && FEATURE_DISCOVERY
-static void openM9DiscoveryShortcut() {
-    if (!prepareGlobalNavigation()) return;
-    closeDmModal();
-    openDiscoveryModal();
-}
-#endif
-
 #if HAS_HOME_DASHBOARD
 // Whether KEY_OPEN_CHAT arrives from a labelled button or from a modifier
 // chord. The M9's controller resolves Alt itself and reports no chords at all,
@@ -41735,12 +41814,6 @@ static bool handleGlobalNavigationKey(char key) {
         requestScreenOff("M9 d-pad centre hold");
         return true;
     }
-#if FEATURE_DISCOVERY
-    if (key == KEY_OPEN_DISCOVERY) {
-        openM9DiscoveryShortcut();
-        return true;
-    }
-#endif
 #endif
 #if HAS_HOME_DASHBOARD
     // Home is the dashboard on every board that has one; chat is its own
@@ -41854,6 +41927,24 @@ static bool einkRefreshDueNow() {
 // Nodes list, and each of those used to carry its own copy of this switch --
 // three, identical but for their comments, so a key added to one was a key
 // missing from the other two.
+// Left/Right move the caret in a text field, on a keyboard with arrow keys:
+// the T-Display P4's expansion, whose arrows arrive as KEY_PREV_CHAN and
+// KEY_NEXT_CHAN (kTloraTapMap). True when the key was one of them. Compose has
+// its own copy in the caret block of pumpKeyboardInput(), shared with the d-pad
+// boards; this is for every other field. Elsewhere those two keys keep
+// whatever meaning each field already gave them.
+static bool textFieldCaretKey(lv_obj_t *ta, char k) {
+#if defined(DEVICE_TDISPLAY_P4)
+    if (!ta) return false;
+    if (k == KEY_PREV_CHAN) { lv_textarea_cursor_left(ta);  return true; }
+    if (k == KEY_NEXT_CHAN) { lv_textarea_cursor_right(ta); return true; }
+#else
+    LV_UNUSED(ta);
+    LV_UNUSED(k);
+#endif
+    return false;
+}
+
 static void handleComposeKey(char k) {
     switch (k) {
         case KEY_ENTER:
@@ -42101,6 +42192,17 @@ static void pumpKeyboardInput() {
             toggleTdeckProKeyboardBacklight();
             continue;
         }
+#elif defined(DEVICE_TDISPLAY_P4)
+        if (k == KEY_TOGGLE_KB_BACKLIGHT) {
+            // Saved on the toggle, as on the T-Deck Pro: there may be no clean
+            // shutdown to save it at.
+            s_cfg.kbBacklightEnabled = !s_cfg.kbBacklightEnabled;
+            markConfigDirty();
+            setPagerKeyboardBacklight(!s_screenAsleep);
+            Serial.printf("[kb-bl] T-Display P4 keyboard light %s\n",
+                          s_cfg.kbBacklightEnabled ? "on" : "off");
+            continue;
+        }
 #endif
 
         // Ahead of every modal's own key handling, which is what makes these
@@ -42127,6 +42229,7 @@ static void pumpKeyboardInput() {
                              || s_cfgWifiPassModal
                              || s_cfgNodeNameModal
                              || s_chanTextModal
+                             || s_nodesFilterDialog
                              // Only once the theme filter is armed. Before that
                              // j/k must stay navigation, which is the whole
                              // reason the filter is armed with Space; after it,
@@ -42369,6 +42472,8 @@ static void pumpKeyboardInput() {
                             lv_textarea_delete_char(s_onboardingInput);
                         }
                     }
+                } else if (textFieldCaretKey(s_onboardingInput, k)) {
+                    // The caret moved; nothing else to do.
                 } else if (k >= 0x20 && k < 0x7F && s_onboardingInput) {
                     char one[2] = {k, '\0'};
                     lv_textarea_add_text(s_onboardingInput, one);
@@ -42809,6 +42914,7 @@ static void pumpKeyboardInput() {
                 closeChanTextModal();
                 continue;
             }
+            if (textFieldCaretKey(s_chanTextInput, k)) continue;
             if (k >= 0x20 && k < 0x7F && s_chanTextInput) {
                 char one[2] = {k, '\0'};
                 lv_textarea_add_text(s_chanTextInput, one);
@@ -43090,6 +43196,9 @@ static void pumpKeyboardInput() {
                 cfgNodeNameSave();
                 continue;
             }
+            // Where the arrows move the caret (textFieldCaretKey()), Left and
+            // Right do that instead, and Tab, Up and Down switch fields.
+            if (textFieldCaretKey(cfgNodeNameFocusedInput(), k)) continue;
             // Tab is the field switch people reach for; the wheel and arrows do
             // it too, since two boards here have no Tab key worth pressing.
             if (k == KEY_TAB || k == KEY_SCROLL_UP || k == KEY_SCROLL_DN
@@ -43154,6 +43263,7 @@ static void pumpKeyboardInput() {
                 refreshCfgWifiScanModal(false);
                 continue;
             }
+            if (textFieldCaretKey(s_cfgWifiPassInput, k)) continue;
             if (k >= 0x20 && k < 0x7F && s_cfgWifiPassInput) {
                 char one[2] = {k, '\0'};
                 lv_textarea_add_text(s_cfgWifiPassInput, one);
@@ -43723,7 +43833,8 @@ static void pumpKeyboardInput() {
             continue;   // swallow all other keys while the tray is up
         }
 
-#if defined(DEVICE_TLORA_PAGER_TFT) || defined(DEVICE_M9) || defined(DEVICE_MESH_DECK)
+#if defined(DEVICE_TLORA_PAGER_TFT) || defined(DEVICE_M9) || defined(DEVICE_MESH_DECK) \
+    || defined(DEVICE_TDISPLAY_P4)
         // Steps the caret through the message being typed.
         //
         // It sits ahead of the per-screen handlers because compose is reachable
@@ -43750,7 +43861,7 @@ static void pumpKeyboardInput() {
                 continue;
             }
 #endif
-#if defined(DEVICE_M9) || defined(DEVICE_MESH_DECK)
+#if defined(DEVICE_M9) || defined(DEVICE_MESH_DECK) || defined(DEVICE_TDISPLAY_P4)
             // D-pad: Left/Right by a character, Up/Down by a display line. The
             // compose box is multi-line on both boards
             // (lv_textarea_set_one_line(false)), which is what makes the
@@ -43770,6 +43881,10 @@ static void pumpKeyboardInput() {
             // is kPagerWheelChatNav && !navFromJk, and kPagerWheelChatNav is
             // false on both boards, so folding them into that expression would
             // pick a direction by accident rather than state one.
+            //
+            // The T-Display P4's keyboard expansion is here for the same reason:
+            // its arrow keys arrive as these four tokens (kTloraTapMap), and its
+            // compose box wraps too.
             if (k == KEY_PREV_CHAN) { lv_textarea_cursor_left(s_composeInput);  continue; }
             if (k == KEY_NEXT_CHAN) { lv_textarea_cursor_right(s_composeInput); continue; }
             if (k == KEY_SCROLL_UP) { lv_textarea_cursor_up(s_composeInput);    continue; }
@@ -44125,6 +44240,37 @@ static void pumpKeyboardInput() {
                         break;
                     }
                 }
+            }
+            continue;
+        }
+
+        // The touch build's filter dialog, typed into from a physical keyboard
+        // (the T-Display P4's expansion). Every key is the dialog's while it is
+        // up, as with the other text fields -- the Nodes screen under it has an
+        // inline filter of its own that letters would otherwise reach.
+        if (s_nodesFilterDialog) {
+            if (k == KEY_ENTER) {
+                applyNodesFilterText(s_nodesFilterInput
+                                         ? lv_textarea_get_text(s_nodesFilterInput) : "");
+                closeNodesFilterDialog();
+                continue;
+            }
+            if (isBackspaceKey(k)) {
+                // Erases; on an empty field backs out, as the others do.
+                const char *cur = s_nodesFilterInput
+                                      ? lv_textarea_get_text(s_nodesFilterInput) : nullptr;
+                if (k == KEY_BACKSPACE && cur && cur[0]) lv_textarea_delete_char(s_nodesFilterInput);
+                else                                     closeNodesFilterDialog();
+                continue;
+            }
+            if (isModalCloseKey(k)) {
+                closeNodesFilterDialog();
+                continue;
+            }
+            if (textFieldCaretKey(s_nodesFilterInput, k)) continue;
+            if (k >= 0x20 && k < 0x7F && s_nodesFilterInput) {
+                char one[2] = {k, '\0'};
+                lv_textarea_add_text(s_nodesFilterInput, one);
             }
             continue;
         }
@@ -44825,11 +44971,19 @@ static void pumpKeyboardInput() {
                     } else if (s_activeChannel >= 0 && s_activeChannel < MESH_CHANNELS) {
                         // Channel list uses reversed j/k semantics by request.
                         int navDelta;
+#if defined(DEVICE_TDISPLAY_P4)
+                        // The keyboard expansion's arrows, not a wheel: Up is
+                        // the channel above in the list, Down the one below,
+                        // wrapping at either end. The reversal below is the
+                        // Pager's wheel, whose turn direction it matches.
+                        navDelta = (k == KEY_SCROLL_UP) ? -1 : 1;
+#else
                         if (navFromJk) {
                             navDelta = (k == KEY_SCROLL_UP) ? -1 : 1;
                         } else {
                             navDelta = (k == KEY_SCROLL_UP) ? 1 : -1;
                         }
+#endif
                         int nextChannel = s_activeChannel + navDelta;
                         if (nextChannel < 0) nextChannel = MESH_CHANNELS - 1;
                         if (nextChannel >= MESH_CHANNELS) nextChannel = 0;
@@ -49240,11 +49394,16 @@ static void openAdminTerminalModal(uint32_t nodeId) {
     lv_obj_set_style_pad_all(s_adminInput, 2, 0);
 
 #if UI_TOUCH_ONLY_PROFILE
-    s_adminKeyboard = lv_keyboard_create(s_adminModal);
-    configureOnScreenKeyboard(s_adminKeyboard);
-    lv_keyboard_set_textarea(s_adminKeyboard, s_adminInput);
-    lv_obj_add_event_cb(s_adminKeyboard, onAdminKeyboardEvent, LV_EVENT_READY, nullptr);
-    lv_obj_add_event_cb(s_adminKeyboard, onAdminKeyboardEvent, LV_EVENT_CANCEL, nullptr);
+    // Not with a physical keyboard attached (the T-Display P4's expansion):
+    // adminTerminalHandleKey() takes what is typed on it, and the transcript
+    // gets the room.
+    if (!keyboardAttached()) {
+        s_adminKeyboard = lv_keyboard_create(s_adminModal);
+        configureOnScreenKeyboard(s_adminKeyboard);
+        lv_keyboard_set_textarea(s_adminKeyboard, s_adminInput);
+        lv_obj_add_event_cb(s_adminKeyboard, onAdminKeyboardEvent, LV_EVENT_READY, nullptr);
+        lv_obj_add_event_cb(s_adminKeyboard, onAdminKeyboardEvent, LV_EVENT_CANCEL, nullptr);
+    }
 #endif
 
     lv_obj_move_foreground(s_adminBackdrop);
@@ -49266,6 +49425,7 @@ static bool adminTerminalHandleKey(char k) {
         return true;
     }
     if (isBackspaceKey(k)) { lv_textarea_delete_char(s_adminInput); return true; }
+    if (textFieldCaretKey(s_adminInput, k)) return true;
     if (k == KEY_SCROLL_UP)  { adminRecallHistory(+1); return true; }
     if (k == KEY_SCROLL_DN)  { adminRecallHistory(-1); return true; }
     if (k == KEY_PAGE_UP)    { scrollListClamped(s_adminScroll, 24); return true; }

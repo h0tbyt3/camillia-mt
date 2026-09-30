@@ -64,6 +64,14 @@ static void m9ReleaseUsbPads() {
 }
 #endif
 
+#if defined(DEVICE_TDISPLAY_P4)
+// The expansion's backlight. The level is the firmware's to set whether the
+// keyboard is there or not, and is applied when it arrives; the LEDC channel is
+// attached once, the first time it does.
+static bool    sP4BacklightAttached = false;
+static uint8_t sP4BacklightLevel = 255;
+#endif
+
 static TwoWire &keyboardBus() {
 #if defined(DEVICE_TDISPLAY_P4)
     // Shared with the audio codec, on other pins; this points it back at ours.
@@ -102,7 +110,8 @@ void keyboardSetKeypadBacklight(uint8_t level) {
     // The pin belongs to LEDC from begin(), so this is the only way to move it.
     ledcWrite(KB_BL_PWM_CH, level);
 #elif defined(DEVICE_TDISPLAY_P4) && defined(KB_BL) && (KB_BL >= 0)
-    ledcWrite(KB_BL, level);
+    sP4BacklightLevel = level;
+    if (sP4BacklightAttached) ledcWrite(KB_BL, level);
 #else
     (void)level;
 #endif
@@ -354,6 +363,24 @@ bool p4KeyboardDetectAndReset() {
     bus.beginTransmission(KB_ADDR);
     return bus.endTransmission() == 0;
 }
+
+// The expansion's three indicator LEDs: XL9555 port-0 bits 3..5, lit LOW
+// (LilyGO's SetKeyboardExpansionLed()). Caps Lock lights all three, as LilyGO's
+// own keyboard example does. The rest of port 0 -- the T-MixRF enable and RF
+// switch, the TCA8418 reset -- is read back and left exactly as it was.
+constexpr uint8_t kP4KbLedMask = 0x38;
+
+bool p4KeyboardSetLeds(bool on) {
+    uint8_t output = 0xFF;
+    uint8_t config = 0xFF;
+    if (!p4KeyboardExpanderRead(0x02, output)
+        || !p4KeyboardExpanderRead(0x06, config)) {
+        return false;
+    }
+    output = on ? (uint8_t)(output & ~kP4KbLedMask) : (uint8_t)(output | kP4KbLedMask);
+    config &= (uint8_t)~kP4KbLedMask;
+    return p4KeyboardExpanderWrite(0x02, output) && p4KeyboardExpanderWrite(0x06, config);
+}
 #endif
 
 static inline uint8_t tloraReadRotaryAB() {
@@ -363,14 +390,17 @@ static inline uint8_t tloraReadRotaryAB() {
 }
 
 #if defined(DEVICE_TDISPLAY_P4)
+// The first eleven entries are the F-row, F1..F10 then F11 at 61 below. F1-F6
+// follow the nav bar left to right: Home, Chat, DMs, Nodes, Tools, Config.
+// Help is F11, the far key, as "?" is the far cell; F7 is the keyboard light.
 const char kTloraTapMap[TLORA_KEY_COUNT][3] = {
-    {KEY_OPEN_HOME, KEY_OPEN_HOME, KEY_OPEN_HOME},
-    {KEY_OPEN_CHAT, KEY_OPEN_CHAT, KEY_OPEN_CHAT},
-    {KEY_OPEN_CONFIG, KEY_OPEN_CONFIG, KEY_OPEN_CONFIG},
-    {KEY_OPEN_DMS, KEY_OPEN_DMS, KEY_OPEN_DMS},
-    {KEY_OPEN_NODES, KEY_OPEN_NODES, KEY_OPEN_NODES},
-    {KEY_OPEN_TOOLS, KEY_OPEN_TOOLS, KEY_OPEN_TOOLS},
-    {KEY_OPEN_HELP, KEY_OPEN_HELP, KEY_OPEN_HELP},
+    {KEY_OPEN_HOME, KEY_OPEN_HOME, KEY_OPEN_HOME},                   // F1
+    {KEY_OPEN_CHAT, KEY_OPEN_CHAT, KEY_OPEN_CHAT},                   // F2
+    {KEY_OPEN_DMS, KEY_OPEN_DMS, KEY_OPEN_DMS},                      // F3
+    {KEY_OPEN_NODES, KEY_OPEN_NODES, KEY_OPEN_NODES},                // F4
+    {KEY_OPEN_TOOLS, KEY_OPEN_TOOLS, KEY_OPEN_TOOLS},                // F5
+    {KEY_OPEN_CONFIG, KEY_OPEN_CONFIG, KEY_OPEN_CONFIG},             // F6
+    {KEY_TOGGLE_KB_BACKLIGHT, KEY_TOGGLE_KB_BACKLIGHT, KEY_TOGGLE_KB_BACKLIGHT},  // F7
     {KEY_NONE, KEY_NONE, KEY_NONE},
     {KEY_NONE, KEY_NONE, KEY_NONE},
     {KEY_NONE, KEY_NONE, KEY_NONE},
@@ -424,7 +454,7 @@ const char kTloraTapMap[TLORA_KEY_COUNT][3] = {
     {KEY_NONE, KEY_NONE, KEY_NONE},
     {KEY_PREV_CHAN, KEY_PREV_CHAN, KEY_PREV_CHAN},
     {KEY_SCROLL_DN, KEY_SCROLL_DN, KEY_SCROLL_DN},
-    {KEY_TOGGLE_KB_BACKLIGHT, KEY_TOGGLE_KB_BACKLIGHT, KEY_TOGGLE_KB_BACKLIGHT},
+    {KEY_OPEN_HELP, KEY_OPEN_HELP, KEY_OPEN_HELP},                   // F11
     {'9', '(', '('},
     {KEY_BACKSPACE, KEY_BACKSPACE, KEY_BACKSPACE_HOLD},
     {KEY_ENTER, KEY_ENTER, KEY_ENTER},
@@ -571,6 +601,71 @@ void tloraResetKeyboardController() {
     tloraWriteReg(TLORA_REG_INT_STAT, 0x03);
 }
 
+#if defined(DEVICE_TDISPLAY_P4)
+// ── Keyboard expansion hotplug ──────────────────────────────────────────────
+// The expansion clips on and off, so it is looked for on a timer rather than
+// once at boot: every kP4HotplugMs, one register read of its XL9555 says
+// whether it is there. That is the same device LilyGO's driver probes to decide
+// "Keyboard expansion not connected", and unlike KB_INT it cannot be confused
+// with a key: INT is pulled low by the main board when the expansion is away,
+// and driven low by the TCA8418 whenever it has an event.
+constexpr uint32_t kP4HotplugMs = 1500;
+uint32_t sP4NextHotplugMs = 0;
+uint32_t sP4AttachSeq = 0;
+
+// Reset the TCA8418 through the expander, set up its matrix, LEDs off, light
+// the backlight at whatever level the firmware last asked for.
+bool p4KeyboardAttach() {
+    if (!p4KeyboardDetectAndReset()) return false;
+#if (KB_INT >= 0)
+    // Pulled down on this side, up on the expansion (see above).
+    pinMode(KB_INT, INPUT_PULLDOWN);
+#endif
+#if defined(KB_BL) && (KB_BL >= 0)
+    if (!sP4BacklightAttached) {
+        sP4BacklightAttached = ledcAttach(KB_BL, KB_BL_FREQ, 8);
+        if (!sP4BacklightAttached) Serial.println("[kb-bl] T-Display P4 PWM attach failed");
+    }
+    if (sP4BacklightAttached) ledcWrite(KB_BL, sP4BacklightLevel);
+#endif
+    tloraResetKeyboardController();
+    sP4CapsLock = false;
+    p4KeyboardSetLeds(false);
+    sTloraModifier = 0;
+    sP4KeyboardPresent = true;
+    sP4AttachSeq++;
+    Serial.println("[kb] T-Display P4 keyboard expansion attached");
+    return true;
+}
+
+void p4KeyboardDetach() {
+    sP4KeyboardPresent = false;
+    sP4AttachSeq++;
+    sP4CapsLock = false;
+    sTloraModifier = 0;
+    sTloraBackspaceDown = false;
+    sTloraHeldKey = KEY_NONE;
+#if defined(KB_BL) && (KB_BL >= 0)
+    // The level is kept for next time; only the output goes dark, so nothing is
+    // driven into an empty connector.
+    if (sP4BacklightAttached) ledcWrite(KB_BL, 0);
+#endif
+    Serial.println("[kb] T-Display P4 keyboard expansion removed");
+}
+
+void p4KeyboardHotplugTick(uint32_t now) {
+    if ((int32_t)(now - sP4NextHotplugMs) < 0) return;
+    sP4NextHotplugMs = now + kP4HotplugMs;
+    uint8_t config = 0;
+    const bool there = p4KeyboardExpanderRead(0x06, config);
+    if (there && !sP4KeyboardPresent) {
+        if (!p4KeyboardAttach()) Serial.println("[kb] T-Display P4 keyboard expansion found, bring-up failed");
+    } else if (!there && sP4KeyboardPresent) {
+        p4KeyboardDetach();
+    }
+}
+#endif
+
 char tloraTranslateKey(uint8_t keyNum) {
     uint32_t now = millis();
     if (sTloraModifier && (now - sTloraModifierSetMs > TLORA_MOD_TIMEOUT_MS)) {
@@ -586,6 +681,7 @@ char tloraTranslateKey(uint8_t keyNum) {
     }
     if (keyNum == 31) {
         sP4CapsLock = !sP4CapsLock;
+        p4KeyboardSetLeds(sP4CapsLock);
         return KEY_NONE;
     }
     if (keyNum == 51 || keyNum == 58) {
@@ -908,6 +1004,22 @@ char tloraReadMappedKey() {
 #endif
 
 TDeckKeyboard *TDeckKeyboard::_instance = nullptr;
+
+bool keyboardAttached() {
+#if defined(DEVICE_TDISPLAY_P4)
+    return sP4KeyboardPresent;
+#else
+    return HAS_KEYBOARD != 0;
+#endif
+}
+
+uint32_t keyboardAttachSeq() {
+#if defined(DEVICE_TDISPLAY_P4)
+    return sP4AttachSeq;
+#else
+    return 0;
+#endif
+}
 
 #if defined(DEVICE_MESH_DECK)
 // ── Attaky Mesh Deck keyboard ───────────────────────────────────────────────
@@ -1407,13 +1519,14 @@ void TDeckKeyboard::begin() {
     tcaBus.setClock(400000UL);
     delay(30);
 #if defined(DEVICE_TDISPLAY_P4)
-    if (!p4KeyboardDetectAndReset()) {
+    // Everything the expansion needs is in p4KeyboardAttach(). Not there now
+    // is not "not there": readKey() keeps looking (p4KeyboardHotplugTick()).
+    if (!p4KeyboardAttach()) {
         sP4KeyboardPresent = false;
         Serial.println("[kb] T-Display P4 keyboard expansion not attached");
-        return;
     }
-    sP4KeyboardPresent = true;
-    Serial.println("[kb] T-Display P4 keyboard expansion detected");
+    sP4NextHotplugMs = millis() + kP4HotplugMs;
+    return;
 #endif
 #if (KB_INT >= 0)
 #if defined(DEVICE_TDISPLAY_P4)
@@ -1687,6 +1800,7 @@ char TDeckKeyboard::readKey() {
     // The IRQ gate and the idle probe live in tloraPollController() now, so the
     // panel busy wait reaches them too and one poll cadence covers both callers.
 #if defined(DEVICE_TDISPLAY_P4)
+    p4KeyboardHotplugTick(millis());
     if (!sP4KeyboardPresent) return KEY_NONE;
 #endif
     return tloraReadMappedKey();
@@ -2110,7 +2224,10 @@ char TDeckKeyboard::mapKey(uint8_t raw) {
         case 0x83: return KEY_OPEN_NODES;    // function button below Home
 #endif
         case 0x84: return KEY_OPEN_TOOLS;    // GPS-area button below Back
-        case 0x85: return KEY_OPEN_DISCOVERY;  // dedicated Map button
+        // The Map button opens Nodes, the roster with each node's position --
+        // the nearest thing to a map this firmware has. It used to open
+        // Discovery, which is a tool like the rest and is reached through Tools.
+        case 0x85: return KEY_OPEN_NODES;    // dedicated Map button
         // Ctrl. Confirmed on hardware: with these mapped, Ctrl opens the emoji
         // tray; with them dropped it does nothing. Which of the two it is has
         // not been separated yet -- both are mapped, and whichever is not Ctrl

@@ -28,7 +28,6 @@
 #define KEY_OPEN_DMS    0x8A
 #define KEY_OPEN_HOME   0x8B
 #define KEY_OPEN_TOOLS  0x8C
-#define KEY_OPEN_DISCOVERY 0x8D
 #define KEY_OPEN_NODES  0x8E
 #define KEY_SLEEP_SCREEN 0x8F
 // The M9's dedicated Back button, distinct from the keyboard's Backspace key.
@@ -143,6 +142,13 @@ bool keyboardMicPressed();
 #if !defined(DEVICE_TDECK)
 static inline bool keyboardMicPressed() { return false; }
 #endif
+
+// Whether there is a physical keyboard to type on: always, on the boards built
+// with one, and on the T-Display P4 whenever its keyboard expansion is clipped
+// on -- looked for every 1.5 s, so it can arrive and leave while running.
+// keyboardAttachSeq() changes each time that answer does.
+bool     keyboardAttached();
+uint32_t keyboardAttachSeq();
 
 class TDeckKeyboard {
 public:

@@ -405,7 +405,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Nom long : %s\nSaisissez un n
 Long: %s	Long : %s
 Looking for keyboards...	Recherche de claviers...
 Low	Faible
-ME (ACK)	MOI (ACK)
 MQTT Bridge: %s	Pont MQTT : %s
 MQTT Bridge: %s - rebooting...	Pont MQTT : %s - redémarrage...
 MQTT Bridge: Off (WiFi off)	Pont MQTT : Coupé (WiFi coupé)
@@ -456,6 +455,7 @@ My Message Color: %s - rebooting...	Couleur de mes messages : %s - redémarrage.
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Choisir WiFi   Enter=Terminer   Bksp=Retour
 NO LINE OF SIGHT	PAS DE LIGNE DE VUE
 NODEINFO + telemetry queued.	NODEINFO + télémétrie en file d'attente.
+Send NODEINFO and telemetry to the mesh now?	Envoyer NODEINFO et la télémétrie au maillage maintenant ?
 NODES	NŒUDS
 NODES (%d%s)	NŒUDS (%d%s)
 NODES [%s] (%d%s)	NŒUDS [%s] (%d%s)

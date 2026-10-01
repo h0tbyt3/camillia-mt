@@ -400,7 +400,6 @@ Long: %s	Lungo: %s
 Looking for keyboards...	Ricerca tastiere...
 Low	Bassa
 MARGINAL (Fresnel)	MARGINALE (Fresnel)
-ME (ACK)	IO (ACK)
 MQTT Bridge: %s	Ponte MQTT: %s
 MQTT Bridge: %s - rebooting...	Ponte MQTT: %s - riavvio...
 MQTT Bridge: Off (WiFi off)	Ponte MQTT: Spento (WiFi spento)
@@ -452,6 +451,7 @@ My Message Color: %s - rebooting...	Colore dei miei messaggi: %s - riavvio...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Scegli WiFi   Enter=Termina   Bksp=Indietro
 NO LINE OF SIGHT	NESSUNA LINEA DI VISTA
 NODEINFO + telemetry queued.	NODEINFO + telemetria in coda.
+Send NODEINFO and telemetry to the mesh now?	Inviare ora NODEINFO e telemetria alla mesh?
 NODES	NODI
 NODES (%d%s)	NODI (%d%s)
 NODES [%s] (%d%s)	NODI [%s] (%d%s)

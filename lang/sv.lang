@@ -396,7 +396,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Långt namn: %s\nAnge ett kor
 Long: %s	Lång: %s
 Looking for keyboards...	Söker tangentbord...
 Low	Låg
-ME (ACK)	JAG (ACK)
 MQTT Bridge: %s	MQTT-brygga: %s
 MQTT Bridge: %s - rebooting...	MQTT-brygga: %s - startar om...
 MQTT Bridge: Off (WiFi off)	MQTT-brygga: Av (WiFi av)
@@ -447,6 +446,7 @@ My Message Color: %s - rebooting...	Färg på mina meddelanden: %s - startar om.
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Välj WiFi   Enter=Slutför   Bksp=Tillbaka
 NO LINE OF SIGHT	INGEN FRI SIKT
 NODEINFO + telemetry queued.	NODEINFO + telemetri köade.
+Send NODEINFO and telemetry to the mesh now?	Skicka NODEINFO och telemetri till nätet nu?
 NODES	NODER
 NODES (%d%s)	NODER (%d%s)
 NODES [%s] (%d%s)	NODER [%s] (%d%s)

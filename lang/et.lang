@@ -403,7 +403,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Pikk nimi: %s\nSisestage lüh
 Long: %s	Pikk: %s
 Looking for keyboards...	Otsin klaviatuure...
 Low	Madal
-ME (ACK)	MINA (ACK)
 MQTT Bridge: %s	MQTT sild: %s
 MQTT Bridge: %s - rebooting...	MQTT sild: %s - taaskäivitan...
 MQTT Bridge: Off (WiFi off)	MQTT sild: Väljas (WiFi väljas)
@@ -454,6 +453,7 @@ My Message Color: %s - rebooting...	Minu sõnumite värv: %s - taaskäivitan...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Vali WiFi   Enter=Lõpeta   Bksp=Tagasi
 NO LINE OF SIGHT	OTSENÄHTAVUST POLE
 NODEINFO + telemetry queued.	NODEINFO + telemeetria järjekorras.
+Send NODEINFO and telemetry to the mesh now?	Kas saata NODEINFO ja telemeetria kohe võrku?
 NODES	SÕLMED
 NODES (%d%s)	SÕLMED (%d%s)
 NODES [%s] (%d%s)	SÕLMED [%s] (%d%s)

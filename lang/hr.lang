@@ -406,7 +406,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Dugo ime: %s\nUnesite kratko 
 Long: %s	Dugo: %s
 Looking for keyboards...	Tražim tipkovnice...
 Low	Nisko
-ME (ACK)	JA (ACK)
 MQTT Bridge: %s	MQTT most: %s
 MQTT Bridge: %s - rebooting...	MQTT most: %s - ponovno pokretanje...
 MQTT Bridge: Off (WiFi off)	MQTT most: Isklj. (WiFi isklj.)
@@ -457,6 +456,7 @@ My Message Color: %s - rebooting...	Boja mojih poruka: %s - ponovno pokretanje..
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Odaberi WiFi   Enter=Završi   Bksp=Natrag
 NO LINE OF SIGHT	NEMA LINIJE VIDLJIVOSTI
 NODEINFO + telemetry queued.	NODEINFO + telemetrija u redu čekanja.
+Send NODEINFO and telemetry to the mesh now?	Poslati sada NODEINFO i telemetriju u mrežu?
 NODES	ČVOROVI
 NODES (%d%s)	ČVOROVI (%d%s)
 NODES [%s] (%d%s)	ČVOROVI [%s] (%d%s)

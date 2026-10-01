@@ -394,7 +394,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Lange naam: %s\nVoer een kort
 Long: %s	Lang: %s
 Looking for keyboards...	Toetsenborden zoeken...
 Low	Laag
-ME (ACK)	IK (ACK)
 MQTT Bridge: %s	MQTT-brug: %s
 MQTT Bridge: %s - rebooting...	MQTT-brug: %s - herstarten...
 MQTT Bridge: Off (WiFi off)	MQTT-brug: Uit (wifi uit)
@@ -445,6 +444,7 @@ My Message Color: %s - rebooting...	Kleur van mijn berichten: %s - herstarten...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Kies wifi   Enter=Voltooien   Bksp=Terug
 NO LINE OF SIGHT	GEEN ZICHTLIJN
 NODEINFO + telemetry queued.	NODEINFO + telemetrie in de wachtrij.
+Send NODEINFO and telemetry to the mesh now?	NODEINFO en telemetrie nu naar de mesh sturen?
 Name	Naam
 Name: %s\nShort: %s\nID: !%08X\nLast heard: %s\nSNR: %.1f dB\nHops: %u\nChannel: %d\n\nPosition:\n%s\n\nTelemetry:\n%s	Naam: %s\nKort: %s\nID: !%08X\nLaatst gehoord: %s\nSNR: %.1f dB\nHops: %u\nKanaal: %d\n\nPositie:\n%s\n\nTelemetrie:\n%s
 Name\nShort\nID	Naam\nKort\nID

@@ -408,7 +408,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Uzun ad: %s\nKısa bir ad gir
 Long: %s	Uzun: %s
 Looking for keyboards...	Klavyeler aranıyor...
 Low	Düşük
-ME (ACK)	BEN (ACK)
 MQTT Bridge: %s	MQTT köprüsü: %s
 MQTT Bridge: %s - rebooting...	MQTT köprüsü: %s - yeniden başlatılıyor...
 MQTT Bridge: Off (WiFi off)	MQTT köprüsü: Kapalı (WiFi kapalı)
@@ -457,6 +456,7 @@ My Message Color: %s - rebooting...	Mesajlarımın rengi: %s - yeniden başlatı
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=WiFi seç   Enter=Bitir   Bksp=Geri
 NO LINE OF SIGHT	GÖRÜŞ HATTI YOK
 NODEINFO + telemetry queued.	NODEINFO + telemetri kuyruğa alındı.
+Send NODEINFO and telemetry to the mesh now?	NODEINFO ve telemetri şimdi ağa gönderilsin mi?
 NODES	DÜĞÜMLER
 NODES (%d%s)	DÜĞÜMLER (%d%s)
 NODES [%s] (%d%s)	DÜĞÜMLER [%s] (%d%s)

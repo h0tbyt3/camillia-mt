@@ -304,6 +304,15 @@ These apply to all keyboard builds, including `tdeck`, `tdeck-pro`,
   couple of seconds of being attached or removed, so it no longer has to be on
   at boot. Everything below applies only while it is attached; without it the
   P4 is the touch-first device it always was
+- **Attaching it in portrait switches to landscape.** A dialog counts down ten
+  seconds and then reboots into landscape. **Reboot now** (or Enter) skips the
+  wait; **Cancel** (or Esc) stays in portrait. Taking the keyboard off changes
+  nothing, because landscape works fine without it. Only putting the keyboard on
+  counts: choose Portrait in Config with it attached and the device stays in
+  portrait, across reboots too, until the keyboard is removed and attached
+  again. The dialog waits for first-time setup to finish and for the screen to
+  be on and unlocked, and closes on its own if the keyboard is removed during
+  the countdown. An unsent message in the compose box is lost on the reboot
 - **The F-keys follow the navigation bar from left to right:** F1 Home, F2 Chat,
   F3 DMs, F4 Nodes, F5 Tools, F6 Config. F10 opens Help. F8 and F9 do nothing
 - **In landscape, each navigation bar button shows the F-key that opens it**,
@@ -315,6 +324,11 @@ These apply to all keyboard builds, including `tdeck`, `tdeck-pro`,
   space back and shows twice as many lines
 - **Left and Right move the cursor inside a text field.** Up and Down move
   through the channel list and wrap at either end
+- **In landscape, Right and Left move between the channel list and the chat.**
+  Right from the list puts the cursor on the newest message; Up and Down then
+  step through messages and Enter opens [Message Actions](#message-actions).
+  Left goes back to the list, where Up and Down switch channels again. Portrait,
+  whose list is a drawer, is unchanged
 - **The Nodes filter takes typing.** Enter applies the filter, and Backspace on
   an empty field closes the dialog
 - **Caps Lock lights the expansion's indicator LEDs** while it is on
@@ -879,16 +893,18 @@ the bottom of the Config screen — they were always used together, so they are
 one action now.
 
 - Open from Live → Tools → Announce (**A**). It is the last cell on the grid
-- There is nothing to look at: it transmits and reports back with a popup,
-  `NODEINFO + telemetry queued.` Any key (or a tap) dismisses it
+- It asks first: `Send NODEINFO and telemetry to the mesh now?` **Y** or Enter
+  (or Yes) sends, **N** or Esc (or No) backs out and sends nothing
+- After a Yes it reports back with a popup, `NODEINFO + telemetry queued.` Any
+  key (or a tap) dismisses it
 - Telemetry is sent whether or not periodic telemetry is enabled, matching what
   the old *Send Telemetry Now* row did
 - **One announce per 30 seconds.** A press inside that window is refused and says
   how long is left — `Just announced. Try again in 12s.` Both packets are
   broadcasts, and holding the key should not be a way to flood the mesh
-- The clock starts on the press, not on the transmission. If the radio is not
-  ready the packets stay queued and go out when it is, and pressing again in the
-  meantime will not stack up more of them
+- The clock starts on the Yes, not on the transmission, and answering No does
+  not start it. If the radio is not ready the packets stay queued and go out
+  when it is, and pressing again in the meantime will not stack up more of them
 
 ![Live screen](screenshots/RiCa_screen_20260730_195834.png)
 
@@ -2091,11 +2107,11 @@ The setting round-trips through `config.yaml` as `otaAutoUpdate` (`Off`, `1h`,
 
 Config has a **Chat Style** action. Selecting it opens a picker modal — navigate
 with the usual up/down input and press Enter (or tap) to choose Classic,
-Bubbles, or Outline; Backspace/Esc cancels. Choosing a *different* style reboots
+Bubbles, Outline or IRC; Backspace/Esc cancels. Choosing a *different* style reboots
 to apply it; re-choosing the current style just closes without a reboot.
 
 - **Classic** — one flat, colored text line per message. Your sent messages
-  gain an `[ACK]` marker just after the timestamp once the message is
+  gain a small `[A]` marker just after the timestamp once the message is
   acknowledged, and turn red on failure — in channel chat and Direct Messages
   alike. On color displays, color separates the two kinds of acknowledgement:
   **green** for an explicit routing ACK (always the case for a DM, which is
@@ -2103,21 +2119,36 @@ to apply it; re-choosing the current style just closes without a reboot.
   out as a broadcast that usually settles for a relay confirming it carried
   the message on rather than a reply from any one recipient
 - **Bubbles** — per-message rounded bubbles with a solid fill; your messages are
-  right-aligned in the accent color (turning green on ACK, red on failure),
-  other nodes' are left-aligned in a stable per-node color with a short-name tag
+  right-aligned in the accent color and tagged `ME` (turning green on ACK, red on
+  failure, with a small `[A]` beside `ME` once acknowledged), other nodes' are
+  left-aligned in a stable per-node color with a short-name tag
 - **Outline** — the same bubbles drawn as colored outlines over a transparent
   fill: the per-node/accent color becomes the border (and the ACK/fail color for
   your sent messages), the sender tag is tinted to match, and the message text
   uses the theme's normal high-contrast color for readability
+- **IRC** — the lock screen's unread notices, brought into the chat: one row
+  per message, reading `12:41 Alice: anyone on the summit…`. The time is in the
+  lock screen's blue and sits in a column of its own, so every message's text
+  starts at the same place, and a message that wraps continues under its text
+  rather than back at the left edge — a wrap never looks like a new message.
+  The name is green, or the sender's own color with Chat Colors on. Your own
+  messages are named `ME`, and carry their state in that name's color — green
+  for an ACK, the accent color for a relay, red for a failure — with a small
+  `[A]` after the text once acknowledged. DMs name both sides, since there is no
+  left/right alignment to tell them apart. There is no transport icon, as on
+  the lock screen
 
 T-Deck Pro is fixed to Outline mode and renders black text and outlines directly
 on the white Camillia Paper background. ACK and failure state remains visible in
 the text marker and layout rather than color. Its Chat Style selectors are
 omitted from the device and Web Config.
 
+In every style the acknowledgement marker is `[A]`, drawn in a face well under
+the message text's so it reads as a note on the message rather than part of it.
+
 The style applies to both **channel chat and Direct Messages**. The Web Config
-**Chat Style** dropdown offers the same three choices on configurable builds.
-All three styles are available on those builds, including the Cardputer.
+**Chat Style** dropdown offers the same four choices on configurable builds.
+All four styles are available on those builds, including the Cardputer.
 
 ### Emoji
 

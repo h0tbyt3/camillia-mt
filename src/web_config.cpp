@@ -4170,8 +4170,11 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
 #if HAS_CHAT_BUBBLE_STYLE_OPTION
     html += "<option value='1'"; if (gCfg->chatStyle == CHAT_STYLE_BUBBLES) html += " selected"; html += ">Bubbles</option>";
 #endif
-    html += "<option value='2'"; if (gCfg->chatStyle == CHAT_STYLE_OUTLINE) html += " selected"; html += ">Outline</option>"
-            "</select></label></div>";
+    html += "<option value='2'"; if (gCfg->chatStyle == CHAT_STYLE_OUTLINE) html += " selected"; html += ">Outline</option>";
+#if HAS_CHAT_IRC_STYLE_OPTION
+    html += "<option value='3'"; if (gCfg->chatStyle == CHAT_STYLE_IRC) html += " selected"; html += ">IRC</option>";
+#endif
+    html += "</select></label></div>";
 #endif
     html += "<div class='row2'>";
     html += "<label>Chat Names<select name='chat_names'>"

@@ -405,7 +405,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Garais vārds: %s\nIevadiet �
 Long: %s	Garš: %s
 Looking for keyboards...	Meklē tastatūras...
 Low	Zems
-ME (ACK)	ES (ACK)
 MQTT Bridge: %s	MQTT tilts: %s
 MQTT Bridge: %s - rebooting...	MQTT tilts: %s - restartē...
 MQTT Bridge: Off (WiFi off)	MQTT tilts: Izsl. (WiFi izsl.)
@@ -456,6 +455,7 @@ My Message Color: %s - rebooting...	Manu ziņu krāsa: %s - restartē...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Izvēlēties WiFi   Enter=Pabeigt   Bksp=Atpakaļ
 NO LINE OF SIGHT	NAV REDZAMĪBAS LĪNIJAS
 NODEINFO + telemetry queued.	NODEINFO + telemetrija rindā.
+Send NODEINFO and telemetry to the mesh now?	Sūtīt NODEINFO un telemetriju uz tīklu tagad?
 NODES	MEZGLI
 NODES (%d%s)	MEZGLI (%d%s)
 NODES [%s] (%d%s)	MEZGLI [%s] (%d%s)

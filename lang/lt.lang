@@ -405,7 +405,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Ilgasis vardas: %s\nĮveskite
 Long: %s	Ilgas: %s
 Looking for keyboards...	Ieškoma klaviatūrų...
 Low	Žemas
-ME (ACK)	AŠ (ACK)
 MQTT Bridge: %s	MQTT tiltas: %s
 MQTT Bridge: %s - rebooting...	MQTT tiltas: %s - paleidžiama iš naujo...
 MQTT Bridge: Off (WiFi off)	MQTT tiltas: Išj. (WiFi išj.)
@@ -456,6 +455,7 @@ My Message Color: %s - rebooting...	Mano žinučių spalva: %s - paleidžiama i�
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Pasirinkti WiFi   Enter=Baigti   Bksp=Atgal
 NO LINE OF SIGHT	NĖRA MATOMUMO LINIJOS
 NODEINFO + telemetry queued.	NODEINFO + telemetrija eilėje.
+Send NODEINFO and telemetry to the mesh now?	Siųsti NODEINFO ir telemetriją į tinklą dabar?
 NODES	MAZGAI
 NODES (%d%s)	MAZGAI (%d%s)
 NODES [%s] (%d%s)	MAZGAI [%s] (%d%s)

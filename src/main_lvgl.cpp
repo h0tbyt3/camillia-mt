@@ -2007,7 +2007,7 @@ static const lv_font_t *kChannelChatFont = kMainScreenFont;
 static const lv_font_t *explicitChatFont() {
 #if UI_LARGE_PANEL_PROFILE
     switch (s_cfg.fontSize) {
-        case FONT_SIZE_SMALL:  return &lv_font_montserrat_18;
+        case FONT_SIZE_SMALL:  return &lv_font_montserrat_16;
         case FONT_SIZE_LARGE:  return &lv_font_montserrat_28;
         case FONT_SIZE_XLARGE: return &lv_font_montserrat_32;
         case FONT_SIZE_MEDIUM:
@@ -2017,9 +2017,10 @@ static const lv_font_t *explicitChatFont() {
     // One step up from the T-Deck's relative ladder it used to share
     // (10/12/14/16): Medium is what Extra Large was, and the rest follow in the
     // same 2 px steps. 20 is compiled in, and given an emoji face, for this
-    // board alone (lv_conf.h, emoji_font.cpp).
+    // board alone (lv_conf.h, emoji_font.cpp). Small is two steps down rather
+    // than one, for more lines on the panel.
     switch (s_cfg.fontSize) {
-        case FONT_SIZE_SMALL:  return &lv_font_montserrat_14;
+        case FONT_SIZE_SMALL:  return &lv_font_montserrat_12;
         case FONT_SIZE_LARGE:  return &lv_font_montserrat_18;
         case FONT_SIZE_XLARGE: return &lv_font_montserrat_20;
         case FONT_SIZE_MEDIUM:
@@ -2509,7 +2510,8 @@ static void emojiPickerActivate(int idx);
 // Bubble chat helpers (defined further down, but also used by the DM renderer
 // so DMs can share the Bubbles style).
 static const char *chatStripPrefix(const char *line);
-static void chatInsertAckMarker(char *line, size_t lineCap, const char *marker);
+static const lv_font_t *chatAckMarkerFont(const lv_font_t *chatFont);
+static void chatSetAckedLineText(lv_obj_t *sg, const char *line, const lv_font_t *chatFont);
 static void chatBubbleBeginRender(lv_obj_t *list);
 static inline void stylePaperMessageRow(lv_obj_t *row) {
 #if defined(DEVICE_TDECK_PRO)
@@ -2521,6 +2523,14 @@ static inline void stylePaperMessageRow(lv_obj_t *row) {
 }
 static void chatMakeBubble(lv_obj_t *list, uint32_t sender, bool isMe,
                            const char *metaTag, const char *nameTag,
+                           const char *body,
+                           DisplayLine::AckState ackState,
+                           uint32_t replyPacketId, bool isSelected,
+                           lv_obj_t **outLast, lv_obj_t **outSelected,
+                           lv_event_cb_t onPressed);
+static void chatMakeIrcRow(lv_obj_t *list, const lv_font_t *font,
+                           uint32_t sender, bool isMe,
+                           const char *timeText, const char *nameText,
                            const char *body,
                            DisplayLine::AckState ackState,
                            uint32_t replyPacketId, bool isSelected,
@@ -2543,6 +2553,7 @@ static const char *chatStyleName(uint8_t style) {
     switch (style) {
         case CHAT_STYLE_BUBBLES: return TR("Bubbles");
         case CHAT_STYLE_OUTLINE: return TR("Outline");
+        case CHAT_STYLE_IRC:     return "IRC";   // a name, so not translated
         default:
 #if defined(DEVICE_TDECK_PRO)
             return "Default";
@@ -16613,10 +16624,12 @@ static void openChatStyleModal() {
         "Flat black text lines",
         "",
         "Outlined messages",
+        "",
 #else
         "Flat colored text lines",
         "Filled color bubbles",
         "Outlined color bubbles",
+        "Time, name and text, like the lock screen",
 #endif
     };
 #if defined(DEVICE_TDECK_PRO)
@@ -21023,6 +21036,18 @@ static void refreshCfgOrientSelection() {
     paintPickerRows(s_cfgOrientRows, (int)UI_ORIENT_COUNT, s_cfgOrientSelection, PICKER_SCROLL_NONE);
 }
 
+// Saves `want` as the orientation and restarts into it. Does not return.
+// Straight to NVS, not the debounced flush: the reboot would otherwise beat
+// the write and the device would come back the way it went down.
+// persistConfigToPrefs() writes the standalone uiOrient key that
+// loadBootOrientation() reads on the way up.
+static void orientSaveAndRestart(uint8_t want) {
+    s_cfg.uiOrientation = want;
+    persistConfigToPrefs();
+    flushPersistentState();   // transcripts too, before we go
+    ESP.restart();
+}
+
 // Applies the orientation and restarts. Does not return unless it was already
 // the one in force.
 static void cfgOrientCommit(int idx) {
@@ -21039,18 +21064,11 @@ static void cfgOrientCommit(int idx) {
     }
 
     closeCfgOrientModal();
-    s_cfg.uiOrientation = want;
-    // Straight to NVS, not the debounced flush: the reboot below would
-    // otherwise beat the write and the device would come back the way it went
-    // down. persistConfigToPrefs() writes the standalone uiOrient key that
-    // loadBootOrientation() reads on the way up.
-    persistConfigToPrefs();
     snprintf(s_cfgStatus, sizeof(s_cfgStatus), TR("%s - rebooting..."), uiOrientName(want));
     refreshCfgModal();
     lv_timer_handler();
     delay(900);
-    flushPersistentState();   // transcripts too, before we go
-    ESP.restart();
+    orientSaveAndRestart(want);
 }
 
 // See cfgPresetAsk(): names where Yes goes, and leaves the picker underneath.
@@ -21065,6 +21083,204 @@ static void cfgOrientAsk(int idx) {
     openCfgConfirmModal(-1, s_cfgConfirmText,
                         [](int i) { cfgOrientCommit(i); }, idx);
 }
+
+#if defined(DEVICE_TDISPLAY_P4)
+// ── Keyboard expansion -> landscape ──────────────────────────────────────────
+// Clipping the keyboard on in portrait counts down ten seconds and reboots
+// into landscape; Reboot now (or Enter) skips the wait, Cancel (or Esc) stays
+// in portrait. Taking the keyboard off changes nothing -- landscape is usable
+// without it.
+//
+// Only a change from absent to present counts, and the last state seen is kept
+// in NVS (`kbSeen`) so that holds across power-offs too. Otherwise a keyboard
+// left attached would undo a Portrait chosen in Config at every boot. Kept out
+// of the settings blob, like the antenna, so a restored backup cannot start a
+// reboot.
+static constexpr uint32_t kKbLandscapeCountdownSecs = 10;
+static lv_obj_t   *s_kbLandscapeBackdrop = nullptr;
+static lv_obj_t   *s_kbLandscapeText = nullptr;
+static lv_timer_t *s_kbLandscapeTimer = nullptr;
+static uint32_t    s_kbLandscapeSecsLeft = 0;
+// 0 absent, 1 present, 0xFF not yet read from NVS.
+static uint8_t     s_kbSeen = 0xFF;
+
+static void kbSeenStore(bool present) {
+    const uint8_t v = present ? 1 : 0;
+    if (s_kbSeen == v) return;
+    s_kbSeen = v;
+    Preferences p;
+    if (p.begin("camillia", false)) {
+        p.putUChar("kbSeen", v);
+        p.end();
+    }
+}
+
+static void closeKbLandscapePrompt() {
+    if (s_kbLandscapeTimer) {
+        lv_timer_del(s_kbLandscapeTimer);
+        s_kbLandscapeTimer = nullptr;
+    }
+    if (lvObjValid(s_kbLandscapeBackdrop)) lv_obj_del(s_kbLandscapeBackdrop);
+    s_kbLandscapeBackdrop = nullptr;
+    s_kbLandscapeText = nullptr;
+}
+
+static void kbLandscapeRebootNow() {
+    Serial.println("[orient] keyboard attached - rebooting into Landscape");
+    if (s_kbLandscapeText) {
+        lv_label_set_text(s_kbLandscapeText, TR("Rebooting..."));
+        lv_timer_handler();
+    }
+    orientSaveAndRestart(UI_ORIENT_LANDSCAPE);
+}
+
+static void kbLandscapeCancel() {
+    Serial.println("[orient] keyboard landscape switch cancelled");
+    closeKbLandscapePrompt();
+}
+
+static void refreshKbLandscapeText() {
+    if (!s_kbLandscapeText) return;
+    lv_label_set_text_fmt(s_kbLandscapeText,
+                          TR("Keyboard attached. Switching to landscape in %u s."),
+                          (unsigned)s_kbLandscapeSecsLeft);
+}
+
+static void onKbLandscapeTick(lv_timer_t *t) {
+    LV_UNUSED(t);
+    if (s_kbLandscapeSecsLeft > 0) s_kbLandscapeSecsLeft--;
+    if (s_kbLandscapeSecsLeft == 0) {
+        kbLandscapeRebootNow();
+        return;
+    }
+    refreshKbLandscapeText();
+}
+
+static void openKbLandscapePrompt() {
+    if (!s_rootScreen || s_kbLandscapeBackdrop) return;
+    const int w = lv_disp_get_hor_res(NULL);
+    const int h = lv_disp_get_ver_res(NULL);
+    int modalW = w - 40;
+    if (modalW > 320) modalW = 320;
+
+    // The confirm dialog's colours, so it reads as one of the family.
+    const bool lightUi = (s_cfg.uiMode == UI_MODE_LIGHT);
+    const lv_color_t modalBg = lightUi ? lv_color_hex(0xEAF1FB) : lv_color_hex(0x0E285B);
+    const lv_color_t modalBorder = lightUi ? lv_color_hex(0x6E8FB8) : lv_color_hex(0x5C86C6);
+    const lv_color_t textColor = lightUi ? lv_color_hex(0x16233A) : lv_color_hex(0xD9E8FF);
+    const uint32_t cancelBg = lightUi ? 0xC76565 : 0x6B3030;
+    const uint32_t rebootBg = lightUi ? 0x429A56 : 0x2F6B30;
+
+    s_kbLandscapeBackdrop = lv_obj_create(s_rootScreen);
+    lv_obj_set_size(s_kbLandscapeBackdrop, w, h);
+    lv_obj_align(s_kbLandscapeBackdrop, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_clear_flag(s_kbLandscapeBackdrop, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(s_kbLandscapeBackdrop, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_set_style_bg_color(s_kbLandscapeBackdrop, lv_color_hex(0x000000), 0);
+    lv_obj_set_style_bg_opa(s_kbLandscapeBackdrop, LV_OPA_40, 0);
+    lv_obj_set_style_border_width(s_kbLandscapeBackdrop, 0, 0);
+    lv_obj_set_style_pad_all(s_kbLandscapeBackdrop, 0, 0);
+
+    lv_obj_t *modal = lv_obj_create(s_kbLandscapeBackdrop);
+    lv_obj_set_size(modal, modalW, LV_SIZE_CONTENT);
+    lv_obj_align(modal, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_clear_flag(modal, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_style_bg_color(modal, modalBg, 0);
+    lv_obj_set_style_bg_opa(modal, LV_OPA_COVER, 0);
+    lv_obj_set_style_border_width(modal, 1, 0);
+    lv_obj_set_style_border_color(modal, modalBorder, 0);
+    lv_obj_set_style_pad_all(modal, 12, 0);
+    lv_obj_set_style_pad_row(modal, 12, 0);
+    lv_obj_set_flex_flow(modal, LV_FLEX_FLOW_COLUMN);
+    lv_obj_set_flex_align(modal, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER,
+                          LV_FLEX_ALIGN_CENTER);
+
+    s_kbLandscapeText = lv_label_create(modal);
+    lv_obj_set_width(s_kbLandscapeText, lv_pct(100));
+    lv_obj_set_style_text_font(s_kbLandscapeText, &lv_font_montserrat_16, 0);
+    lv_obj_set_style_text_color(s_kbLandscapeText, textColor, 0);
+    lv_obj_set_style_text_align(s_kbLandscapeText, LV_TEXT_ALIGN_CENTER, 0);
+    lv_label_set_long_mode(s_kbLandscapeText, LV_LABEL_LONG_WRAP);
+
+    lv_obj_t *row = lv_obj_create(modal);
+    lv_obj_set_width(row, lv_pct(100));
+    lv_obj_set_height(row, LV_SIZE_CONTENT);
+    lv_obj_clear_flag(row, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_style_bg_opa(row, LV_OPA_TRANSP, 0);
+    lv_obj_set_style_border_width(row, 0, 0);
+    lv_obj_set_style_pad_all(row, 0, 0);
+    lv_obj_set_style_pad_column(row, 14, 0);
+    lv_obj_set_flex_flow(row, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_align(row, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER,
+                          LV_FLEX_ALIGN_CENTER);
+
+    auto makeBtn = [](lv_obj_t *parent, const char *text, uint32_t bg, lv_event_cb_t cb) {
+        lv_obj_t *btn = lv_btn_create(parent);
+        lv_obj_set_height(btn, 40);
+        lv_obj_set_flex_grow(btn, 1);
+        lv_obj_set_style_radius(btn, 4, 0);
+        lv_obj_set_style_shadow_width(btn, 0, 0);
+        lv_obj_set_style_bg_color(btn, lv_color_hex(bg), 0);
+        lv_obj_add_event_cb(btn, cb, LV_EVENT_CLICKED, nullptr);
+        lv_obj_t *lbl = lv_label_create(btn);
+        lv_obj_set_style_text_font(lbl, &lv_font_montserrat_14, 0);
+        lv_obj_set_style_text_color(lbl, lv_color_hex(0xFFFFFF), 0);
+        lv_label_set_text(lbl, text);
+        lv_obj_center(lbl);
+    };
+    makeBtn(row, TR("Cancel"), cancelBg,
+            [](lv_event_t *e) { LV_UNUSED(e); kbLandscapeCancel(); });
+    makeBtn(row, TR("Reboot now"), rebootBg,
+            [](lv_event_t *e) { LV_UNUSED(e); kbLandscapeRebootNow(); });
+
+    lv_obj_move_foreground(s_kbLandscapeBackdrop);
+    s_kbLandscapeSecsLeft = kKbLandscapeCountdownSecs;
+    refreshKbLandscapeText();
+    s_kbLandscapeTimer = lv_timer_create(onKbLandscapeTick, 1000, nullptr);
+    Serial.printf("[orient] keyboard attached in portrait - landscape in %u s\n",
+                  (unsigned)kKbLandscapeCountdownSecs);
+}
+
+// Keys while the countdown is up: Enter reboots now, Esc cancels, everything
+// else is swallowed so nothing underneath moves while it is deciding.
+static bool kbLandscapePromptHandleKey(char k) {
+    if (!s_kbLandscapeBackdrop) return false;
+    if (k == KEY_ENTER) kbLandscapeRebootNow();
+    else if (k == KEY_ESCAPE) kbLandscapeCancel();
+    return true;
+}
+
+// Once per loop. Waits out first-time setup, the lock screen and a dark panel
+// rather than counting down where nobody can see or cancel it; the attach is
+// only recorded once the prompt is actually shown, so it is still pending then.
+static void serviceKbLandscapeSwitch() {
+    if (s_kbSeen == 0xFF) {
+        Preferences p;
+        s_kbSeen = 0;
+        if (p.begin("camillia", true)) {
+            s_kbSeen = p.getUChar("kbSeen", 0) ? 1 : 0;
+            p.end();
+        }
+    }
+    const bool present = keyboardAttached();
+    if (!present) {
+        // Pulled mid-countdown: whatever it was for is gone with it.
+        if (s_kbLandscapeBackdrop) kbLandscapeCancel();
+        kbSeenStore(false);
+        return;
+    }
+    if (s_kbSeen == 1) return;
+    if (!uiPortrait()) {           // already where the keyboard wants it
+        kbSeenStore(true);
+        return;
+    }
+    // A reboot during first-time setup would come back in portrait -- see the
+    // stale-seed replacement in loadBootOrientation() -- and ask again.
+    if (s_onboardingModal || s_lockScreenActive || s_screenAsleep) return;
+    kbSeenStore(true);
+    openKbLandscapePrompt();
+}
+#endif   // DEVICE_TDISPLAY_P4
 
 static void onCfgOrientRowPressed(lv_event_t *e) {
     const int idx = (int)(intptr_t)lv_event_get_user_data(e);
@@ -29379,10 +29595,28 @@ static bool liveToolEnabled(int tool) {
 static constexpr uint32_t kToolAnnounceCooldownMs = 30000;
 static uint32_t s_toolAnnounceNextMs = 0;
 
+// Yes on the confirm below. The cooldown is armed here, on the answer, not on
+// the press that raised the dialog: a press that was then declined sent
+// nothing, and should not cost the next one thirty seconds.
+static void liveToolsAnnounceCommit(int) {
+    webCfgQueueAnnounce();
+    webCfgQueueTelemetry();
+    // Armed on the answer, not on the transmission. The main loop may hold both
+    // for a radio that is not ready yet, and a user who cannot see that should
+    // not be able to stack up queued announcements by pressing again.
+    s_toolAnnounceNextMs = millis() + kToolAnnounceCooldownMs;
+    openCfgActionMessageModal(TR("NODEINFO + telemetry queued."));
+}
+
 // Deliberately not a disabled row: the grid is built once when Tools opens, so
 // a row greyed out on that basis would still claim to be unavailable thirty
 // seconds later when it was not. Answering the press with the time left is
 // honest at the moment it is read, and needs nothing repainting.
+//
+// Asks before sending. Announce sits on the grid among tools that only open a
+// screen, so a stray Enter or tap on it put two broadcasts on the air with no
+// way back. The cooldown is checked first, so a press that would be refused
+// anyway says so without a dialog in front of it.
 static void liveToolsAnnounceNow() {
     const uint32_t now = millis();
     // Signed difference, so this stays correct across the millis() wrap — and
@@ -29398,13 +29632,8 @@ static void liveToolsAnnounceNow() {
         return;
     }
 
-    webCfgQueueAnnounce();
-    webCfgQueueTelemetry();
-    // Armed on the press, not on the transmission. The main loop may hold both
-    // for a radio that is not ready yet, and a user who cannot see that should
-    // not be able to stack up queued announcements by pressing again.
-    s_toolAnnounceNextMs = now + kToolAnnounceCooldownMs;
-    openCfgActionMessageModal(TR("NODEINFO + telemetry queued."));
+    openCfgConfirmModal(-1, TR("Send NODEINFO and telemetry to the mesh now?"),
+                        liveToolsAnnounceCommit, 0);
 }
 
 // Opening a tool drops Tools rather than stacking it underneath, so backing out
@@ -37086,6 +37315,23 @@ static void refreshDmModal(bool force) {
                 lastDateBucket = curBucket;
             }
 
+            // IRC style: the channel view's rows. Unlike bubbles, each one is
+            // named, the peer included -- left-aligned rows have nothing else
+            // to say which side of the conversation a line came from.
+            if (s_cfg.chatStyle == CHAT_STYLE_IRC) {
+                const bool isMe = dmLineIsFromMe(dl->text);
+                const uint32_t who = isMe ? s_myNodeId : selected->nodeId;
+                char dmTimeBuf[LIVE_CLOCK_BUF], dmName[48] = "";
+                chatParsePrefix(dl->text, nullptr, 0, dmTimeBuf, sizeof(dmTimeBuf));
+                if (!dmTimeBuf[0]) formatChatClock(dl->epoch, dmTimeBuf, sizeof(dmTimeBuf));
+                if (who != 0 && !isMe) chatSenderLabel(who, dmName, sizeof(dmName));
+                chatMakeIrcRow(s_dmMsgList, dmMsgFont, who, isMe,
+                               dmTimeBuf, dmName, chatStripPrefix(dl->text),
+                               dmAckToDisplayAck(dl->ack),
+                               0, false, &lastMsgObj, nullptr, nullptr);
+                continue;
+            }
+
             // Bubbles style: reuse the channel-chat bubble renderer. Our lines
             // sit right-aligned in the accent/ack color, the peer's left-aligned
             // in their stable per-node color. No name tag (1:1 conversation, the
@@ -37113,7 +37359,14 @@ static void refreshDmModal(bool force) {
                 continue;
             }
 
-            lv_obj_t *msg = lv_label_create(s_dmMsgList);
+            // The same marker the classic channel view carries. Color alone is
+            // the weaker signal of the two: it competes with the per-node line
+            // colors, and a theme where green reads close to the base text
+            // color loses it entirely. A marked line is a span group, for the
+            // marker's smaller face.
+            const bool ackedLine = (dl->ack == DmLine::ACKED);
+            lv_obj_t *msg = ackedLine ? lv_spangroup_create(s_dmMsgList)
+                                      : lv_label_create(s_dmMsgList);
             lastMsgObj = msg;
             lv_obj_set_width(msg, lv_pct(100));
             lv_obj_set_style_text_font(msg, dmMsgFont, 0);
@@ -37123,18 +37376,12 @@ static void refreshDmModal(bool force) {
             lv_obj_set_style_pad_bottom(msg, 0, 0);
             // DmMgr now stores one logical message per DmLine; let LVGL wrap it
             // to the actual pane pixel width so font metrics drive line breaks.
-            lv_label_set_long_mode(msg, LV_LABEL_LONG_WRAP);
+            if (!ackedLine) lv_label_set_long_mode(msg, LV_LABEL_LONG_WRAP);
 
             uint16_t lineColor = dl->color;
-            const char *ackSuffix = nullptr;
             switch (dl->ack) {
                 case DmLine::ACKED:
                     lineColor = (s_cfg.uiMode == UI_MODE_LIGHT) ? (uint16_t)0x0320 : TFT_GREEN;
-                    // The same marker the classic channel view appends. Color
-                    // alone is the weaker signal of the two: it competes with
-                    // the per-node line colors, and a theme where green reads
-                    // close to the base text color loses it entirely.
-                    ackSuffix = " [ACK]";
                     break;
                 case DmLine::ACKED_RELAY:
                     lineColor = userMessageAccentColor565();
@@ -37159,11 +37406,8 @@ static void refreshDmModal(bool force) {
 #if !defined(DEVICE_TDECK_PRO)
             lv_obj_set_style_bg_opa(msg, LV_OPA_TRANSP, 0);
 #endif
-            if (ackSuffix) {
-                char acked[DM_LINE_LEN + 8];
-                snprintf(acked, sizeof(acked), "%s", dl->text);
-                chatInsertAckMarker(acked, sizeof(acked), ackSuffix);
-                setLabelTextEmojiSafe(msg, acked);
+            if (ackedLine) {
+                chatSetAckedLineText(msg, dl->text, dmMsgFont);
             } else {
                 setLabelTextEmojiSafe(msg, dl->text);
             }
@@ -42186,6 +42430,12 @@ static void pumpKeyboardInput() {
         }
         s_lastActivityMs = millis();
 
+#if HAS_RUNTIME_ORIENTATION && defined(DEVICE_TDISPLAY_P4)
+        // Ahead of everything, the F-keys included: a countdown to a reboot
+        // is not the moment for a key to open something behind it.
+        if (kbLandscapePromptHandleKey(k)) continue;
+#endif
+
 #if defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO) || defined(DEVICE_MESH_DECK) \
     || defined(DEVICE_TLORA_PAGER_TFT) || defined(DEVICE_CARDPUTER_LORA_HAT)
         // The Cardputer belongs on this list and was missing from it, which made
@@ -44865,6 +45115,27 @@ static void pumpKeyboardInput() {
 #endif
 
                 if (k == KEY_NEXT_CHAN || k == KEY_PREV_CHAN) {
+#if defined(DEVICE_TDISPLAY_P4)
+                    // Landscape docks the channel list beside the chat, so the
+                    // keyboard expansion's arrows move between the two: Right
+                    // from the list puts the cursor on the newest message,
+                    // Left from the chat hands Up/Down back to the list.
+                    // Portrait's list is a drawer, with no side to move to.
+                    if (!uiPortrait() && s_activeChannel >= 0
+                        && s_activeChannel < MESH_CHANNELS) {
+                        if (k == KEY_NEXT_CHAN && !s_pagerChatCursorMode) {
+                            s_pagerChatCursorMode = true;
+                            if (!pagerSelectChatCursorIndex(-1)) {
+                                s_pagerChatCursorMode = false;   // nothing to land on
+                            }
+                            refreshChatView(true);
+                        } else if (k == KEY_PREV_CHAN && s_pagerChatCursorMode) {
+                            pagerExitChatCursorMode(true);
+                            refreshChatView(true);
+                        }
+                        refreshChannelGlow(true);
+                    }
+#endif
 #if defined(DEVICE_CARDPUTER_LORA_HAT)
                     if (!s_cardputerMainChatPanelFocused) {
                         int nextChannel = s_activeChannel + ((k == KEY_NEXT_CHAN) ? 1 : -1);
@@ -44997,8 +45268,14 @@ static void pumpKeyboardInput() {
 #else
                     if (s_pagerChatCursorMode) {
                         int navDelta;
+#if defined(DEVICE_TDISPLAY_P4)
+                        // Arrows, not a wheel: Up is the message above, as on
+                        // the channel list below.
+                        navDelta = (k == KEY_SCROLL_UP) ? -1 : 1;
+#else
                         if (navFromJk) navDelta = (k == KEY_SCROLL_UP) ? -1 : 1;
                         else           navDelta = (k == KEY_SCROLL_UP) ? 1 : -1;
+#endif
                         pagerSelectChatCursorIndex(s_pagerChatCursorDisplayIndex + navDelta);
                     } else if (s_activeChannel >= 0 && s_activeChannel < MESH_CHANNELS) {
                         // Channel list uses reversed j/k semantics by request.
@@ -51825,9 +52102,9 @@ static void chatParsePrefix(const char *line,
     }
 }
 
-// Places the classic style's ACK marker directly after the clock, where it
-// reads as part of the line's own metadata ("12:34 [ACK] [Name] body") instead
-// of as a word appended to whatever the sender happened to end on. On a message
+// Where the classic style's ACK marker goes: directly after the clock, where it
+// reads as part of the line's own metadata ("12:34 [A] [Name] body") instead of
+// as a word appended to whatever the sender happened to end on. On a message
 // long enough to wrap, the end of the line is also the worst place for it: it
 // lands alone on the last row, far from the message it belongs to.
 //
@@ -51836,36 +52113,68 @@ static void chatParsePrefix(const char *line,
 // a prefix like any other, and the marker should not move because the time is
 // unknown. A line with no clock at all (the bare "! TX failed" notices) has
 // nothing to sit beside, so the marker goes to the end there.
-static void chatInsertAckMarker(char *line, size_t lineCap, const char *marker) {
-    if (!line || !marker || !marker[0]) return;
-    const size_t len = strlen(line);
-    const size_t mlen = strlen(marker);
-    if (len + mlen + 1 > lineCap) return;
-
+static size_t chatAckMarkerOffset(const char *line) {
+    if (!line) return 0;
     const int kWindow = 24;   // icon + clock always lands well inside this
-    char *at = nullptr;
     // A real clock first, in either format, so the marker lands after the
     // meridiem rather than between "2:34" and its "PM".
     if (const char *end = liveFindClock(line, kWindow, nullptr)) {
-        at = line + (end - line);
-    } else {
-        // liveFindClock() deliberately does not match "--:--" — it is not a
-        // time — and only this marker cares where that placeholder ends.
-        for (char *p = line; *p && (int)(p - line) < kWindow; p++) {
-            if (p[0] == '-' && p[1] == '-' && p[2] == ':'
-                && p[3] == '-' && p[4] == '-') {
-                at = p + 5;
-                break;
-            }
+        return (size_t)(end - line);
+    }
+    // liveFindClock() deliberately does not match "--:--" — it is not a
+    // time — and only this marker cares where that placeholder ends.
+    for (const char *p = line; *p && (int)(p - line) < kWindow; p++) {
+        if (p[0] == '-' && p[1] == '-' && p[2] == ':'
+            && p[3] == '-' && p[4] == '-') {
+            return (size_t)(p + 5 - line);
         }
     }
-    if (!at) {
-        memcpy(line + len, marker, mlen + 1);
-        return;
+    return strlen(line);
+}
+
+// The ACK marker, in every chat style: "[A]", in a face well under the chat
+// text's so it reads as a note on the message rather than part of it.
+static const char kChatAckMarker[] = "[A]";
+static const lv_font_t *chatAckMarkerFont(const lv_font_t *chatFont) {
+    const int lh = chatFont ? (int)chatFont->line_height : 0;
+    if (lh >= 30) return &lv_font_montserrat_18;   // 28 and 32
+    if (lh >= 21) return &lv_font_montserrat_12;   // 18 and 20
+    return &lv_font_montserrat_10;                 // 16 and under
+}
+
+// Fills a classic message whose ACK is in: the line as one paragraph, with the
+// small marker spliced in after its clock. A span group rather than a label,
+// because a label draws in one face. The spans set no colour of their own, so
+// the whole line, marker included, takes the group's.
+static void chatSetAckedLineText(lv_obj_t *sg, const char *line, const lv_font_t *chatFont) {
+    if (!sg) return;
+    // Folded before the split, so the offset is measured in the bytes drawn.
+    // The clock is ASCII and the fold leaves it where it was.
+    char text[512];   // a merged channel message is 384, a DM line under that
+    renderEmojiSafeText(line ? line : "", text, sizeof(text));
+    const size_t at = chatAckMarkerOffset(text);
+
+    char head[sizeof(text)];
+    memcpy(head, text, at);
+    head[at] = '\0';
+    if (head[0]) {
+        lv_span_t *sp = lv_spangroup_add_span(sg);
+        lv_spangroup_set_span_text(sg, sp, head);
     }
-    // +1 moves the terminator along with the tail.
-    memmove(at + mlen, at, len - (size_t)(at - line) + 1);
-    memcpy(at, marker, mlen);
+    lv_span_t *mark = lv_spangroup_add_span(sg);
+    lv_style_set_text_font(lv_span_get_style(mark), chatAckMarkerFont(chatFont));
+    // A space either side, in the marker's own small face: the line's spacing
+    // around it then does not depend on which side of it the text had one.
+    const char *tail = text + at;
+    while (*tail == ' ') tail++;
+    char markText[8];
+    snprintf(markText, sizeof(markText), " %s%s", kChatAckMarker, tail[0] ? " " : "");
+    lv_spangroup_set_span_text(sg, mark, markText);
+    if (tail[0]) {
+        lv_span_t *sp = lv_spangroup_add_span(sg);
+        lv_spangroup_set_span_text(sg, sp, tail);
+    }
+    lv_spangroup_refresh(sg);
 }
 
 // Joins the icon and clock into the bubble's leading meta field, in the same
@@ -51910,9 +52219,16 @@ static const char *chatStripPrefix(const char *line) {
 // per bubble, keeps it off the O(n) path — laying out a list while appending to
 // it would otherwise cost a full tree walk per message.
 static lv_coord_t s_chatBubbleListW = 0;
+// IRC style, per render pass: the time column's width (0 until the first row
+// measures it, since that is when the font is known) and the last row made, so
+// a separator goes between two rows but not between a row and a date marker.
+static lv_coord_t s_chatIrcTimeColW = 0;
+static lv_obj_t *s_chatIrcLastRow = nullptr;
 
 static void chatBubbleBeginRender(lv_obj_t *list) {
     s_chatBubbleListW = 0;
+    s_chatIrcTimeColW = 0;
+    s_chatIrcLastRow = nullptr;
     if (!list) return;
     lv_obj_update_layout(list);
     s_chatBubbleListW = lv_obj_get_content_width(list);
@@ -52068,18 +52384,9 @@ static void chatMakeBubble(lv_obj_t *list, uint32_t sender, bool isMe,
     }
 #endif
 
-    const char *stateTag = nullptr;
-    if (isMe) {
-        switch (ackState) {
-            case DisplayLine::ACKED:
-            case DisplayLine::ACKED_RELAY:
-                stateTag = TR("ME (ACK)");
-                break;
-            default:
-                stateTag = "ME";
-                break;
-        }
-    }
+    const char *stateTag = isMe ? "ME" : nullptr;
+    const bool ackMark = isMe && (ackState == DisplayLine::ACKED
+                                  || ackState == DisplayLine::ACKED_RELAY);
 
     const char *whoTag = (nameTag && nameTag[0]) ? nameTag : stateTag;
     if (whoTag || (metaTag && metaTag[0])) {
@@ -52089,13 +52396,32 @@ static void chatMakeBubble(lv_obj_t *list, uint32_t sender, bool isMe,
         } else {
             snprintf(header, sizeof(header), "%s", whoTag ? whoTag : metaTag);
         }
-        lv_obj_t *nm = lv_label_create(b);
+        // With an ACK in, the header is a row: the tag, then the small marker
+        // sitting on its baseline side.
+        lv_obj_t *hdrParent = b;
+        if (ackMark) {
+            hdrParent = lv_obj_create(b);
+            lv_obj_remove_style_all(hdrParent);
+            lv_obj_set_size(hdrParent, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_obj_set_flex_flow(hdrParent, LV_FLEX_FLOW_ROW);
+            lv_obj_set_flex_align(hdrParent, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_END,
+                                  LV_FLEX_ALIGN_END);
+            lv_obj_set_style_pad_column(hdrParent, 3, 0);
+        }
+        lv_obj_t *nm = lv_label_create(hdrParent);
         lv_obj_set_style_text_font(nm, bubbleFont, 0);
         lv_obj_set_style_text_color(nm, tagColor, 0);
         lv_obj_set_style_text_opa(nm, LV_OPA_70, 0);
         lv_label_set_text(nm, header);
         // A long chat name plus the time can be wider than the bubble on its own.
         chatFitBubbleLabel(nm, bubbleFont, bubbleMaxW);
+        if (ackMark) {
+            lv_obj_t *mark = lv_label_create(hdrParent);
+            lv_obj_set_style_text_font(mark, chatAckMarkerFont(bubbleFont), 0);
+            lv_obj_set_style_text_color(mark, tagColor, 0);
+            lv_obj_set_style_text_opa(mark, LV_OPA_70, 0);
+            lv_label_set_text(mark, kChatAckMarker);
+        }
     }
 
     lv_obj_t *bl = lv_label_create(b);
@@ -52143,7 +52469,183 @@ static void chatMakeBubble(lv_obj_t *list, uint32_t sender, bool isMe,
     if (outLast) *outLast = rowW;
 }
 
-// Render the chat rows as per-node colored bubbles (Bubbles chat style).
+// One message in the IRC style: the lock screen's notice row, brought into the
+// chat. Time in the lock screen's blue, then "Name:" and the text, which wraps
+// with its second line under the text's first rather than back at the edge, so
+// a wrap never reads as a new message starting.
+//
+// The time sits in a column of its own, as wide as the widest clock the
+// current format writes, so every message's text starts at the same x. The
+// name and text are one span group: two labels side by side could not wrap
+// into each other, and label recolor has no escape for '#', which channel text
+// is full of.
+//
+// No transport icon, unlike classic: the lock screen does not show one, and a
+// glyph in front of some times and not others would break the column.
+static void chatMakeIrcRow(lv_obj_t *list, const lv_font_t *font,
+                           uint32_t sender, bool isMe,
+                           const char *timeText, const char *nameText,
+                           const char *body,
+                           DisplayLine::AckState ackState,
+                           uint32_t replyPacketId, bool isSelected,
+                           lv_obj_t **outLast, lv_obj_t **outSelected,
+                           lv_event_cb_t onPressed) {
+    if (!list || !font) return;
+    const bool lightUi = (s_cfg.uiMode == UI_MODE_LIGHT);
+
+    // Same separator classic draws, and only after a row: one after a date
+    // marker would sit between the marker and the message it dates.
+    if (s_chatIrcLastRow && lv_obj_get_child(list, -1) == s_chatIrcLastRow) {
+        lv_obj_t *sep = lv_obj_create(list);
+        lv_obj_remove_style_all(sep);
+        lv_obj_set_size(sep, lv_pct(100), 1);
+        lv_obj_set_style_bg_color(sep, lv_color_hex(0x3F669F), 0);
+        lv_obj_set_style_bg_opa(sep, LV_OPA_70, 0);
+    }
+
+    // The lock screen's blue, darkened for a pale background; its white body
+    // becomes the theme's own text colour for the same reason.
+    const lv_color_t timeColor = lightUi ? lv_color_hex(0x1F5FAF) : lv_color_make(32, 160, 255);
+    const lv_color_t bodyColor = lightUi ? lv_color_hex(0x16233A) : lv_color_hex(0xE8F1FF);
+
+    // The lock screen's green, unless Chat Colors gives each node its own.
+    uint16_t name565 = lightUi ? rgb565(0x1E, 0x7A, 0x3C) : rgb565(64, 220, 112);
+    if (s_cfg.chatColorsEnabled && sender != 0) {
+        name565 = isMe ? userMessageAccentColor565() : nodeBubbleColor565(sender);
+    }
+    // Our own messages carry their delivery state the way classic does: green
+    // for a routing ACK, the accent for a relay, red for a failure.
+    const char *ackMarker = nullptr;
+    if (isMe) {
+        switch (ackState) {
+            case DisplayLine::ACKED:
+                name565 = lightUi ? rgb565(0x00, 0x66, 0x00) : TFT_GREEN;
+                ackMarker = kChatAckMarker;
+                break;
+            case DisplayLine::ACKED_RELAY:
+                name565 = userMessageAccentColor565();
+                ackMarker = kChatAckMarker;
+                break;
+            case DisplayLine::NAKED:
+            case DisplayLine::TX_FAILED:
+                name565 = TFT_RED;
+                break;
+            default:
+                break;
+        }
+    }
+    const lv_color_t nameColor = tftColorToLv(name565);
+
+    lv_obj_t *row = lv_obj_create(list);
+    lv_obj_remove_style_all(row);
+    lv_obj_clear_flag(row, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_width(row, lv_pct(100));
+    lv_obj_set_height(row, LV_SIZE_CONTENT);
+    lv_obj_set_flex_flow(row, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_align(row, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START);
+#if defined(DEVICE_TDECK) || defined(DEVICE_M9)
+    const int padL = 1, padR = 0;
+#else
+    const int padL = 2, padR = 4;
+#endif
+    const int gap = 4;   // the lock screen's gap between time and sender
+    lv_obj_set_style_pad_left(row, padL, 0);
+    lv_obj_set_style_pad_right(row, padR, 0);
+    lv_obj_set_style_pad_column(row, gap, 0);
+    stylePaperMessageRow(row);
+
+    // The column is sized from the font once per pass. A line stored under the
+    // other clock format can still be wider; that row's text starts a little
+    // further in rather than being clipped.
+    if (s_chatIrcTimeColW <= 0) {
+        lv_point_t sz;
+        lv_text_get_size(&sz, liveClockIs12Hour() ? "00:00 PM" : "00:00", font,
+                         0, 0, LV_COORD_MAX, LV_TEXT_FLAG_NONE);
+        s_chatIrcTimeColW = (lv_coord_t)sz.x;
+    }
+    lv_coord_t timeW = s_chatIrcTimeColW;
+    if (timeText && timeText[0]) {
+        lv_point_t sz;
+        lv_text_get_size(&sz, timeText, font, 0, 0, LV_COORD_MAX, LV_TEXT_FLAG_NONE);
+        if (sz.x > timeW) timeW = (lv_coord_t)sz.x;
+    }
+
+    lv_obj_t *timeLbl = lv_label_create(row);
+    lv_obj_set_style_text_font(timeLbl, font, 0);
+    lv_obj_set_style_text_color(timeLbl, timeColor, 0);
+    lv_label_set_long_mode(timeLbl, LV_LABEL_LONG_CLIP);
+    lv_obj_set_width(timeLbl, timeW);
+    lv_label_set_text(timeLbl, (timeText && timeText[0]) ? timeText : "");
+
+    // A fixed width is what makes a span group wrap; left at content width it
+    // grows to one long line instead.
+    lv_coord_t textW = s_chatBubbleListW - padL - padR - timeW - gap;
+    if (textW < 24) textW = 24;
+    lv_obj_t *sg = lv_spangroup_create(row);
+    lv_obj_set_width(sg, textW);
+    lv_obj_set_height(sg, LV_SIZE_CONTENT);
+    lv_obj_set_style_text_font(sg, font, 0);
+    lv_obj_set_style_pad_all(sg, 0, 0);
+
+    // Our own messages are "ME", as the bubbles call them, not whatever the
+    // node database has for this node -- often only its id.
+    if (isMe) nameText = "ME";
+
+    // Folded once, before LVGL measures anything, the same as every other
+    // place that draws received text.
+    if (nameText && nameText[0]) {
+        char name[64];
+        renderEmojiSafeText(nameText, name, sizeof(name));
+        char tagged[sizeof(name) + 2];
+        snprintf(tagged, sizeof(tagged), "%s: ", name);
+        lv_span_t *sp = lv_spangroup_add_span(sg);
+        lv_style_set_text_color(lv_span_get_style(sp), nameColor);
+        lv_spangroup_set_span_text(sg, sp, tagged);
+    }
+    {
+        char text[400];
+        renderEmojiSafeText(body ? body : "", text, sizeof(text));
+        lv_span_t *sp = lv_spangroup_add_span(sg);
+        lv_style_set_text_color(lv_span_get_style(sp), bodyColor);
+        lv_spangroup_set_span_text(sg, sp, text);
+    }
+    if (ackMarker) {
+        lv_span_t *sp = lv_spangroup_add_span(sg);
+        lv_style_set_text_color(lv_span_get_style(sp), nameColor);
+        lv_style_set_text_font(lv_span_get_style(sp), chatAckMarkerFont(font));
+        char markText[8];
+        snprintf(markText, sizeof(markText), " %s", ackMarker);
+        lv_spangroup_set_span_text(sg, sp, markText);
+    }
+    lv_spangroup_refresh(sg);
+
+    if (isSelected) {
+        lv_obj_set_style_bg_color(row, lv_color_hex(0x2A4E8F), 0);
+        lv_obj_set_style_bg_opa(row, LV_OPA_70, 0);
+        if (outSelected) *outSelected = row;
+    }
+
+    // DMs pass nullptr, as they do for bubbles: no reply/selection model there.
+    if (onPressed) {
+        lv_obj_add_flag(row, LV_OBJ_FLAG_CLICKABLE);
+        lv_obj_add_event_cb(row, onPressed, LV_EVENT_CLICKED,
+                            (void *)(uintptr_t)replyPacketId);
+#if HAS_TOUCH
+        // Hold opens Message Actions; see chatMakeBubble() for why it carries
+        // the packet id.
+        if (sender != 0 && !isMe && replyPacketId != 0) {
+            lv_obj_add_event_cb(row, onChatMessageLongPressed, LV_EVENT_LONG_PRESSED,
+                                (void *)(uintptr_t)replyPacketId);
+        }
+#endif
+    }
+
+    s_chatIrcLastRow = row;
+    if (outLast) *outLast = row;
+}
+
+// Render the chat rows as per-node colored bubbles (Bubbles and Outline), or as
+// IRC rows, which take each message apart the same way.
 static void refreshChatViewBubbles(const DisplayLine *const *rows, int rowCount,
                                    const int *displayOrder, int displayCount,
                                    int startFrom, int endAt,
@@ -52234,8 +52736,22 @@ static void refreshChatViewBubbles(const DisplayLine *const *rows, int rowCount,
         char iconBuf[12], timeBuf[LIVE_CLOCK_BUF], metaBuf[28];
         chatParsePrefix(rows[i]->text, iconBuf, sizeof(iconBuf), timeBuf, sizeof(timeBuf));
         if (!timeBuf[0]) formatChatClock(rows[i]->epoch, timeBuf, sizeof(timeBuf));
-        chatComposeBubbleMeta(iconBuf, timeBuf, metaBuf, sizeof(metaBuf));
 
+        if (s_cfg.chatStyle == CHAT_STYLE_IRC) {
+            // Every sender is named here, ourselves included ("ME"): with no
+            // bubble alignment to tell the two sides apart, the name is all
+            // there is. chatSenderLabel() is what the lock screen names them with.
+            char ircName[48] = "";
+            if (sender != 0 && !isMe) chatSenderLabel(sender, ircName, sizeof(ircName));
+            chatMakeIrcRow(s_chatList, scaledChatFont(kChannelChatFont),
+                           sender, isMe, timeBuf, ircName, body,
+                           rows[i]->ack, replyPacketId, isSelected,
+                           lastMsgObj, selectedMsgObj, onChatMessagePressed);
+            if (anchorHere && lastMsgObj) *anchorObj = *lastMsgObj;
+            continue;
+        }
+
+        chatComposeBubbleMeta(iconBuf, timeBuf, metaBuf, sizeof(metaBuf));
         chatMakeBubble(s_chatList, sender, isMe, metaBuf, nameTag, body,
                        rows[i]->ack,
                        replyPacketId, isSelected,
@@ -52462,7 +52978,10 @@ static void refreshChatView(bool force) {
             return strcmp(d->text, s_chatWindowAnchorText) == 0;
         };
 
-        bool useBubbleStyle = (chatStyleUsesBubbles(s_cfg.chatStyle)
+        // IRC rows go through the bubble path too: it already takes each
+        // message apart into time, sender and body, which is what they draw.
+        bool useBubbleStyle = ((chatStyleUsesBubbles(s_cfg.chatStyle)
+                                || s_cfg.chatStyle == CHAT_STYLE_IRC)
                                && s_activeChannel >= 0
                                && s_activeChannel < MESH_CHANNELS);
         if (useBubbleStyle) {
@@ -52513,7 +53032,13 @@ static void refreshChatView(bool force) {
                     n++;
                 }
 
-                lv_obj_t *msg = lv_label_create(s_chatList);
+                // A message whose ACK is in is a span group, for the small
+                // marker; every other one stays a plain label.
+                const bool ackedLine = rows[i]->packetId
+                    && (rows[i]->ack == DisplayLine::ACKED
+                        || rows[i]->ack == DisplayLine::ACKED_RELAY);
+                lv_obj_t *msg = ackedLine ? lv_spangroup_create(s_chatList)
+                                          : lv_label_create(s_chatList);
                 lastMsgObj = msg;
                 if (anchorHere) anchorObj = msg;
                 lv_obj_set_width(msg, lv_pct(100));
@@ -52531,7 +53056,7 @@ static void refreshChatView(bool force) {
 #endif
                 lv_obj_set_style_pad_top(msg, 0, 0);
                 lv_obj_set_style_pad_bottom(msg, 0, 0);
-                lv_label_set_long_mode(msg, LV_LABEL_LONG_WRAP);
+                if (!ackedLine) lv_label_set_long_mode(msg, LV_LABEL_LONG_WRAP);
 
                 uint16_t textColor565 = (s_cfg.uiMode == UI_MODE_LIGHT) ? TFT_BLACK : TFT_WHITE;
                 if (s_cfg.chatColorsEnabled
@@ -52544,14 +53069,10 @@ static void refreshChatView(bool force) {
                             : nodeBubbleColor565(sender);
                     }
                 }
-                const char *ackSuffix = nullptr;
                 if (rows[i]->packetId) {
                     switch (rows[i]->ack) {
                         case DisplayLine::ACKED:
                             textColor565 = (s_cfg.uiMode == UI_MODE_LIGHT) ? rgb565(0x00, 0x66, 0x00) : TFT_GREEN;
-                            // Now that the message is one label, the marker goes
-                            // at the end of it rather than mid-message.
-                            ackSuffix = " [ACK]";
                             break;
                         case DisplayLine::ACKED_RELAY:
                             // Marked, not just tinted. Channel text is broadcast,
@@ -52560,10 +53081,9 @@ static void refreshChatView(bool force) {
                             // this assigns is the one an own message already
                             // carries with chat colors on, which left the whole
                             // state invisible in this style. The bubble renderer
-                            // has always tagged both states "ME (ACK)"; the
-                            // green above still separates a hard ACK from this.
+                            // has always marked both states too; the green
+                            // above still separates a hard ACK from this.
                             textColor565 = userMessageAccentColor565();
-                            ackSuffix = " [ACK]";
                             break;
                         case DisplayLine::NAKED:
                         case DisplayLine::TX_FAILED:
@@ -52578,10 +53098,11 @@ static void refreshChatView(bool force) {
 #endif
 
                 lv_obj_set_style_text_color(msg, tftColorToLv(textColor565), 0);
-                if (ackSuffix) {
-                    chatInsertAckMarker(merged, sizeof(merged), ackSuffix);
+                if (ackedLine) {
+                    chatSetAckedLineText(msg, merged, scaledChatFont(kChannelChatFont));
+                } else {
+                    setLabelTextEmojiSafe(msg, merged);
                 }
-                setLabelTextEmojiSafe(msg, merged);
 
                 uint32_t replyPacketId = resolveReplyPacketId(rows, rowCount, i);
 
@@ -55481,6 +56002,9 @@ void loop() {
 #endif
 #if HAS_KB_BLINK
     LOOP_PHASE("kbblink", serviceKbBlink());
+#endif
+#if HAS_RUNTIME_ORIENTATION && defined(DEVICE_TDISPLAY_P4)
+    LOOP_PHASE("kb:orient", serviceKbLandscapeSwitch());
 #endif
 
 #if HAS_ADMIN_TERMINAL

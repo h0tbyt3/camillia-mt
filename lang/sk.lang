@@ -405,7 +405,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Dlhé meno: %s\nZadajte krát
 Long: %s	Dlhé: %s
 Looking for keyboards...	Hľadám klávesnice...
 Low	Nízky
-ME (ACK)	JA (ACK)
 MQTT Bridge: %s	Most MQTT: %s
 MQTT Bridge: %s - rebooting...	Most MQTT: %s - reštartujem...
 MQTT Bridge: Off (WiFi off)	Most MQTT: Vyp. (WiFi vyp.)
@@ -456,6 +455,7 @@ My Message Color: %s - rebooting...	Farba mojich správ: %s - reštartujem...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Vybrať WiFi   Enter=Dokončiť   Bksp=Späť
 NO LINE OF SIGHT	BEZ PRIAMEJ VIDITEĽNOSTI
 NODEINFO + telemetry queued.	NODEINFO + telemetria vo fronte.
+Send NODEINFO and telemetry to the mesh now?	Odoslať teraz NODEINFO a telemetriu do siete?
 NODES	UZLY
 NODES (%d%s)	UZLY (%d%s)
 NODES [%s] (%d%s)	UZLY [%s] (%d%s)

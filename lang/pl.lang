@@ -406,7 +406,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Długa nazwa: %s\nWpisz nazw�
 Long: %s	Długa: %s
 Looking for keyboards...	Szukanie klawiatur...
 Low	Niski
-ME (ACK)	JA (ACK)
 MQTT Bridge: %s	Most MQTT: %s
 MQTT Bridge: %s - rebooting...	Most MQTT: %s - ponowne uruchamianie...
 MQTT Bridge: Off (WiFi off)	Most MQTT: Wył. (WiFi wył.)
@@ -457,6 +456,7 @@ My Message Color: %s - rebooting...	Kolor moich wiadomości: %s - ponowne urucha
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Wybierz WiFi   Enter=Zakończ   Bksp=Wstecz
 NO LINE OF SIGHT	BRAK LINII WZROKU
 NODEINFO + telemetry queued.	NODEINFO + telemetria w kolejce.
+Send NODEINFO and telemetry to the mesh now?	Wysłać teraz NODEINFO i telemetrię do sieci?
 NODES	WĘZŁY
 NODES (%d%s)	WĘZŁY (%d%s)
 NODES [%s] (%d%s)	WĘZŁY [%s] (%d%s)

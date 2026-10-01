@@ -36,6 +36,9 @@ static inline bool cfgChatStyleAllowed(int style) {
 #if !HAS_CHAT_BUBBLE_STYLE_OPTION
     if (style == CHAT_STYLE_BUBBLES) return false;
 #endif
+#if !HAS_CHAT_IRC_STYLE_OPTION
+    if (style == CHAT_STYLE_IRC) return false;
+#endif
     return true;
 }
 
@@ -188,7 +191,7 @@ struct RhinoConfig {
     uint8_t  msgAlertSound;      // 0=DEFAULT, 1=CHIRPY, 2=BASS, 3=OFF
     uint8_t  uiTheme;            // UiThemeFamily
     uint8_t  uiMode;             // UiThemeMode
-    uint8_t  chatStyle;          // 0=CLASSIC, 1=BUBBLES, 2=OUTLINE (applies live)
+    uint8_t  chatStyle;          // 0=CLASSIC, 1=BUBBLES, 2=OUTLINE, 3=IRC (applies live)
     uint8_t  chatNameStyle;      // 0=SHORT (4-char), 1=LONG (full node name) in chat
     bool     chatColorsEnabled;  // classic mode: use per-node text colors
     uint8_t  userMsgColor;       // own-message color: 0..15 = basic palette index,

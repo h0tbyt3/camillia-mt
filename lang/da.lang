@@ -396,7 +396,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Langt navn: %s\nIndtast et ko
 Long: %s	Langt: %s
 Looking for keyboards...	Søger efter tastaturer...
 Low	Lav
-ME (ACK)	MIG (ACK)
 MQTT Bridge: %s	MQTT-bro: %s
 MQTT Bridge: %s - rebooting...	MQTT-bro: %s - genstarter...
 MQTT Bridge: Off (WiFi off)	MQTT-bro: Fra (WiFi fra)
@@ -447,6 +446,7 @@ My Message Color: %s - rebooting...	Farve på mine beskeder: %s - genstarter...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Vælg WiFi   Enter=Afslut   Bksp=Tilbage
 NO LINE OF SIGHT	INGEN FRI SIGT
 NODEINFO + telemetry queued.	NODEINFO + telemetri sat i kø.
+Send NODEINFO and telemetry to the mesh now?	Send NODEINFO og telemetri til nettet nu?
 NODES	NODER
 NODES (%d%s)	NODER (%d%s)
 NODES [%s] (%d%s)	NODER [%s] (%d%s)

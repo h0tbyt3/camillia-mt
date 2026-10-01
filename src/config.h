@@ -286,17 +286,20 @@
 #define CHAT_STYLE_CLASSIC  0      // legacy flat colored text lines
 #define CHAT_STYLE_BUBBLES  1      // per-node colored (filled) message bubbles
 #define CHAT_STYLE_OUTLINE  2      // per-node colored outlined bubbles (transparent fill)
-#define CHAT_STYLE_MAX      CHAT_STYLE_OUTLINE
+#define CHAT_STYLE_IRC      3      // lock-screen notice rows: time, name, text
+#define CHAT_STYLE_MAX      CHAT_STYLE_IRC
 #if defined(DEVICE_TDECK_PRO)
 #define MY_CHAT_STYLE       CHAT_STYLE_OUTLINE
 #define MY_CHAT_COLORS_EN   0
 #define HAS_CHAT_STYLE_OPTIONS 1
 #define HAS_CHAT_BUBBLE_STYLE_OPTION 0
+#define HAS_CHAT_IRC_STYLE_OPTION 0
 #else
 #define MY_CHAT_STYLE       CHAT_STYLE_CLASSIC
 #define MY_CHAT_COLORS_EN   1      // classic mode: per-node text colors
 #define HAS_CHAT_STYLE_OPTIONS 1
 #define HAS_CHAT_BUBBLE_STYLE_OPTION 1
+#define HAS_CHAT_IRC_STYLE_OPTION 1
 #endif
 
 // Sender name style shown in chat (channel-chat prefix + bubble name tag)

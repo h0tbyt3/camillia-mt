@@ -1665,6 +1665,7 @@ void cfgToYaml(const RhinoConfig &cfg, String &out) {
     out += "    chatStyle: ";
     out += (cfg.chatStyle == CHAT_STYLE_BUBBLES ? "BUBBLES"
             : cfg.chatStyle == CHAT_STYLE_OUTLINE ? "OUTLINE"
+            : cfg.chatStyle == CHAT_STYLE_IRC ? "IRC"
             : "CLASSIC");
     out += "\n";
     out += "    chatNameStyle: ";
@@ -2327,6 +2328,8 @@ bool cfgImportFromBuf(const char *buf, size_t len, RhinoConfig &cfg) {
                         cfg.chatStyle = CHAT_STYLE_BUBBLES;
                     else if (!strcmp(val, "OUTLINE"))
                         cfg.chatStyle = CHAT_STYLE_OUTLINE;
+                    else if (!strcmp(val, "IRC"))
+                        cfg.chatStyle = CHAT_STYLE_IRC;
                     else
                         cfg.chatStyle = CHAT_STYLE_CLASSIC;
                     cfg.chatStyle = cfgCoerceChatStyle(cfg.chatStyle);

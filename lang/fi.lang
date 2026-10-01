@@ -405,7 +405,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Pitkä nimi: %s\nAnna lyhyt n
 Long: %s	Pitkä: %s
 Looking for keyboards...	Etsitään näppäimistöjä...
 Low	Matala
-ME (ACK)	MINÄ (ACK)
 MQTT Bridge: %s	MQTT-silta: %s
 MQTT Bridge: %s - rebooting...	MQTT-silta: %s - käynnistetään uudelleen...
 MQTT Bridge: Off (WiFi off)	MQTT-silta: Pois (WiFi pois)
@@ -456,6 +455,7 @@ My Message Color: %s - rebooting...	Viestieni väri: %s - käynnistetään uudel
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Valitse WiFi   Enter=Valmis   Bksp=Takaisin
 NO LINE OF SIGHT	EI NÄKÖYHTEYTTÄ
 NODEINFO + telemetry queued.	NODEINFO + telemetria jonossa.
+Send NODEINFO and telemetry to the mesh now?	Lähetetäänkö NODEINFO ja telemetria verkkoon nyt?
 NODES	SOLMUT
 NODES (%d%s)	SOLMUT (%d%s)
 NODES [%s] (%d%s)	SOLMUT [%s] (%d%s)

@@ -400,7 +400,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Nume lung: %s\nIntrodu un num
 Long: %s	Lung: %s
 Looking for keyboards...	Se caută tastaturi...
 Low	Mică
-ME (ACK)	EU (ACK)
 MQTT Bridge: %s	Punte MQTT: %s
 MQTT Bridge: %s - rebooting...	Punte MQTT: %s - repornire...
 MQTT Bridge: Off (WiFi off)	Punte MQTT: Oprită (WiFi oprit)
@@ -450,6 +449,7 @@ My Message Color: %s - rebooting...	Culoarea mesajelor mele: %s - repornire...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Alege WiFi   Enter=Termină   Bksp=Înapoi
 NO LINE OF SIGHT	FĂRĂ LINIE DE VEDERE
 NODEINFO + telemetry queued.	NODEINFO + telemetrie în coadă.
+Send NODEINFO and telemetry to the mesh now?	Trimiți acum NODEINFO și telemetria în rețea?
 NODES	NODURI
 NODES (%d%s)	NODURI (%d%s)
 NODES [%s] (%d%s)	NODURI [%s] (%d%s)

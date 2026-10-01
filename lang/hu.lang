@@ -406,7 +406,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Hosszú név: %s\nAdj meg egy
 Long: %s	Hosszú: %s
 Looking for keyboards...	Billentyűzetek keresése...
 Low	Alacsony
-ME (ACK)	ÉN (ACK)
 MQTT Bridge: %s	MQTT híd: %s
 MQTT Bridge: %s - rebooting...	MQTT híd: %s - újraindítás...
 MQTT Bridge: Off (WiFi off)	MQTT híd: Ki (WiFi ki)
@@ -457,6 +456,7 @@ My Message Color: %s - rebooting...	Üzeneteim színe: %s - újraindítás...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=WiFi kiválasztása   Enter=Befejezés   Bksp=Vissza
 NO LINE OF SIGHT	NINCS RÁLÁTÁS
 NODEINFO + telemetry queued.	NODEINFO + telemetria sorba állítva.
+Send NODEINFO and telemetry to the mesh now?	Elküldöd most a NODEINFO-t és a telemetriát a hálózatra?
 NODES	CSOMÓPONTOK
 NODES (%d%s)	CSOMÓPONTOK (%d%s)
 NODES [%s] (%d%s)	CSOMÓPONTOK [%s] (%d%s)

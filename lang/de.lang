@@ -387,7 +387,6 @@ Long name: %s\nEnter a short name (up to 4 chars).	Langer Name: %s\nKurznamen ei
 Long: %s	Lang: %s
 Looking for keyboards...	Suche Tastaturen...
 Low	Niedrig
-ME (ACK)	ICH (ACK)
 MQTT Bridge: %s	MQTT-Bridge: %s
 MQTT Bridge: %s - rebooting...	MQTT-Bridge: %s - Neustart...
 MQTT Bridge: Off (WiFi off)	MQTT-Bridge: Aus (WLAN aus)
@@ -437,6 +436,7 @@ My Message Color: %s - rebooting...	Meine Nachrichtenfarbe: %s - Neustart...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=WLAN wählen   Enter=Fertig   Bksp=Zurück
 NO LINE OF SIGHT	KEINE SICHTVERBINDUNG
 NODEINFO + telemetry queued.	NODEINFO + Telemetrie eingereiht.
+Send NODEINFO and telemetry to the mesh now?	NODEINFO und Telemetrie jetzt ans Mesh senden?
 NODES	KNOTEN
 NODES (%d%s)	KNOTEN (%d%s)
 NODES [%s] (%d%s)	KNOTEN [%s] (%d%s)

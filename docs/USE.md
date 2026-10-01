@@ -298,6 +298,39 @@ These apply to all keyboard builds, including `tdeck`, `tdeck-pro`,
   cursor. The key did nothing at all before. The keyboard's own symbol layer is
   the controller's business and is unaffected
 
+### LilyGo T-Display P4 keyboard expansion (p4-amoled-*)
+
+- **Clip it on or take it off at any time.** The expansion is detected within a
+  couple of seconds of being attached or removed, so it no longer has to be on
+  at boot. Everything below applies only while it is attached; without it the
+  P4 is the touch-first device it always was
+- **The F-keys follow the navigation bar from left to right:** F1 Home, F2 Chat,
+  F3 DMs, F4 Nodes, F5 Tools, F6 Config. F10 opens Help. F8 and F9 do nothing
+- **In landscape, each navigation bar button shows the F-key that opens it**,
+  small beside its icon. Portrait has no room for the labels, but the keys work
+  the same
+- **The on-screen keyboard stays away.** Compose, channel editing, the Wi-Fi
+  password, node name and node filter fields, the admin terminal and first-time
+  setup all take typing from the expansion instead. The compose box gets the
+  space back and shows twice as many lines
+- **Left and Right move the cursor inside a text field.** Up and Down move
+  through the channel list and wrap at either end
+- **The Nodes filter takes typing.** Enter applies the filter, and Backspace on
+  an empty field closes the dialog
+- **Caps Lock lights the expansion's indicator LEDs** while it is on
+- **F7 turns the keyboard light on and off.** The choice is kept across reboots,
+  and the light also goes out and comes back with the screen
+- **F11 steps the keyboard light's brightness** through Low, Medium, High and
+  Off, then back to Low. If F7 had switched the light off, F11 turns it back on,
+  so the step is always visible
+- **Keyboard Light** (Config, and in web config) picks the same levels. It sets
+  how bright the light is when it is on; F7 still decides whether it is on.
+  Picking a level turns the light back on if F7 had switched it off
+- The expansion also carries an NFC reader, a 2.4 GHz transceiver and a sub-GHz
+  transceiver, each with its own antenna. Camillia does not use them; mesh
+  traffic always goes through the main board's LoRa radio and the antenna chosen
+  under [Antenna (T-Display P4)](#antenna-t-display-p4)
+
 ## Home dashboard
 
 Every build with a display except the Cardputer opens a **home dashboard**: the

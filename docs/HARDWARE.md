@@ -46,7 +46,7 @@ and its [`src/hal/hw_*.h`](../src/hal/) pin map.
 | **Wireless** | ESP32-C6 over four-bit SDIO via ESP-Hosted 2.12.13; C6 firmware is a separate release asset and is not updated by P4 OTA |
 | **LoRa** | SX1262 or LR2021; both use SPI2 with CS24/BUSY6 and reset/IRQ through XL9535. The LR2021 build configures its internal DIO6/7/8/10 RF paths; SKY13453 selects the internal antenna or MMCX1 for either radio |
 | **GNSS** | L76K on UART1; wake control through XL9535 |
-| **Input** | Touch-first UI and on-screen keyboard; optional 68-key TCA8418 expansion detected at runtime |
+| **Input** | Touch-first UI and on-screen keyboard; optional 68-key TCA8418 expansion, hot-pluggable and polled for attach/remove; its SY7200A backlight and Caps Lock LEDs are driven. The expansion's ST25R3916 NFC, NRF24L01 2.4 GHz and CC1101 sub-GHz radios are not used |
 | **Audio** | ES8311/NS4150B hardware present; Camillia notification audio is not enabled on this target yet |
 | **Battery** | BQ27220 voltage and state-of-charge over I2C; LGS4056H charger |
 | **microSD** | Four-bit SD_MMC on CLK43/CMD44/D0-D3 39-42; active-low power control through XL9535 |

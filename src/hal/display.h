@@ -11,11 +11,13 @@
 //   DEVICE_HELTEC_V4_EXPANSION  → Panel_HeltecV4Tft (ST7789 + custom gamma)
 //   DEVICE_TLORA_PAGER_TFT      → Panel_ST7796
 //   DEVICE_WIO_TRACKER_L2               → Panel_NV3031B (quad-SPI)
+//   DEVICE_CROWPANEL_35         → Panel_ILI9488
 //   All others                   → Panel_ST7789
 //
 // Touch controller selection:
 //   DEVICE_HELTEC_V4_EXPANSION  → Touch_Heltec_CHSC6X  (custom LGFX wrapper)
-//   DEVICE_TDECK / DEVICE_WIO_TRACKER_L2 → lgfx::Touch_GT911
+//   DEVICE_TDECK / DEVICE_WIO_TRACKER_L2 /
+//   DEVICE_CROWPANEL_35         → lgfx::Touch_GT911
 //   All others                  → no touch
 // ════════════════════════════════════════════════════════════════════════════
 
@@ -50,6 +52,8 @@ protected:
 using DisplayPanel = Panel_HeltecV4Tft;
 #elif defined(DEVICE_TLORA_PAGER_TFT)
 using DisplayPanel = lgfx::Panel_ST7796;
+#elif defined(DEVICE_CROWPANEL_35)
+using DisplayPanel = lgfx::Panel_ILI9488;
 #elif defined(DEVICE_WIO_TRACKER_L2)
 // Only in LovyanGFX 1.2.27+, which is why [env:wio-tracker-l2] pins that
 // version in its own libdeps copy while the other display envs stay on 1.1.x.
@@ -300,6 +304,10 @@ public:
             cfg.y_min           = 0;
             cfg.y_max           = TFT_PANEL_HEIGHT - 1;
             cfg.pin_int         = TOUCH_INT;
+#if defined(DEVICE_CROWPANEL_35)
+            // GT911 reset is wired on this board (Meshtastic LGFX_TOUCH_RST=48).
+            cfg.pin_rst         = TOUCH_RST;
+#endif
             cfg.bus_shared      = false;
 #if defined(TOUCH_OFFSET_ROTATION)
             cfg.offset_rotation = TOUCH_OFFSET_ROTATION;

@@ -37,6 +37,7 @@
 //   DEVICE_M9                   Elecrow ThinkNode M9 (LR1110, no touch)
 //   DEVICE_WIO_TRACKER_L2       Seeed Wio Tracker L2 (NV3031B, gated rails)
 //   DEVICE_TDISPLAY_P4          LilyGO T-Display P4 (RM69A10 MIPI-DSI)
+//   DEVICE_CROWPANEL_35         Elecrow CrowPanel Advance 3.5" (ILI9488, SX1262)
 // ════════════════════════════════════════════════════════════════════════════
 
 #if defined(DEVICE_TDECK)
@@ -66,11 +67,13 @@
 #  include "hw_wio_tracker_l2.h"
 #elif defined(DEVICE_TDISPLAY_P4)
 #  include "hw_tdisplay_p4.h"
+#elif defined(DEVICE_CROWPANEL_35)
+#  include "hw_crowpanel_35.h"
 #else
 #  error "No DEVICE_* build flag set. Define one of: DEVICE_TDECK, DEVICE_TDECK_PRO, \
 DEVICE_TLORA_PAGER_TFT, DEVICE_CARDPUTER_LORA_HAT, DEVICE_HELTEC_V4_EXPANSION, \
 DEVICE_HELTEC_R8, DEVICE_MESH_DECK, DEVICE_M9, DEVICE_WIO_TRACKER_L2, \
-DEVICE_TDISPLAY_P4"
+DEVICE_TDISPLAY_P4, DEVICE_CROWPANEL_35"
 #endif
 
 #ifndef KB_INT_ACTIVE_LEVEL
@@ -148,6 +151,13 @@ DEVICE_TDISPLAY_P4"
 #  define HAS_RUNTIME_ORIENTATION 1
 #  define TFT_ROTATION_LANDSCAPE  3
 #  define TFT_ROTATION_PORTRAIT   0
+#elif defined(DEVICE_CROWPANEL_35)
+// ILI9488 is native 320x480 portrait (Meshtastic runs it at rotation 0).
+// 1 gives 480x320 landscape; LovyanGFX rotates GT911 touch with it. If
+// landscape comes up upside down on hardware, this is the line to make 3.
+#  define HAS_RUNTIME_ORIENTATION 1
+#  define TFT_ROTATION_LANDSCAPE  1
+#  define TFT_ROTATION_PORTRAIT   0
 #else
 #  define HAS_RUNTIME_ORIENTATION 0
 #endif
@@ -178,7 +188,7 @@ DEVICE_TDISPLAY_P4"
 #if defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO) || defined(DEVICE_HELTEC_V4_EXPANSION) \
     || defined(DEVICE_CARDPUTER_LORA_HAT) || defined(DEVICE_MESH_DECK) \
     || defined(DEVICE_M9) || defined(DEVICE_WIO_TRACKER_L2) \
-    || defined(DEVICE_TDISPLAY_P4)
+    || defined(DEVICE_TDISPLAY_P4) || defined(DEVICE_CROWPANEL_35)
 #  define UI_CHANNEL_LIST_DROPDOWN 1
 #else
 #  define UI_CHANNEL_LIST_DROPDOWN 0
@@ -189,7 +199,7 @@ DEVICE_TDISPLAY_P4"
 // an on-screen keyboard and the roomier 320x240 touch layout. Keep this
 // separate from hardware-specific Heltec paths such as CHSC6X and VEXT.
 #if defined(DEVICE_HELTEC_V4_EXPANSION) || defined(DEVICE_WIO_TRACKER_L2) \
-    || defined(DEVICE_TDISPLAY_P4)
+    || defined(DEVICE_TDISPLAY_P4) || defined(DEVICE_CROWPANEL_35)
 #  define UI_TOUCH_ONLY_PROFILE 1
 #else
 #  define UI_TOUCH_ONLY_PROFILE 0
@@ -333,7 +343,8 @@ DEVICE_TDISPLAY_P4"
 #if defined(DEVICE_TDECK) || defined(DEVICE_TLORA_PAGER_TFT) \
     || defined(DEVICE_HELTEC_V4_EXPANSION) || defined(DEVICE_MESH_DECK) \
     || defined(DEVICE_M9) || defined(DEVICE_WIO_TRACKER_L2) \
-    || defined(DEVICE_TDECK_PRO) || defined(DEVICE_TDISPLAY_P4)
+    || defined(DEVICE_TDECK_PRO) || defined(DEVICE_TDISPLAY_P4) \
+    || defined(DEVICE_CROWPANEL_35)
 #  define HAS_VNC_HOST 1
 #else
 #  define HAS_VNC_HOST 0

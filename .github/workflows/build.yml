@@ -96,6 +96,7 @@ jobs:
           pio run -e mesh-deck
           pio run -e m9
           pio run -e wio-tracker-l2
+          pio run -e crowpanel-35
           PLATFORMIO_CORE_DIR="$HOME/.platformio-p4" pio run -e p4-amoled-sx1262
           PLATFORMIO_CORE_DIR="$HOME/.platformio-p4" pio run -e p4-amoled-lr2021
 

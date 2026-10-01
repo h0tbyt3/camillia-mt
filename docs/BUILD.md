@@ -315,6 +315,7 @@ Pick the environment for your board:
 | Attaky Mesh Deck | `mesh-deck` |
 | Elecrow ThinkNode M9 | `m9` |
 | Seeed Wio Tracker L2 | `wio-tracker-l2` |
+| Elecrow CrowPanel Advance 3.5" | `crowpanel-35` |
 | LilyGo T-Display P4 AMOLED + SX1262 | `p4-amoled-sx1262` |
 | LilyGo T-Display P4 AMOLED + LR2021 | `p4-amoled-lr2021` |
 
@@ -377,6 +378,7 @@ Run it with no flags to get a device picker.
 | `--mesh-deck`, `--attaky`, `-M` | `mesh-deck` |
 | `--m9`, `-9` | `m9` |
 | `--wio-tracker-l2` | `wio-tracker-l2` |
+| `--crowpanel-35` | `crowpanel-35` |
 | `--p4-amoled-sx1262` | `p4-amoled-sx1262` |
 | `--p4-amoled-lr2021` | `p4-amoled-lr2021` |
 | `--erase`, `-E` | erase flash before a clean build/upload (M9 uses `upload_erase`) |

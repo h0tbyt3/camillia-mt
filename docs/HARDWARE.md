@@ -139,6 +139,7 @@ Each board's full pin map and feature flags (`HAS_KEYBOARD`, `HAS_TOUCH`, `HAS_G
 | Elecrow ThinkNode M9 | [`src/hal/hw_m9.h`](../src/hal/hw_m9.h) |
 | Seeed Wio Tracker L2 | [`src/hal/hw_wio_tracker_l2.h`](../src/hal/hw_wio_tracker_l2.h) |
 | LilyGo T-Display P4 | [`src/hal/hw_tdisplay_p4.h`](../src/hal/hw_tdisplay_p4.h) |
+| Elecrow CrowPanel Advance 3.5" | [`src/hal/hw_crowpanel_35.h`](../src/hal/hw_crowpanel_35.h) |
 
 ## Sources
 
@@ -152,6 +153,7 @@ Manufacturer spec pages used to verify the table above:
 - M5Stack Cardputer — <https://shop.m5stack.com/products/m5stack-cardputer-kit-w-m5stamps3>
 - Heltec WiFi LoRa 32 V4 — <https://heltec.org/project/wifi-lora-32-v4/> and <https://wiki.heltec.org/docs/devices/open-source-hardware/esp32-series/lora-32/wifi-lora-32-v4/>
 - Elecrow ThinkNode M9 — <https://www.elecrow.com/thinknode-m9-meshcore-communication-terminal-with-full-keyboard-2-4inch-lcd-esp32-s3-lr1110-gps-2300mah.html>. The pin map itself came from the M9 V1.0 schematic rather than this page.
+- Elecrow CrowPanel Advance 3.5" — <https://www.elecrow.com/crowpanel-advance-3-5-hmi-esp32-ai-display-for-meshtastic-320x240-ips-artificial-intelligent-screen.html>. Pins from Meshtastic `variants/esp32s3/elecrow_panel` (`CROW_SELECT == 1`) and its `elecrow-adv-35-tft` env.
 - Seeed Wio Tracker L2 — vendor reference firmware and device-ui configuration;
 	the public pin and peripheral map is recorded in [issue #56](https://github.com/oumike/camillia-mt/issues/56).
 - LilyGo T-Display P4 — <https://lilygo.cc/products/t-display-p4>,

@@ -25,6 +25,7 @@ Use these files as the source of truth before changing board-specific behavior:
 - `src/hal/hw_m9.h`
 - `src/hal/hw_wio_tracker_l2.h`
 - `src/hal/hw_tdisplay_p4.h`
+- `src/hal/hw_crowpanel_35.h`
 - `docs/HARDWARE.md`
 
 Do not invent pin maps, bus addresses, or peripheral wiring.
@@ -81,6 +82,7 @@ Current PlatformIO environments include:
 - `mesh-deck`
 - `m9`
 - `wio-tracker-l2`
+- `crowpanel-35`
 - `p4-amoled-sx1262`
 - `p4-amoled-lr2021`
 

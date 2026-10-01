@@ -20,7 +20,7 @@
 // still gets DEVICE_TDECK forced on underneath it, and because board.h tests
 // DEVICE_TDECK first, the build then silently compiles against the T-Deck pin
 // map — the real target's header is never included at all.
-#if !defined(DEVICE_TDECK) && !defined(DEVICE_TDECK_PRO) && !defined(DEVICE_TLORA_PAGER_TFT) && !defined(DEVICE_CARDPUTER_LORA_HAT) && !defined(DEVICE_HELTEC_V4_EXPANSION) && !defined(DEVICE_MESH_DECK) && !defined(DEVICE_M9) && !defined(DEVICE_WIO_TRACKER_L2) && !defined(DEVICE_TDISPLAY_P4)
+#if !defined(DEVICE_TDECK) && !defined(DEVICE_TDECK_PRO) && !defined(DEVICE_TLORA_PAGER_TFT) && !defined(DEVICE_CARDPUTER_LORA_HAT) && !defined(DEVICE_HELTEC_V4_EXPANSION) && !defined(DEVICE_MESH_DECK) && !defined(DEVICE_M9) && !defined(DEVICE_WIO_TRACKER_L2) && !defined(DEVICE_TDISPLAY_P4) && !defined(DEVICE_CROWPANEL_35)
 #  define DEVICE_TDECK 1
 #endif
 
@@ -146,6 +146,9 @@
 // Meshtastic 2.8 allocated SEEED_WIO_TRACKER_L2 = 137, so the board can
 // advertise itself honestly rather than falling back to PRIVATE_HW.
 #define MESH_HW_MODEL_SEEED_WIO_TRACKER_L2  137
+// CROWPANEL = 97 covers the whole CrowPanel Advance family; Meshtastic's own
+// elecrow-adv-35-tft build advertises it (custom_meshtastic_hw_model = 97).
+#define MESH_HW_MODEL_CROWPANEL      97
 // PRIVATE_HW is what Meshtastic reserves for hardware with no enum value of its
 // own, so a node advertises "custom hardware" rather than impersonating another
 // board. Three targets use it — the Mesh Deck, the M9 and the Cardputer — each
@@ -175,6 +178,8 @@
 #define MY_HW_MODEL MESH_HW_MODEL_PRIVATE_HW
 #elif defined(DEVICE_WIO_TRACKER_L2)
 #define MY_HW_MODEL MESH_HW_MODEL_SEEED_WIO_TRACKER_L2
+#elif defined(DEVICE_CROWPANEL_35)
+#define MY_HW_MODEL MESH_HW_MODEL_CROWPANEL
 #elif defined(DEVICE_TDISPLAY_P4)
 // No Meshtastic HardwareModel has been allocated for the T-Display P4.
 #define MY_HW_MODEL MESH_HW_MODEL_PRIVATE_HW

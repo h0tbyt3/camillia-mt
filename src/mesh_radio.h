@@ -184,7 +184,9 @@ private:
 #elif defined(DEVICE_TLORA_PAGER_TFT) && (PAGER_LORA_USE_LR1121)
     MeshLR1121 _radio{new Module(LORA_CS, LORA_DIO1, LORA_RST, LORA_BUSY)};
 #else
-    SX1262  _radio{new Module(LORA_CS, LORA_DIO1, LORA_RST, LORA_BUSY)};
+    // Cast: a board whose LORA_CS is the literal 0 (CrowPanel) would otherwise
+    // also match RadioLib's Module(RadioLibHal*, ...) and fail as ambiguous.
+    SX1262  _radio{new Module((uint32_t)LORA_CS, LORA_DIO1, LORA_RST, LORA_BUSY)};
 #endif
 
     static void IRAM_ATTR _onDio1();

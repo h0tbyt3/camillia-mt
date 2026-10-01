@@ -15,6 +15,7 @@ TLORA_ENV_NAME="tlora-pager-tft"
 ATTAKY_ENV_NAME="mesh-deck"
 M9_ENV_NAME="m9"
 WIO_TRACKER_L2_ENV_NAME="wio-tracker-l2"
+CROWPANEL_35_ENV_NAME="crowpanel-35"
 P4_AMOLED_SX1262_ENV_NAME="p4-amoled-sx1262"
 P4_AMOLED_LR2021_ENV_NAME="p4-amoled-lr2021"
 DEFAULT_PIO_CORE_DIR="${PLATFORMIO_CORE_DIR:-$HOME/.platformio}"
@@ -153,7 +154,7 @@ prompt_for_device() {
 }
 
 show_usage() {
-	echo "Usage: $0 [--tdeck|-t] [--tdeck-pro|-p] [--debug|-d] [--cardputer|-C] [--pager|-P] [--heltec|-H] [--heltec-r8|-R] [--mesh-deck|-M] [--m9|-9] [--wio-tracker-l2] [--p4-amoled-sx1262|--p4-amoled-lr2021] [--erase|-E] [--fullclean|-F] [--just-build|-B]"
+	echo "Usage: $0 [--tdeck|-t] [--tdeck-pro|-p] [--debug|-d] [--cardputer|-C] [--pager|-P] [--heltec|-H] [--heltec-r8|-R] [--mesh-deck|-M] [--m9|-9] [--wio-tracker-l2] [--crowpanel-35] [--p4-amoled-sx1262|--p4-amoled-lr2021] [--erase|-E] [--fullclean|-F] [--just-build|-B]"
 	echo "  --tdeck, -t  Use T-Deck environment (tdeck)"
 	echo "  --tdeck-pro, -p  Use T-Deck Pro environment ($TDECK_PRO_ENV_NAME)"
 	echo "  --debug, -d   Use debug PlatformIO environment ($DEBUG_ENV_NAME)"
@@ -164,6 +165,7 @@ show_usage() {
 	echo "  --mesh-deck, --attaky, -M  Use Attaky Mesh Deck environment ($ATTAKY_ENV_NAME)"
 	echo "  --m9, -9      Use Elecrow ThinkNode M9 environment ($M9_ENV_NAME)"
 	echo "  --wio-tracker-l2  Use Seeed Wio Tracker L2 environment ($WIO_TRACKER_L2_ENV_NAME)"
+	echo "  --crowpanel-35  Use Elecrow CrowPanel Advance 3.5\" environment ($CROWPANEL_35_ENV_NAME)"
 	echo "  --p4-amoled-sx1262  Use LilyGo T-Display P4 AMOLED SX1262 environment ($P4_AMOLED_SX1262_ENV_NAME)"
 	echo "  --p4-amoled-lr2021  Use LilyGo T-Display P4 AMOLED LR2021 environment ($P4_AMOLED_LR2021_ENV_NAME)"
 	echo "                If neither is provided, you'll be prompted to choose a device."
@@ -251,6 +253,9 @@ for arg in "$@"; do
 			;;
 		--wio-tracker-l2)
 			select_env_or_exit "$WIO_TRACKER_L2_ENV_NAME" "Environment '$WIO_TRACKER_L2_ENV_NAME' not found in platformio.ini"
+			;;
+		--crowpanel-35)
+			select_env_or_exit "$CROWPANEL_35_ENV_NAME" "Environment '$CROWPANEL_35_ENV_NAME' not found in platformio.ini"
 			;;
 		--p4-amoled-sx1262)
 			select_env_or_exit "$P4_AMOLED_SX1262_ENV_NAME" "Environment '$P4_AMOLED_SX1262_ENV_NAME' not found in platformio.ini"

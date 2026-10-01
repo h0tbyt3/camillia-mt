@@ -7,3 +7,12 @@
 - The acknowledgement marker is now a small `[A]` instead of `[ACK]` in every chat style, including DMs. In Bubbles, your acknowledged messages are tagged `ME` with `[A]` beside it instead of `ME (ACK)`.
 - Tools → Announce now asks before it sends NODEINFO and telemetry to the mesh. Choosing No sends nothing and doesn't start the cooldown.
 - T-Display P4: the Small font size is smaller, so more lines fit on the screen.
+
+
+### Update (v5.6.1)
+### New
+- Added support for the Elecrow CrowPanel Advance 3.5" with the SX1262 LoRa module, the Meshtastic bundle sold by Muzi Works. It has a touch UI in landscape or portrait (you can switch on the device), browser VNC, and optional UART GPS on the UART1 connector. Messages and settings are stored in internal flash, so the SD slot is not used. There is no battery reading. This board is experimental and has not yet been tested on hardware.
+- The CrowPanel Advance 3.5" can get firmware updates over the air and identifies itself to the mesh as a CrowPanel device.
+
+### Fixed
+- In dark themes, chat names, message bubbles and your own message color stay readable when a dark color is picked. Dark colors such as navy or brown are lightened just enough to stand out from the background, and they keep their hue.

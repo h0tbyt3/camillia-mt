@@ -23733,10 +23733,33 @@ static bool liveFilterMatches(uint8_t f, LiveTrafficClass cls) {
     }
 }
 
+// Chat colors in a dark theme must not themselves be dark: a navy or brown
+// name/message on a near-black background is unreadable. Below the luminance
+// floor the color is blended toward white just far enough to reach it, keeping
+// its hue. 150 also sits above bubbleTextColor()'s 145 cut-over, so a lifted
+// bubble gets dark body text rather than white on a mid-tone. Light themes are
+// left alone.
+static uint16_t chatColorForTheme(uint16_t c565) {
+    if (s_cfg.uiMode == UI_MODE_LIGHT) return c565;
+    constexpr uint32_t kDarkThemeLumFloor = 150;
+    uint32_t r = ((c565 >> 11) & 0x1F) << 3;
+    uint32_t g = ((c565 >>  5) & 0x3F) << 2;
+    uint32_t b = (c565 & 0x1F) << 3;
+    const uint32_t lum = (299u * r + 587u * g + 114u * b) / 1000u;
+    if (lum >= kDarkThemeLumFloor) return c565;
+    const uint32_t num = kDarkThemeLumFloor - lum;
+    const uint32_t den = 255u - lum;
+    r += ((255u - r) * num + den - 1) / den;
+    g += ((255u - g) * num + den - 1) / den;
+    b += ((255u - b) * num + den - 1) / den;
+    return rgb565((uint8_t)min<uint32_t>(r, 255), (uint8_t)min<uint32_t>(g, 255),
+                  (uint8_t)min<uint32_t>(b, 255));
+}
+
 static inline uint16_t userMessageAccentColor565() {
     // User-chosen override from the config color picker takes precedence.
     if (s_cfg.userMsgColor < kUserMsgColorCount) {
-        return kUserMsgColors[s_cfg.userMsgColor].color;
+        return chatColorForTheme(kUserMsgColors[s_cfg.userMsgColor].color);
     }
     // Default: keep classic yellow in dark mode, but use darker amber in light
     // mode for readable contrast against bright backgrounds.
@@ -52032,7 +52055,7 @@ static uint16_t nodeBubbleColor565(uint32_t nodeId) {
     // leaves the mapping exactly as it was before the salt existed.
     uint32_t h = (nodeId ^ s_cfg.chatColorSalt) * 2654435761u;
     const uint8_t *c = pal[(h >> 24) % n];
-    return rgb565(c[0], c[1], c[2]);
+    return chatColorForTheme(rgb565(c[0], c[1], c[2]));
 }
 
 // Pick black or white body text for legibility on a given bubble background,

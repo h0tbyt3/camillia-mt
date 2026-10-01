@@ -76,6 +76,9 @@
 // meaning here either way. `keys` on the serial console will separate them if it
 // ever matters.
 #define KEY_M9_CTRL 0x97
+// Steps the keyboard light through its levels (kKbBacklightLevels) -- F11 on
+// the T-Display P4's keyboard expansion. KEY_TOGGLE_KB_BACKLIGHT is on/off.
+#define KEY_KB_BACKLIGHT_STEP 0x98
 
 // The key currently held down (mapped code), or KEY_NONE when nothing is held,
 // plus how long it has been down. Pager builds report this from real press/

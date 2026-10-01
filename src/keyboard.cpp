@@ -392,7 +392,7 @@ static inline uint8_t tloraReadRotaryAB() {
 #if defined(DEVICE_TDISPLAY_P4)
 // The first eleven entries are the F-row, F1..F10 then F11 at 61 below. F1-F6
 // follow the nav bar left to right: Home, Chat, DMs, Nodes, Tools, Config.
-// Help is F11, the far key, as "?" is the far cell; F7 is the keyboard light.
+// Help is F10. F7 switches the keyboard light on and off, F11 steps its level.
 const char kTloraTapMap[TLORA_KEY_COUNT][3] = {
     {KEY_OPEN_HOME, KEY_OPEN_HOME, KEY_OPEN_HOME},                   // F1
     {KEY_OPEN_CHAT, KEY_OPEN_CHAT, KEY_OPEN_CHAT},                   // F2
@@ -401,9 +401,9 @@ const char kTloraTapMap[TLORA_KEY_COUNT][3] = {
     {KEY_OPEN_TOOLS, KEY_OPEN_TOOLS, KEY_OPEN_TOOLS},                // F5
     {KEY_OPEN_CONFIG, KEY_OPEN_CONFIG, KEY_OPEN_CONFIG},             // F6
     {KEY_TOGGLE_KB_BACKLIGHT, KEY_TOGGLE_KB_BACKLIGHT, KEY_TOGGLE_KB_BACKLIGHT},  // F7
-    {KEY_NONE, KEY_NONE, KEY_NONE},
-    {KEY_NONE, KEY_NONE, KEY_NONE},
-    {KEY_NONE, KEY_NONE, KEY_NONE},
+    {KEY_NONE, KEY_NONE, KEY_NONE},                                  // F8
+    {KEY_NONE, KEY_NONE, KEY_NONE},                                  // F9
+    {KEY_OPEN_HELP, KEY_OPEN_HELP, KEY_OPEN_HELP},                   // F10
     {KEY_ESCAPE, KEY_ESCAPE, KEY_ESCAPE},
     {KEY_ESCAPE, KEY_ESCAPE, KEY_ESCAPE},
     {'1', '!', '!'},
@@ -454,7 +454,7 @@ const char kTloraTapMap[TLORA_KEY_COUNT][3] = {
     {KEY_NONE, KEY_NONE, KEY_NONE},
     {KEY_PREV_CHAN, KEY_PREV_CHAN, KEY_PREV_CHAN},
     {KEY_SCROLL_DN, KEY_SCROLL_DN, KEY_SCROLL_DN},
-    {KEY_OPEN_HELP, KEY_OPEN_HELP, KEY_OPEN_HELP},                   // F11
+    {KEY_KB_BACKLIGHT_STEP, KEY_KB_BACKLIGHT_STEP, KEY_KB_BACKLIGHT_STEP},  // F11
     {'9', '(', '('},
     {KEY_BACKSPACE, KEY_BACKSPACE, KEY_BACKSPACE_HOLD},
     {KEY_ENTER, KEY_ENTER, KEY_ENTER},

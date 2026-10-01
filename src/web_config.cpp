@@ -4423,6 +4423,10 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
             "this is how bright \"on\" is. Notification blinks still work at any "
             "level: they pulse away from whatever you pick and settle back on "
             "it.</p>";
+#elif defined(DEVICE_TDISPLAY_P4)
+            "How brightly the keyboard expansion is lit, while it is attached and "
+            "the screen is on. F7 on the keyboard still turns it on and off, and "
+            "F11 steps through these same levels.</p>";
 #else
             "How brightly the keyboard stays lit. Off is what this board has "
             "always done - the backlight rested dark and lit only to flag an "

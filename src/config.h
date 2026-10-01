@@ -718,7 +718,13 @@
 // Not the Pager: the same plain GPIO, but no keyboard-light gesture to hang a
 // brightness off and a blink that only runs while the device is asleep. It
 // keeps kbBacklightEnabled, a bool, and says so.
-#if defined(DEVICE_M9) || defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO)
+//
+// T-Display P4: the keyboard expansion's SY7200A backlight, on LEDC like the
+// Pro's and gated the same way -- F7 decides lit or dark, the level is how
+// bright lit is. F11 steps the same levels; this row is where they are for
+// everyone else, since function keys are that keyboard's alone.
+#if defined(DEVICE_M9) || defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO) \
+    || defined(DEVICE_TDISPLAY_P4)
 #define HAS_KB_BACKLIGHT_LEVEL 1
 #else
 #define HAS_KB_BACKLIGHT_LEVEL 0

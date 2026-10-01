@@ -6749,9 +6749,13 @@ static void setPagerKeyboardBacklight(bool on) {
 #elif defined(DEVICE_TDISPLAY_P4)
     // The keyboard expansion's backlight: lit with the screen unless its own
     // key (F7) has switched it off -- the same kbBacklightEnabled the T-Deck
-    // Pro's Alt+B keeps. Set whether or not the expansion is on; the driver
-    // holds the level and applies it when it arrives.
-    keyboardSetKeypadBacklight((on && s_cfg.kbBacklightEnabled) ? 255 : 0);
+    // Pro's Alt+B keeps -- at the level F11 steps through (kbBacklightLevel,
+    // the Low/Medium/High/Off stops the other keyboards' setting uses). Set
+    // whether or not the expansion is on; the driver holds the level and
+    // applies it when it arrives.
+    keyboardSetKeypadBacklight(
+        (on && s_cfg.kbBacklightEnabled)
+            ? cfgCoerceKbBacklightLevel((int)s_cfg.kbBacklightLevel) : 0);
 #else
     LV_UNUSED(on);
 #endif
@@ -15915,6 +15919,10 @@ static const char *cfgKbBacklightLabelFor(int idx) {
 static void applyKbBacklightSetting() {
 #if defined(DEVICE_TDECK_PRO)
     setPagerKeyboardBacklight(tdeckProKeyboardBacklightEnabled());
+#elif defined(DEVICE_TDISPLAY_P4)
+    // Through the same gate as the Pro, for the same reason: F7 decides whether
+    // the keyboard is lit, and a sleeping screen has it dark regardless.
+    setPagerKeyboardBacklight(!s_screenAsleep);
 #else
     keyboardSetKeypadBacklight(s_cfg.kbBacklightLevel);
 #endif
@@ -15924,6 +15932,11 @@ static void cfgKbBacklightApply(int idx) {
     if (idx < 0 || idx >= kKbBacklightLevelCount) idx = 0;
     const uint8_t was = s_cfg.kbBacklightLevel;
     s_cfg.kbBacklightLevel = kKbBacklightLevels[idx].level;
+#if defined(DEVICE_TDISPLAY_P4)
+    // Picking a level means wanting to see it, as F11 does: one F7 had
+    // switched dark comes back on. Off is a level of its own for dark.
+    s_cfg.kbBacklightEnabled = true;
+#endif
     persistConfigToPrefs();
     applyKbBacklightSetting();
 
@@ -22868,7 +22881,7 @@ static void populateHeltecBottomNav(lv_obj_t *bar, int activeTarget) {
 #if defined(DEVICE_TDISPLAY_P4)
         // P4 landscape with the keyboard expansion on: the F-key that reaches
         // each cell (kTloraTapMap), small beside its glyph -- F1..F6 left to
-        // right along the bar, F11 for Help. Only with the keyboard there, as
+        // right along the bar, F10 for Help. Only with the keyboard there, as
         // it names keys that are otherwise nowhere; not in portrait, whose
         // narrower cells have no room beside the glyph. Checked as the bar is
         // built, which is on every screen change.
@@ -22881,7 +22894,7 @@ static void populateHeltecBottomNav(lv_obj_t *bar, int activeTarget) {
                 case HELTEC_NAV_NODES:  fkey = "F4";  break;
                 case HELTEC_NAV_TOOLS:  fkey = "F5";  break;
                 case HELTEC_NAV_CFG:    fkey = "F6";  break;
-                case HELTEC_NAV_LEGEND: fkey = "F11"; break;
+                case HELTEC_NAV_LEGEND: fkey = "F10"; break;
                 default: break;
             }
             if (fkey) {
@@ -42201,6 +42214,25 @@ static void pumpKeyboardInput() {
             setPagerKeyboardBacklight(!s_screenAsleep);
             Serial.printf("[kb-bl] T-Display P4 keyboard light %s\n",
                           s_cfg.kbBacklightEnabled ? "on" : "off");
+            continue;
+        }
+        if (k == KEY_KB_BACKLIGHT_STEP) {
+            // To the next stop after the one it is at, wrapping: Low, Medium,
+            // High, Off, Low... A level between stops (a hand-edited YAML)
+            // steps to the first. Switches the light on if F7 had it off, since
+            // stepping a light you cannot see would look like nothing happened.
+            int at = -1;
+            for (int i = 0; i < kKbBacklightLevelCount; i++) {
+                if (kKbBacklightLevels[i].level == s_cfg.kbBacklightLevel) { at = i; break; }
+            }
+            const int next = (at + 1) % kKbBacklightLevelCount;
+            s_cfg.kbBacklightLevel = kKbBacklightLevels[next].level;
+            s_cfg.kbBacklightEnabled = true;
+            markConfigDirty();
+            setPagerKeyboardBacklight(!s_screenAsleep);
+            Serial.printf("[kb-bl] T-Display P4 keyboard light level %u (%s)\n",
+                          (unsigned)s_cfg.kbBacklightLevel,
+                          kbBacklightLevelName(s_cfg.kbBacklightLevel));
             continue;
         }
 #endif

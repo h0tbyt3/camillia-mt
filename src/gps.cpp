@@ -837,15 +837,20 @@ static void gpsSendNmea(const char *body) {
 //                                            chip rejects leaves it unchanged.
 //   PMTK (MediaTek L76-class)    $PMTK353,1,1,1,0,1  GPS+GLONASS+Galileo+BeiDou
 //
-// Volatile (no save-to-flash command follows), so a power cycle restores the
-// module's own default. Re-sent whenever the NMEA stream is (re)confirmed,
-// which includes every duty-cycle wake -- harmless, and it means a module that
-// browned out mid-drive comes back multi-constellation too.
+// OFF by default. Field test on a T-Deck Plus (L76K): 2 satellites used with
+// this on, 5 with stock firmware at the same spot. Changing the constellation
+// set restarts the L76K's search, and the stream is re-confirmed after every
+// re-probe, so the earlier send-on-every-confirm kept knocking it back to a
+// cold search. Kept behind the flag for boards/antennas where it helps, and
+// sent at most once per boot when enabled.
 #ifndef MY_GPS_MULTI_GNSS
-#define MY_GPS_MULTI_GNSS 1
+#define MY_GPS_MULTI_GNSS 0
 #endif
 static void gpsEnableAllConstellations() {
 #if MY_GPS_MULTI_GNSS
+    static bool sent = false;
+    if (sent) return;
+    sent = true;
     gpsSendNmea("PCAS04,7");
     delay(20);
     gpsSendNmea("PMTK353,1,1,1,0,1");

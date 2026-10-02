@@ -30,6 +30,7 @@
 #include "i18n.h"   // TR(): UI translations (issue #99)
 #include "node_db.h"
 #include "wardrive_log.h"
+#include "splash_logo.h"   // h0tbyt3 fork boot logo (used when MY_SPLASH_LOGO)
 #include "dm_mgr.h"
 #include "ignore_list.h"
 #include "battery_util.h"
@@ -47412,7 +47413,65 @@ static void drawBootSplash() {
     const char *nodeShort = s_cfg.nodeShort[0] ? s_cfg.nodeShort : "----";
     snprintf(nodeLine, sizeof(nodeLine), "%s (%s)", nodeLong, nodeShort);
 
-#if !defined(DEVICE_TLORA_PAGER_TFT) && !defined(DEVICE_CARDPUTER_LORA_HAT)
+#if MY_SPLASH_LOGO && !defined(DEVICE_TLORA_PAGER_TFT) && !defined(DEVICE_CARDPUTER_LORA_HAT) && !defined(DEVICE_TDECK_PRO)
+    // h0tbyt3 fork: custom logo large on the left, brand/subtitle/version on the
+    // right. The logo is stored at its full size (src/splash_logo.h) and only
+    // shrunk, never enlarged, if the card is smaller than it.
+    int splashContentBottom = cardY + 40;
+    {
+        const int footerH = 44;                      // node line + boot status
+        const int areaTop = cardY + 8;
+        const int areaH = max(16, cardH - footerH - 8);
+        const int d = min(min(kSplashLogoW, areaH), cardW / 2);
+        const int lx = cardX + 10;
+        const int ly = areaTop + (areaH - d) / 2;
+        splashDev().startWrite();
+        for (int y = 0; y < d; y++) {
+            const int sy = (y * kSplashLogoH) / d;
+            for (int x = 0; x < d; x++) {
+                const int sx = (x * kSplashLogoW) / d;
+                const uint16_t c = kSplashLogo[sy * kSplashLogoW + sx];
+                if (c != kSplashLogoKey) splashDev().drawPixel(lx + x, ly + y, c);
+            }
+        }
+        splashDev().endWrite();
+
+        const int tx = lx + d + 10;
+        const int tw = max(8, cardX + cardW - 8 - tx);
+        auto drawInText = [&](const char *text, int y) {
+            const int w = splashDev().textWidth(text);
+            splashDev().drawString(text, tx + max(0, (tw - w) / 2), y);
+        };
+        // Brand: the big face if it fits the column, the medium one if not.
+        splashDev().setTextSize(1.0f);
+        splashDev().setFont(&Roboto_Bold26pt7b);
+        if (splashDev().textWidth(MY_SPLASH_BRAND) > tw) splashDev().setFont(&Roboto_Medium14pt7b);
+        const int brandH = splashDev().fontHeight();
+        splashDev().setFont(&fonts::DejaVu12);
+        const int subH = splashDev().fontHeight();
+        splashDev().setFont(&fonts::DejaVu9);
+        const int verH = splashDev().fontHeight();
+        const int blockH = brandH + 4 + subH + 2 + verH;
+        int ty = ly + (d - blockH) / 2;
+
+        splashDev().setFont(&Roboto_Bold26pt7b);
+        if (splashDev().textWidth(MY_SPLASH_BRAND) > tw) splashDev().setFont(&Roboto_Medium14pt7b);
+        splashDev().setTextColor(titleCol, cardBg);
+        drawInText(MY_SPLASH_BRAND, ty);
+        ty += brandH + 4;
+        splashDev().setFont(&fonts::DejaVu12);
+        splashDev().setTextColor(subCol, cardBg);
+        drawInText("for Meshtastic", ty);
+        ty += subH + 2;
+        char verSmall[32];
+        snprintf(verSmall, sizeof(verSmall), "(%s)", version);
+        splashDev().setFont(&fonts::DejaVu9);
+        splashDev().setTextColor(dimCol, cardBg);
+        drawInText(verSmall, ty);
+        splashDev().setTextColor(titleCol, cardBg);
+        splashContentBottom = ly + d;
+    }
+#elif !defined(DEVICE_TLORA_PAGER_TFT) && !defined(DEVICE_CARDPUTER_LORA_HAT)
     // Native-size Roboto GFX fonts (crisp at this size, no bitmap upscaling).
     int splashContentBottom = cardY + 40;
     splashDev().setTextColor(titleCol, cardBg);
@@ -47426,7 +47485,7 @@ static void drawBootSplash() {
     splashDev().setFont(&Roboto_Bold26pt7b);
     splashDev().setTextSize(MY_SPLASH_TITLE_SCALE);
     const int brandY = cardY + 12 + MY_SPLASH_TITLE_Y_OFFSET;
-    drawCentered("Camillia", brandY);
+    drawCentered(MY_SPLASH_BRAND, brandY);
     const int brandCap = max(8, (int)splashDev().fontHeight() - MY_SPLASH_SUBTITLE_GAP_TRIM);
 
     // "for Meshtastic" underneath (Roboto Medium 14pt).
@@ -47575,9 +47634,14 @@ static void drawBootSplash() {
     // Center the flower in the space between the title block and the footer text.
     const int flowerBandTop = splashContentBottom;
     const int flowerBandBottom = cardY + cardH - 40;
+#if MY_SPLASH_LOGO && !defined(DEVICE_TDECK_PRO)
+    (void)flowerBandTop; (void)flowerBandBottom; (void)flowerScale;
+    (void)drawCamelliaMark;   // the logo was drawn with the title block
+#else
     drawCamelliaMark(cardX + (cardW / 2),
                      (flowerBandTop + flowerBandBottom) / 2,
                      flowerScale);
+#endif
 
     splashDev().setFont(&fonts::DejaVu12);
     splashDev().setTextSize(1.0f);

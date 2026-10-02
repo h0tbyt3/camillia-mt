@@ -56,14 +56,15 @@ The summary line on the Discovery screen ends with `| NO GPS FIX`,
 `| GPS 7 sat` or `| GPS off`, plus `| log <nodes>/<lines>` while the log is on.
 No more finding out at upload time that the whole drive had no fix.
 
-## 4. Multi-GNSS
+## 4. Multi-GNSS (off by default)
 
-When the GPS NMEA stream is confirmed, the firmware sends `$PCAS04,7`
-(GPS + BeiDou + GLONASS on CASIC/AT6558 parts such as the T-Deck's L76K; the
-same command upstream Meshtastic uses) and `$PMTK353,1,1,1,0,1` for MediaTek
-parts. Each chip ignores the dialect it does not speak. Volatile: a power cycle
-restores the module default, and it is re-sent on every wake. Disable with
-`-DMY_GPS_MULTI_GNSS=0`.
+Behind `-DMY_GPS_MULTI_GNSS=1`: sends `$PCAS04,7` (GPS + BeiDou + GLONASS on
+CASIC/AT6558 parts such as the L76K) and `$PMTK353,1,1,1,0,1` for MediaTek
+parts, once per boot when the NMEA stream is first confirmed.
+
+Off by default because it made things worse in a field test on a T-Deck Plus:
+2 satellites in use with it on versus 5 with stock firmware at the same spot.
+Changing the constellation set restarts the L76K's search.
 
 ## Notes
 

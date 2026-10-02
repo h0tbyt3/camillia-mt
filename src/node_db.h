@@ -230,7 +230,7 @@ uint32_t nodeArchiveDropped();    // lifetime records lost (no card / write erro
 void     nodeArchiveSetEnabled(bool enabled);
 bool     nodeArchiveIsEnabled();
 bool     nodeArchiveSlotExists();   // compile-time: board has an SD slot at all
-bool     nodeArchiveAvailable();    // slot exists AND a card is mounted right now
+bool     nodeArchiveAvailable();    // slot exists AND archive file storage is mounted
 const char *nodeArchiveFilePath();  // null when the board has no SD slot
 
 // ── Node CSV schema ──────────────────────────────────────────────────────────

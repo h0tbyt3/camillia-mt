@@ -1979,31 +1979,11 @@ static const lv_font_t *kChannelChatFont = &lv_font_montserrat_12;
 static const lv_font_t *kChannelChatFont = kMainScreenFont;
 #endif
 
-// Applies the user's font-size preference (Small/Medium/Large/Extra Large) to a
-// chat/DM base font. Medium returns the base unchanged so the built-in size is
-// the default; Small/Large step one Montserrat size down/up and Extra Large two
-// up. Anchoring to the passed base keeps "Medium" equal to each screen's current
-// size on every board. Fonts below 10 px aren't compiled in, so Small clamps at
-// montserrat_10; 18 px is the largest compiled face, so Extra Large clamps there.
-//
-// The Cardputer, Pager, and T-Deck Pro opt out of this entirely and name their four sizes
-// outright — see explicitChatFont() below for why a relative ladder could not
-// give them what they needed.
+// Relative chat/DM sizes keep Medium at the caller's base and step Small down
+// one face, including 10 -> 8 px. Boards below use fixed, display-specific sizes.
 #if defined(DEVICE_CARDPUTER_LORA_HAT) || defined(DEVICE_TLORA_PAGER_TFT) \
-    || defined(DEVICE_TDECK_PRO) || defined(DEVICE_TDISPLAY_P4)
-// These boards name their four sizes outright instead of deriving them.
-//
-// The shared ladder is relative: Medium is whatever base the caller passes and
-// Small is one step below it, which ties the whole range to a single anchor. On
-// the Cardputer that anchor is montserrat_10 — the smallest face compiled in —
-// so its ladder collapsed to 10/10/12/14, with Small and Medium identical and
-// Extra Large still small on a 240x135 panel. No choice of base fixes that: the
-// bottom of the ladder is pinned to the bottom of the font set.
-//
-// Spelled out, the four sizes are distinct and cover the whole compiled range.
-// The base argument is ignored: both chat call sites on either board pass the
-// same font (kMainScreenFont and kChannelChatFont are equal on both), so there
-// is no second anchor for it to be relative to.
+    || defined(DEVICE_TDECK_PRO) || defined(DEVICE_TDISPLAY_P4) \
+    || defined(DEVICE_CROWPANEL_35)
 static const lv_font_t *explicitChatFont() {
 #if UI_LARGE_PANEL_PROFILE
     switch (s_cfg.fontSize) {
@@ -2014,17 +1994,22 @@ static const lv_font_t *explicitChatFont() {
         default:               return &lv_font_montserrat_24;
     }
 #elif defined(DEVICE_TDISPLAY_P4)
-    // One step up from the T-Deck's relative ladder it used to share
-    // (10/12/14/16): Medium is what Extra Large was, and the rest follow in the
-    // same 2 px steps. 20 is compiled in, and given an emoji face, for this
-    // board alone (lv_conf.h, emoji_font.cpp). Small is two steps down rather
-    // than one, for more lines on the panel.
+    // Small leaves more lines on the panel; 20 px has an emoji fallback here.
     switch (s_cfg.fontSize) {
         case FONT_SIZE_SMALL:  return &lv_font_montserrat_12;
         case FONT_SIZE_LARGE:  return &lv_font_montserrat_18;
         case FONT_SIZE_XLARGE: return &lv_font_montserrat_20;
         case FONT_SIZE_MEDIUM:
         default:               return &lv_font_montserrat_16;
+    }
+#elif defined(DEVICE_CROWPANEL_35)
+    // Preserve Medium while making Large/Extra Large readable on the 3.5" panel.
+    switch (s_cfg.fontSize) {
+        case FONT_SIZE_SMALL:  return &lv_font_montserrat_8;
+        case FONT_SIZE_LARGE:  return &lv_font_montserrat_18;
+        case FONT_SIZE_XLARGE: return &lv_font_montserrat_24;
+        case FONT_SIZE_MEDIUM:
+        default:               return &lv_font_montserrat_10;
     }
 #elif defined(DEVICE_TDECK_PRO)
     switch (s_cfg.fontSize) {
@@ -2048,14 +2033,16 @@ static const lv_font_t *explicitChatFont() {
 
 static const lv_font_t *scaledChatFontBase(const lv_font_t *base) {
 #if defined(DEVICE_CARDPUTER_LORA_HAT) || defined(DEVICE_TLORA_PAGER_TFT) \
-    || defined(DEVICE_TDECK_PRO) || defined(DEVICE_TDISPLAY_P4)
+    || defined(DEVICE_TDECK_PRO) || defined(DEVICE_TDISPLAY_P4) \
+    || defined(DEVICE_CROWPANEL_35)
     (void)base;
     return explicitChatFont();
 #else
     const lv_font_t *out = base;
     switch (s_cfg.fontSize) {
         case FONT_SIZE_SMALL:
-            if (base == &lv_font_montserrat_12)      out = &lv_font_montserrat_10;
+            if (base == &lv_font_montserrat_10)      out = &lv_font_montserrat_8;
+            else if (base == &lv_font_montserrat_12) out = &lv_font_montserrat_10;
             else if (base == &lv_font_montserrat_14) out = &lv_font_montserrat_12;
             break;
         case FONT_SIZE_LARGE:
@@ -12800,9 +12787,9 @@ static void configureOnScreenKeyboard(lv_obj_t *keyboard) {
             lv_obj_move_to_index(spacer, lv_obj_get_index(keyboard));
         }
     }
-#elif defined(DEVICE_WIO_TRACKER_L2)
+#elif UI_EDGE_TO_EDGE_TEXT_ENTRY
     lv_obj_set_flex_grow(keyboard, 1);
-    // Text entry owns the screen on the Wio Tracker L2. Remove keyboard chrome
+    // Text entry owns the screen (Wio Tracker L2, CrowPanel). Remove keyboard chrome
     // and keep only a one-pixel key gap so the narrow QWERTY rows spend their
     // width on tap targets rather than nested modal/theme padding.
     lv_obj_set_style_border_width(keyboard, 0, LV_PART_MAIN);
@@ -12955,7 +12942,7 @@ static void openComposePrompt(uint32_t replyPacketId,
     s_composeChannelIdx = s_activeChannel;
 
 #if UI_TOUCH_ONLY_PROFILE
-#if defined(DEVICE_WIO_TRACKER_L2)
+#if UI_EDGE_TO_EDGE_TEXT_ENTRY
     int modalW = lv_disp_get_hor_res(NULL);
 #else
     int modalW = lv_disp_get_hor_res(NULL) - 8;
@@ -12985,7 +12972,7 @@ static void openComposePrompt(uint32_t replyPacketId,
     lv_obj_set_style_border_width(s_composeModal, 1, 0);
     lv_obj_set_style_border_color(s_composeModal, lv_color_hex(0x5C86C6), 0);
     lv_obj_set_style_pad_all(s_composeModal, 4, 0);
-#if defined(DEVICE_WIO_TRACKER_L2)
+#if UI_EDGE_TO_EDGE_TEXT_ENTRY
     lv_obj_set_style_pad_left(s_composeModal, 2, 0);
     lv_obj_set_style_pad_right(s_composeModal, 2, 0);
 #endif
@@ -13925,6 +13912,16 @@ static int buildDeviceInfoLines(char info[][96], int maxLines) {
                 }
             }
         } else {
+#if defined(HAS_SD_SOFT_SPI) && HAS_SD_SOFT_SPI
+            if (n < maxLines) snprintf(info[n++], 96, TR("SD: not mounted"));
+            if (n < maxLines) {
+                if (storageMounted()) {
+                    snprintf(info[n++], 96, TR("Storage: %s %s"), storageName(), sizeBuf);
+                } else {
+                    snprintf(info[n++], 96, TR("Storage: %s (not mounted)"), storageName());
+                }
+            }
+#else
             if (n < maxLines) snprintf(info[n++], 96, TR("SD: no card"));
             if (n < maxLines) {
                 char when[16];
@@ -13946,6 +13943,7 @@ static int buildDeviceInfoLines(char info[][96], int maxLines) {
                          when, (unsigned)sd.failStreak);
 #endif
             }
+#endif
         }
     }
 #endif
@@ -14150,10 +14148,8 @@ static void refreshCfgModal() {
     const lv_font_t *cfgRowFont = &lv_font_montserrat_14;
     const int cfgPadTop = 6;
     const int cfgPadBottom = 6;
-#elif defined(DEVICE_TDISPLAY_P4)
-    // The touch rows below, grown into the room this panel has: a readable
-    // face and a taller target, ~47 px a row against the touch boards' ~34.
-    // The list scrolls, so the cost is only fewer rows on screen at once.
+#elif defined(DEVICE_TDISPLAY_P4) || defined(DEVICE_CROWPANEL_35)
+    // Roomier touch panels: readable text and taller tap targets.
     const lv_font_t *cfgRowFont = &lv_font_montserrat_16;
     const int cfgPadTop = 14;
     const int cfgPadBottom = 14;
@@ -14191,7 +14187,12 @@ static void refreshCfgModal() {
                         LV_EVENT_CLICKED,
                         (void *)(intptr_t)i);
         }
+#if defined(DEVICE_CROWPANEL_35)
+        lv_obj_set_style_min_height(row, 47, 0);
+        lv_label_set_long_mode(row, LV_LABEL_LONG_WRAP);
+#else
         lv_label_set_long_mode(row, LV_LABEL_LONG_DOT);
+#endif
         lv_label_set_text(row, cfgActionLabel(actionId, rowText, sizeof(rowText)));
 
         const bool selected = (i == s_cfgSelection) && !disabled;
@@ -18723,7 +18724,7 @@ static void openChanTextModal(int field) {
     int modalW = w - 24;
     if (modalW < 170) modalW = w - 8;
     if (modalW > 320) modalW = 320;
-#if defined(DEVICE_WIO_TRACKER_L2)
+#if UI_EDGE_TO_EDGE_TEXT_ENTRY
     modalW = w;
 #endif
 
@@ -18754,7 +18755,7 @@ static void openChanTextModal(int field) {
     lv_obj_set_style_border_width(s_chanTextModal, 1, 0);
     lv_obj_set_style_border_color(s_chanTextModal, lv_color_hex(0x5C86C6), 0);
     lv_obj_set_style_pad_all(s_chanTextModal, 8, 0);
-#if defined(DEVICE_WIO_TRACKER_L2)
+#if UI_EDGE_TO_EDGE_TEXT_ENTRY
     lv_obj_set_style_pad_left(s_chanTextModal, 2, 0);
     lv_obj_set_style_pad_right(s_chanTextModal, 2, 0);
 #endif
@@ -20081,7 +20082,7 @@ static void openCfgWifiPassModal(int scanIdx) {
     int modalW = w - 24;
     if (modalW < 170) modalW = w - 8;
     if (modalW > 320) modalW = 320;
-#if defined(DEVICE_WIO_TRACKER_L2)
+#if UI_EDGE_TO_EDGE_TEXT_ENTRY
     modalW = w;
 #endif
 
@@ -20112,7 +20113,7 @@ static void openCfgWifiPassModal(int scanIdx) {
     lv_obj_set_style_border_width(s_cfgWifiPassModal, 1, 0);
     lv_obj_set_style_border_color(s_cfgWifiPassModal, lv_color_hex(0x5C86C6), 0);
     lv_obj_set_style_pad_all(s_cfgWifiPassModal, 8, 0);
-#if defined(DEVICE_WIO_TRACKER_L2)
+#if UI_EDGE_TO_EDGE_TEXT_ENTRY
     lv_obj_set_style_pad_left(s_cfgWifiPassModal, 2, 0);
     lv_obj_set_style_pad_right(s_cfgWifiPassModal, 2, 0);
 #endif
@@ -21746,7 +21747,7 @@ static void openCfgNodeNameModal() {
     int modalW = w - 24;
     if (modalW < 170) modalW = w - 8;
     if (modalW > 320) modalW = 320;
-#if defined(DEVICE_WIO_TRACKER_L2)
+#if UI_EDGE_TO_EDGE_TEXT_ENTRY
     modalW = w;
 #endif
 
@@ -21794,7 +21795,7 @@ static void openCfgNodeNameModal() {
     lv_obj_set_style_border_width(s_cfgNodeNameModal, 1, 0);
     lv_obj_set_style_border_color(s_cfgNodeNameModal, modalBorder, 0);
     lv_obj_set_style_pad_all(s_cfgNodeNameModal, 8, 0);
-#if defined(DEVICE_WIO_TRACKER_L2)
+#if UI_EDGE_TO_EDGE_TEXT_ENTRY
     lv_obj_set_style_pad_left(s_cfgNodeNameModal, 2, 0);
     lv_obj_set_style_pad_right(s_cfgNodeNameModal, 2, 0);
 #endif
@@ -24357,7 +24358,7 @@ static void openNodesFilterDialog() {
     lv_obj_set_style_border_width(s_nodesFilterDialog, 1, 0);
     lv_obj_set_style_border_color(s_nodesFilterDialog, lv_color_hex(0x5C86C6), 0);
     lv_obj_set_style_pad_all(s_nodesFilterDialog, 4, 0);
-#if defined(DEVICE_WIO_TRACKER_L2)
+#if UI_EDGE_TO_EDGE_TEXT_ENTRY
     lv_obj_set_style_pad_left(s_nodesFilterDialog, 2, 0);
     lv_obj_set_style_pad_right(s_nodesFilterDialog, 2, 0);
 #endif
@@ -38700,11 +38701,15 @@ static void openCfgModal() {
     lv_obj_set_flex_flow(header, LV_FLEX_FLOW_ROW);
     lv_obj_set_flex_align(header, LV_FLEX_ALIGN_SPACE_BETWEEN, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
 
+#if defined(DEVICE_CROWPANEL_35)
+    lv_obj_set_style_pad_column(header, 4, 0);
+#endif
     cornerSafeHeader(header);
     lv_obj_t *title = lv_label_create(header);
 #if defined(DEVICE_TLORA_PAGER_TFT)
     lv_obj_set_style_text_font(title, &lv_font_montserrat_14, 0);
-#elif defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO) || defined(DEVICE_MESH_DECK)
+#elif defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO) || defined(DEVICE_MESH_DECK) \
+    || defined(DEVICE_CROWPANEL_35)
     lv_obj_set_style_text_font(title, &lv_font_montserrat_16, 0);
 #elif defined(DEVICE_TDISPLAY_P4)
     // Up with the rows (refreshCfgModal()), but not to 16: the bar also carries
@@ -38717,14 +38722,18 @@ static void openCfgModal() {
     lv_label_set_text(title, TR("Configuration"));
 
     s_cfgHeaderStatus = lv_label_create(header);
-#if UI_TOUCH_ONLY_PROFILE
+#if defined(DEVICE_CROWPANEL_35)
+    lv_obj_set_width(s_cfgHeaderStatus, 0);
+    lv_obj_set_flex_grow(s_cfgHeaderStatus, 1);
+#elif UI_TOUCH_ONLY_PROFILE
     lv_obj_set_width(s_cfgHeaderStatus, lv_pct(40));
 #else
     lv_obj_set_width(s_cfgHeaderStatus, lv_pct(58));
 #endif
 #if defined(DEVICE_TLORA_PAGER_TFT)
     lv_obj_set_style_text_font(s_cfgHeaderStatus, &lv_font_montserrat_12, 0);
-#elif defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO) || defined(DEVICE_MESH_DECK)
+#elif defined(DEVICE_TDECK) || defined(DEVICE_TDECK_PRO) || defined(DEVICE_MESH_DECK) \
+    || defined(DEVICE_CROWPANEL_35)
     lv_obj_set_style_text_font(s_cfgHeaderStatus, &lv_font_montserrat_14, 0);
 #elif defined(DEVICE_TDISPLAY_P4)
     lv_obj_set_style_text_font(s_cfgHeaderStatus, &lv_font_montserrat_12, 0);
@@ -38740,6 +38749,9 @@ static void openCfgModal() {
     lv_obj_t *infoBtn = lv_btn_create(header);
     lv_obj_set_height(infoBtn, 22);
     lv_obj_set_style_min_width(infoBtn, 48, 0);
+#if defined(DEVICE_CROWPANEL_35)
+    lv_obj_set_style_pad_all(infoBtn, 2, 0);
+#endif
     lv_obj_set_style_radius(infoBtn, 4, 0);
     lv_obj_set_style_shadow_width(infoBtn, 0, 0);
     lv_obj_set_style_bg_color(infoBtn, lv_color_hex(0x16386F), 0);
@@ -38749,7 +38761,11 @@ static void openCfgModal() {
     lv_obj_add_event_cb(infoBtn, onCfgHeaderInfoPressed, LV_EVENT_CLICKED, nullptr);
 
     lv_obj_t *infoLbl = lv_label_create(infoBtn);
+#if defined(DEVICE_CROWPANEL_35)
+    lv_obj_set_style_text_font(infoLbl, &lv_font_montserrat_12, 0);
+#else
     lv_obj_set_style_text_font(infoLbl, &lv_font_montserrat_10, 0);
+#endif
     lv_obj_set_style_text_color(infoLbl, lv_color_hex(0xD9E8FF), 0);
     lv_label_set_text(infoLbl, TR("Info"));
     lv_obj_center(infoLbl);
@@ -41108,7 +41124,7 @@ static void onboardingComputeModalSizeForStage(uint8_t stage, int screenW, int s
     modalH = screenH - 20;
     if (modalH < 140) modalH = screenH - 4;
 
-#if defined(DEVICE_WIO_TRACKER_L2)
+#if UI_EDGE_TO_EDGE_TEXT_ENTRY
     modalW = screenW;
 #endif
 
@@ -41179,7 +41195,7 @@ static void renderOnboardingStage() {
                              largeOnboarding ? 16
                                : (compactImportStage ? 6 : (compactOnboarding ? 8 : 10)),
                              0);
-#if defined(DEVICE_WIO_TRACKER_L2)
+#if UI_EDGE_TO_EDGE_TEXT_ENTRY
     lv_obj_set_style_pad_left(s_onboardingModal, 2, 0);
     lv_obj_set_style_pad_right(s_onboardingModal, 2, 0);
 #endif

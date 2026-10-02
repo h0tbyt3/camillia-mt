@@ -24,8 +24,9 @@ fi
 # 8) cardputer
 # 9) mesh-deck
 # 10) wio-tracker-l2
-# 11) p4-amoled-sx1262
-# 12) p4-amoled-lr2021
+# 11) crowpanel-35
+# 12) p4-amoled-sx1262
+# 13) p4-amoled-lr2021
 TARGET_LABELS=(
   "tdeck"
   "tdeck-pro"
@@ -37,6 +38,7 @@ TARGET_LABELS=(
   "cardputer"
   "mesh-deck"
   "wio-tracker-l2"
+  "crowpanel-35"
   "p4-amoled-sx1262"
   "p4-amoled-lr2021"
 )
@@ -52,6 +54,7 @@ TARGET_ENVS=(
   "cardputer-cap"
   "mesh-deck"
   "wio-tracker-l2"
+  "crowpanel-35"
   "p4-amoled-sx1262"
   "p4-amoled-lr2021"
 )

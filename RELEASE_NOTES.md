@@ -1,18 +1,15 @@
 ### New
-- New IRC chat style: one row per message, with the time in blue, then the sender's name and the message. Wrapped lines stay lined up under the message text, so a wrapped line never looks like a new message. Your own messages are labelled `ME`, and the colour of that label shows whether they were delivered. It works in channel chat and DMs on every board that has a Chat Style setting, and you can also choose it in the web config page.
-- T-Display P4: attaching the keyboard expansion in portrait now offers to switch to landscape, with a 10-second countdown before the reboot. Reboot now (or Enter) skips the wait, and Cancel (or Esc) stays in portrait. Removing the keyboard leaves the orientation unchanged.
-- T-Display P4: in landscape with the keyboard expansion, Right moves from the channel list into the chat and Left moves back. In the chat, Up and Down step through messages, and in the list they switch channels.
+- Elecrow CrowPanel Advance 3.5: first release build for this board, with a touch UI that works in landscape and in both portrait orientations.
+- Elecrow CrowPanel Advance 3.5: microSD card support. When no readable card is found at boot, the device uses internal flash instead, and it never formats the card.
+- Elecrow CrowPanel Advance 3.5: Bluetooth keyboards can now be paired, as on the Heltec and Wio Tracker L2.
+- Elecrow CrowPanel Advance 3.5: chat text sizes are 8, 10, 18 and 24 px for Small, Medium, Large and Extra Large, so Large and Extra Large are easier to read on the 3.5" screen.
+- Elecrow CrowPanel Advance 3.5: text entry screens and the on-screen keyboard now use the full screen width, giving bigger keys.
 
 ### Changed
-- The acknowledgement marker is now a small `[A]` instead of `[ACK]` in every chat style, including DMs. In Bubbles, your acknowledged messages are tagged `ME` with `[A]` beside it instead of `ME (ACK)`.
-- Tools → Announce now asks before it sends NODEINFO and telemetry to the mesh. Choosing No sends nothing and doesn't start the cooldown.
-- T-Display P4: the Small font size is smaller, so more lines fit on the screen.
-
-
-### Update (v5.6.1)
-### New
-- Added support for the Elecrow CrowPanel Advance 3.5" with the SX1262 LoRa module, the Meshtastic bundle sold by Muzi Works. It has a touch UI in landscape or portrait (you can switch on the device), browser VNC, and optional UART GPS on the UART1 connector. Messages and settings are stored in internal flash, so the SD slot is not used. There is no battery reading. This board is experimental and has not yet been tested on hardware.
-- The CrowPanel Advance 3.5" can get firmware updates over the air and identifies itself to the mesh as a CrowPanel device.
+- The Wi-Fi setup hotspot no longer opens a captive portal on phones that join it. Open the device's IP address in a browser instead.
+- Elecrow CrowPanel Advance 3.5: the Config screen has taller rows that are easier to tap, and long setting names and values now wrap instead of being cut off.
+- Elecrow CrowPanel Advance 3.5: Device Info now shows whether the SD card is mounted and which storage is in use.
 
 ### Fixed
-- In dark themes, chat names, message bubbles and your own message color stay readable when a dark color is picked. Dark colors such as navy or brown are lightened just enough to stand out from the background, and they keep their hue.
+- The Small chat font size is now smaller than Medium on boards whose default chat text is 10 px. Before, the two sizes looked the same.
+- Elecrow CrowPanel Advance 3.5: the landscape display is no longer upside down.

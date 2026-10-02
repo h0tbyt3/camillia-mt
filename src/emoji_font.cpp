@@ -21,6 +21,11 @@ struct EmojiSlot {
 // scaledChatFont / kMainScreenFont / kChannelChatFont). montserrat_16 is here
 // too because reply previews and some node rows use it.
 EmojiSlot s_slots[] = {
+#if !(defined(DEVICE_CARDPUTER_LORA_HAT) || defined(DEVICE_TLORA_PAGER_TFT) \
+      || defined(DEVICE_TDECK_PRO) || defined(DEVICE_TDISPLAY_P4))
+    // Only relative 10 px bases and the CrowPanel draw Small at 8 px.
+    { &lv_font_montserrat_8, 10, {}, nullptr, false },
+#endif
     { &lv_font_montserrat_10, 12, {}, nullptr, false },
     { &lv_font_montserrat_12, 14, {}, nullptr, false },
     { &lv_font_montserrat_14, 16, {}, nullptr, false },
@@ -29,6 +34,10 @@ EmojiSlot s_slots[] = {
 #if defined(DEVICE_TDISPLAY_P4)
     // The P4's Extra Large chat size, which no other board draws at.
     { &lv_font_montserrat_20, 22, {}, nullptr, false },
+#endif
+#if defined(DEVICE_CROWPANEL_35)
+    // The CrowPanel 3.5's Extra Large chat size.
+    { &lv_font_montserrat_24, 26, {}, nullptr, false },
 #endif
 };
 constexpr int kSlotCount = (int)(sizeof(s_slots) / sizeof(s_slots[0]));

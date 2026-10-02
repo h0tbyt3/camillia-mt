@@ -1057,7 +1057,7 @@ bool cfgImportFromBuf(const char *buf, size_t len, RhinoConfig &cfg);
 bool cfgImportRestoredKeys();
 
 // Mount the configured storage backend. SPI-SD boards initialize their bus in
-// this path; SD_MMC and internal-flash boards use storageBegin().
+// this path; SD_MMC, software-SPI and internal-flash boards use storageBegin().
 // force=true skips the failed-probe cooldown below and resets it, for actions
 // the user just triggered ("I inserted a card, now export"). Everything else
 // should leave it false so an absent card is not re-probed on every call.
@@ -1066,7 +1066,7 @@ bool sdBegin(bool force = false);
 // Clears the failed-probe cooldown so the next sdBegin() really touches the bus.
 void sdForceRescan();
 
-// Cached mount state — true if a card is currently mounted. Unlike sdBegin()
+// Cached file-storage mount state, including internal-flash fallback. Unlike sdBegin()
 // this never probes the bus, so UI/web paths can ask cheaply and repeatedly.
 bool sdCardMounted();
 
@@ -1086,7 +1086,7 @@ void sdMarkUnmounted();
 // damped retry and says nothing yet.
 struct SdProbeStatus {
     bool     hasSlot;         // this board has a card slot at all
-    bool     mounted;
+    bool     mounted;        // card mounted; excludes flash fallback on boards with a slot
     uint32_t mountedHz;       // SPI clock the card answered at; 0 if not applicable
     uint8_t  failStreak;      // consecutive failed probes, 0 once one succeeds
     uint32_t retryInMs;       // until the cooldown lets another probe run; 0 if none

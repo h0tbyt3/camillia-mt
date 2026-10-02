@@ -1,9 +1,9 @@
 # Hardware Targets
 
-Camillia has **ten distinct boards** across thirteen build envs (the two Heltec
+Camillia has **eleven distinct boards** across fourteen build envs (the two Heltec
 families each also have a portrait-seeded environment, and the P4 AMOLED has
 separate SX1262 and LR2021 environments). The comparison table
-below covers seven S3 boards. Nine boards use **ESP32-S3** with
+below covers seven S3 boards. Ten boards use **ESP32-S3** with
 `espressif32@7.0.1` / Arduino 2.0.17. The T-Display P4 is the exception: ESP32-P4
 with a pinned pioarduino / Arduino 3.3.12 toolchain. All use dual-slot OTA;
 Wio Tracker L2 and T-Display P4 use the 6 MB-slot
@@ -51,6 +51,30 @@ and its [`src/hal/hw_*.h`](../src/hal/) pin map.
 | **Battery** | BQ27220 voltage and state-of-charge over I2C; LGS4056H charger |
 | **microSD** | Four-bit SD_MMC on CLK43/CMD44/D0-D3 39-42; active-low power control through XL9535 |
 | **Status** | Implementation present; no subsystem is hardware-verified without serial logs or measurements |
+
+### Elecrow CrowPanel Advance 3.5 (WIP)
+
+`crowpanel-35` targets the ESP32-S3-WROOM-1-N16R8 bundle with an ILI9488
+480x320 landscape display, GT911 touch, and an SX1262 in the expansion slot.
+Landscape is flipped 180 degrees from the initial port; both portrait
+orientations are available at runtime.
+
+Configuration uses 16 px rows with at least 47 px tap height, a 16 px title,
+14 px status text, and a 12 px Info label. Long setting names and values wrap
+rather than being truncated, including in portrait mode. The touch navigation
+and full-width text-entry layout follow the Wio Tracker L2; chat font sizing
+is separate from the configuration screen's fixed fonts.
+
+The microSD slot uses **CLK5 / MISO4 / MOSI6 / CS7**, confirmed by Elecrow's
+V1.0 schematic and Meshtastic's board flags. SD runs over software SPI because
+the display occupies SPI3 and LoRa occupies SPI2.
+
+At mount time, a readable FAT card is preferred; otherwise file storage falls
+back to the existing LittleFS partition. A failed SD mount never formats the
+card. The backend stays fixed until reboot or an explicit unmount/remount;
+files are not copied between SD and flash. Runtime settings and identity/key
+material remain in NVS/Preferences. SD read/write and the new display/font
+behavior remain unverified on hardware.
 
 > **Notes.**
 > - **T-Deck Pro:** this initial port follows LilyGo and Meshtastic pin
@@ -153,7 +177,7 @@ Manufacturer spec pages used to verify the table above:
 - M5Stack Cardputer — <https://shop.m5stack.com/products/m5stack-cardputer-kit-w-m5stamps3>
 - Heltec WiFi LoRa 32 V4 — <https://heltec.org/project/wifi-lora-32-v4/> and <https://wiki.heltec.org/docs/devices/open-source-hardware/esp32-series/lora-32/wifi-lora-32-v4/>
 - Elecrow ThinkNode M9 — <https://www.elecrow.com/thinknode-m9-meshcore-communication-terminal-with-full-keyboard-2-4inch-lcd-esp32-s3-lr1110-gps-2300mah.html>. The pin map itself came from the M9 V1.0 schematic rather than this page.
-- Elecrow CrowPanel Advance 3.5" — <https://www.elecrow.com/crowpanel-advance-3-5-hmi-esp32-ai-display-for-meshtastic-320x240-ips-artificial-intelligent-screen.html>. Pins from Meshtastic `variants/esp32s3/elecrow_panel` (`CROW_SELECT == 1`) and its `elecrow-adv-35-tft` env.
+- Elecrow CrowPanel Advance 3.5" — <https://www.elecrow.com/crowpanel-advance-3-5-hmi-esp32-ai-display-for-meshtastic-320x240-ips-artificial-intelligent-screen.html>. Pins from Meshtastic `variants/esp32s3/elecrow_panel` (`CROW_SELECT == 1`) and its `elecrow-adv-35-tft` env; SD wiring cross-checked against [Elecrow's V1.0 schematic](https://github.com/Elecrow-RD/CrowPanel-Advance-HMI-ESP32-AI-Display/blob/master/3.5/schematic/ESP32%20Display%203.5%20inch%20V1.0.sch).
 - Seeed Wio Tracker L2 — vendor reference firmware and device-ui configuration;
 	the public pin and peripheral map is recorded in [issue #56](https://github.com/oumike/camillia-mt/issues/56).
 - LilyGo T-Display P4 — <https://lilygo.cc/products/t-display-p4>,

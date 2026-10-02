@@ -9,6 +9,11 @@ a missing-glyph box. The icon symbols are LVGL's own set, unchanged, and each fa
 LVGL's line height and baseline so no layout moves. `src/lv_conf.h` switches LVGL's
 copies off and declares these.
 
+The 8 px face keeps **Small** below **Medium** on targets whose default chat
+font is 10 px, without increasing Medium. Small and Medium must remain distinct
+on every target. The CrowPanel Advance 3.5 uses 8/10/18/24 px for
+Small/Medium/Large/Extra Large.
+
 Sources, as shipped in LVGL's `scripts/built_in_font/`:
 
 - **Montserrat Medium** — Copyright 2011 The Montserrat Project Authors

@@ -134,6 +134,7 @@
 // and the replacements are declared to lvgl.h below. A size nothing draws at
 // (20 outside the P4, say) costs nothing: the linker drops unreferenced fonts.
 #if !defined(I18N_ENABLED) || I18N_ENABLED
+#define LV_FONT_MONTSERRAT_8 0
 #define LV_FONT_MONTSERRAT_10 0
 #define LV_FONT_MONTSERRAT_12 0
 #define LV_FONT_MONTSERRAT_14 0
@@ -145,6 +146,7 @@
 #define LV_FONT_MONTSERRAT_32 0
 #define LV_FONT_MONTSERRAT_40 0
 #define LV_FONT_CUSTOM_DECLARE \
+    LV_FONT_DECLARE(lv_font_montserrat_8) \
     LV_FONT_DECLARE(lv_font_montserrat_10) \
     LV_FONT_DECLARE(lv_font_montserrat_12) \
     LV_FONT_DECLARE(lv_font_montserrat_14) \
@@ -158,6 +160,7 @@
 #else
 // English-only builds (I18N_ENABLED=0, see i18n.h) keep LVGL's own ASCII
 // copies: they are a fraction of the size, and nothing they draw needs accents.
+#define LV_FONT_MONTSERRAT_8 1
 #define LV_FONT_MONTSERRAT_10 1
 #define LV_FONT_MONTSERRAT_12 1
 #define LV_FONT_MONTSERRAT_14 1

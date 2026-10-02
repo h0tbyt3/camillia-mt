@@ -1,7 +1,8 @@
 #include "storage.h"
 #include "config.h"
 
-#if HAS_SD_CARD && !(defined(HAS_SD_MMC) && HAS_SD_MMC)
+#if HAS_SD_CARD && !(defined(HAS_SD_MMC) && HAS_SD_MMC) \
+    && !(defined(HAS_SD_SOFT_SPI) && HAS_SD_SOFT_SPI)
 #include <SPI.h>
 #endif
 #if defined(DEVICE_WIO_TRACKER_L2)
@@ -16,7 +17,10 @@ bool sMounted = false;
 }
 
 fs::FS &storageFs() {
-#if defined(HAS_SD_MMC) && HAS_SD_MMC
+#if defined(HAS_SD_SOFT_SPI) && HAS_SD_SOFT_SPI
+    if (sdSoftMounted()) return sdSoftFs();
+    return LittleFS;
+#elif defined(HAS_SD_MMC) && HAS_SD_MMC
     return SD_MMC;
 #elif HAS_SD_CARD
     return SD;
@@ -28,7 +32,9 @@ fs::FS &storageFs() {
 bool storageMounted() { return sMounted; }
 
 const char *storageName() {
-#if defined(HAS_SD_MMC) && HAS_SD_MMC
+#if defined(HAS_SD_SOFT_SPI) && HAS_SD_SOFT_SPI
+    return sdSoftMounted() ? "SD card" : "internal flash";
+#elif defined(HAS_SD_MMC) && HAS_SD_MMC
     return "SD card (SD_MMC)";
 #elif HAS_SD_CARD
     return "SD card";
@@ -44,7 +50,10 @@ const char *storageName() {
 // the driver's own answer and is safe before begin(): no card object means
 // CARD_NONE.
 uint64_t storageTotalBytes() {
-#if defined(HAS_SD_MMC) && HAS_SD_MMC
+#if defined(HAS_SD_SOFT_SPI) && HAS_SD_SOFT_SPI
+    if (sdSoftMounted()) return sdSoftCardSize();
+    return sMounted ? LittleFS.totalBytes() : 0;
+#elif defined(HAS_SD_MMC) && HAS_SD_MMC
     return (SD_MMC.cardType() == CARD_NONE) ? 0 : SD_MMC.cardSize();
 #elif HAS_SD_CARD
     return (SD.cardType() == CARD_NONE) ? 0 : SD.cardSize();
@@ -54,7 +63,9 @@ uint64_t storageTotalBytes() {
 }
 
 const char *storageCardTypeName() {
-#if HAS_SD_CARD
+#if defined(HAS_SD_SOFT_SPI) && HAS_SD_SOFT_SPI
+    return sdSoftCardTypeName();
+#elif HAS_SD_CARD
 #if defined(HAS_SD_MMC) && HAS_SD_MMC
     const uint8_t type = SD_MMC.cardType();
 #else
@@ -75,7 +86,10 @@ const char *storageCardTypeName() {
 }
 
 void storageUnmount() {
-#if defined(HAS_SD_MMC) && HAS_SD_MMC
+#if defined(HAS_SD_SOFT_SPI) && HAS_SD_SOFT_SPI
+    if (sdSoftMounted()) sdSoftEnd();
+    else LittleFS.end();
+#elif defined(HAS_SD_MMC) && HAS_SD_MMC
     SD_MMC.end();
 #if defined(DEVICE_TDISPLAY_P4)
     (void)tdisplayP4IoSetSdPower(false);
@@ -90,10 +104,40 @@ void storageUnmount() {
     sMounted = false;
 }
 
+#if defined(HAS_INTERNAL_FS)
+static bool mountInternalFs() {
+    // format-on-fail: a blank or corrupted partition is formatted once rather
+    // than leaving the device with no storage until someone reflashes. The
+    // partition is named in the board's partition table, not the default
+    // "spiffs", so the label has to be passed explicitly.
+    const bool ok = LittleFS.begin(/*formatOnFail=*/true, "/littlefs",
+                                   /*maxOpenFiles=*/5, INTERNAL_FS_PARTITION);
+    if (ok) {
+        Serial.printf("[fs] internal flash mounted: %u KB used of %u KB\n",
+                      (unsigned)(LittleFS.usedBytes() / 1024),
+                      (unsigned)(LittleFS.totalBytes() / 1024));
+    } else {
+        Serial.printf("[fs] internal flash mount FAILED (partition '%s' missing?)\n",
+                      INTERNAL_FS_PARTITION);
+    }
+    return ok;
+}
+#endif
+
 bool storageBegin() {
     if (sMounted) return true;
 
-#if defined(HAS_SD_MMC) && HAS_SD_MMC
+#if defined(HAS_SD_SOFT_SPI) && HAS_SD_SOFT_SPI
+    if (sdSoftBegin()) {
+        Serial.printf("[sd] soft SPI %s mounted: %llu MB\n",
+                      sdSoftCardTypeName(),
+                      (unsigned long long)(sdSoftCardSize() / (1024ULL * 1024ULL)));
+        sMounted = true;
+    } else {
+        Serial.println("[sd] soft SPI unavailable, using internal flash");
+        sMounted = mountInternalFs();
+    }
+#elif defined(HAS_SD_MMC) && HAS_SD_MMC
 #if defined(DEVICE_WIO_TRACKER_L2)
     if (!wioTrackerL2IoReady() || !wioTrackerL2IoSetSdPower(true)) {
         Serial.println("[sd] SD_MMC power enable failed");
@@ -156,21 +200,7 @@ bool storageBegin() {
     sMounted = SD.begin(SD_CS, SPI, 4000000);
     if (!sMounted) sMounted = SD.begin(SD_CS, SPI, 1000000);
 #elif defined(HAS_INTERNAL_FS)
-    // format-on-fail: a blank or corrupted partition is formatted once rather
-    // than leaving the device with no storage until someone reflashes. The
-    // partition is named in the board's partition table, not the default
-    // "spiffs", so the label has to be passed explicitly.
-    sMounted = LittleFS.begin(/*formatOnFail=*/true, "/littlefs",
-                              /*maxOpenFiles=*/5, INTERNAL_FS_PARTITION);
-    if (sMounted) {
-        Serial.printf("[fs] %s mounted: %u KB used of %u KB\n",
-                      storageName(),
-                      (unsigned)(LittleFS.usedBytes() / 1024),
-                      (unsigned)(LittleFS.totalBytes() / 1024));
-    } else {
-        Serial.printf("[fs] %s mount FAILED (partition '%s' missing?)\n",
-                      storageName(), INTERNAL_FS_PARTITION);
-    }
+    sMounted = mountInternalFs();
 #endif
     return sMounted;
 }

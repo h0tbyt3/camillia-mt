@@ -123,6 +123,7 @@ the `.bin` for your device:
 | Attaky Mesh Deck | `camillia-mt-mesh-deck-vX.Y.Z.bin` |
 | Elecrow ThinkNode M9 | `camillia-mt-m9-vX.Y.Z.bin` |
 | Seeed Wio Tracker L2 | `camillia-mt-wio-tracker-l2-vX.Y.Z.bin` |
+| Elecrow CrowPanel Advance 3.5 | `camillia-mt-crowpanel-35-vX.Y.Z.bin` |
 | LilyGo T-Display P4 AMOLED + SX1262 | `camillia-mt-p4-amoled-sx1262-vX.Y.Z.bin` |
 | LilyGo T-Display P4 AMOLED + LR2021 | `camillia-mt-p4-amoled-lr2021-vX.Y.Z.bin` |
 

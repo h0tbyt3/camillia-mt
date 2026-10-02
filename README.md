@@ -31,9 +31,11 @@ Meshtastic-compatible mesh radio firmware for ESP32 handheld LoRa devices.
 - [LilyGo T-Display P4](https://lilygo.cc/products/t-display-p4) — ESP32-P4, SX1262 or LR2021 LoRa, 568x1232 RM69A10 AMOLED, GT9895 touch, ESP32-C6 wireless coprocessor, optional keyboard expansion
 - [M5Stack Cardputer](https://shop.m5stack.com/products/m5stack-cardputer-kit-w-m5stamps3) + Cap LoRa/GPS module
 - [Heltec](https://heltec.org/) WiFi LoRa 32 V4 + TFT expansion kit (Heltec V4 expansion profile)
+- [Heltec](https://heltec.org/) WiFi LoRa 32 V4-R8 + Expansion Kit V2 — ESP32-S3, SX1262 LoRa, 8 MB PSRAM, 320x240 touch TFT, GPS, microSD
 - [Attaky Mesh Deck](https://shop.attaky.com/) — ESP32-S3, SX1262 LoRa, 320x240 touch display, 48-key QWERTY, D-pad, GPS
 - [Elecrow ThinkNode M9](https://www.elecrow.com/thinknode-m9-meshcore-communication-terminal-with-full-keyboard-2-4inch-lcd-esp32-s3-lr1110-gps-2300mah.html) — ESP32-S3, **LR1110** LoRa, 2.4" 320x240 display, 37-key QWERTY + d-pad, GPS, 2300 mAh
 - Seeed Wio Tracker L2 — ESP32-S3, SX1262 LoRa, 320x240 touch UI, GNSS, 16 MB flash and 8 MB PSRAM
+- Elecrow CrowPanel Advance 3.5" — ESP32-S3, SX1262 LoRa module, 480x320 IPS touch panel, optional UART GPS
 
 The T-Display P4's ESP32-C6 companion firmware is flashed through its dedicated
 3.3 V UART connector and may require a USB-to-UART adapter; see
@@ -41,15 +43,15 @@ The T-Display P4's ESP32-C6 companion firmware is flashed through its dedicated
 
 ## Supported Devices
 
-- LilyGo T-Deck (`tdeck`): keyboard + trackball + touch input, microSD config import/export, GPS, and full mesh UI support (channels, ANN, DMs, MAP, CFG, web config).
+- LilyGo T-Deck (`tdeck`): keyboard + trackball + touch input, microSD config import/export, GPS, and full mesh UI support (channels, DMs, Live, map, config, web config).
 - LilyGo T-Deck Pro (`tdeck-pro`): e-paper touch UI with a fixed black-on-white, outline-only interface, T-Deck-compatible keyboard shortcuts, microSD config import/export, GPS, and full mesh UI support. Initial port; physical display/touch/radio validation is pending.
-- LilyGo T-Lora Pager TFT (`tlora-pager-tft`): keyboard + roller wheel input, microSD config import/export, GPS, and full mesh UI support (channels, ANN, DMs, MAP, CFG, web config).
-- M5Stack Cardputer + Cap LoRa/GPS (`cardputer-cap`): keyboard-driven input/navigation, microSD config import/export, GPS, and full mesh UI support (channels, ANN, DMs, MAP, CFG, web config).
-- Heltec WiFi LoRa 32 V4 + TFT expansion kit (`heltec-v4`): touch-first UI in either orientation — landscape or portrait is a setting on the device (Config → Orientation), not a separate build. GPS and full mesh UI support (channels, ANN, DMs, MAP, CFG, web config); no microSD slot, so config, DM history and the node archive live in internal flash.
+- LilyGo T-Lora Pager TFT (`tlora-pager-tft`): keyboard + roller wheel input, microSD config import/export, GPS, and full mesh UI support (channels, DMs, Live, map, config, web config).
+- M5Stack Cardputer + Cap LoRa/GPS (`cardputer-cap`): keyboard-driven input/navigation, microSD config import/export, GPS, and full mesh UI support (channels, DMs, Live, map, config, web config).
+- Heltec WiFi LoRa 32 V4 + TFT expansion kit (`heltec-v4`): touch-first UI in either orientation — landscape or portrait is a setting on the device (Config → Orientation), not a separate build. GPS and full mesh UI support (channels, DMs, Live, map, config, web config); no microSD slot, so config, DM history and the node archive live in internal flash.
 - Heltec WiFi LoRa 32 V4-R8 + Expansion Kit V2 (`heltec-r8`): as above, plus a working microSD slot. 8 MB octal PSRAM. Untested on hardware — see docs/BUILD.md.
 - The `-vertical` envs (`heltec-v4-vertical`, `heltec-r8-vertical`) are not separate firmware and are not released. Each builds the same binary as its parent with the portrait first-boot default pre-set, for a USB flash that comes up portrait — see docs/BUILD.md.
 - Attaky Mesh Deck (`mesh-deck`): keyboard + D-pad + touch input, GPS, and full mesh UI support; no microSD — config, DM history and the node archive live in internal flash.
-- Elecrow ThinkNode M9 (`m9`): keyboard + d-pad input (no touch), microSD config import/export, GPS, and full mesh UI support (channels, ANN, DMs, MAP, CFG, web config). The only LR1110 board in the lineup.
+- Elecrow ThinkNode M9 (`m9`): keyboard + d-pad input (no touch), microSD config import/export, GPS, and full mesh UI support (channels, DMs, Live, map, config, web config). The only LR1110 board in the lineup.
 - Seeed Wio Tracker L2 (`wio-tracker-l2`): bring-up target with a touch-first 320x240 UI, optional external BLE keyboard, ES8311 sound notifications, GNSS, browser VNC Host/Remote control, and 1-bit SD_MMC storage, including firmware config import/export at `/camillia/config.yaml`. LP5814 brightness, ADS1115 battery, audio, SD, BLE, and Remote support still need hardware verification.
 - Elecrow CrowPanel Advance 3.5" + SX1262 module (`crowpanel-35`), the Meshtastic bundle sold by Muzi Works: bring-up target with a touch-first 480x320 UI (portrait selectable on the device), ILI9488 + GT911, browser VNC Host/Remote, optional UART GPS on the UART1 connector, and internal-flash storage (the SD slot is not used). No battery reading. Pin map comes from Meshtastic's `elecrow-adv-35-tft` variant; untested on hardware.
 - LilyGo T-Display P4 AMOLED (`p4-amoled-sx1262`, `p4-amoled-lr2021`): ESP32-P4 bring-up targets with a portrait large-panel UI, RM69A10 MIPI-DSI display, GT9895 touch, the selected SX1262 or LR2021 radio, L76K GNSS, BQ27220 gauge, 4-bit SD_MMC, browser VNC Host/Remote control, and the detachable TCA8418 keyboard expansion, which can be attached or removed while running and adds F-key navigation and an adjustable backlight (see [docs/USE.md](docs/USE.md#lilygo-t-display-p4-keyboard-expansion-p4-amoled-)). WiFi uses ESP-Hosted over the onboard ESP32-C6; the C6 image is released separately because P4 OTA cannot update it. All hardware behavior remains unverified until supported by serial logs or measurements.
@@ -60,8 +62,15 @@ Notes:
 
 ## Features
 
-- **8 configurable LoRa channels** — each independently named, keyed, and color-coded
-- **ANN tab** — read-only announcement feed (join/leave events, channel activity)
+- **10 configurable LoRa channels** (8 on the Cardputer) — each independently named, keyed, color-coded, and optionally given its own hop limit. Stock 8-channel Meshtastic nodes interoperate unchanged
+- **Direct messages** — one-to-one conversations in their own tab, with delivery acks
+- **Live feed** — real-time decoded RX/TX traffic with a per-type filter
+- **Tools** — neighbor discovery, beacons, current weather, and an MQTT monitor
+- **Maps and line of sight** — OpenStreetMap view of a node's last position with offline tiles ([docs/MAPS.md](docs/MAPS.md)), and terrain line-of-sight checks ([docs/LOS.md](docs/LOS.md))
+- **Remote administration** — read and change another node's config from a terminal ([docs/ADMIN_TERMINAL.md](docs/ADMIN_TERMINAL.md))
+- **Browser VNC** — mirror and drive the device UI from a browser (all boards except the Cardputer)
+- **Signed packets and Store and Forward client** — Meshtastic 2.8 packet signatures, and catch-up replay from an S&F router
+- **13 UI themes and 22 languages** (the Cardputer is English-only)
 - **Web configuration** — browser-based settings UI, on by default, served over the device's own Wi-Fi AP or your network
 - **YAML config** — import/export all settings and channel keys via microSD at `/camillia/config.yaml`
 

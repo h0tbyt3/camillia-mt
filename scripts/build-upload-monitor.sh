@@ -53,6 +53,7 @@ env_label() {
 		"$ATTAKY_ENV_NAME")        echo "Attaky Mesh Deck" ;;
 		"$M9_ENV_NAME")            echo "Elecrow ThinkNode M9" ;;
 		"$WIO_TRACKER_L2_ENV_NAME") echo "Seeed Wio Tracker L2" ;;
+		"$CROWPANEL_35_ENV_NAME") echo "Elecrow CrowPanel Advance 3.5" ;;
 		"$P4_AMOLED_SX1262_ENV_NAME") echo "LilyGo T-Display P4 AMOLED (SX1262)" ;;
 		"$P4_AMOLED_LR2021_ENV_NAME") echo "LilyGo T-Display P4 AMOLED (LR2021)" ;;
 		*)                         echo "$1" ;;
@@ -116,6 +117,10 @@ prompt_for_device() {
 	if has_env "$WIO_TRACKER_L2_ENV_NAME"; then
 		options+=("$WIO_TRACKER_L2_ENV_NAME")
 		labels+=("Seeed Wio Tracker L2")
+	fi
+	if has_env "$CROWPANEL_35_ENV_NAME"; then
+		options+=("$CROWPANEL_35_ENV_NAME")
+		labels+=("Elecrow CrowPanel Advance 3.5")
 	fi
 	if has_env "$P4_AMOLED_SX1262_ENV_NAME"; then
 		options+=("$P4_AMOLED_SX1262_ENV_NAME")

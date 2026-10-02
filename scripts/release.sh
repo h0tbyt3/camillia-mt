@@ -22,6 +22,7 @@ RELEASE_ENVS=(
     mesh-deck
     m9
     wio-tracker-l2
+    crowpanel-35
     p4-amoled-sx1262
     p4-amoled-lr2021
 )
@@ -676,7 +677,7 @@ generate_ai_summary() {
     prompt="You are writing release notes for Camillia-MT, Meshtastic-compatible
     firmware for ESP32 handheld LoRa devices (T-Deck, T-Deck Pro, T-Lora Pager TFT, M5Stack
 Cardputer, Heltec V4, Attaky Mesh Deck, Elecrow ThinkNode M9, Seeed Wio Tracker L2,
-and LilyGo T-Display P4).
+Elecrow CrowPanel Advance 3.5, and LilyGo T-Display P4).
 
 Summarize what changed in release ${TAG} for the people who flash and use it.
 

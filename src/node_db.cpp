@@ -542,7 +542,7 @@ uint32_t nodeArchiveDropped() { return s_archDropped; }
 bool     nodeArchiveSlotExists() { return true; }
 const char *nodeArchiveFilePath() { return kArchivePath; }
 
-// Card presence without forcing a mount probe: sdCardMounted() reports the
+// Archive storage availability without a mount probe: sdCardMounted() reports the
 // cached state, so rendering the web page stays cheap.
 bool nodeArchiveAvailable() { return sdCardMounted(); }
 

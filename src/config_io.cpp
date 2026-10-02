@@ -1203,7 +1203,7 @@ static bool sdBeginProbe() {
         sdReady = true;
         return true;
     }
-#if defined(HAS_SD_MMC) && HAS_SD_MMC
+#if (defined(HAS_SD_MMC) && HAS_SD_MMC) || (defined(HAS_SD_SOFT_SPI) && HAS_SD_SOFT_SPI)
     sdReady = storageBegin();
     return sdReady;
 #elif (SD_CS < 0)
@@ -1458,7 +1458,7 @@ bool sdBegin(bool force) {
 
 void sdGetProbeStatus(SdProbeStatus &out) {
     out = SdProbeStatus{};
-#if defined(HAS_SD_MMC) && HAS_SD_MMC
+#if (defined(HAS_SD_MMC) && HAS_SD_MMC) || (defined(HAS_SD_SOFT_SPI) && HAS_SD_SOFT_SPI)
     out.hasSlot = true;
 #elif HAS_SD_CARD && (SD_CS >= 0)
     out.hasSlot = true;
@@ -1467,7 +1467,11 @@ void sdGetProbeStatus(SdProbeStatus &out) {
     // both mean the same thing to a screen: do not offer a card diagnosis.
     out.hasSlot = false;
 #endif
+#if defined(HAS_SD_SOFT_SPI) && HAS_SD_SOFT_SPI
+    out.mounted        = sdSoftMounted();
+#else
     out.mounted        = sdCardMounted();
+#endif
     out.mountedHz      = sdMountedHz;
     out.failStreak     = sdFailStreak;
     out.triedAllSpeeds = sdLastProbeWalkedLadder;

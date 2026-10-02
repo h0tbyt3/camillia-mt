@@ -1,7 +1,8 @@
 #pragma once
 // File storage backend.
 //
-// Boards use SPI SD, one-bit SD_MMC, or LittleFS depending on their wiring.
+// Boards use SPI SD, one-bit SD_MMC, LittleFS, or bit-banged SD with LittleFS
+// as fallback, depending on their wiring.
 // Keep callers on fs::FS so backend-specific details stay in storageBegin().
 //
 // SDFS, SDMMCFS and LittleFSFS derive from fs::FS and expose identical open() /
@@ -14,7 +15,10 @@
 // board header this pulls in.
 #include "config.h"
 
-#if defined(HAS_SD_MMC) && HAS_SD_MMC
+#if defined(HAS_SD_SOFT_SPI) && HAS_SD_SOFT_SPI
+#  include <LittleFS.h>
+#  include "sd_soft_spi.h"
+#elif defined(HAS_SD_MMC) && HAS_SD_MMC
 #  include <SD_MMC.h>
 #elif HAS_SD_CARD
 #  include <SD.h>

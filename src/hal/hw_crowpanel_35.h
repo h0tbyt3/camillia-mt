@@ -9,12 +9,13 @@
 //   • SX1262 LoRa module in the J8/J9 expansion slot
 //   • No keyboard, trackball or free user button (GPIO0 is LoRa NSS)
 //
-// Every pin below comes from Meshtastic's own support for this board, not
-// from guesswork:
+// Pins follow Meshtastic's support and Elecrow's V1.0 schematic:
 //   meshtastic/firmware variants/esp32s3/elecrow_panel/variant.h (CROW_SELECT 1)
 //   meshtastic/firmware variants/esp32s3/elecrow_panel/platformio.ini
 //     [env:elecrow-adv-35-tft]  (LGFX_* display and touch flags)
 //   meshtastic/firmware boards/crowpanel.json
+//   Elecrow-RD/CrowPanel-Advance-HMI-ESP32-AI-Display
+//     3.5/schematic/ESP32 Display 3.5 inch V1.0.sch
 //
 // Expansion slot, viewed from above (2.4/2.8/3.5"):
 //   DIO1/IO1 o   o IO2/NRESET
@@ -75,12 +76,21 @@
 #define LORA_POWER_ENABLE_PIN     45
 #define LORA_POWER_ENABLE_LEVEL  LOW
 
-// ── Storage — internal LittleFS instead of the SD slot ──────────────────────
-// The card slot is on a soft-SPI bus Meshtastic does not document clearly
-// enough to trust here, so files go to the littlefs partition in
-// partitions_16mb_fs.csv, the same way the Heltec V4 handles it.
-#define SD_CS                     -1
-#define HAS_SD_CARD                0
+// ── Storage — microSD over software SPI, internal LittleFS as fallback ───────
+// Elecrow's V1.0 schematic connects J5 to GPIO5 (SCLK), GPIO4 (DO),
+// GPIO6 (DI), and GPIO7 (CS). These match Meshtastic's software-SPI flags.
+//
+// Bit-banged because both general SPI hosts are taken: the display has SPI3
+// and the radio has SPI2. storageBegin() mounts the card when one answers and
+// otherwise falls back to the littlefs partition in partitions_16mb_fs.csv.
+// The choice is made at mount time; a card inserted later is picked up on the
+// next boot.
+#define SD_CS                      7
+#define HAS_SD_CARD                1
+#define HAS_SD_SOFT_SPI            1
+#define SD_SOFT_SCK                5
+#define SD_SOFT_MISO               4
+#define SD_SOFT_MOSI               6
 #define HAS_INTERNAL_FS            1
 #define INTERNAL_FS_PARTITION  "littlefs"
 

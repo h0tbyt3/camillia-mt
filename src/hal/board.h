@@ -153,10 +153,11 @@ DEVICE_TDISPLAY_P4, DEVICE_CROWPANEL_35"
 #  define TFT_ROTATION_PORTRAIT   0
 #elif defined(DEVICE_CROWPANEL_35)
 // ILI9488 is native 320x480 portrait (Meshtastic runs it at rotation 0).
-// 1 gives 480x320 landscape; LovyanGFX rotates GT911 touch with it. If
-// landscape comes up upside down on hardware, this is the line to make 3.
+// 3 gives 480x320 landscape the right way up -- 1 was upside down on the
+// hardware. LovyanGFX rotates GT911 touch with it. Portrait and Portrait 180
+// come from TFT_ROTATION_PORTRAIT below.
 #  define HAS_RUNTIME_ORIENTATION 1
-#  define TFT_ROTATION_LANDSCAPE  1
+#  define TFT_ROTATION_LANDSCAPE  3
 #  define TFT_ROTATION_PORTRAIT   0
 #else
 #  define HAS_RUNTIME_ORIENTATION 0
@@ -203,6 +204,17 @@ DEVICE_TDISPLAY_P4, DEVICE_CROWPANEL_35"
 #  define UI_TOUCH_ONLY_PROFILE 1
 #else
 #  define UI_TOUCH_ONLY_PROFILE 0
+#endif
+
+// ── Edge-to-edge text entry ─────────────────────────────────────────────────
+// Text-entry modals (composer, channel/WiFi/node-name editors, nodes filter,
+// onboarding) span the full screen width with 2 px side padding, and the
+// on-screen keyboard drops its chrome, so the QWERTY rows spend their width on
+// tap targets. Introduced for the Wio Tracker L2; the CrowPanel 3.5 follows it.
+#if defined(DEVICE_WIO_TRACKER_L2) || defined(DEVICE_CROWPANEL_35)
+#  define UI_EDGE_TO_EDGE_TEXT_ENTRY 1
+#else
+#  define UI_EDGE_TO_EDGE_TEXT_ENTRY 0
 #endif
 
 // ── UI pixel scale ──────────────────────────────────────────────────────────
@@ -362,7 +374,8 @@ DEVICE_TDISPLAY_P4, DEVICE_CROWPANEL_35"
 // board-specific — this macro plus a build_src_filter entry is the entire gate
 // — but the NimBLE stack costs 30-40 KB of internal DRAM while it is running,
 // so BLE remains an explicit per-board opt-in.
-#if defined(DEVICE_HELTEC_V4_EXPANSION) || defined(DEVICE_WIO_TRACKER_L2)
+#if defined(DEVICE_HELTEC_V4_EXPANSION) || defined(DEVICE_WIO_TRACKER_L2) \
+    || defined(DEVICE_CROWPANEL_35)
 #  define HAS_BLE_KEYBOARD 1
 #else
 #  define HAS_BLE_KEYBOARD 0

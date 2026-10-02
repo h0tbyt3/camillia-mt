@@ -15,7 +15,6 @@
 #include "dm_mgr.h"
 #include <WiFi.h>
 #include <WebServer.h>
-#include <DNSServer.h>
 #include <HTTPClient.h>
 #include <Preferences.h>
 #include <nvs_flash.h>
@@ -58,13 +57,9 @@ static const char    *kDefaultWebPass  = "admin";
 #endif
 
 static WebServer      server(80);
-// Captive-portal DNS for AP mode: answers every lookup with the SoftAP IP so a
-// connecting phone resolves its portal-detection host to us and opens the page
-// immediately, instead of firing partial/abandoned probe requests at an open AP
-// that never resolves — those stall the synchronous WebServer's header read and
-// freeze the main loop. Only active while an AP is up.
-static DNSServer      gDns;
-static bool           gCaptiveActive   = false;
+// No captive portal: the AP runs no DNS server and never redirects the OS's
+// portal-detection probes, so phones don't pop a captive sheet on join. Browse
+// to the AP IP directly.
 static bool           running          = false;
 static bool           gOnboarding      = false;
 // ── Idle timeout ─────────────────────────────────────────────────────────────
@@ -87,9 +82,7 @@ static bool           gIdleExpired     = false;
 // True while the server is serving the SoftAP variant ("web config lite"): the
 // Config tab only, no Utilities/Live/Chat/Nodes. AP mode has far less internal
 // heap to work with than STA, and the heavy tabs are what tip it over. This is
-// tracked separately from gCaptiveActive because captive DNS can fail to start
-// while the AP itself is up — the page weight must follow the radio mode, not
-// the DNS server.
+// the page weight follows the radio mode.
 static bool           gApMode          = false;
 // Set from the on-device WiFi picker's "AP" entry: start the SoftAP even when
 // credentials are saved, instead of joining the network.
@@ -7298,9 +7291,7 @@ static void handlePostOnboard() {
 
 static void handleGetRoot() {
     // Both radio modes serve a config page from "/": the full one in STA, web
-    // config lite in AP. The phone's captive-portal probes are answered
-    // separately by onNotFound with a redirect to the minimal /setup form, so
-    // they never pay for building this page.
+    // config lite in AP.
     Serial.printf("[web] GET / (%s)\n", gApMode ? "lite" : "full");
     handleGetConfig();
 }
@@ -9296,25 +9287,9 @@ static void registerNotFound() {
     // Log any unmatched request so we can see exactly what a failing tab hits
     // (the default handler only prints a generic "request handler not found").
     server.onNotFound([]() {
-        // Counts as activity: captive-portal probes and a browser retrying a
-        // stale URL both mean someone is still using this.
+        // Counts as activity: a browser retrying a stale URL still means
+        // someone is using this.
         noteWebRequest();
-        // In AP/captive mode, steer the OS's portal-detection probes (which hit
-        // unknown paths like /generate_204, /hotspot-detect.html) to the minimal
-        // setup form so the phone surfaces the portal instead of retrying.
-        // Answering fast here is also what keeps those probes from stalling the
-        // header read — they never pay to build the lite page.
-        if (gCaptiveActive) {
-            char loc[64];
-            snprintf(loc,
-                     sizeof(loc),
-                     "http://%s/%s",
-                     ipBuf,
-                     "setup");
-            server.sendHeader("Location", loc);
-            server.send(302, "text/plain", "");
-            return;
-        }
         // Safari asks for these on every page load — four requests per load,
         // each one a full connect/parse/answer cycle this server pays for out
         // of the main loop, and four ESP error lines in a log someone is
@@ -9560,15 +9535,6 @@ bool webCfgBegin(RhinoConfig *cfg, WebCfgSaveCb onSave,
         IPAddress apIP = WiFi.softAPIP();
         apIP.toString().toCharArray(ipBuf, sizeof(ipBuf));
 
-        // Captive-portal DNS: resolve every host to us so the connecting device
-        // pops the portal straight to the config/onboarding page.
-        gDns.setErrorReplyCode(DNSReplyCode::NoError);
-        if (gDns.start(53, "*", apIP)) {
-            gCaptiveActive = true;
-        } else {
-            Serial.println("[web] captive DNS start failed (continuing without it)");
-        }
-
         // Both AP paths serve web config lite; the full page is STA-only.
         registerLiteRoutes();
         // No delay(1) inside handleClient() when no client is waiting.
@@ -9697,10 +9663,6 @@ void webCfgEnd() {
     gRebootAtMs = 0;
     clearReleaseCheckResult();
     gReleaseCheckState = RELEASE_CHECK_IDLE;
-    if (gCaptiveActive) {
-        gDns.stop();
-        gCaptiveActive = false;
-    }
     server.stop();
 
     // Keep the station association when the device wants WiFi anyway. Web
@@ -9816,7 +9778,6 @@ void webCfgLoop() {
         }
     }
 
-    if (gCaptiveActive) gDns.processNextRequest();
     server.handleClient();
 
 #if HAS_VNC_HOST

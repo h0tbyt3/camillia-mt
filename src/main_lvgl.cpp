@@ -3245,6 +3245,9 @@ enum CfgActionId {
 #if HAS_VNC_HOST
     CFG_ACTION_VNC_HOST,
 #endif
+#if HAS_WEB_FILES
+    CFG_ACTION_WEB_FILES,      // the web config Files tab
+#endif
     CFG_ACTION_WIFI_TOGGLE,
     CFG_ACTION_CHOOSE_WIFI,
 #if HAS_BLE_KEYBOARD
@@ -5098,6 +5101,12 @@ static const char *cfgActionLabel(int actionId, char *buf, size_t bufLen) {
                          ip.c_str(), (unsigned)vncHostPort());
             }
         } break;
+#endif
+#if HAS_WEB_FILES
+        case CFG_ACTION_WEB_FILES:
+            snprintf(buf, bufLen, TR("Web Files: %s"),
+                     cfgWebFilesEnabled(s_cfg) ? TR("On") : TR("Off"));
+            break;
 #endif
         case CFG_ACTION_GPS_TOGGLE:
             if (s_cfg.gpsEnabled) {
@@ -13586,6 +13595,10 @@ static void initCfgActions() {
 #endif
 #if HAS_VNC_HOST
     s_cfgActions[s_cfgActionCount++] = CFG_ACTION_VNC_HOST;
+#endif
+#if HAS_WEB_FILES
+    // Under the web config rows it belongs to: it switches a tab of that page.
+    s_cfgActions[s_cfgActionCount++] = CFG_ACTION_WEB_FILES;
 #endif
     s_cfgActions[s_cfgActionCount++] = CFG_ACTION_MQTT_TOGGLE;
 
@@ -39403,6 +39416,19 @@ static void performCfgAction(int actionId) {
                 openCfgActionMessageModal(s_cfgStatus);
             }
         } break;
+#endif
+
+#if HAS_WEB_FILES
+        case CFG_ACTION_WEB_FILES:
+            // No reboot and no server restart: the page reads the setting each
+            // time it is built, and every /fs-* request checks it again, so off
+            // locks the files at once even for a page already open.
+            showActionPopup = false;   // row already reads On/Off
+            s_cfg.webFilesEnabled = cfgWebFilesEnabled(s_cfg) ? 0 : kWebFilesOn;
+            persistConfigToPrefs();
+            snprintf(s_cfgStatus, sizeof(s_cfgStatus), TR("Web Files: %s"),
+                     cfgWebFilesEnabled(s_cfg) ? TR("On") : TR("Off"));
+            break;
 #endif
 
 #if HAS_BLE_KEYBOARD

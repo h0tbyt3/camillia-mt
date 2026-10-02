@@ -1,6 +1,18 @@
 #pragma once
 // Embedded web configuration server lifecycle and state/query APIs.
 #include "config_io.h"
+#include "storage.h"
+
+// The Files tab: browse, upload, download, copy and delete on device storage.
+// Every board has storage today; the guard is for one that someday does not.
+// A tab on the full page; a section of the lite page on the Cardputer, which
+// never serves anything else. Never in AP mode on any board.
+// Whether it is switched on is cfgWebFilesEnabled(), set on the device.
+#if HAS_FILE_STORAGE
+#  define HAS_WEB_FILES 1
+#else
+#  define HAS_WEB_FILES 0
+#endif
 
 // Called by the web server after it writes new values into *cfg.
 typedef void (*WebCfgSaveCb)();

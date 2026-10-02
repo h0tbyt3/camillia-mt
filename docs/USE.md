@@ -2401,6 +2401,40 @@ physical controls. The viewer sizes itself to whichever panel it connects to.
   Use it only on a trusted local network. One browser controls the device at a
   time.
 
+### Web Files
+
+A **Files** tab in the full Web Config for the device's storage. It works on
+the SD card, or on internal flash on boards without a slot (Heltec V4, Mesh
+Deck, CrowPanel 3.5). From it you can:
+
+- browse folders, with the storage type and its size shown at the top
+- download a file
+- upload one or more files into the current folder, with a progress bar
+- copy a file to another path on the device
+- create a folder, and delete a file or a folder together with everything in it
+
+**It is off by default.** Turn it on with **Web Files** on the Config screen,
+just below the Web Config and VNC Host rows. The tab can read everything on the
+device, including the saved config, channel keys and the WiFi password, so
+switching it on is something you do on the device itself. The setting is not
+part of the YAML export, so restoring a backup never turns it on.
+
+- No reboot needed. The tab appears the next time the page loads. Turning the
+  setting off locks the files at once, even on a page that is already open.
+- Available on every board, but only while the device is on your WiFi
+  network, never in access-point mode. On the Cardputer, which always serves
+  Web Config Lite, it is a Files section at the bottom of that page rather than
+  a tab.
+- Uploads and copies are written to a temporary `.part` file and renamed into
+  place once complete. A dropped connection or full storage leaves the old file
+  as it was.
+- Replacing an existing file always asks first.
+- A large transfer holds the device's UI and radio until it finishes, the same
+  as any other Web Config request.
+- Nothing stops you deleting or replacing files the firmware itself uses under
+  `/camillia`, such as message history, the node archive or map tiles. Reboot
+  after changing those, so the firmware picks the new state up from scratch.
+
 ### How many channels
 
 Ten configurable channels on every board except the **Cardputer**, which has
@@ -2590,8 +2624,9 @@ The network you are actually connected to becomes the configured one — so a
 reboot comes back to where you left off, not to whatever was configured first.
 A network that fails to connect never displaces one that worked.
 
-Web Config manages the same list on its own **WiFi** tab, between Config and
-Utilities.
+Web Config manages the same list under **Saved Networks**, in the **WiFi**
+section of the Config tab, just below the SSID and Password of the active
+network.
 Each remembered network gets **Use** (switch to it, keeping the current one in
 the list) and **Forget**, and there is a form to add one by name and password
 without switching to it. Switching re-associates the radio, so a browser reading

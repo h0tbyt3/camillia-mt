@@ -664,16 +664,33 @@ struct RhinoConfig {
     // a zero. It could not have gone into _reservedPad15 itself for exactly
     // that reason.
     bool     spellCheckEnabled;
-    // For whoever appends next: spellCheckEnabled is one byte at the end of a
-    // 4-aligned struct, so the stored blob carries three bytes past it that the
-    // load memcpy's straight over anything placed there. Same trap as every pad
-    // above.
-    uint8_t  _reservedPad16[3];
+
+    // ── Web config Files tab ─────────────────────────────────────────────────
+    // Browse, upload, download, copy and delete on device storage from the full
+    // web config. Off by default: the tab can read the saved config, channel
+    // keys and WiFi password, so turning it on is a deliberate act on the
+    // device (Config -> Web Files).
+    //
+    // Takes the first of what was _reservedPad16[3]. Older blobs carry whatever
+    // sat in that pad byte, so only kWebFilesOn means on -- the same guard
+    // p4Antenna uses -- and any other value, a stray zero included, reads off.
+    // Deliberately not in the YAML export, for the same reason it is off by
+    // default: restoring a backup must not open the device's files.
+    uint8_t  webFilesEnabled;
+    // For whoever appends next: two pad bytes remain, carrying whatever older
+    // builds wrote into them. Past them is the old sizeof(RhinoConfig).
+    uint8_t  _reservedPad16[2];
 };
 
 static constexpr uint8_t kP4AntennaExternal = 0x5A;
 inline bool cfgP4AntennaExternal(const RhinoConfig &c) {
     return c.p4Antenna == kP4AntennaExternal;
+}
+
+// Not 1: a pad byte left at 1 by some older write must not open the Files tab.
+static constexpr uint8_t kWebFilesOn = 0xA5;
+inline bool cfgWebFilesEnabled(const RhinoConfig &c) {
+    return c.webFilesEnabled == kWebFilesOn;
 }
 
 // ── Keypad auto-light levels ──────────────────────────────────────────

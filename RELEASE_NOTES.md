@@ -1,15 +1,8 @@
 ### New
-- Elecrow CrowPanel Advance 3.5: first release build for this board, with a touch UI that works in landscape and in both portrait orientations.
-- Elecrow CrowPanel Advance 3.5: microSD card support. When no readable card is found at boot, the device uses internal flash instead, and it never formats the card.
-- Elecrow CrowPanel Advance 3.5: Bluetooth keyboards can now be paired, as on the Heltec and Wio Tracker L2.
-- Elecrow CrowPanel Advance 3.5: chat text sizes are 8, 10, 18 and 24 px for Small, Medium, Large and Extra Large, so Large and Extra Large are easier to read on the 3.5" screen.
-- Elecrow CrowPanel Advance 3.5: text entry screens and the on-screen keyboard now use the full screen width, giving bigger keys.
+- Web Config has a new **Files** tab for the device's storage. You can browse folders, download files, upload one or more files with a progress bar, copy files, create folders, and delete files or whole folders. It uses the SD card, or internal flash on boards without a card slot (Heltec V4, Mesh Deck, CrowPanel 3.5).
+- A **Web Files** setting on the device's Config screen turns the Files tab on or off. It is off by default and is not part of the YAML backup, so restoring a backup never turns it on. Changing it needs no reboot, and turning it off locks the files right away, even on a page that is already open.
+- The Files tab only works while the device is on your WiFi network, never in access-point mode. On the Cardputer it appears as a Files section at the bottom of Web Config Lite.
+- Uploads and copies are saved in full before they replace anything. If the connection drops or storage fills up, the old file stays as it was. Replacing an existing file always asks first.
 
 ### Changed
-- The Wi-Fi setup hotspot no longer opens a captive portal on phones that join it. Open the device's IP address in a browser instead.
-- Elecrow CrowPanel Advance 3.5: the Config screen has taller rows that are easier to tap, and long setting names and values now wrap instead of being cut off.
-- Elecrow CrowPanel Advance 3.5: Device Info now shows whether the SD card is mounted and which storage is in use.
-
-### Fixed
-- The Small chat font size is now smaller than Medium on boards whose default chat text is 10 px. Before, the two sizes looked the same.
-- Elecrow CrowPanel Advance 3.5: the landscape display is no longer upside down.
+- In Web Config, the **WiFi** tab is gone. Saved WiFi networks are now under **Saved Networks** in the WiFi section of the Config tab, just below the SSID and password of the network in use.

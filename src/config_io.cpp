@@ -1124,6 +1124,7 @@ void cfgInitDefaults(RhinoConfig &cfg) {
     cfg.uiLanguage         = LANG_EN;
     cfg.p4Antenna          = 0;   // on-board antenna
     cfg.spellCheckEnabled  = true;
+    cfg.webFilesEnabled    = 0;     // off -- see cfgWebFilesEnabled()
     cfg.timeSource         = TIME_SOURCE_AUTO;
     cfg.mqttEnabled        = MY_MQTT_ENABLED;
     strncpy(cfg.mqttServer,  MY_MQTT_SERVER, sizeof(cfg.mqttServer) - 1);

@@ -1118,6 +1118,208 @@ static const char kLoraReadout[] =
         "background:var(--panel-2);color:var(--text);border-radius:4px;min-width:5em;text-align:center'>—</span></label>"
         "</div>";
 
+#if HAS_WEB_FILES
+// The Files tab: markup, styles and script in one constant, sent only when the
+// tab is switched on, so a device with it off pays nothing for it. The caller
+// wraps it -- a tab panel on the full page, a plain block on the Cardputer's
+// lite page, whose head defines none of the colour variables (hence the
+// fallbacks). Rows are
+// built with DOM calls rather than HTML strings, so a file name is only ever
+// text -- never markup, never a quote that breaks an onclick.
+static const char kFilesPane[] =
+        "<div class='tab-pane-center'>"
+        "<style>"
+            "#tab-files .fs-bar{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.8em 0}"
+            "#tab-files .fs-bar button,#tab-files .fs-act button{margin:0;padding:.35em .9em;font-size:.88em}"
+            "#tab-files .fs-act button{padding:.25em .6em;margin-left:.3em;background:var(--panel-2,transparent);"
+                "color:var(--text,inherit);border:1px solid var(--line,#999)}"
+            "#tab-files .fs-act button.fs-del{color:#ff8d8d}"
+            "#tab-files .fs-crumbs{font-family:monospace;word-break:break-all}"
+            "#tab-files .fs-crumbs a{cursor:pointer;color:var(--accent,#2a7ae2)}"
+            "#tab-files table{width:100%;border-collapse:collapse;font-size:.92em}"
+            "#tab-files td{padding:.35em .4em;border-bottom:1px solid var(--line,#999);vertical-align:middle}"
+            "#tab-files td.fs-size{text-align:right;white-space:nowrap;color:var(--text-dim,#888)}"
+            "#tab-files td.fs-act{text-align:right;white-space:nowrap}"
+            "#tab-files .fs-name{word-break:break-all}"
+            "#tab-files .fs-name a{cursor:pointer;color:var(--accent,#2a7ae2);font-weight:600}"
+            "#tab-files progress{width:100%;display:none}"
+        "</style>"
+        "<h3 style='margin-top:1.2em'>Files</h3>"
+        "<p id='fs-info' style='font-size:.85em;color:var(--text-dim,#888);margin:.2em 0'></p>"
+        "<div class='fs-crumbs' id='fs-crumbs'></div>"
+        "<div class='fs-bar'>"
+            "<button type='button' onclick=\"document.getElementById('fs-file').click()\">Upload</button>"
+            "<button type='button' onclick='fsMkdir()'>New folder</button>"
+            "<button type='button' onclick='filesLoad(fsCur)'>Refresh</button>"
+            "<input type='file' id='fs-file' multiple style='display:none' onchange='fsUpload(this)'>"
+        "</div>"
+        "<progress id='fs-prog' max='100' value='0'></progress>"
+        "<p id='fs-status' style='font-size:.88em;min-height:1.2em;margin:.3em 0'></p>"
+        "<table><tbody id='fs-rows'></tbody></table>"
+        "</div>"
+        "<script>"
+        "var fsCur='/',fsLoaded=false,fsNames={};"
+        "function fsJoin(d,n){return d==='/'?'/'+n:d+'/'+n;}"
+        "function fsSize(b){"
+            "if(b<1024)return b+' B';"
+            "if(b<1048576)return (b/1024).toFixed(1)+' KB';"
+            "if(b<1073741824)return (b/1048576).toFixed(1)+' MB';"
+            "return (b/1073741824).toFixed(2)+' GB';"
+        "}"
+        "function fsStatus(m,err){"
+            "var el=document.getElementById('fs-status');"
+            "el.textContent=m||'';el.style.color=err?'#ff8d8d':'';"
+        "}"
+        "function filesOpen(){if(!fsLoaded)filesLoad(fsCur);}"
+        "function fsEl(tag,text,cls){"
+            "var e=document.createElement(tag);"
+            "if(text!==undefined)e.textContent=text;"
+            "if(cls)e.className=cls;"
+            "return e;"
+        "}"
+        "function fsBtn(text,fn,cls){"
+            "var b=fsEl('button',text,cls);b.type='button';b.onclick=fn;return b;"
+        "}"
+        "function fsCrumbs(p){"
+            "var c=document.getElementById('fs-crumbs');c.textContent='';"
+            "var parts=p.split('/').filter(function(x){return x;});"
+            "var a=fsEl('a','/');a.onclick=function(){filesLoad('/');};c.appendChild(a);"
+            "var acc='';"
+            "parts.forEach(function(seg,i){"
+                "acc+='/'+seg;"
+                "var to=acc;"
+                "if(i>0)c.appendChild(document.createTextNode('/'));"
+                "var l=fsEl('a',seg);l.onclick=function(){filesLoad(to);};c.appendChild(l);"
+            "});"
+        "}"
+        "function filesLoad(p){"
+            "fsStatus('Loading...');"
+            "fetch('/fs-list?path='+encodeURIComponent(p),{cache:'no-store'})"
+            ".then(function(r){return r.json();})"
+            ".then(function(j){"
+                "if(!j.ok)throw new Error(j.error||'failed');"
+                "fsCur=j.path;fsLoaded=true;fsNames={};"
+                "document.getElementById('fs-info').textContent="
+                    "'Storage: '+j.fs+(j.total?' ('+fsSize(j.total)+')':'');"
+                "fsCrumbs(j.path);"
+                "var rows=document.getElementById('fs-rows');rows.textContent='';"
+                "j.entries.sort(function(a,b){"
+                    "if(a.d!==b.d)return b.d-a.d;"
+                    "return a.n.toLowerCase()<b.n.toLowerCase()?-1:1;"
+                "});"
+                "if(j.path!=='/'){"
+                    "var up=fsEl('tr'),td=fsEl('td',undefined,'fs-name');td.colSpan=3;"
+                    "var ua=fsEl('a','..');ua.onclick=function(){"
+                        "var i=fsCur.lastIndexOf('/');filesLoad(i<=0?'/':fsCur.substring(0,i));};"
+                    "td.appendChild(ua);up.appendChild(td);rows.appendChild(up);"
+                "}"
+                "j.entries.forEach(function(e){"
+                    "var full=fsJoin(j.path,e.n);fsNames[e.n]=e.d;"
+                    "var tr=fsEl('tr'),name=fsEl('td',undefined,'fs-name');"
+                    "if(e.d){"
+                        "var a=fsEl('a',e.n+'/');a.onclick=function(){filesLoad(full);};name.appendChild(a);"
+                    "}else{"
+                        "name.textContent=e.n;"
+                    "}"
+                    "tr.appendChild(name);"
+                    "tr.appendChild(fsEl('td',e.d?'':fsSize(e.s),'fs-size'));"
+                    "var act=fsEl('td',undefined,'fs-act');"
+                    "if(!e.d){"
+                        "act.appendChild(fsBtn('Download',function(){"
+                            "location.href='/fs-get?path='+encodeURIComponent(full);}));"
+                        "act.appendChild(fsBtn('Copy',function(){fsCopy(full);}));"
+                    "}"
+                    "act.appendChild(fsBtn('Delete',function(){fsDelete(full,e.d);},'fs-del'));"
+                    "tr.appendChild(act);rows.appendChild(tr);"
+                "});"
+                "if(!j.entries.length){"
+                    "var er=fsEl('tr'),ed=fsEl('td','Empty folder');ed.colSpan=3;"
+                    "ed.style.color='var(--text-dim,#888)';er.appendChild(ed);rows.appendChild(er);"
+                "}"
+                "fsStatus(j.truncated?'Showing the first '+j.entries.length+' entries only.':'');"
+            "})"
+            ".catch(function(e){"
+                "fsStatus(e.message==='unauthorized'"
+                    "?'Files are switched off on the device (Config > Web Files), or you are logged out.'"
+                    ":'Could not list folder: '+e.message,true);"
+            "});"
+        "}"
+        // POST, then reload the folder. Resolves to the reply so a caller can
+        // react to a specific error (exists -> ask to overwrite).
+        "function fsPost(url){"
+            "return fetch(url,{method:'POST'}).then(function(r){return r.json();});"
+        "}"
+        "function fsDelete(path,isDir){"
+            "var q=isDir?'Delete the folder '+path+' and everything in it?':'Delete '+path+'?';"
+            "if(!confirm(q))return;"
+            "fsStatus('Deleting...');"
+            "fsPost('/fs-delete?path='+encodeURIComponent(path)).then(function(j){"
+                "if(!j.ok)throw new Error(j.error);"
+                "fsStatus('Deleted '+path);filesLoad(fsCur);"
+            "}).catch(function(e){fsStatus('Delete failed: '+e.message,true);});"
+        "}"
+        "function fsMkdir(){"
+            "var n=prompt('New folder name');"
+            "if(!n)return;"
+            "if(n.indexOf('/')>=0||n==='.'||n==='..'){fsStatus('Folder names cannot contain /',true);return;}"
+            "fsPost('/fs-mkdir?path='+encodeURIComponent(fsJoin(fsCur,n))).then(function(j){"
+                "if(!j.ok)throw new Error(j.error);"
+                "fsStatus('Created '+n);filesLoad(fsCur);"
+            "}).catch(function(e){fsStatus('New folder failed: '+e.message,true);});"
+        "}"
+        "function fsCopy(from){"
+            "var to=prompt('Copy '+from+' to (full path):',from);"
+            "if(!to||to===from)return;"
+            "var go=function(ow){"
+                "fsStatus('Copying...');"
+                "fsPost('/fs-copy?from='+encodeURIComponent(from)+'&to='+encodeURIComponent(to)"
+                    "+(ow?'&overwrite=1':'')).then(function(j){"
+                    "if(!j.ok&&j.error==='exists'&&!ow){"
+                        "if(confirm(to+' already exists. Replace it?'))go(true);else fsStatus('');"
+                        "return;"
+                    "}"
+                    "if(!j.ok)throw new Error(j.error);"
+                    "fsStatus('Copied to '+to);filesLoad(fsCur);"
+                "}).catch(function(e){fsStatus('Copy failed: '+e.message,true);});"
+            "};"
+            "go(false);"
+        "}"
+        // One file per request, one request at a time: the device handles a
+        // single connection, and a failed file should not take the rest down.
+        "function fsUpload(input){"
+            "var files=Array.prototype.slice.call(input.files);input.value='';"
+            "var dir=fsCur,prog=document.getElementById('fs-prog'),done=0,bad=0;"
+            "var next=function(){"
+                "if(!files.length){"
+                    "prog.style.display='none';"
+                    "if(done&&!bad)fsStatus('Uploaded '+done+' file'+(done===1?'':'s'));"
+                    "filesLoad(dir);return;"
+                "}"
+                "var f=files.shift();"
+                "if(fsNames[f.name]===1){bad++;fsStatus(f.name+': a folder has that name',true);next();return;}"
+                "var ow=fsNames[f.name]===0;"
+                "if(ow&&!confirm(f.name+' already exists. Replace it?')){next();return;}"
+                "var fd=new FormData();fd.append('file',f,f.name);"
+                "var x=new XMLHttpRequest();"
+                "x.open('POST','/fs-put?dir='+encodeURIComponent(dir)+(ow?'&overwrite=1':''));"
+                "x.upload.onprogress=function(ev){"
+                    "if(ev.lengthComputable)prog.value=Math.round(ev.loaded*100/ev.total);"
+                "};"
+                "x.onload=function(){"
+                    "var j={};try{j=JSON.parse(x.responseText);}catch(e){}"
+                    "if(j.ok){done++;}else{bad++;fsStatus(f.name+': '+(j.error||('HTTP '+x.status)),true);}"
+                    "next();"
+                "};"
+                "x.onerror=function(){bad++;fsStatus(f.name+': connection lost',true);next();};"
+                "prog.value=0;prog.style.display='block';"
+                "fsStatus('Uploading '+f.name+' ('+fsSize(f.size)+')...');"
+                "x.send(fd);"
+            "};"
+            "next();"
+        "}"
+        "</script>";
+#endif
+
 #if HAS_ADMIN_TERMINAL
 // Emitted at body level, after every tab panel has closed -- NOT inside one.
 // .tab-panel is display:none unless it is the active tab, and a fixed overlay
@@ -3032,6 +3234,99 @@ static void sendLoginPage(const char *err = "") {
 // map. Both modes stream every large constant straight from flash and flush the
 // working String often, which is what lets the pane render inside AP mode's
 // ~13 KB largest free block.
+// ── Saved WiFi networks ───────────────────────────────────────
+// Part of the Config tab's WiFi section, which sits inside the /save form. A
+// form cannot nest, so the row buttons and the Add fields name their own forms
+// with the form= attribute, and those forms are emitted empty after the config
+// form closes (appendSavedNetworkForms()). Use posts only to /wifi-use, and
+// Save All never carries the Add fields -- nor is it blocked by their
+// `required`, which only applies to the form a field belongs to.
+//
+// Full page only. The AP page is deliberately the Config pane alone, and its
+// heap has nothing spare for a per-row list.
+//
+// The SSID/Password fields above it still set the active network; this is for
+// keeping the others around and swapping between them.
+static void appendSavedNetworks(String &html) {
+    char nSsid[64], nPass[64];
+    const int savedCount = cfgSavedWifiCount();
+
+    html += "<h4 style='margin:1.2em 0 .3em'>Saved Networks</h4>"
+            "<p style='font-size:.82em;color:#888;margin:.1em 0 .6em'>"
+            "Networks this device remembers. <b>Use</b> switches to one and keeps "
+            "the current network in the list, so you can swap back. Switching "
+            "reconnects the radio &mdash; if you are reading this page over WiFi, "
+            "it will drop and you will need to reach the device on the new "
+            "network.</p>";
+
+    html += "<table style='width:100%;border-collapse:collapse;font-size:.9em'>";
+    // SSIDs are free text chosen by whoever owns the access point, so every
+    // one of them goes through appendAttr() — an apostrophe would otherwise
+    // close the value= attribute and mangle the rest of the form, and a '<'
+    // would inject markup from a network name we merely scanned.
+    if (gCfg->wifiSsid[0]) {
+        html += "<tr><td style='padding:.3em 0'><b>";
+        appendAttr(html, gCfg->wifiSsid);
+        html += "</b> <span style='color:#5a9;font-size:.85em'>&#9679; active</span></td>"
+                "<td style='text-align:right;color:#888;font-size:.85em'>in use</td></tr>";
+    }
+    char id[16];
+    for (int i = 0; i < savedCount; i++) {
+        if (!cfgSavedWifiAt(i, nSsid, sizeof(nSsid), nPass, sizeof(nPass))) continue;
+        if (!nSsid[0]) continue;
+        html += "<tr><td style='padding:.3em 0'>";
+        appendAttr(html, nSsid);
+        html += "</td><td style='text-align:right;white-space:nowrap'>";
+        snprintf(id, sizeof(id), "wfu%d", i);
+        html += "<input type='hidden' name='ssid' form='"; html += id; html += "' value='";
+        appendAttr(html, nSsid);
+        html += "'><button type='submit' form='"; html += id;
+        html += "' style='padding:.15em .7em'>Use</button> ";
+        snprintf(id, sizeof(id), "wff%d", i);
+        html += "<input type='hidden' name='ssid' form='"; html += id; html += "' value='";
+        appendAttr(html, nSsid);
+        html += "'><button type='submit' form='"; html += id;
+        html += "' style='padding:.15em .7em;background:#c0392b'>Forget</button></td></tr>";
+    }
+    html += "</table>";
+
+    if (savedCount == 0) {
+        html += "<p style='font-size:.82em;color:#888;margin:.3em 0'>"
+                "No other networks remembered yet.</p>";
+    }
+
+    char slots[64];
+    snprintf(slots, sizeof(slots), "%d of %d slots used", savedCount, CFG_SAVED_WIFI_MAX);
+    html += "<p style='font-size:.82em;color:#888;margin:.3em 0 .6em'>";
+    html += slots;
+    html += ". When full, the least recently added one drops off.</p>";
+
+    html += "<label>Add network &mdash; SSID"
+            "<input name='ssid' form='wfadd' type='text' maxlength='63' required></label>"
+            "<label>Password (blank for an open network)"
+            "<input name='pass' form='wfadd' type='password' maxlength='63'></label>"
+            "<button type='submit' form='wfadd' style='margin-top:.4em'>Remember Network</button>"
+            "<p style='font-size:.82em;color:#888;margin:.3em 0 1em'>"
+            "Adds to the list without switching to it. The credentials are not "
+            "tested until the device connects.</p>";
+}
+
+// The empty forms appendSavedNetworks() points at. Same indices, so a row's
+// buttons and its form agree even when a slot is skipped as empty.
+static void appendSavedNetworkForms(String &html) {
+    const int savedCount = cfgSavedWifiCount();
+    char tag[160];
+    for (int i = 0; i < savedCount; i++) {
+        snprintf(tag, sizeof(tag),
+                 "<form id='wfu%d' method='POST' action='/wifi-use'></form>"
+                 "<form id='wff%d' method='POST' action='/wifi-forget'"
+                 " onsubmit=\"return confirm('Forget this network?')\"></form>",
+                 i, i);
+        html += tag;
+    }
+    html += "<form id='wfadd' method='POST' action='/wifi-add'></form>";
+}
+
 static void sendConfigPage(const char *msg = "", bool lite = false) {
     if (!gCfg) { server.send(500, "text/plain", "No config"); return; }
     logWifiHeapDiag(lite ? "serving config page (lite)" : "serving config page");
@@ -3425,7 +3720,6 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
     } else {
         html += "<div class='tab-row'><div class='tab-btns'>"
             "<button type='button' class='tab-btn active' id='tab-btn-config' onclick=\"switchTab('config')\">Config</button>"
-            "<button type='button' class='tab-btn' id='tab-btn-wifi' onclick=\"switchTab('wifi')\">WiFi</button>"
             "<button type='button' class='tab-btn' id='tab-btn-utils' onclick=\"switchTab('utils')\">Utilities</button>"
             "<button type='button' class='tab-btn' id='tab-btn-live' onclick=\"switchTab('live')\">Live</button>"
 #if !defined(DEVICE_CARDPUTER_LORA_HAT)
@@ -3434,6 +3728,11 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
             "<button type='button' class='tab-btn' id='tab-btn-map' onclick=\"switchTab('map')\">Nodes</button>";
 #if HAS_VNC_HOST
     html += "<button type='button' class='tab-btn' id='tab-btn-remote' onclick=\"switchTab('remote')\">Remote</button>";
+#endif
+#if HAS_WEB_FILES
+    if (gCfg && cfgWebFilesEnabled(*gCfg)) {
+        html += "<button type='button' class='tab-btn' id='tab-btn-files' onclick=\"switchTab('files')\">Files</button>";
+    }
 #endif
         html += "</div>";
         if (havePubKey) {
@@ -4615,9 +4914,8 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
     appendAttr(html, gWifiPass);
     html += "'></label>";
     if (!lite) {
-        html += "<p class='gps-hint'>This is the network the device joins. Other "
-                "remembered networks, and switching between them, live on the "
-                "<b>WiFi</b> tab.</p>";
+        html += "<p class='gps-hint'>This is the network the device joins.</p>";
+        appendSavedNetworks(html);
     }
     {
         // How long this page may sit idle before the server shuts itself down.
@@ -4893,6 +5191,17 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
                 "<p style='font-size:.82em;color:#888'>Applies the file and reboots. "
                 "Files over 8 KB are rejected rather than partly applied. Export is "
                 "available once the device is on your WiFi.</p>";
+#if HAS_WEB_FILES
+        // The Cardputer's only page, so its Files section lives here, loaded
+        // straight away rather than on a tab switch. Never in AP mode: that is
+        // onboarding, and the routes are not registered for it.
+        if (kLiteOnlyBoard && !gApMode && gCfg && cfgWebFilesEnabled(*gCfg)) {
+            html += "<div id='tab-files' style='margin-top:1.4em'>";
+            sendChunk(html);
+            sendFlash(kFilesPane);
+            html += "</div><script>filesOpen();</script>";
+        }
+#endif
         // No further tabs in AP mode — close the document.
         html += "</body></html>";
         sendChunk(html);
@@ -4908,85 +5217,10 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
         return;
     }
 
-    // ── WiFi tab ──────────────────────────────────────────────
-    // Its own tab rather than a block under the Config pane's Save All
-    // button, which read as an afterthought bolted below the primary action.
-    // Rendered after the lite return above, so the AP page never sees it —
-    // that mode has no tab bar and serves the Config pane alone.
-    html += "</div></div><div class='tab-panel' id='tab-wifi'><div class='tab-pane-center'>";
-    // ── Saved WiFi networks ───────────────────────────────────
-    // After the config form closes, so each row is a standalone form: nesting
-    // one inside the form above would submit to /save instead. Below the lite
-    // return, so it never reaches the AP page — that mode is deliberately the
-    // Config pane only, and the heap there has nothing spare for a per-row list.
-    //
-    // The SSID/Password fields in the WiFi section above still set the active
-    // network; this is for keeping the others around and swapping between them.
-    section(html, false, "Saved Networks", false);
-    {
-        char nSsid[64], nPass[64];
-        const int savedCount = cfgSavedWifiCount();
-
-        html += "<p style='font-size:.82em;color:#888;margin:.1em 0 .6em'>"
-                "Networks this device remembers. <b>Use</b> switches to one and keeps "
-                "the current network in the list, so you can swap back. Switching "
-                "reconnects the radio &mdash; if you are reading this page over WiFi, "
-                "it will drop and you will need to reach the device on the new "
-                "network.</p>";
-
-        html += "<table style='width:100%;border-collapse:collapse;font-size:.9em'>";
-        // SSIDs are free text chosen by whoever owns the access point, so every
-        // one of them goes through appendAttr() — an apostrophe would otherwise
-        // close the value= attribute and mangle the rest of the form, and a '<'
-        // would inject markup from a network name we merely scanned.
-        if (gCfg->wifiSsid[0]) {
-            html += "<tr><td style='padding:.3em 0'><b>";
-            appendAttr(html, gCfg->wifiSsid);
-            html += "</b> <span style='color:#5a9;font-size:.85em'>&#9679; active</span></td>"
-                    "<td style='text-align:right;color:#888;font-size:.85em'>in use</td></tr>";
-        }
-        for (int i = 0; i < savedCount; i++) {
-            if (!cfgSavedWifiAt(i, nSsid, sizeof(nSsid), nPass, sizeof(nPass))) continue;
-            if (!nSsid[0]) continue;
-            html += "<tr><td style='padding:.3em 0'>";
-            appendAttr(html, nSsid);
-            html += "</td><td style='text-align:right;white-space:nowrap'>"
-                    "<form method='POST' action='/wifi-use' style='display:inline'>"
-                    "<input type='hidden' name='ssid' value='";
-            appendAttr(html, nSsid);
-            html += "'><button type='submit' style='padding:.15em .7em'>Use</button></form> "
-                    "<form method='POST' action='/wifi-forget' style='display:inline'"
-                    " onsubmit=\"return confirm('Forget this network?')\">"
-                    "<input type='hidden' name='ssid' value='";
-            appendAttr(html, nSsid);
-            html += "'><button type='submit' style='padding:.15em .7em;background:#c0392b'>"
-                    "Forget</button></form></td></tr>";
-        }
-        html += "</table>";
-
-        if (savedCount == 0) {
-            html += "<p style='font-size:.82em;color:#888;margin:.3em 0'>"
-                    "No other networks remembered yet.</p>";
-        }
-
-        char slots[64];
-        snprintf(slots, sizeof(slots), "%d of %d slots used", savedCount, CFG_SAVED_WIFI_MAX);
-        html += "<p style='font-size:.82em;color:#888;margin:.3em 0 .6em'>";
-        html += slots;
-        html += ". When full, the least recently added one drops off.</p>";
-
-        html += "<form method='POST' action='/wifi-add'>"
-                "<label>Add network &mdash; SSID"
-                "<input name='ssid' type='text' maxlength='63' required></label>"
-                "<label>Password (blank for an open network)"
-                "<input name='pass' type='password' maxlength='63'></label>"
-                "<button type='submit' style='margin-top:.4em'>Remember Network</button>"
-                "</form>"
-                "<p style='font-size:.82em;color:#888;margin:.3em 0 1em'>"
-                "Adds to the list without switching to it. The credentials are not "
-                "tested until the device connects.</p>";
-    }
-    sectionEnd(html, false);
+    // The forms the Saved Networks rows in the WiFi section submit through --
+    // see appendSavedNetworks(). Here, after the config form has closed,
+    // because a form cannot sit inside another one.
+    appendSavedNetworkForms(html);
     sendChunk(html);
 
     html += "</div></div><div class='tab-panel' id='tab-utils'><div class='tab-pane-center'>";
@@ -6183,6 +6417,14 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
         html += String(vncHostPort());
         html += "/' style='display:none'></iframe></div></div>";
 #endif
+#if HAS_WEB_FILES
+        if (gCfg && cfgWebFilesEnabled(*gCfg)) {
+            html += "<div class='tab-panel' id='tab-files'>";
+            sendChunk(html);
+            sendFlash(kFilesPane);
+            html += "</div>";
+        }
+#endif
 #if HAS_ADMIN_TERMINAL
         // Body level, outside every panel -- see kAdminModal.
         sendChunk(html);
@@ -7137,17 +7379,14 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
                         "}"
                         "function switchTab(tab){"
                             "var isCfg=(tab==='config');"
-                            "var isWifi=(tab==='wifi');"
                             "var isUtil=(tab==='utils');"
                             "var isLive=(tab==='live');"
                             "var isMap=(tab==='map');"
                             "document.getElementById('tab-config').classList.toggle('active',isCfg);"
-                            "document.getElementById('tab-wifi').classList.toggle('active',isWifi);"
                             "document.getElementById('tab-utils').classList.toggle('active',isUtil);"
                             "document.getElementById('tab-live').classList.toggle('active',isLive);"
                             "document.getElementById('tab-map').classList.toggle('active',isMap);"
                             "document.getElementById('tab-btn-config').classList.toggle('active',isCfg);"
-                            "document.getElementById('tab-btn-wifi').classList.toggle('active',isWifi);"
                             "document.getElementById('tab-btn-utils').classList.toggle('active',isUtil);"
                             "document.getElementById('tab-btn-live').classList.toggle('active',isLive);"
                             "document.getElementById('tab-btn-map').classList.toggle('active',isMap);"
@@ -7157,6 +7396,16 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
                             "document.getElementById('tab-remote').classList.toggle('active',isRemote);"
                             "document.getElementById('tab-btn-remote').classList.toggle('active',isRemote);"
                             "if(isRemote)startRemotePolling();else stopRemotePolling();"
+#endif
+#if HAS_WEB_FILES
+                            // Only present while the device has the tab on.
+                            "var fp=document.getElementById('tab-files');"
+                            "if(fp){"
+                                "var isFiles=(tab==='files');"
+                                "fp.classList.toggle('active',isFiles);"
+                                "document.getElementById('tab-btn-files').classList.toggle('active',isFiles);"
+                                "if(isFiles)filesOpen();"
+                            "}"
 #endif
 #if !defined(DEVICE_CARDPUTER_LORA_HAT)
                             "var isChat=(tab==='chat');"
@@ -9260,6 +9509,434 @@ static void handleGetLogout() {
     redirect("/login");
 }
 
+#if HAS_WEB_FILES
+// ── Files tab ─────────────────────────────────────────────────
+// Browse, upload, download, copy and delete on whatever storageFs() is: the SD
+// card, or internal flash on boards without a slot. Full route set only, like
+// chat and the live feed.
+//
+// Every request checks the device setting itself, not just whether the tab was
+// drawn: switching Web Files off on the device has to lock a page that is
+// already open, and nothing stops a script calling these directly.
+//
+// All of it runs on the main loop, as every handler here does. A large
+// download, upload or copy holds the UI and radio for as long as it takes; the
+// alternative is a second task touching the filesystem the firmware is
+// writing, which none of the backends here are safe against.
+
+static const size_t kFsMaxPath = 200;   // well inside FAT and LittleFS limits
+
+// Download and copy borrow the config import buffer rather than adding one of
+// their own: it is idle outside an /import, requests are handled one at a time,
+// and a new static buffer would come out of the Cardputer's internal RAM, which
+// has none to spare.
+static uint8_t *fsIoBuf() { return (uint8_t *)importBuf; }
+static const size_t kFsIoBufLen = sizeof(importBuf);
+
+static bool filesAllowed() {
+    return gCfg && cfgWebFilesEnabled(*gCfg) && isLoggedIn();
+}
+
+static void fsReply(int code, const char *error) {
+    String out = "{\"ok\":false,\"error\":\"";
+    appendJsonEscaped(out, error);
+    out += "\"}";
+    server.send(code, "application/json", out);
+}
+
+static void fsReplyOk() {
+    server.send(200, "application/json", "{\"ok\":true}");
+}
+
+// Checks a path from the browser and puts it in one form: absolute, no empty,
+// "." or ".." segments, no trailing slash except on "/" itself. Rejecting "..":
+// everything this can reach is already reachable, but a path that means
+// something other than what it says has no business here.
+static bool fsCleanPath(const String &in, String &out) {
+    if (in.isEmpty() || in[0] != '/' || in.length() > kFsMaxPath) return false;
+    String p = in;
+    while (p.length() > 1 && p.endsWith("/")) p.remove(p.length() - 1);
+    size_t segStart = 1;
+    for (size_t i = 1; i <= p.length(); i++) {
+        const char c = (i < p.length()) ? p[i] : '/';
+        if ((unsigned char)c < 0x20 || c == '\\') return false;
+        if (c != '/') continue;
+        const String seg = p.substring(segStart, i);
+        if (p.length() > 1 && (seg.isEmpty() || seg == "." || seg == "..")) return false;
+        segStart = i + 1;
+    }
+    out = p;
+    return true;
+}
+
+static String fsJoin(const String &dir, const String &name) {
+    return (dir == "/") ? ("/" + name) : (dir + "/" + name);
+}
+
+static String fsParent(const String &path) {
+    const int slash = path.lastIndexOf('/');
+    return (slash <= 0) ? String("/") : path.substring(0, slash);
+}
+
+// File::name() is the bare name on current cores, a full path on old ones.
+static String fsBaseName(const char *name) {
+    const char *slash = strrchr(name ? name : "", '/');
+    return String(slash ? slash + 1 : (name ? name : ""));
+}
+
+static bool fsIsDir(const String &path) {
+    File f = storageFs().open(path);
+    const bool dir = f && f.isDirectory();
+    if (f) f.close();
+    return dir;
+}
+
+// Ready to use, and allowed to. Answers the request itself when either fails.
+static bool fsBeginRequest() {
+    if (!filesAllowed()) { fsReply(403, "unauthorized"); return false; }
+    // sdBegin(), not storageBegin(): see stateMapStorageReady().
+    if (!sdBegin()) { fsReply(503, "no storage"); return false; }
+    return true;
+}
+
+// GET /fs-list?path=/dir
+// Streamed: a map-tile folder holds thousands of entries, far more than one
+// String should carry. Capped all the same, because a browser asked to draw
+// that many rows is no better off.
+static void handleGetFsList() {
+    if (!fsBeginRequest()) return;
+    String path;
+    if (!fsCleanPath(server.hasArg("path") ? server.arg("path") : String("/"), path)) {
+        fsReply(400, "bad path");
+        return;
+    }
+    File dir = storageFs().open(path);
+    if (!dir || !dir.isDirectory()) {
+        if (dir) dir.close();
+        fsReply(404, "no such folder");
+        return;
+    }
+
+    gSendAborted = false;
+    server.sendHeader("Cache-Control", "no-store");
+    server.setContentLength(CONTENT_LENGTH_UNKNOWN);
+    server.send(200, "application/json", "");
+
+    String out;
+    out.reserve(1200);
+    out = "{\"ok\":true,\"fs\":\"";
+    appendJsonEscaped(out, storageName());
+    out += "\",\"total\":";
+    out += String((unsigned long long)storageTotalBytes());
+    out += ",\"path\":\"";
+    appendJsonEscaped(out, path.c_str());
+    out += "\",\"entries\":[";
+
+    static const int kMaxEntries = 2000;
+    int count = 0;
+    bool truncated = false;
+    while (!gSendAborted) {
+        File f = dir.openNextFile();
+        if (!f) break;
+        if (count >= kMaxEntries) { truncated = true; f.close(); break; }
+        const String name = fsBaseName(f.name());
+        const bool isDir = f.isDirectory();
+        const size_t size = isDir ? 0 : f.size();
+        f.close();
+        if (count) out += ',';
+        out += "{\"n\":\"";
+        appendJsonEscaped(out, name.c_str());
+        out += isDir ? "\",\"d\":1,\"s\":0}" : "\",\"d\":0,\"s\":";
+        if (!isDir) { out += String((unsigned long)size); out += '}'; }
+        count++;
+        sendChunkIfBig(out, 1024);
+        yield();
+    }
+    dir.close();
+    out += "],\"truncated\":";
+    out += truncated ? "true}" : "false}";
+    sendChunk(out);
+    server.sendContent("");
+}
+
+// GET /fs-get?path=/file
+// Content-Length up front so the browser can show progress, then raw writes:
+// writeAllRaw() bounds every stall, where streamFile() can sit in the core's
+// own ten-second retry loop.
+static void handleGetFsGet() {
+    if (!fsBeginRequest()) return;
+    String path;
+    if (!fsCleanPath(server.arg("path"), path) || path == "/") {
+        fsReply(400, "bad path");
+        return;
+    }
+    File f = storageFs().open(path, FILE_READ);
+    if (!f) { fsReply(404, "no such file"); return; }
+    if (f.isDirectory()) { f.close(); fsReply(400, "is a folder"); return; }
+
+    String name = fsBaseName(f.name());
+    name.replace("\"", "_");
+    String cd = "attachment; filename=\"" + name + "\"";
+    server.sendHeader("Content-Disposition", cd);
+    server.sendHeader("Cache-Control", "no-store");
+    server.setContentLength(f.size());
+    server.send(200, "application/octet-stream", "");
+
+    for (;;) {
+        const size_t n = f.read(fsIoBuf(), kFsIoBufLen);
+        if (n == 0) break;
+        if (!writeAllRaw((const char *)fsIoBuf(), n)) {
+            Serial.printf("[web] files: download of %s abandoned\n", path.c_str());
+            server.client().stop();
+            break;
+        }
+        yield();
+    }
+    f.close();
+}
+
+// POST /fs-put?dir=/dir[&overwrite=1]  (multipart, one file)
+// Written to "<name>.part" as it arrives and renamed into place only once it
+// is complete, so a dropped upload or a full disk never leaves a truncated
+// file under the real name, nor costs the one it was replacing.
+static File        fsUpFile;
+static String      fsUpPath;
+static String      fsUpTemp;
+static size_t      fsUpBytes = 0;
+static bool        fsUpDone  = false;
+static const char *fsUpError = nullptr;
+
+static void fsUploadReset(bool removeTemp) {
+    if (fsUpFile) fsUpFile.close();
+    if (removeTemp && fsUpTemp.length()) storageFs().remove(fsUpTemp);
+    fsUpPath  = "";
+    fsUpTemp  = "";
+    fsUpBytes = 0;
+    fsUpDone  = false;
+    fsUpError = nullptr;
+}
+
+static void fsUploadFail(const char *error) {
+    if (fsUpFile) fsUpFile.close();
+    if (fsUpTemp.length()) storageFs().remove(fsUpTemp);
+    fsUpError = error;
+}
+
+static void handleFsPutUpload() {
+    HTTPUpload &upload = server.upload();
+    if (upload.status == UPLOAD_FILE_START) {
+        fsUploadReset(true);
+        if (!filesAllowed()) { fsUpError = "unauthorized"; return; }
+        if (!sdBegin()) { fsUpError = "no storage"; return; }
+        String dir;
+        if (!fsCleanPath(server.arg("dir"), dir) || !fsIsDir(dir)) {
+            fsUpError = "no such folder";
+            return;
+        }
+        // Browsers send the bare name; strip any path some client might add.
+        String name = upload.filename;
+        const int cut = max(name.lastIndexOf('/'), name.lastIndexOf('\\'));
+        if (cut >= 0) name = name.substring(cut + 1);
+        String path;
+        if (name.isEmpty() || !fsCleanPath(fsJoin(dir, name), path)
+            || path.length() + 5 > kFsMaxPath) {
+            fsUpError = "bad file name";
+            return;
+        }
+        if (storageFs().exists(path)) {
+            if (fsIsDir(path)) { fsUpError = "a folder has that name"; return; }
+            if (server.arg("overwrite") != "1") { fsUpError = "exists"; return; }
+        }
+        fsUpPath = path;
+        fsUpTemp = path + ".part";
+        if (storageFs().exists(fsUpTemp)) storageFs().remove(fsUpTemp);
+        fsUpFile = storageFs().open(fsUpTemp, FILE_WRITE);
+        if (!fsUpFile) { fsUploadFail("cannot create file"); return; }
+        return;
+    }
+    if (upload.status == UPLOAD_FILE_WRITE) {
+        if (!fsUpFile) return;              // failed earlier: keep draining
+        if (fsUpFile.write(upload.buf, upload.currentSize) != upload.currentSize) {
+            fsUploadFail("write failed (storage full?)");
+            return;
+        }
+        fsUpBytes += upload.currentSize;
+        return;
+    }
+    if (upload.status == UPLOAD_FILE_END) {
+        if (!fsUpFile) return;
+        fsUpFile.close();
+        fsUpDone = true;
+        return;
+    }
+    // UPLOAD_FILE_ABORTED
+    fsUploadFail("upload aborted");
+}
+
+static void handleFsPutDone() {
+    if (!filesAllowed()) { fsUploadReset(true); fsReply(403, "unauthorized"); return; }
+    if (fsUpError) {
+        const char *err = fsUpError;
+        const int code = !strcmp(err, "exists") ? 409 : 400;
+        fsUploadReset(true);
+        fsReply(code, err);
+        return;
+    }
+    if (!fsUpDone) { fsUploadReset(true); fsReply(400, "no file received"); return; }
+    if (storageFs().exists(fsUpPath)) storageFs().remove(fsUpPath);
+    if (!storageFs().rename(fsUpTemp, fsUpPath)) {
+        fsUploadReset(true);
+        fsReply(500, "rename failed");
+        return;
+    }
+    Serial.printf("[web] files: uploaded %s (%u bytes)\n",
+                  fsUpPath.c_str(), (unsigned)fsUpBytes);
+    fsUpTemp = "";                          // renamed: nothing left to clean up
+    fsUploadReset(false);
+    fsReplyOk();
+}
+
+// Removes a folder and everything under it, holding one directory handle at a
+// time. Recursing with a handle open per level would run LittleFS out of its
+// five open files three folders down. Instead: read a small batch of names,
+// close the folder, act on the batch, and descend into the first subfolder
+// found; an emptied folder is removed and the walk climbs back to its parent.
+static bool fsRemoveTree(const String &root) {
+    fs::FS &fs = storageFs();
+    String cur = root;
+    static const int kBatch = 16;
+    for (uint32_t guard = 0; guard < 200000; guard++) {
+        File dir = fs.open(cur);
+        if (!dir) {
+            // LittleFS can drop a folder once its last file goes. Gone is the
+            // outcome wanted either way.
+            if (fs.exists(cur)) return false;
+            if (cur == root) return true;
+            cur = fsParent(cur);
+            continue;
+        }
+        if (!dir.isDirectory()) { dir.close(); return fs.remove(cur); }
+
+        String names[kBatch];
+        bool   isDir[kBatch];
+        int n = 0;
+        while (n < kBatch) {
+            File f = dir.openNextFile();
+            if (!f) break;
+            names[n] = fsJoin(cur, fsBaseName(f.name()));
+            isDir[n] = f.isDirectory();
+            f.close();
+            n++;
+        }
+        dir.close();
+
+        if (n == 0) {
+            if (!fs.rmdir(cur) && fs.exists(cur)) return false;
+            if (cur == root) return true;
+            cur = fsParent(cur);
+            continue;
+        }
+        String descend;
+        for (int i = 0; i < n; i++) {
+            if (isDir[i]) {
+                if (descend.isEmpty()) descend = names[i];
+            } else if (!fs.remove(names[i])) {
+                return false;
+            }
+        }
+        if (descend.length()) cur = descend;
+        yield();
+    }
+    return false;
+}
+
+// POST /fs-delete?path=/file-or-folder  (a folder goes with everything in it)
+static void handlePostFsDelete() {
+    if (!fsBeginRequest()) return;
+    String path;
+    if (!fsCleanPath(server.arg("path"), path) || path == "/") {
+        fsReply(400, "bad path");
+        return;
+    }
+    if (!storageFs().exists(path)) { fsReply(404, "not found"); return; }
+    const bool ok = fsIsDir(path) ? fsRemoveTree(path) : storageFs().remove(path);
+    if (!ok) { fsReply(500, "delete failed"); return; }
+    Serial.printf("[web] files: deleted %s\n", path.c_str());
+    fsReplyOk();
+}
+
+// POST /fs-mkdir?path=/parent/new
+static void handlePostFsMkdir() {
+    if (!fsBeginRequest()) return;
+    String path;
+    if (!fsCleanPath(server.arg("path"), path) || path == "/") {
+        fsReply(400, "bad path");
+        return;
+    }
+    if (storageFs().exists(path)) { fsReply(409, "exists"); return; }
+    if (!fsIsDir(fsParent(path))) { fsReply(404, "no such folder"); return; }
+    if (!storageFs().mkdir(path) || !fsIsDir(path)) {
+        fsReply(500, "could not create folder");
+        return;
+    }
+    fsReplyOk();
+}
+
+// POST /fs-copy?from=/file&to=/other/path[&overwrite=1]
+// Files only. Same ".part" then rename as an upload, for the same reasons.
+static void handlePostFsCopy() {
+    if (!fsBeginRequest()) return;
+    String from, to;
+    if (!fsCleanPath(server.arg("from"), from) || !fsCleanPath(server.arg("to"), to)
+        || from == "/" || to == "/" || to.length() + 5 > kFsMaxPath) {
+        fsReply(400, "bad path");
+        return;
+    }
+    if (from == to) { fsReply(400, "source and destination are the same"); return; }
+    if (!storageFs().exists(from)) { fsReply(404, "no such file"); return; }
+    if (fsIsDir(from)) { fsReply(400, "only files can be copied"); return; }
+    if (storageFs().exists(to)) {
+        if (fsIsDir(to)) { fsReply(409, "a folder has that name"); return; }
+        if (server.arg("overwrite") != "1") { fsReply(409, "exists"); return; }
+    }
+    if (!fsIsDir(fsParent(to))) { fsReply(404, "no such folder"); return; }
+
+    const String temp = to + ".part";
+    if (storageFs().exists(temp)) storageFs().remove(temp);
+    File src = storageFs().open(from, FILE_READ);
+    File dst = storageFs().open(temp, FILE_WRITE);
+    if (!src || !dst) {
+        if (src) src.close();
+        if (dst) dst.close();
+        storageFs().remove(temp);
+        fsReply(500, "cannot open file");
+        return;
+    }
+    bool ok = true;
+    for (;;) {
+        const size_t n = src.read(fsIoBuf(), kFsIoBufLen);
+        if (n == 0) break;
+        if (dst.write(fsIoBuf(), n) != n) { ok = false; break; }
+        yield();
+    }
+    src.close();
+    dst.close();
+    if (!ok) {
+        storageFs().remove(temp);
+        fsReply(500, "write failed (storage full?)");
+        return;
+    }
+    if (storageFs().exists(to)) storageFs().remove(to);
+    if (!storageFs().rename(temp, to)) {
+        storageFs().remove(temp);
+        fsReply(500, "rename failed");
+        return;
+    }
+    Serial.printf("[web] files: copied %s -> %s\n", from.c_str(), to.c_str());
+    fsReplyOk();
+}
+#endif  // HAS_WEB_FILES
+
 // ── Public API ────────────────────────────────────────────────
 
 // Unmatched-request handler, shared by both route sets.
@@ -9308,6 +9985,19 @@ static void registerNotFound() {
         server.send(404, "text/plain", "Not found");
     });
 }
+
+#if HAS_WEB_FILES
+// Registered whether or not the tab is on: each handler checks the setting per
+// request, so switching it on needs no web config restart.
+static void registerFilesRoutes() {
+    onRoute("/fs-list",   HTTP_GET,  handleGetFsList);
+    onRoute("/fs-get",    HTTP_GET,  handleGetFsGet);
+    onRoute("/fs-put",    HTTP_POST, handleFsPutDone, handleFsPutUpload);
+    onRoute("/fs-delete", HTTP_POST, handlePostFsDelete);
+    onRoute("/fs-mkdir",  HTTP_POST, handlePostFsMkdir);
+    onRoute("/fs-copy",   HTTP_POST, handlePostFsCopy);
+}
+#endif
 
 // Routes for web config lite (both AP paths: first-boot onboarding and the
 // STA-connect fallback). Deliberately excludes every heavy endpoint — chat,
@@ -9407,6 +10097,9 @@ static void registerCommonRoutes() {
 #endif
     onRoute("/node-favorite",     HTTP_POST, handlePostNodeFavorite);
     onRoute("/factory-reset",     HTTP_POST, handlePostFactoryReset);
+#if HAS_WEB_FILES
+    registerFilesRoutes();
+#endif
     registerNotFound();
 }
 
@@ -9637,6 +10330,11 @@ bool webCfgBegin(RhinoConfig *cfg, WebCfgSaveCb onSave,
 
     if (kLiteOnlyBoard) {
         registerLiteRoutes();
+#if HAS_WEB_FILES
+        // Station mode only, so not inside registerLiteRoutes(), which AP
+        // onboarding shares on every board.
+        registerFilesRoutes();
+#endif
     } else {
         registerCommonRoutes();
     }

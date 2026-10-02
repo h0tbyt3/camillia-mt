@@ -50,6 +50,9 @@ env:
   UPSTREAM: https://github.com/oumike/camillia-mt
   RELEASE_TAG: wardriving-latest
   ENVS: tdeck
+  # Pinned so gh never has to guess: the replay step adds an "upstream" remote,
+  # and with two remotes a non-interactive gh refuses to pick one.
+  GH_REPO: ${{ github.repository }}
 
 jobs:
   build:
@@ -88,9 +91,16 @@ jobs:
           if ! git rebase upstream/main; then
             git rebase --abort || true
             title="Wardriving fork no longer applies on upstream $(git rev-parse --short upstream/main)"
-            if ! gh issue list --state open --search "$title" --json number -q '.[0].number' | grep -q .; then
-              gh issue create --title "$title" --body "The daily build could not replay \`$FORK_BRANCH\` on top of upstream main ($up). Rebase the branch by hand (or ask Claude to) and push it; the build will run again on push. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            msg="The build could not replay \`$FORK_BRANCH\` on top of upstream main ($up). Rebase the branch by hand (or ask Claude to) and push it; the build runs again on push."
+            echo "### $title" >> "$GITHUB_STEP_SUMMARY"
+            echo "$msg" >> "$GITHUB_STEP_SUMMARY"
+            # Issues are off by default on forks; the failed run (and GitHub's
+            # failure e-mail) is the signal then.
+            if [ "$(gh api "repos/$GH_REPO" -q .has_issues)" = "true" ]; then
+              gh issue list --state open --search "$title" --json number -q '.[0].number' | grep -q . \
+                || gh issue create --title "$title" --body "$msg Run: ${{ github.server_url }}/$GH_REPO/actions/runs/${{ github.run_id }}" || true
             fi
+            echo "::error::$title"
             exit 1
           fi
           echo "skip=false" >> "$GITHUB_OUTPUT"

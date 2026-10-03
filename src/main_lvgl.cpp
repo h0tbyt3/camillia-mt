@@ -47205,7 +47205,13 @@ static void drawBootSplash() {
     char nodeLine[72];
     const char *nodeLong = s_cfg.nodeLong[0] ? s_cfg.nodeLong : "unknown node";
     const char *nodeShort = s_cfg.nodeShort[0] ? s_cfg.nodeShort : "----";
+#if MY_SPLASH_LOGO && defined(MY_SPLASH_EDITION)
+    // h0tbyt3 fork: edition tag instead of the node name on the boot splash.
+    (void)nodeLong; (void)nodeShort;
+    snprintf(nodeLine, sizeof(nodeLine), "%s", MY_SPLASH_EDITION);
+#else
     snprintf(nodeLine, sizeof(nodeLine), "%s (%s)", nodeLong, nodeShort);
+#endif
 
 #if MY_SPLASH_LOGO && !defined(DEVICE_TLORA_PAGER_TFT) && !defined(DEVICE_CARDPUTER_LORA_HAT) && !defined(DEVICE_TDECK_PRO)
     // h0tbyt3 fork: custom logo large on the left, brand/subtitle/version on the

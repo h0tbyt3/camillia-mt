@@ -510,6 +510,9 @@
 #ifndef MY_SPLASH_BRAND
 #define MY_SPLASH_BRAND     "HotByte"
 #endif
+#ifndef MY_SPLASH_EDITION
+#define MY_SPLASH_EDITION   "WDGwars EDITION"   // shown under the logo instead of the node name
+#endif
 #ifndef MY_WARDRIVE_LOG_EN
 #define MY_WARDRIVE_LOG_EN  1   // log every radio sighting + own GPS fix to /camillia/wardrive.csv
 #endif

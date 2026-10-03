@@ -133,8 +133,8 @@
 #endif
 
 // ── Node identity (change to your callsign/name) ─────────────
-#define MY_LONG_NAME    "Camillia"
-#define MY_SHORT_NAME   "CaMi"
+#define MY_LONG_NAME    "WDGwars"
+#define MY_SHORT_NAME   "WDGW"
 
 // ── Meshtastic HardwareModel advertised in NODEINFO ─────────
 // Source: meshtastic/protobufs meshtastic/mesh.proto (HardwareModel enum).

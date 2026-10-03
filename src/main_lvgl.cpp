@@ -8323,7 +8323,11 @@ static void buildGlanceHeader(lv_obj_t *parent, GlanceHeader &w,
     lv_obj_set_style_text_font(w.title, kSleepOverlayTitleFont, 0);
     lv_obj_set_style_text_color(w.title, pal.ink, 0);
     lv_obj_set_style_text_align(w.title, LV_TEXT_ALIGN_CENTER, 0);
+#if defined(MY_SPLASH_EDITION)
+    lv_label_set_text(w.title, MY_SPLASH_EDITION);   // h0tbyt3 fork: home title
+#else
     lv_label_set_text(w.title, TR("Camillia"));
+#endif
     lv_obj_align(w.title, LV_ALIGN_TOP_MID, 0, kTdeckProTitleTop);
 
     // A rule under the wordmark, separating "which device is this" from

@@ -484,7 +484,8 @@
 #define MY_CANNED_EN        1
 #define MY_CANNED_MSGS      "Hi|Bye|Yes|No|Ok"
 // camillia chat server client: 0 off, 1 automatic (boot + every 15 min), 2 manual only.
-#define MY_CHAT_SERVER_MODE 1
+// Off on fresh installs; a device upgrading from the S&F client keeps its old setting.
+#define MY_CHAT_SERVER_MODE 0
 // Ask the release server for a newer build once per boot and offer to install
 // it. Opt-out: the check is a single plain-HTTP GET and costs nothing when
 // there is no update, so it is on by default.

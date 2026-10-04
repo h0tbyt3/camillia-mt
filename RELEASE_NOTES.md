@@ -13,3 +13,8 @@
 - The Meshtastic Store & Forward client is removed and replaced by the chat server. The **Store&Fwd Client** and **Request S&F Replay** rows, the Web Config Store & Forward settings and the **Request Replay Now** button are gone. Store & Forward traffic still shows in the Live feed.
 - After updating, a device that had the Store & Forward client on (the old default) starts with Chat Server set to **Automatic** and begins looking for a chat server. Set it to Off if your mesh has none. A pinned Store & Forward router is cleared. New installs start with Chat Server **Off**.
 - Exported configs (config.yaml) now include the chat server settings. Older exports with Store & Forward settings still import; those settings are ignored.
+
+
+### Update (v5.7.1)
+### Changed
+- Running "Check chat server" before a chat server has been found now starts a search for one right away instead of showing "No chat server yet". You can repeat it every 5 minutes, the same as an ordinary check.

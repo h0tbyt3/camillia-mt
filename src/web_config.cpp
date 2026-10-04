@@ -5249,7 +5249,8 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
         "&#128260; Check for Messages Now</button>"
         "</form>"
         "<p style='font-size:.82em;color:#888;margin:.3em 0 1em'>"
-        "Asks the chat server for messages missed on this node's channels. "
+        "Asks the chat server for messages missed on this node's channels, "
+        "or searches for one if none has been found yet. "
         "At most once every 5 minutes.";
     if (webCfgChatServerResult()[0]) {
         html += "<br>Last attempt: ";

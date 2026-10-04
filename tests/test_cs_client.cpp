@@ -184,12 +184,32 @@ static void testCheckNowReasons() {
     const char *why = nullptr;
     c.begin(MODE_OFF, SERVER, false, ME_IDS, 3, nullptr, 0);
     ok(!c.checkNow(0, &why) && strcmp(why, "off") == 0, "off");
-    c.begin(MODE_AUTO, 0, false, ME_IDS, 3, nullptr, 0);
-    ok(!c.checkNow(0, &why) && strcmp(why, "no server") == 0, "no server");
     knownServer(c, MODE_AUTO);
     Send s;
     c.poll(0, anchorFor, s);
     ok(!c.checkNow(1000, &why) && strcmp(why, "busy") == 0, "busy during a round");
+}
+
+// With no server yet, a check pulls the hourly DISCOVER forward instead of
+// being refused, and shares the 5-minute cooldown with ordinary checks.
+static void testCheckNowSearchesWithNoServer() {
+    Client c;
+    c.begin(MODE_MANUAL, 0, false, ME_IDS, 3, nullptr, 0);
+    Send s;
+    ok(c.poll(0, anchorFor, s) && typeOf(s) == csp::DISCOVER && s.to == 0xFFFFFFFF, "boot discover");
+    const uint32_t t = 10 * MIN;
+    ok(!c.poll(t, anchorFor, s), "next discover is an hour out");
+    const char *why = nullptr;
+    ok(c.checkNow(t, &why) && why && strcmp(why, "searching") == 0, "check with no server searches");
+    ok(c.poll(t, anchorFor, s) && typeOf(s) == csp::DISCOVER && s.to == 0xFFFFFFFF
+           && s.hopLimit == DISCOVERY_HOPS, "search broadcasts a discover now");
+    ok(!c.poll(t + MIN, anchorFor, s), "then back to the hourly schedule");
+    ok(!c.checkNow(t + 4 * MIN, &why) && why && strcmp(why, "cooldown") == 0, "search shares the cooldown");
+    ok(c.checkNow(t + CHECK_COOLDOWN_MS, &why) && why && strcmp(why, "searching") == 0, "allowed again at 5 min");
+
+    c.setServer(SERVER, true, t + CHECK_COOLDOWN_MS);
+    ok(!c.checkNow(t + CHECK_COOLDOWN_MS + MIN, &why) && strcmp(why, "cooldown") == 0, "cooldown carries over to a found server");
+    ok(c.checkNow(t + 2 * CHECK_COOLDOWN_MS, &why) && why == nullptr, "with a server, why is null on success");
 }
 
 static void testGapStopsCursor() {
@@ -316,6 +336,7 @@ int main() {
     testAutoResyncEvery15Min();
     testManualModeNoAutoSync();
     testCheckNowReasons();
+    testCheckNowSearchesWithNoServer();
     testGapStopsCursor();
     testBatchItemsReturnedEvenOnGap();
     testNewEpochResetsCursor();

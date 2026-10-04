@@ -39930,7 +39930,8 @@ static void performCfgAction(int actionId) {
             showActionPopup = false;
             const char *why = nullptr;
             if (chatServerCheckNow(&why)) {
-                snprintf(s_cfgStatus, sizeof(s_cfgStatus), "%s", TR("Checking chat server..."));
+                snprintf(s_cfgStatus, sizeof(s_cfgStatus), "%s",
+                         why ? TR("Searching for a chat server...") : TR("Checking chat server..."));
             } else {
                 snprintf(s_cfgStatus, sizeof(s_cfgStatus), "%s", why ? why : TR("Already checking"));
             }
@@ -50716,7 +50717,8 @@ static void chatServerService(uint32_t now) {
     }
     if (webCfgTakeChatServerCheck()) {
         const char *why = nullptr;
-        webCfgSetChatServerResult(chatServerCheckNow(&why) ? TR("checking") : (why ? why : TR("unavailable")));
+        webCfgSetChatServerResult(chatServerCheckNow(&why) ? (why ? TR("searching") : TR("checking"))
+                                                            : (why ? why : TR("unavailable")));
     }
 
     uint32_t ids[MESH_CHANNELS];
@@ -50755,12 +50757,11 @@ static bool chatServerCheckNow(const char **why) {
     if (!s_csStarted) {
         reason = "busy";
     } else if (s_csClient.checkNow(millis(), &reason)) {
-        if (why) *why = nullptr;
+        if (why) *why = reason;   // "searching" when there is no server yet, else null
         return true;
     }
     if (why) {
         *why = !strcmp(reason, "off")       ? TR("Chat server is off")
-             : !strcmp(reason, "no server") ? TR("No chat server yet")
              : !strcmp(reason, "cooldown")  ? TR("Checked recently, try again in a few minutes")
                                             : TR("Already checking");
     }

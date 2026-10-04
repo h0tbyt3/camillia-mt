@@ -59,7 +59,9 @@ public:
     // channel's cursor only advances across contiguous sequence numbers.
     int  onBatch(uint32_t from, int chanIdx, const csp::BatchHeader &h, const csp::Item *items,
                  uint8_t n, uint32_t nowMs);
-    // why (on false): "off", "no server", "busy", "cooldown".
+    // why (on false): "off", "busy", "cooldown". With no server yet, a check
+    // broadcasts a DISCOVER on the next poll instead and returns true with why =
+    // "searching"; otherwise why is null on true.
     bool checkNow(uint32_t nowMs, const char **why);
 
     // At most one packet per call. anchorFor(i) is asked once per channel when a

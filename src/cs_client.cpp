@@ -182,13 +182,17 @@ void Client::finishRequest(bool more, uint32_t nowMs) {
 bool Client::checkNow(uint32_t nowMs, const char **why) {
     const char *reason = nullptr;
     if (_mode == MODE_OFF) reason = "off";
-    else if (_server == 0) reason = "no server";
     else if (_roundActive) reason = "busy";
     else if (_checkedOnce && !reached(nowMs, _lastCheckMs + CHECK_COOLDOWN_MS)) reason = "cooldown";
     if (why) *why = reason;
     if (reason) return false;
     _checkedOnce = true;
     _lastCheckMs = nowMs;
+    if (_server == 0) {             // nothing to ask yet: look for a server now
+        _nextDiscoverMs = nowMs;
+        if (why) *why = "searching";
+        return true;
+    }
     startRound(nowMs);
     return true;
 }

@@ -8154,11 +8154,11 @@ static void paintGlanceStatusIcons(GlanceHeader &w) {
 #if HAS_WEATHER
 // Where the node name and the clock sit, which depends on whether there is
 // anything to put beside them. With a reading they are the left half of a
-// two-column hero block, the sky and the temperature mirroring them on the
-// right. Without one that column is empty, and a pair still pinned to the left
-// edge reads as a layout with something missing from it rather than as a
-// layout — so they take the whole width and centre, the way the builds with no
-// weather support at all have always drawn them.
+// two-column hero block, each pair centred in its own half, the sky and the
+// temperature mirroring them on the right. Without one that column is empty, and
+// a pair still sitting in the left half reads as a layout with something missing
+// from it rather than as a layout — so they take the whole width and centre, the
+// way the builds with no weather support at all have always drawn them.
 //
 // Both offsets are the ones buildGlanceHeader() would have used, kept here
 // rather than duplicated at the two call sites: this is the only code that
@@ -8172,17 +8172,31 @@ static void alignGlanceHero(GlanceHeader &w, bool wxShown) {
         if (wxShown) lv_obj_clear_flag(w.wxRule, LV_OBJ_FLAG_HIDDEN);
         else         lv_obj_add_flag(w.wxRule, LV_OBJ_FLAG_HIDDEN);
     }
-    if (wxShown) {
-        lv_obj_set_style_text_align(w.node, LV_TEXT_ALIGN_LEFT, 0);
-        lv_obj_align(w.node, LV_ALIGN_TOP_LEFT,
-                     kTdeckProBandInset, kTdeckProNodeTop);
-        lv_obj_align(w.time, LV_ALIGN_TOP_LEFT,
-                     kTdeckProBandInset, kTdeckProTimeTop);
-    } else {
+    // Each column's pair is centred in its own half rather than pushed to the
+    // outer edge, so the two read as matching cells either side of the rule.
+    // The x offsets are a quarter of the parent from its middle.
+    if (wxShown && lvObjValid(w.wxDesc) && lvObjValid(w.wxTemp)) {
+        lv_obj_t *parent = lv_obj_get_parent(w.node);
+        lv_obj_update_layout(parent);
+        const int halfW = (int)lv_obj_get_content_width(parent) / 2;
+        const int cellW = halfW - (2 * kTdeckProBandInset);
+        const int quarter = halfW / 2;
+        lv_obj_set_width(w.node, cellW);
         lv_obj_set_style_text_align(w.node, LV_TEXT_ALIGN_CENTER, 0);
-        lv_obj_align(w.node, LV_ALIGN_TOP_MID, 0, kTdeckProNodeTop);
-        lv_obj_align(w.time, LV_ALIGN_TOP_MID, 0, kTdeckProTimeTop);
+        lv_obj_align(w.node, LV_ALIGN_TOP_MID, -quarter, kTdeckProNodeTop);
+        lv_obj_align(w.time, LV_ALIGN_TOP_MID, -quarter, kTdeckProTimeTop);
+        lv_obj_set_width(w.wxDesc, cellW);
+        lv_obj_set_style_text_align(w.wxDesc, LV_TEXT_ALIGN_CENTER, 0);
+        lv_obj_align(w.wxDesc, LV_ALIGN_TOP_MID, quarter, kTdeckProNodeTop);
+        lv_obj_set_style_text_align(w.wxTemp, LV_TEXT_ALIGN_CENTER, 0);
+        lv_obj_align(w.wxTemp, LV_ALIGN_TOP_MID, quarter, kTdeckProTimeTop);
+        return;
     }
+    // No reading (or no side column): one centred column at the build-time width.
+    lv_obj_set_width(w.node, lv_pct(92));
+    lv_obj_set_style_text_align(w.node, LV_TEXT_ALIGN_CENTER, 0);
+    lv_obj_align(w.node, LV_ALIGN_TOP_MID, 0, kTdeckProNodeTop);
+    lv_obj_align(w.time, LV_ALIGN_TOP_MID, 0, kTdeckProTimeTop);
 }
 #endif
 
@@ -8569,8 +8583,9 @@ static void buildGlanceHeader(lv_obj_t *parent, GlanceHeader &w,
     }
 
     // Centred to start with, because the three labels above start hidden. The
-    // first repaint that finds a fresh reading moves the pair left; until then
-    // a header with no weather is drawn as one that never had any.
+    // first repaint that finds a fresh reading moves the pair into the left
+    // half; until then a header with no weather is drawn as one that never had
+    // any.
     alignGlanceHero(w, /*wxShown=*/false);
     }   // !w.wxBelow
 #else
@@ -56214,13 +56229,39 @@ static bool chatPanelInFront() {
     return true;
 }
 
+// How long a conversation's new messages blink once it is in front of the user.
+// A message arriving meanwhile starts the count again.
+static constexpr uint32_t kFreshSeenMs = 15000;
+
+// Tracks how long one conversation has been in front since its last new
+// message, and reports once when that reaches kFreshSeenMs.
+struct FreshSeenTimer {
+    uint32_t sinceMs;
+    uint32_t seq;
+    bool     done;
+    bool expired(bool sameConv, uint32_t freshSeq, uint32_t now) {
+        if (!sameConv || freshSeq != seq) {
+            sinceMs = now;
+            seq = freshSeq;
+            done = false;
+            return false;
+        }
+        if (done || (uint32_t)(now - sinceMs) < kFreshSeenMs) return false;
+        done = true;
+        return true;
+    }
+};
+
 // New messages stay marked (and blinking) until the user has had their
-// conversation in front of them and then left it: another channel, another
-// screen, or the display going to sleep. Watching what is in front each pass
-// catches every way of leaving without hooking each one.
+// conversation in front of them for kFreshSeenMs, or has left it sooner:
+// another channel, another screen, or the display going to sleep. Watching what
+// is in front each pass catches every way of leaving without hooking each one.
 static void serviceFreshMarks() {
     static int s_prevChan = -1;
     static uint32_t s_prevPeer = 0;
+    static FreshSeenTimer s_chanSeen = {};
+    static FreshSeenTimer s_peerSeen = {};
+    const uint32_t now = millis();
     int chan = -1;
     uint32_t peer = 0;
     if (!glanceOverlayHidesUi()) {
@@ -56237,6 +56278,18 @@ static void serviceFreshMarks() {
     if (s_prevPeer != 0 && s_prevPeer != peer) {
         DMs.clearFresh(s_prevPeer);
         chatBlinkStop(s_dmBlink, s_prevPeer);
+    }
+    if (chan >= 0 && s_chanSeen.expired(chan == s_prevChan, Channels.freshSeq(chan), now)) {
+        Channels.clearFresh(chan);
+        chatBlinkStop(s_chatBlink, (uint32_t)chan);
+        if (s_channelNeedsAttention[chan]) {
+            s_channelNeedsAttention[chan] = false;
+            refreshChannelGlow(true);
+        }
+    }
+    if (peer != 0 && s_peerSeen.expired(peer == s_prevPeer, DMs.freshSeq(peer), now)) {
+        DMs.clearFresh(peer);
+        chatBlinkStop(s_dmBlink, peer);
     }
     s_prevChan = chan;
     s_prevPeer = peer;

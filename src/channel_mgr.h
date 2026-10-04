@@ -20,6 +20,7 @@ struct Channel {
     int          count;       // total lines ever added
     int          scrollOff;   // 0 = latest at top
     uint32_t     revision;    // increments whenever visible line content changes
+    uint32_t     freshSeq;    // increments whenever a fresh line is added (RAM only)
     bool         unread;
     bool         active;      // has been allocated
 };
@@ -71,6 +72,11 @@ public:
     // Drop the "new" mark from every line of a channel (the user has seen it
     // and moved on). True when anything changed.
     bool clearFresh(int chanIdx);
+    // Changes whenever a fresh message is added to the channel, so a caller can
+    // tell a new arrival from the marks it already knows about.
+    uint32_t freshSeq(int chanIdx) const {
+        return (chanIdx >= 0 && chanIdx < MAX_CHANNELS) ? _chans[chanIdx].freshSeq : 0;
+    }
 
     void setAckState(uint32_t packetId, DisplayLine::AckState state);
     // Determine ACKED vs ACKED_RELAY by comparing fromNodeId to stored destNodeId

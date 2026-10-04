@@ -109,6 +109,11 @@ bool DmMgr::clearFresh(uint32_t nodeId) {
     return changed;
 }
 
+uint32_t DmMgr::freshSeq(uint32_t nodeId) {
+    DmConv *c = find(nodeId);
+    return c ? c->freshSeq : 0;
+}
+
 bool DmMgr::deleteConversation(uint32_t nodeId) {
     int idx = -1;
     for (int i = 0; i < _count; i++) {
@@ -264,7 +269,10 @@ void DmMgr::addMessage(uint32_t nodeId, const char *shortName,
     _pushLine(*c, full, color, packetId,
               packetId ? DmLine::PENDING : DmLine::NONE,
               epoch);
-    if (fresh && c->count > 0) c->lines[(c->count - 1) % MAX_DM_LINES].fresh = true;
+    if (fresh && c->count > 0) {
+        c->lines[(c->count - 1) % MAX_DM_LINES].fresh = true;
+        c->freshSeq++;
+    }
 
     c->scrollOff = 0;  // jump to latest on new message
     // Mark rather than write; servicePersistence() does the save. The old

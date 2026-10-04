@@ -81,6 +81,7 @@ void ChannelMgr::init() {
         _chans[i].count     = 0;
         _chans[i].scrollOff = 0;
         _chans[i].revision  = 0;
+        _chans[i].freshSeq  = 0;
         _chans[i].unread    = false;
         _chans[i].lines = allocChannelLines();
         _chans[i].active = (_chans[i].lines != nullptr);
@@ -197,6 +198,7 @@ void ChannelMgr::_pushLine(int chanIdx, Channel &ch, const char *text, uint16_t 
     dl.epoch        = epoch;
     dl.senderNodeId = senderNodeId;
     dl.fresh        = _pushFresh;
+    if (_pushFresh) ch.freshSeq++;
     ch.count++;
     ch.revision++;
 

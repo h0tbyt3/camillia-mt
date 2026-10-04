@@ -1,20 +1,11 @@
 ### New
-- **Chat Server**: catch up on channel messages you missed while the device was off or out of range. A chat server is a node running camillia-chat-server firmware that keeps channel messages and sends back the ones you missed. It covers every channel you share with it (same name and key). Direct messages are not included.
-- The **Chat Server** setting on the Config screen (**Catch-up** in Web Config, under Modules) has three modes: **Off**, **Automatic** (checks at startup and every 15 minutes) and **Manual only** (checks only when you ask).
-- The device finds a server on its own. It searches up to 3 hops away at startup, then every hour until one answers, and uses the first server that shares at least one of your channels. It keeps that server, even if it stops answering, until you clear it.
-- **Check for Messages Now**, on the Config screen and in Web Config under Utilities > Diagnostics, asks the server right away, at most once every 5 minutes.
-- To pick a server yourself, choose **Chat Server** in a node's menu on the Nodes screen, or enter its short name or node ID (!aabbccdd) under **Chat Server Node** in Web Config. To forget the server and look for a new one, select **Chat Server Node** on the Config screen or clear that box in Web Config.
-- Missed messages appear in the channel at the time they were sent, marked with a refresh icon (CS on the Cardputer). Messages you already have are not repeated, ignored nodes stay hidden, muted channels stay silent, and each batch alerts once rather than once per message.
-- The Live feed shows when a chat server is found, when it can't be reached, and when it is reachable again.
-- If the device's clock is not set, it takes the time from the chat server, unless **Time and Date** is set to Manual.
-- New messages you receive now blink until you have viewed their channel or DM and then moved to another channel or screen, or the display has gone to sleep. This works in every chat style. Not on the T-Deck Pro.
+- Wardriving mode, off by default: turn it on from Settings → Wardriving (next to the GPS toggle), from web config → Node Management, or with `nodes: wardriveLog: true` in the YAML config. It only appears on boards with storage. The Settings row shows when it can't log, such as no GPS fix, log full or no storage.
+- With Wardriving on, every radio sighting is logged with your own GPS position to `/camillia/wardrive.csv`. Each node gets at most one line every 30 seconds, or sooner once you've moved 50 m.
+- The wardrive log stops when it reaches an eighth of the storage, up to 64 MB, and shows "log full". In web config, the Node Management page shows session counters and has Download Wardrive Log and Clear Wardrive Log buttons.
+- With Wardriving on, the node export (`/nodes.csv`) and the SD node archive record where your device was when it best heard each node. New `mapLat`/`mapLon` columns use the node's own position when it has one and that heard position otherwise, ready for map uploads.
+- With Wardriving on, the Discovery screen shows a status line with GPS state (satellite count, no fix or GPS off) and how many nodes and lines the log has taken. On the T-Deck Pro it shows only fix state and node count, so the e-paper doesn't refresh as often.
 
 ### Changed
-- The Meshtastic Store & Forward client is removed and replaced by the chat server. The **Store&Fwd Client** and **Request S&F Replay** rows, the Web Config Store & Forward settings and the **Request Replay Now** button are gone. Store & Forward traffic still shows in the Live feed.
-- After updating, a device that had the Store & Forward client on (the old default) starts with Chat Server set to **Automatic** and begins looking for a chat server. Set it to Off if your mesh has none. A pinned Store & Forward router is cleared. New installs start with Chat Server **Off**.
-- Exported configs (config.yaml) now include the chat server settings. Older exports with Store & Forward settings still import; those settings are ignored.
-
-
-### Update (v5.7.1)
-### Changed
-- Running "Check chat server" before a chat server has been found now starts a search for one right away instead of showing "No chat server yet". You can repeat it every 5 minutes, the same as an ordinary check.
+- Blinking new-message marks in a channel or DM now clear after you've had that conversation open for 15 seconds, not only when you leave it. A new message restarts the 15 seconds.
+- T-Deck Pro: when weather is shown, the at-a-glance header centres the node name and time in the left half and the weather in the right half.
+- Node exports that include archived nodes now pad older archive rows with empty fields, so every row has as many columns as the header.

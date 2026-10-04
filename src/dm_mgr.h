@@ -40,6 +40,7 @@ struct DmConv {
     char     lastText[DM_LINE_LEN + 1];  // most recent message (list preview)
     uint32_t lastMs;
     bool     unread;          // true if there are messages not yet viewed
+    uint32_t freshSeq;        // increments whenever a fresh line is added (RAM only)
     uint16_t unreadCount;     // unread message count for this conversation
     int      rxChanIdx;       // channel index last message was received on (-1 = unknown)
     // Debounced persistence. Held per conversation rather than in a side table
@@ -74,6 +75,8 @@ public:
                     uint32_t packetId = 0, bool fresh = false);
     // Drop the "new" mark from a conversation's lines. True when anything changed.
     bool      clearFresh(uint32_t nodeId);
+    // Changes whenever a fresh message is added to the conversation (0 if none).
+    uint32_t  freshSeq(uint32_t nodeId);
 
     // Build and transmit a unicast DM. Adds outgoing message to conversation.
     // replyId: optional Data.reply_id (message being replied to).

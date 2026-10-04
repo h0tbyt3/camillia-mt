@@ -18,7 +18,10 @@
   lock	  korumalı
   open	  açık
  (English only)	 (yalnızca İngilizce)
+ (log full)	 (kayıt dolu)
+ (no GPS fix)	 (GPS konumu yok)
  (no card)	 (kart yok)
+ (no storage)	 (depolama yok)
  (not sharing location)	 (konum paylaşılmıyor)
  (unchanged)	 (değişmedi)
  - %s available	 - %s mevcut
@@ -318,8 +321,11 @@ Freq: %.3f MHz	Frek: %.3f MHz
 Fri	Cum
 From: %s	Gönderen: %s
 Full node name when known	Biliniyorsa tam düğüm adı
+GPS %u sat	GPS %u uydu
 GPS disabled (using default coordinates)	GPS kapalı (varsayılan koordinatlar)
 GPS enabled (hardware)	GPS açık (donanım)
+GPS fix	GPS konumu var
+GPS off	GPS kapalı
 GPS: Disabled (Default Coords)	GPS: Kapalı (varsayılan koord.)
 GPS: Enabled (Hardware)	GPS: Açık (donanım)
 Gateway: not known	Ağ geçidi: bilinmiyor
@@ -401,6 +407,9 @@ Lock Screen Off: %s	Kilitte ekran kapalı: %s
 Lock Screen: %s	Kilit ekranı: %s
 Lock screen	Kilit ekranı
 Lock screen stays on	Kilit ekranı açık kalır
+Log %lu/%lu	Kayıt %lu/%lu
+Log full	Kayıt dolu
+Log: %lu node(s)	Kayıt: %lu düğüm
 Long	Uzun
 Long name	Uzun ad
 Long name cannot be empty	Uzun ad boş olamaz
@@ -456,6 +465,7 @@ My Message Color: %s - rebooting...	Mesajlarımın rengi: %s - yeniden başlatı
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=WiFi seç   Enter=Bitir   Bksp=Geri
 NO LINE OF SIGHT	GÖRÜŞ HATTI YOK
 NODEINFO + telemetry queued.	NODEINFO + telemetri kuyruğa alındı.
+No GPS fix	GPS konumu yok
 Send NODEINFO and telemetry to the mesh now?	NODEINFO ve telemetri şimdi ağa gönderilsin mi?
 NODES	DÜĞÜMLER
 NODES (%d%s)	DÜĞÜMLER (%d%s)
@@ -794,6 +804,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Tarama   P = Ön ayar
 Wait %lus before sending again	Yeniden göndermeden önce %lus bekleyin
 Wait %lus between sweeps	Taramalar arasında %lus bekleyin
 Waiting for Wi-Fi...	Wi-Fi bekleniyor...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	İzleniyor: %s/2/e/#\n\nHenüz mesaj yok. Kanallar yayımlandıkça burada görünür, en yeni altta, her birinde görülen mesaj sayısıyla.
 Weather	Hava durumu
 Weather - %s	Hava durumu - %s

@@ -20,7 +20,11 @@
 //
 // Only radio sightings are logged (MQTT ones say nothing about where our radio
 // was), and only while the GPS has a fix: a line with no position is useless to
-// a map, so those are counted in wardriveLogSkippedNoFix() instead.
+// a map, so those are counted in wardriveLogSkippedNoFix() instead, at the same
+// per-node rate a line would have been written.
+//
+// The file is capped (wardriveLogIsFull()) so a forgotten log cannot fill the
+// storage it shares with everything else.
 #include <Arduino.h>
 
 // Mirrored from RhinoConfig::wardriveLogEnabled by the main loop each pass.
@@ -48,3 +52,6 @@ uint32_t wardriveLogLines();          // lines written to the file
 uint32_t wardriveLogNodes();          // distinct nodes logged (capped, see .cpp)
 uint32_t wardriveLogSkippedNoFix();   // sightings dropped for want of a GPS fix
 uint32_t wardriveLogDropped();        // queued lines lost (no storage / write error)
+// True once the file reached its size cap (an eighth of the storage, at most
+// 64 MB). Logging stops there until wardriveLogClear().
+bool     wardriveLogIsFull();

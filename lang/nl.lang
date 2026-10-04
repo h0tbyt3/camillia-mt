@@ -16,7 +16,10 @@
   Press  %.1f hPa	  Druk   %.1f hPa
   lock	  beveiligd
  (English only)	 (alleen Engels)
+ (log full)	 (log vol)
+ (no GPS fix)	 (geen GPS-fix)
  (no card)	 (geen kaart)
+ (no storage)	 (geen opslag)
  (not sharing location)	 (locatie niet gedeeld)
  (unchanged)	 (ongewijzigd)
  - %s available	 - %s beschikbaar
@@ -310,8 +313,11 @@ Found %u file%s matching Windows malware:\n	%u bestand(en)%.0s lijken op Windows
 Fri	vr
 From: %s	Van: %s
 Full node name when known	Volledige nodenaam, indien bekend
+GPS %u sat	GPS %u sat
 GPS disabled (using default coordinates)	GPS uit (standaardcoördinaten)
 GPS enabled (hardware)	GPS aan (hardware)
+GPS fix	GPS-fix
+GPS off	GPS uit
 GPS: Disabled (Default Coords)	GPS: Uit (standaardcoörd.)
 GPS: Enabled (Hardware)	GPS: Aan (hardware)
 Gateway: not known	Gateway: onbekend
@@ -387,6 +393,9 @@ Lock Screen Off: %s	Scherm uit bij vergrendeling: %s
 Lock Screen: %s	Vergrendelscherm: %s
 Lock screen	Vergrendelscherm
 Lock screen stays on	Vergrendelscherm blijft aan
+Log %lu/%lu	Log %lu/%lu
+Log full	Log vol
+Log: %lu node(s)	Log: %lu node(s)
 Long	Lang
 Long name	Lange naam
 Long name cannot be empty	Lange naam mag niet leeg zijn
@@ -444,6 +453,7 @@ My Message Color: %s - rebooting...	Kleur van mijn berichten: %s - herstarten...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Kies wifi   Enter=Voltooien   Bksp=Terug
 NO LINE OF SIGHT	GEEN ZICHTLIJN
 NODEINFO + telemetry queued.	NODEINFO + telemetrie in de wachtrij.
+No GPS fix	Geen GPS-fix
 Send NODEINFO and telemetry to the mesh now?	NODEINFO en telemetrie nu naar de mesh sturen?
 Name	Naam
 Name: %s\nShort: %s\nID: !%08X\nLast heard: %s\nSNR: %.1f dB\nHops: %u\nChannel: %d\n\nPosition:\n%s\n\nTelemetry:\n%s	Naam: %s\nKort: %s\nID: !%08X\nLaatst gehoord: %s\nSNR: %.1f dB\nHops: %u\nKanaal: %d\n\nPositie:\n%s\n\nTelemetrie:\n%s
@@ -769,6 +779,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Sweep   P = Preset   
 Wait %lus before sending again	Wacht %lus voor je opnieuw verzendt
 Wait %lus between sweeps	Wacht %lus tussen sweeps
 Waiting for Wi-Fi...	Wachten op wifi...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	%s/2/e/# wordt gevolgd\n\nNog geen berichten. Kanalen verschijnen hier zodra ze worden gepubliceerd, de nieuwste onderaan, met het aantal berichten dat op elk is gezien.
 Weather	Weer
 Weather - %s	Weer - %s

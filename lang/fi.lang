@@ -18,7 +18,10 @@
   lock	  suojattu
   open	  avoin
  (English only)	 (vain englanti)
+ (log full)	 (loki täynnä)
+ (no GPS fix)	 (ei GPS-paikannusta)
  (no card)	 (ei korttia)
+ (no storage)	 (ei tallennustilaa)
  (not sharing location)	 (sijaintia ei jaeta)
  (unchanged)	 (ennallaan)
  - %s available	 - %s saatavilla
@@ -318,8 +321,11 @@ Freq: %.3f MHz	Taaj: %.3f MHz
 Fri	pe
 From: %s	Lähettäjä: %s
 Full node name when known	Solmun koko nimi, jos tiedossa
+GPS %u sat	GPS %u sat
 GPS disabled (using default coordinates)	GPS pois (oletuskoordinaatit)
 GPS enabled (hardware)	GPS päällä (laitteisto)
+GPS fix	GPS-paikannus
+GPS off	GPS pois
 GPS: Disabled (Default Coords)	GPS: Pois (oletuskoord.)
 GPS: Enabled (Hardware)	GPS: Päällä (laitteisto)
 Gateway: not known	Yhdyskäytävä: tuntematon
@@ -398,6 +404,9 @@ Lock Screen Off: %s	Näyttö pois lukituksessa: %s
 Lock Screen: %s	Lukitusnäyttö: %s
 Lock screen	Lukitusnäyttö
 Lock screen stays on	Lukitusnäyttö pysyy päällä
+Log %lu/%lu	Loki %lu/%lu
+Log full	Loki täynnä
+Log: %lu node(s)	Loki: %lu solmua
 Long	Pitkä
 Long name	Pitkä nimi
 Long name cannot be empty	Pitkä nimi ei voi olla tyhjä
@@ -455,6 +464,7 @@ My Message Color: %s - rebooting...	Viestieni väri: %s - käynnistetään uudel
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Valitse WiFi   Enter=Valmis   Bksp=Takaisin
 NO LINE OF SIGHT	EI NÄKÖYHTEYTTÄ
 NODEINFO + telemetry queued.	NODEINFO + telemetria jonossa.
+No GPS fix	Ei GPS-paikannusta
 Send NODEINFO and telemetry to the mesh now?	Lähetetäänkö NODEINFO ja telemetria verkkoon nyt?
 NODES	SOLMUT
 NODES (%d%s)	SOLMUT (%d%s)
@@ -793,6 +803,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Haravoi   P = Esias. 
 Wait %lus before sending again	Odota %lus ennen uutta lähetystä
 Wait %lus between sweeps	Odota %lus haravointien välillä
 Waiting for Wi-Fi...	Odotetaan Wi-Fiä...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Seurataan %s/2/e/#\n\nEi vielä viestejä. Kanavat ilmestyvät tänne sitä mukaa kuin niitä julkaistaan, uusimmat alimpana, ja kunkin kohdalla näkyy nähtyjen viestien määrä.
 Weather	Sää
 Weather - %s	Sää - %s

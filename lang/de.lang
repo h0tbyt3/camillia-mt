@@ -18,7 +18,10 @@
   lock	  gesichert
   open	  offen
  (English only)	 (nur Englisch)
+ (log full)	 (Log voll)
+ (no GPS fix)	 (kein GPS-Fix)
  (no card)	 (keine Karte)
+ (no storage)	 (kein Speicher)
  (not sharing location)	 (Standort nicht geteilt)
  (unchanged)	 (unverändert)
  - %s available	 - %s verfügbar
@@ -305,8 +308,11 @@ Found %u file%s matching Windows malware:\n	%u Datei(en)%.0s passen zu Windows-S
 Fri	Fr
 From: %s	Von: %s
 Full node name when known	Voller Knotenname, falls bekannt
+GPS %u sat	GPS %u Sat
 GPS disabled (using default coordinates)	GPS deaktiviert (Standardkoordinaten)
 GPS enabled (hardware)	GPS aktiviert (Hardware)
+GPS fix	GPS-Fix
+GPS off	GPS aus
 GPS: Disabled (Default Coords)	GPS: Deaktiviert (Standardkoord.)
 GPS: Enabled (Hardware)	GPS: Aktiviert (Hardware)
 Gateway: not known	Gateway: unbekannt
@@ -380,6 +386,9 @@ Lock Screen Off: %s	Bildschirm aus bei Sperre: %s
 Lock Screen: %s	Sperrbildschirm: %s
 Lock screen	Sperrbildschirm
 Lock screen stays on	Sperrbildschirm bleibt an
+Log %lu/%lu	Log %lu/%lu
+Log full	Log voll
+Log: %lu node(s)	Log: %lu Knoten
 Long	Lang
 Long name	Langer Name
 Long name cannot be empty	Langer Name darf nicht leer sein
@@ -436,6 +445,7 @@ My Message Color: %s - rebooting...	Meine Nachrichtenfarbe: %s - Neustart...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=WLAN wählen   Enter=Fertig   Bksp=Zurück
 NO LINE OF SIGHT	KEINE SICHTVERBINDUNG
 NODEINFO + telemetry queued.	NODEINFO + Telemetrie eingereiht.
+No GPS fix	Kein GPS-Fix
 Send NODEINFO and telemetry to the mesh now?	NODEINFO und Telemetrie jetzt ans Mesh senden?
 NODES	KNOTEN
 NODES (%d%s)	KNOTEN (%d%s)
@@ -759,6 +769,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Sweep   P = Preset   
 Wait %lus before sending again	%lus warten, bevor erneut gesendet wird
 Wait %lus between sweeps	%lus zwischen Sweeps warten
 Waiting for Wi-Fi...	Warte auf WLAN...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Beobachte %s/2/e/#\n\nNoch keine Nachrichten. Kanäle erscheinen hier, sobald sie veröffentlicht werden, die neuesten unten, mit der Zahl der jeweils gesehenen Nachrichten.
 Weather	Wetter
 Weather - %s	Wetter - %s

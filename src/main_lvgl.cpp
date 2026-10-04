@@ -3329,6 +3329,9 @@ enum CfgActionId {
     CFG_ACTION_BLE_KBD_PAIR,
 #endif
     CFG_ACTION_GPS_TOGGLE,
+#if HAS_FILE_STORAGE
+    CFG_ACTION_WARDRIVE,
+#endif
     CFG_ACTION_SHARE_LOCATION,
     CFG_ACTION_POSITION_PRECISION,
     CFG_ACTION_EXPORT,
@@ -5428,6 +5431,20 @@ static const char *cfgActionLabel(int actionId, char *buf, size_t bufLen) {
         case CFG_ACTION_CLEAR_MSGS:
             snprintf(buf, bufLen, "%s", TR("Clear Messages"));
             break;
+#if HAS_FILE_STORAGE
+        case CFG_ACTION_WARDRIVE:
+            // The log's state rides on the row, for the same reason as the
+            // archive below: it is the one place that can keep saying why
+            // nothing is being written.
+            snprintf(buf, bufLen, TR("Wardriving: %s%s"),
+                     s_cfg.wardriveLogEnabled ? TR("On") : TR("Off"),
+                     !s_cfg.wardriveLogEnabled ? ""
+                     : !wardriveLogAvailable() ? TR(" (no storage)")
+                     : wardriveLogIsFull()     ? TR(" (log full)")
+                     : !gpsHasFix()            ? TR(" (no GPS fix)")
+                     : "");
+            break;
+#endif
         case CFG_ACTION_ARCHIVE_NODES:
             // Same "(no card)" caveat as the row below, for the same reason:
             // with nothing to write to, an evicted node is simply dropped, and
@@ -5481,6 +5498,12 @@ static bool cfgActionDisabled(int actionId) {
 #endif
         case CFG_ACTION_WEBCFG:
             return !s_cfg.wifiEnabled || s_cfg.mqttEnabled;
+#if HAS_FILE_STORAGE
+        // Nowhere to write: greyed out, but never while on, so it can always
+        // be switched off again.
+        case CFG_ACTION_WARDRIVE:
+            return !s_cfg.wardriveLogEnabled && !wardriveLogAvailable();
+#endif
 #if HAS_VNC_HOST
         // Keep an active row usable after a transient link drop so VNC can
         // still be turned off. Only activation requires a live station.
@@ -13671,6 +13694,11 @@ static void initCfgActions() {
     s_cfgActions[s_cfgActionCount++] = CFG_ACTION_BLE_KBD_PAIR;
 #endif
     s_cfgActions[s_cfgActionCount++] = CFG_ACTION_GPS_TOGGLE;
+#if HAS_FILE_STORAGE
+    // Beside the GPS it depends on, so it can be switched on at the roadside
+    // without a laptop. Only where there is storage for the log to land on.
+    s_cfgActions[s_cfgActionCount++] = CFG_ACTION_WARDRIVE;
+#endif
 
     // Then the services those radios carry, which are useless without them.
 #if !HAS_BLE_KEYBOARD
@@ -17990,6 +18018,12 @@ static constexpr size_t kDiscoveryNameMax = (kDiscoveryCols == 1) ? 29 : 19;
 
 static lv_obj_t *s_discoveryModal = nullptr;
 static lv_obj_t *s_discoveryStatusLabel = nullptr;
+// Wardriving line under the summary: GPS state and what the wardrive log has
+// taken. Only exists while the log is on, and is updated in place by
+// refreshDiscoveryModal() rather than by a rebuild, because the satellite count
+// and line count change far more often than anything else on the screen.
+static lv_obj_t *s_discoveryWardriveLabel = nullptr;
+static char      s_discoveryWardriveText[96];
 static lv_obj_t *s_discoveryList = nullptr;
 // The label on the Clear/Cancel button. Held because its text is the button's
 // whole state: it is one control doing whichever of the two the screen is
@@ -34417,6 +34451,7 @@ static void closeDiscoveryModal() {
     closeDiscoveryPresetModal();
     lvObjDeleteSafe(s_discoveryModal);
     s_discoveryStatusLabel = nullptr;
+    s_discoveryWardriveLabel = nullptr;
     s_discoveryList = nullptr;
     s_discoveryClearLabel = nullptr;
     s_discoveryHintLabel = nullptr;
@@ -34752,15 +34787,47 @@ static void discoveryBuildViaMqtt(lv_obj_t *col) {
 
 // Rebuilds every column's contents. The summary rides on the DIRECT column,
 // which is column 0 on every layout.
+static void discoveryWardriveFormat(char *out, size_t outLen) {
+    char gps[32];
+    if (!gpsIsEnabled()) {
+        snprintf(gps, sizeof(gps), "%s", TR("GPS off"));
+    } else if (!gpsHasFix()) {
+        snprintf(gps, sizeof(gps), "%s", TR("No GPS fix"));
+    } else {
+#if defined(DEVICE_TDECK_PRO)
+        // E-paper: the satellite count jitters every second or two, and each
+        // change would be a panel refresh. Fix state alone changes rarely.
+        snprintf(gps, sizeof(gps), "%s", TR("GPS fix"));
+#else
+        snprintf(gps, sizeof(gps), TR("GPS %u sat"), (unsigned)gpsSats());
+#endif
+    }
+    if (wardriveLogIsFull()) {
+        snprintf(out, outLen, "%s | %s", gps, TR("Log full"));
+    } else {
+        char log[48];
+#if defined(DEVICE_TDECK_PRO)
+        // Same reason: nodes grow slowly, lines grow with every sighting.
+        snprintf(log, sizeof(log), TR("Log: %lu node(s)"),
+                 (unsigned long)wardriveLogNodes());
+#else
+        snprintf(log, sizeof(log), TR("Log %lu/%lu"),
+                 (unsigned long)wardriveLogNodes(), (unsigned long)wardriveLogLines());
+#endif
+        snprintf(out, outLen, "%s | %s", gps, log);
+    }
+}
+
 static void discoveryBuildColumns() {
     for (int i = 0; i < kDiscoveryCols; i++) {
         if (s_discoveryColBoxes[i]) lv_obj_clean(s_discoveryColBoxes[i]);
     }
+    s_discoveryWardriveLabel = nullptr;   // went with the clean above
     if (!s_discoveryColBoxes[kDiscoveryColDirect]) return;
 
     // Counts sit here rather than on the status line, which belongs to the
     // sweep: a refusal message must not cost the user the summary.
-    char summary[112];
+    char summary[64];
     if (s_presetScanResultFromMs != 0) {
         // Nodes.count() is the whole table, which is exactly what this line must
         // not say while the screen is scoped to one scan.
@@ -34777,27 +34844,16 @@ static void discoveryBuildColumns() {
         snprintf(summary, sizeof(summary), TR("%d node(s), %d report(s)"),
                  Nodes.count(), discoveryUsableReportCount());
     }
-    // Wardriving at a glance: whether sightings are being positioned right now,
-    // and how much the log has taken. A drive with no fix is the failure that
-    // otherwise only shows up at upload time.
-    {
-        const size_t used = strlen(summary);
-        if (!gpsIsEnabled()) {
-            snprintf(summary + used, sizeof(summary) - used, " | GPS off");
-        } else if (!gpsHasFix()) {
-            snprintf(summary + used, sizeof(summary) - used, " | NO GPS FIX");
-        } else {
-            snprintf(summary + used, sizeof(summary) - used, " | GPS %u sat",
-                     (unsigned)gpsSats());
-        }
-        if (wardriveLogIsEnabled()) {
-            const size_t u2 = strlen(summary);
-            snprintf(summary + u2, sizeof(summary) - u2, " | log %lu/%lu",
-                     (unsigned long)wardriveLogNodes(),
-                     (unsigned long)wardriveLogLines());
-        }
-    }
     discoveryMakeLabel(s_discoveryColBoxes[kDiscoveryColDirect], summary, false);
+    // Wardriving at a glance, on its own line so it never pushes the summary
+    // into a wrap: whether sightings are being positioned right now, and how
+    // much the log has taken. A drive with no fix is the failure that otherwise
+    // only shows up at upload time. Nothing at all unless the log is on.
+    if (wardriveLogIsEnabled()) {
+        discoveryWardriveFormat(s_discoveryWardriveText, sizeof(s_discoveryWardriveText));
+        s_discoveryWardriveLabel = discoveryMakeLabel(s_discoveryColBoxes[kDiscoveryColDirect],
+                                                      s_discoveryWardriveText, false);
+    }
 
     discoveryBuildDirect(s_discoveryColBoxes[kDiscoveryColDirect]);
     discoveryBuildDistance(s_discoveryColBoxes[kDiscoveryColDistance]);
@@ -35563,6 +35619,7 @@ static void refreshDiscoveryModal(bool force) {
     if (!lvObjValid(s_discoveryModal)) {
         s_discoveryModal = nullptr;
         s_discoveryStatusLabel = nullptr;
+        s_discoveryWardriveLabel = nullptr;
         s_discoveryList = nullptr;
         s_discoveryClearLabel = nullptr;
         s_discoveryHintLabel = nullptr;
@@ -35633,18 +35690,25 @@ static void refreshDiscoveryModal(bool force) {
     // That is one cheap pass over the node table, and only while the modal is
     // open -- the price of the screen being live at all.
     const uint32_t sig = discoveryResultSig();
-    // The summary also carries GPS fix state and the wardrive log's node count
-    // (discoveryBuildColumns()). Kept out of discoveryResultSig(), which also
-    // drives "save while discovering" rewrites that a fix flapping must not
-    // trigger. Satellite count is left out on purpose: it jitters constantly.
-    static uint32_t s_discoveryRenderedGpsSig = 0;
-    const uint32_t gpsSig = (gpsIsEnabled() ? 1u : 0u)
-                          | (gpsHasFix() ? 2u : 0u)
-                          | (wardriveLogIsEnabled() ? 4u : 0u)
-                          | (wardriveLogNodes() << 3);
-    if (!force && sig == s_discoveryRenderedSig && gpsSig == s_discoveryRenderedGpsSig) return;
+    // The wardriving line is not part of discoveryResultSig(), which also drives
+    // "save while discovering" rewrites that a GPS fix flapping must not trigger.
+    // Its presence follows the log switch (a rebuild adds or drops it); its text
+    // is set in place, and only when it changed, since lv_label_set_text()
+    // invalidates.
+    const bool wantWardrive = wardriveLogIsEnabled();
+    const bool haveWardrive = s_discoveryWardriveLabel != nullptr;
+    if (!force && sig == s_discoveryRenderedSig && wantWardrive == haveWardrive) {
+        if (haveWardrive && lvObjValid(s_discoveryWardriveLabel)) {
+            char text[sizeof(s_discoveryWardriveText)];
+            discoveryWardriveFormat(text, sizeof(text));
+            if (strcmp(text, s_discoveryWardriveText) != 0) {
+                memcpy(s_discoveryWardriveText, text, sizeof(text));
+                lv_label_set_text(s_discoveryWardriveLabel, s_discoveryWardriveText);
+            }
+        }
+        return;
+    }
     s_discoveryRenderedSig = sig;
-    s_discoveryRenderedGpsSig = gpsSig;
 
     discoveryBuildColumns();
 }
@@ -40289,6 +40353,19 @@ static void performCfgAction(int actionId) {
             // finished in a compose box is checked or not accordingly.
             snprintf(s_cfgStatus, sizeof(s_cfgStatus), TR("Spell Check: %s"),
                      s_cfg.spellCheckEnabled ? TR("On") : TR("Off"));
+            break;
+#endif
+
+#if HAS_FILE_STORAGE
+        case CFG_ACTION_WARDRIVE:
+            if (s_cfgDebugLog) Serial.println("[lvgl-cfg] exec WARDRIVE");
+            showActionPopup = false;   // row already reads On/Off
+            s_cfg.wardriveLogEnabled = !s_cfg.wardriveLogEnabled;
+            persistConfigToPrefs();
+            // wardrive_log is told by the main loop, which mirrors this every
+            // pass -- the same arrangement as the archive below.
+            snprintf(s_cfgStatus, sizeof(s_cfgStatus), TR("Wardriving: %s"),
+                     s_cfg.wardriveLogEnabled ? TR("On") : TR("Off"));
             break;
 #endif
 

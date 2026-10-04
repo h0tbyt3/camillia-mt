@@ -18,7 +18,10 @@
   lock	  zaščiteno
   open	  odprto
  (English only)	 (samo angleščina)
+ (log full)	 (dnevnik poln)
+ (no GPS fix)	 (ni položaja GPS)
  (no card)	 (ni kartice)
+ (no storage)	 (ni shrambe)
  (not sharing location)	 (lokacija se ne deli)
  (unchanged)	 (nespremenjeno)
  - %s available	 - na voljo %s
@@ -316,8 +319,11 @@ Freq: %.3f MHz	Frekv: %.3f MHz
 Fri	pet
 From: %s	Od: %s
 Full node name when known	Polno ime vozlišča, če je znano
+GPS %u sat	GPS %u sat.
 GPS disabled (using default coordinates)	GPS izklopljen (privzete koordinate)
 GPS enabled (hardware)	GPS vklopljen (strojna oprema)
+GPS fix	Položaj GPS
+GPS off	GPS izklopljen
 GPS: Disabled (Default Coords)	GPS: Izklopljen (privz. koord.)
 GPS: Enabled (Hardware)	GPS: Vklopljen (strojna oprema)
 Gateway: not known	Prehod: neznan
@@ -397,6 +403,9 @@ Lock Screen Off: %s	Izklop zaslona ob zaklepu: %s
 Lock Screen: %s	Zaklenjen zaslon: %s
 Lock screen	Zaklenjen zaslon
 Lock screen stays on	Zaklenjen zaslon ostane vklopljen
+Log %lu/%lu	Dnevnik %lu/%lu
+Log full	Dnevnik poln
+Log: %lu node(s)	Dnevnik: %lu vozlišč
 Long	Dolgo
 Long name	Dolgo ime
 Long name cannot be empty	Dolgo ime ne sme biti prazno
@@ -454,6 +463,7 @@ My Message Color: %s - rebooting...	Barva mojih sporočil: %s - vnovični zagon.
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Izberi WiFi   Enter=Končaj   Bksp=Nazaj
 NO LINE OF SIGHT	NI VIDNE ČRTE
 NODEINFO + telemetry queued.	NODEINFO + telemetrija v čakalni vrsti.
+No GPS fix	Ni položaja GPS
 Send NODEINFO and telemetry to the mesh now?	Pošljem zdaj NODEINFO in telemetrijo v omrežje?
 NODES	VOZLIŠČA
 NODES (%d%s)	VOZLIŠČA (%d%s)
@@ -791,6 +801,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Preiskovanje   P = Pr
 Wait %lus before sending again	Pred vnovičnim pošiljanjem počakajte %lus
 Wait %lus between sweeps	Med preiskovanji počakajte %lus
 Waiting for Wi-Fi...	Čakam na Wi-Fi...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Spremljam %s/2/e/#\n\nŠe ni sporočil. Kanali se tu pojavijo, ko so objavljeni, najnovejši spodaj, s številom sporočil, videnih na vsakem.
 Weather	Vreme
 Weather - %s	Vreme - %s

@@ -18,7 +18,10 @@
   lock	  zabezpieczona
   open	  otwarta
  (English only)	 (tylko angielski)
+ (log full)	 (dziennik pełny)
+ (no GPS fix)	 (brak pozycji GPS)
  (no card)	 (brak karty)
+ (no storage)	 (brak pamięci)
  (not sharing location)	 (lokalizacja nieudostępniana)
  (unchanged)	 (bez zmian)
  - %s available	 - dostępna %s
@@ -317,8 +320,11 @@ Freq: %.3f MHz	Częst: %.3f MHz
 Fri	pt
 From: %s	Od: %s
 Full node name when known	Pełna nazwa węzła, jeśli znana
+GPS %u sat	GPS %u sat.
 GPS disabled (using default coordinates)	GPS wyłączony (domyślne współrzędne)
 GPS enabled (hardware)	GPS włączony (sprzęt)
+GPS fix	Pozycja GPS
+GPS off	GPS wył.
 GPS: Disabled (Default Coords)	GPS: Wyłączony (domyślne wsp.)
 GPS: Enabled (Hardware)	GPS: Włączony (sprzęt)
 Gateway: not known	Bramka: nieznana
@@ -399,6 +405,9 @@ Lock Screen Off: %s	Wygaszanie przy blokadzie: %s
 Lock Screen: %s	Ekran blokady: %s
 Lock screen	Ekran blokady
 Lock screen stays on	Ekran blokady pozostaje włączony
+Log %lu/%lu	Dziennik %lu/%lu
+Log full	Dziennik pełny
+Log: %lu node(s)	Dziennik: %lu węzłów
 Long	Długa
 Long name	Długa nazwa
 Long name cannot be empty	Długa nazwa nie może być pusta
@@ -456,6 +465,7 @@ My Message Color: %s - rebooting...	Kolor moich wiadomości: %s - ponowne urucha
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Wybierz WiFi   Enter=Zakończ   Bksp=Wstecz
 NO LINE OF SIGHT	BRAK LINII WZROKU
 NODEINFO + telemetry queued.	NODEINFO + telemetria w kolejce.
+No GPS fix	Brak pozycji GPS
 Send NODEINFO and telemetry to the mesh now?	Wysłać teraz NODEINFO i telemetrię do sieci?
 NODES	WĘZŁY
 NODES (%d%s)	WĘZŁY (%d%s)
@@ -791,6 +801,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Przeszukaj   P = Pres
 Wait %lus before sending again	Odczekaj %lus przed ponownym wysłaniem
 Wait %lus between sweeps	Odczekaj %lus między przeszukiwaniami
 Waiting for Wi-Fi...	Czekanie na Wi-Fi...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Obserwowanie %s/2/e/#\n\nBrak wiadomości. Kanały pojawiają się tu w miarę publikowania, najnowsze na dole, z liczbą wiadomości widzianych na każdym.
 Weather	Pogoda
 Weather - %s	Pogoda - %s

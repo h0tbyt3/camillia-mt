@@ -17,7 +17,10 @@
   lock	  sikret
   open	  åpent
  (English only)	 (kun engelsk)
+ (log full)	 (logg full)
+ (no GPS fix)	 (ingen GPS-fix)
  (no card)	 (intet kort)
+ (no storage)	 (ingen lagring)
  (not sharing location)	 (posisjon deles ikke)
  (unchanged)	 (uendret)
  - %s available	 - %s tilgjengelig
@@ -311,8 +314,11 @@ Freq: %.3f MHz	Frekv: %.3f MHz
 Fri	fre
 From: %s	Fra: %s
 Full node name when known	Fullt nodenavn når det er kjent
+GPS %u sat	GPS %u sat
 GPS disabled (using default coordinates)	GPS av (standardkoordinater)
 GPS enabled (hardware)	GPS på (maskinvare)
+GPS fix	GPS-fix
+GPS off	GPS av
 GPS: Disabled (Default Coords)	GPS: Av (standardkoord.)
 GPS: Enabled (Hardware)	GPS: På (maskinvare)
 Gateway: not known	Gateway: ukjent
@@ -389,6 +395,9 @@ Lock Screen Off: %s	Skjerm av ved lås: %s
 Lock Screen: %s	Låseskjerm: %s
 Lock screen	Låseskjerm
 Lock screen stays on	Låseskjermen forblir på
+Log %lu/%lu	Logg %lu/%lu
+Log full	Logg full
+Log: %lu node(s)	Logg: %lu node(r)
 Long	Langt
 Long name	Langt navn
 Long name cannot be empty	Langt navn kan ikke være tomt
@@ -446,6 +455,7 @@ My Message Color: %s - rebooting...	Farge på mine meldinger: %s - starter på n
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Velg WiFi   Enter=Fullfør   Bksp=Tilbake
 NO LINE OF SIGHT	IKKE FRI SIKT
 NODEINFO + telemetry queued.	NODEINFO + telemetri satt i kø.
+No GPS fix	Ingen GPS-fix
 Send NODEINFO and telemetry to the mesh now?	Sende NODEINFO og telemetri til nettet nå?
 NODES	NODER
 NODES (%d%s)	NODER (%d%s)
@@ -780,6 +790,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Sveip   P = Forh.   C
 Wait %lus before sending again	Vent %lus før du sender igjen
 Wait %lus between sweeps	Vent %lus mellom sveip
 Waiting for Wi-Fi...	Venter på Wi-Fi...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Overvåker %s/2/e/#\n\nIngen meldinger ennå. Kanaler vises her etter hvert som de publiseres, nyeste nederst, med antall meldinger sett på hver.
 Weather	Vær
 Weather - %s	Vær - %s

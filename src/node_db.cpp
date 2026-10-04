@@ -468,6 +468,12 @@ void nodeCsvFormatEntry(const NodeEntry &e, char *out, size_t outLen) {
 
     // Map position: the node's own fix wins; otherwise where we heard it.
     // Decimal degrees with 7 places, ready for an upload without rescaling.
+    //
+    // The heard position is where THIS device was, so it is the owner's own
+    // movements. It goes out only while wardriving is switched on: a node list
+    // exported to share with someone must not carry a trail of where its owner
+    // has been (home included) just because the GPS happened to be on.
+    const bool heard = e.hasHeardPosition && wardriveLogIsEnabled();
     char mapLat[24] = "", mapLon[24] = "";
     const char *mapSource = "";
     const bool ownPos = e.hasPosition && (e.latI != 0 || e.lonI != 0);
@@ -475,18 +481,23 @@ void nodeCsvFormatEntry(const NodeEntry &e, char *out, size_t outLen) {
         wardriveDeg(e.latI, mapLat, sizeof(mapLat));
         wardriveDeg(e.lonI, mapLon, sizeof(mapLon));
         mapSource = "node";
-    } else if (e.hasHeardPosition) {
+    } else if (heard) {
         wardriveDeg(e.heardLatI, mapLat, sizeof(mapLat));
         wardriveDeg(e.heardLonI, mapLon, sizeof(mapLon));
         mapSource = e.heardDirect ? "heard-direct" : "heard-relayed";
     }
-    char heardRssi[8] = "";
-    if (e.hasHeardPosition) snprintf(heardRssi, sizeof(heardRssi), "%d", (int)e.heardRssi);
+    char heardRssi[8] = "", heardLat[12] = "", heardLon[12] = "", heardDirect[2] = "";
+    if (heard) {
+        snprintf(heardRssi, sizeof(heardRssi), "%d", (int)e.heardRssi);
+        snprintf(heardLat, sizeof(heardLat), "%ld", (long)e.heardLatI);
+        snprintf(heardLon, sizeof(heardLon), "%ld", (long)e.heardLonI);
+        snprintf(heardDirect, sizeof(heardDirect), "%d", e.heardDirect ? 1 : 0);
+    }
 
     snprintf(out, outLen,
              "%ld,!%08lx,%s,%s,%u,%.2f,%ld,%ld,%ld,"
              "%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%d,%d,%d,%d,%s,"
-             "%ld,%ld,%s,%d,%s,%s,%s",
+             "%s,%s,%s,%s,%s,%s,%s",
              lastHeardEpoch,
              (unsigned long)e.nodeId,
              shortQ, longQ,
@@ -499,10 +510,7 @@ void nodeCsvFormatEntry(const NodeEntry &e, char *out, size_t outLen) {
              e.hasPosition ? 1 : 0,
              e.hasTelemetry ? 1 : 0,
              pubHex,
-             e.hasHeardPosition ? (long)e.heardLatI : 0L,
-             e.hasHeardPosition ? (long)e.heardLonI : 0L,
-             heardRssi,
-             (e.hasHeardPosition && e.heardDirect) ? 1 : 0,
+             heardLat, heardLon, heardRssi, heardDirect,
              mapLat, mapLon, mapSource);
 }
 
@@ -1143,8 +1151,10 @@ void NodeDB::updateFromPacket(const MeshPacket &pkt) {
 
     // Wardriving (see NodeEntry::heardLatI). MQTT sightings say nothing about
     // where our radio was, so they never stamp a position or reach the log.
+    // Nothing is stamped unless wardriving is on: it is the owner's own
+    // position history, and is only kept when they asked for one.
     const bool viaMqtt = (pkt.hdr.flags & 0x10) != 0;
-    if (!viaMqtt && gpsHasFix()) {
+    if (!viaMqtt && wardriveLogIsEnabled() && gpsHasFix()) {
         // Direct only when this packet carried hop_start and spent no hops;
         // hop_start == 0 is "unknown", not "direct" (see the comment above).
         const bool direct = (hopStart > 0) && (hopStart <= hopLimit);

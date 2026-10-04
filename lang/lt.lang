@@ -18,7 +18,10 @@
   lock	  apsaugotas
   open	  atviras
  (English only)	 (tik anglų k.)
+ (log full)	 (žurnalas pilnas)
+ (no GPS fix)	 (nėra GPS fiksacijos)
  (no card)	 (nėra kortelės)
+ (no storage)	 (nėra saugyklos)
  (not sharing location)	 (vieta nebendrinama)
  (unchanged)	 (nepakeista)
  - %s available	 - yra %s
@@ -317,8 +320,11 @@ Freq: %.3f MHz	Dažn: %.3f MHz
 Fri	pn
 From: %s	Nuo: %s
 Full node name when known	Visas mazgo vardas, jei žinomas
+GPS %u sat	GPS %u palyd.
 GPS disabled (using default coordinates)	GPS išjungtas (numatytosios koordinatės)
 GPS enabled (hardware)	GPS įjungtas (aparatinė įranga)
+GPS fix	GPS fiksacija
+GPS off	GPS išjungtas
 GPS: Disabled (Default Coords)	GPS: Išj. (numat. koord.)
 GPS: Enabled (Hardware)	GPS: Įj. (aparatinė įranga)
 Gateway: not known	Tinklų sietuvas: nežinomas
@@ -398,6 +404,9 @@ Lock Screen Off: %s	Ekranas išj. užrakinus: %s
 Lock Screen: %s	Užrakinimo ekranas: %s
 Lock screen	Užrakinimo ekranas
 Lock screen stays on	Užrakinimo ekranas lieka įjungtas
+Log %lu/%lu	Žurnalas %lu/%lu
+Log full	Žurnalas pilnas
+Log: %lu node(s)	Žurnalas: %lu mazgų
 Long	Ilgas
 Long name	Ilgasis vardas
 Long name cannot be empty	Ilgasis vardas negali būti tuščias
@@ -455,6 +464,7 @@ My Message Color: %s - rebooting...	Mano žinučių spalva: %s - paleidžiama i�
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Pasirinkti WiFi   Enter=Baigti   Bksp=Atgal
 NO LINE OF SIGHT	NĖRA MATOMUMO LINIJOS
 NODEINFO + telemetry queued.	NODEINFO + telemetrija eilėje.
+No GPS fix	Nėra GPS fiksacijos
 Send NODEINFO and telemetry to the mesh now?	Siųsti NODEINFO ir telemetriją į tinklą dabar?
 NODES	MAZGAI
 NODES (%d%s)	MAZGAI (%d%s)
@@ -793,6 +803,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Šukuoti   P = Nuosta
 Wait %lus before sending again	Prieš siųsdami vėl palaukite %lus
 Wait %lus between sweeps	Tarp šukavimų palaukite %lus
 Waiting for Wi-Fi...	Laukiama Wi-Fi...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Stebima %s/2/e/#\n\nDar nėra žinučių. Kanalai čia atsiranda, kai yra paskelbiami, naujausi apačioje, su kiekviename matytų žinučių skaičiumi.
 Weather	Orai
 Weather - %s	Orai - %s

@@ -12,7 +12,10 @@
   lock	  sécurisé
   open	  ouvert
  (English only)	 (anglais uniquement)
+ (log full)	 (journal plein)
+ (no GPS fix)	 (pas de fix GPS)
  (no card)	 (pas de carte)
+ (no storage)	 (pas de stockage)
  (not sharing location)	 (position non partagée)
  (unchanged)	 (inchangé)
  - %s available	 - %s disponible
@@ -315,8 +318,11 @@ Freq: %.3f MHz	Fréq : %.3f MHz
 Fri	ven
 From: %s	De : %s
 Full node name when known	Nom complet du nœud s'il est connu
+GPS %u sat	GPS %u sat
 GPS disabled (using default coordinates)	GPS désactivé (coordonnées par défaut)
 GPS enabled (hardware)	GPS activé (matériel)
+GPS fix	Fix GPS
+GPS off	GPS désactivé
 GPS: Disabled (Default Coords)	GPS : Désactivé (coord. par défaut)
 GPS: Enabled (Hardware)	GPS : Activé (matériel)
 Gateway: not known	Passerelle : inconnue
@@ -399,6 +405,9 @@ Lock Screen Off: %s	Extinction verrouillé : %s
 Lock Screen: %s	Écran de verrouillage : %s
 Lock screen	Écran verrouillé
 Lock screen stays on	L'écran de verrouillage reste allumé
+Log %lu/%lu	Journal %lu/%lu
+Log full	Journal plein
+Log: %lu node(s)	Journal : %lu nœud(s)
 Long name	Nom long
 Long name cannot be empty	Le nom long ne peut pas être vide
 Long name: %s\nEnter a short name (up to 4 chars).	Nom long : %s\nSaisissez un nom court (4 caractères max).
@@ -455,6 +464,7 @@ My Message Color: %s - rebooting...	Couleur de mes messages : %s - redémarrage.
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Choisir WiFi   Enter=Terminer   Bksp=Retour
 NO LINE OF SIGHT	PAS DE LIGNE DE VUE
 NODEINFO + telemetry queued.	NODEINFO + télémétrie en file d'attente.
+No GPS fix	Pas de fix GPS
 Send NODEINFO and telemetry to the mesh now?	Envoyer NODEINFO et la télémétrie au maillage maintenant ?
 NODES	NŒUDS
 NODES (%d%s)	NŒUDS (%d%s)
@@ -789,6 +799,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Balayer   P = Préré
 Wait %lus before sending again	Attendez %lus avant de renvoyer
 Wait %lus between sweeps	Attendez %lus entre deux balayages
 Waiting for Wi-Fi...	En attente du Wi-Fi...
+Wardriving: %s	Wardriving : %s
+Wardriving: %s%s	Wardriving : %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Surveillance de %s/2/e/#\n\nPas encore de messages. Les canaux apparaissent ici au fil des publications, les plus récents en bas, avec le nombre de messages vus pour chacun.
 Weather	Météo
 Weather - %s	Météo - %s

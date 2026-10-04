@@ -13,7 +13,10 @@
   lock	  protetta
   open	  aperta
  (English only)	 (solo inglese)
+ (log full)	 (registro pieno)
+ (no GPS fix)	 (nessun fix GPS)
  (no card)	 (nessuna scheda)
+ (no storage)	 (nessuna memoria)
  (not sharing location)	 (posizione non condivisa)
  (unchanged)	 (invariato)
  - %s available	 - %s disponibile
@@ -312,8 +315,11 @@ Found %u file%s matching Windows malware:\n	%u file%.0s corrispondono a malware 
 Fri	ven
 From: %s	Da: %s
 Full node name when known	Nome completo del nodo, se noto
+GPS %u sat	GPS %u sat
 GPS disabled (using default coordinates)	GPS disattivato (coordinate predefinite)
 GPS enabled (hardware)	GPS attivato (hardware)
+GPS fix	Fix GPS
+GPS off	GPS spento
 GPS: Disabled (Default Coords)	GPS: Disattivato (coord. predef.)
 GPS: Enabled (Hardware)	GPS: Attivato (hardware)
 Gateway: not known	Gateway: sconosciuto
@@ -392,6 +398,9 @@ Lock Screen Off: %s	Spegnimento su blocco: %s
 Lock Screen: %s	Schermata di blocco: %s
 Lock screen	Schermata di blocco
 Lock screen stays on	La schermata di blocco resta accesa
+Log %lu/%lu	Registro %lu/%lu
+Log full	Registro pieno
+Log: %lu node(s)	Registro: %lu nodi
 Long	Lungo
 Long name	Nome lungo
 Long name cannot be empty	Il nome lungo non può essere vuoto
@@ -451,6 +460,7 @@ My Message Color: %s - rebooting...	Colore dei miei messaggi: %s - riavvio...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Scegli WiFi   Enter=Termina   Bksp=Indietro
 NO LINE OF SIGHT	NESSUNA LINEA DI VISTA
 NODEINFO + telemetry queued.	NODEINFO + telemetria in coda.
+No GPS fix	Nessun fix GPS
 Send NODEINFO and telemetry to the mesh now?	Inviare ora NODEINFO e telemetria alla mesh?
 NODES	NODI
 NODES (%d%s)	NODI (%d%s)
@@ -785,6 +795,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Sweep   P = Preset   
 Wait %lus before sending again	Attendi %lus prima di inviare di nuovo
 Wait %lus between sweeps	Attendi %lus tra uno sweep e l'altro
 Waiting for Wi-Fi...	In attesa del Wi-Fi...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Osservazione di %s/2/e/#\n\nAncora nessun messaggio. I canali compaiono qui man mano che vengono pubblicati, i più recenti in basso, con il numero di messaggi visti per ciascuno.
 Weather	Meteo
 Weather - %s	Meteo - %s

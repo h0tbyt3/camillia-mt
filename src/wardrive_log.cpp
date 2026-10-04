@@ -12,9 +12,11 @@ void wardriveLogSetEnabled(bool enabled) { s_enabled = enabled; }
 bool wardriveLogIsEnabled() { return s_enabled; }
 
 static uint32_t s_lines = 0, s_noFix = 0, s_dropped = 0;
+static bool     s_full = false;
 uint32_t wardriveLogLines()        { return s_lines; }
 uint32_t wardriveLogSkippedNoFix() { return s_noFix; }
 uint32_t wardriveLogDropped()      { return s_dropped; }
+bool     wardriveLogIsFull()       { return s_full; }
 
 #if HAS_FILE_STORAGE
 
@@ -24,15 +26,64 @@ static const char *kLogDir  = "/camillia";
 const char *wardriveLogFilePath() { return kLogPath; }
 bool wardriveLogAvailable() { return sdCardMounted(); }
 
+// ── Size cap ─────────────────────────────────────────────────────────────────
+// The log has no natural end, and on the internal-flash boards it shares a
+// 3.3 MB littlefs partition with everything else the device keeps. An eighth of
+// the backend, at most 64 MB: ~400 KB (a few thousand lines) on internal flash,
+// and far more than any one drive on a card. At the cap the log stops rather
+// than rotating -- silently discarding the start of a drive is worse than a
+// visible "log full" -- and Clear starts it again.
+static constexpr uint64_t kLogCapMaxBytes = 64ULL * 1024 * 1024;
+
+static uint32_t logCapBytes() {
+    const uint64_t total = storageTotalBytes();
+    if (total == 0) return 0;   // unknown: no cap rather than a cap of nothing
+    const uint64_t cap = total / 8;
+    return (uint32_t)(cap < kLogCapMaxBytes ? cap : kLogCapMaxBytes);
+}
+
 // ── Throttle ─────────────────────────────────────────────────────────────────
-// When each node last got a line, and where we were. Small and LRU: a node that
-// falls out simply gets its next sighting logged, which is the safe direction.
+// When each node last got a line, and where we were. LRU: a node that falls
+// out simply gets its next sighting logged, which is the safe direction -- but
+// one that falls out on every packet is one line per packet, so the table is
+// sized for a busy mesh where there is PSRAM to hold it.
 static constexpr uint32_t kWardriveMinIntervalMs = 30000;
 static constexpr uint32_t kWardriveMinMoveM      = 50;
-static constexpr int      kThrottleSlots         = 64;
+#if defined(BOARD_HAS_PSRAM) && BOARD_HAS_PSRAM
+static constexpr int      kThrottleSlotsMax      = 512;
+#else
+static constexpr int      kThrottleSlotsMax      = 64;
+#endif
 
-struct ThrottleSlot { uint32_t nodeId, ms; int32_t latI, lonI; };
-static ThrottleSlot s_thr[kThrottleSlots];
+// positioned is false for a slot that only throttles the no-fix counter: the
+// first sighting once a fix arrives is logged at once, wherever that is.
+struct ThrottleSlot { uint32_t nodeId, ms; int32_t latI, lonI; bool positioned; };
+static ThrottleSlot *s_thr = nullptr;
+static int           s_thrCap = 0;
+
+static bool throttleEnsure() {
+    if (s_thr) return true;
+    size_t bytes = kThrottleSlotsMax * sizeof(ThrottleSlot);
+    s_thr = (ThrottleSlot *)heap_caps_calloc(1, bytes, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+    if (s_thr) { s_thrCap = kThrottleSlotsMax; return true; }
+    // No PSRAM after all: a small table from internal heap still throttles the
+    // common case of a handful of chatty nodes.
+    s_thr = (ThrottleSlot *)calloc(64, sizeof(ThrottleSlot));
+    s_thrCap = s_thr ? 64 : 0;
+    return s_thr != nullptr;
+}
+
+// The node's slot, or the least recently used one (with *found false).
+static int throttleFind(uint32_t nodeId, bool *found) {
+    int lru = 0;
+    for (int i = 0; i < s_thrCap; i++) {
+        if (s_thr[i].nodeId == nodeId) { *found = true; return i; }
+        if (s_thr[i].nodeId == 0) { lru = i; continue; }
+        if (s_thr[lru].nodeId != 0 && (int32_t)(s_thr[i].ms - s_thr[lru].ms) < 0) lru = i;
+    }
+    *found = false;
+    return lru;
+}
 
 // ── Distinct-node counter ────────────────────────────────────────────────────
 // Exact up to its capacity, then it stops growing and the UI says "+". PSRAM
@@ -78,26 +129,29 @@ static constexpr uint32_t kSdRetryMs = 60000;
 void wardriveLogNoteSighting(uint32_t nodeId, float rssi, float snr, int hops,
                              int portnum, int chanIdx) {
     if (!s_enabled || nodeId == 0) return;
-    if (!gpsHasFix()) { s_noFix++; return; }
+    if (s_full) return;   // counted once, as the reason, not per sighting
+    if (!throttleEnsure()) return;
 
     const uint32_t now = millis();
-    const int32_t lat = gpsLatI(), lon = gpsLonI();
+    bool found = false;
+    const int slot = throttleFind(nodeId, &found);
 
-    // Throttle lookup; remember the LRU slot in case this node has none.
-    int slot = -1, lru = 0;
-    for (int i = 0; i < kThrottleSlots; i++) {
-        if (s_thr[i].nodeId == nodeId) { slot = i; break; }
-        if (s_thr[i].nodeId == 0) { lru = i; continue; }
-        if (s_thr[lru].nodeId != 0 && (int32_t)(s_thr[i].ms - s_thr[lru].ms) < 0) lru = i;
+    if (!gpsHasFix()) {
+        // Counted at the rate a line would have been written, so the number
+        // means "lines the drive is missing", not "packets heard indoors".
+        if (found && (now - s_thr[slot].ms) < kWardriveMinIntervalMs) return;
+        s_thr[slot] = { nodeId, now, 0, 0, false };
+        s_noFix++;
+        return;
     }
-    if (slot >= 0) {
+
+    const int32_t lat = gpsLatI(), lon = gpsLonI();
+    if (found && s_thr[slot].positioned) {
         const ThrottleSlot &t = s_thr[slot];
         if (!wardriveShouldLog(now - t.ms, t.latI, t.lonI, lat, lon,
                                kWardriveMinIntervalMs, kWardriveMinMoveM)) return;
-    } else {
-        slot = lru;
     }
-    s_thr[slot] = { nodeId, now, lat, lon };
+    s_thr[slot] = { nodeId, now, lat, lon, true };
 
     if (s_qCount >= kQueueLen) {   // storage wedged: drop the oldest
         s_qTail = (s_qTail + 1) % kQueueLen;
@@ -158,6 +212,15 @@ void wardriveLogFlush() {
         discardAll();
         return;
     }
+    const uint32_t cap = logCapBytes();
+    if (cap != 0 && (uint32_t)f.size() >= cap) {
+        f.close();
+        s_full = true;
+        Serial.printf("[wardrive] log reached its %lu byte cap - stopped; clear it to resume\n",
+                      (unsigned long)cap);
+        discardAll();
+        return;
+    }
     if (needHeader) f.println(kHeader);
 
     while (s_qCount > 0) {
@@ -192,9 +255,10 @@ void wardriveLogFlush() {
 bool wardriveLogClear() {
     s_qCount = 0;
     s_qHead = s_qTail = 0;
-    memset(s_thr, 0, sizeof(s_thr));
+    if (s_thr) memset(s_thr, 0, sizeof(ThrottleSlot) * (size_t)s_thrCap);
     s_seenCount = 0;
     s_lines = s_noFix = s_dropped = 0;
+    s_full = false;
     if (!sdBegin()) return false;
     if (!storageFs().exists(kLogPath)) return true;
     const bool ok = storageFs().remove(kLogPath);

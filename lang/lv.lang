@@ -18,7 +18,10 @@
   lock	  aizsargāts
   open	  atvērts
  (English only)	 (tikai angļu val.)
+ (log full)	 (žurnāls pilns)
+ (no GPS fix)	 (nav GPS fiksācijas)
  (no card)	 (nav kartes)
+ (no storage)	 (nav krātuves)
  (not sharing location)	 (atrašanās vieta netiek kopīgota)
  (unchanged)	 (nemainīts)
  - %s available	 - pieejama %s
@@ -317,8 +320,11 @@ Freq: %.3f MHz	Frekv: %.3f MHz
 Fri	pk
 From: %s	No: %s
 Full node name when known	Pilns mezgla vārds, ja zināms
+GPS %u sat	GPS %u sat.
 GPS disabled (using default coordinates)	GPS izslēgts (noklusējuma koordinātas)
 GPS enabled (hardware)	GPS ieslēgts (aparatūra)
+GPS fix	GPS fiksācija
+GPS off	GPS izslēgts
 GPS: Disabled (Default Coords)	GPS: Izsl. (noklus. koord.)
 GPS: Enabled (Hardware)	GPS: Iesl. (aparatūra)
 Gateway: not known	Vārteja: nezināma
@@ -398,6 +404,9 @@ Lock Screen Off: %s	Ekrāns izsl. bloķējot: %s
 Lock Screen: %s	Bloķēšanas ekrāns: %s
 Lock screen	Bloķēšanas ekrāns
 Lock screen stays on	Bloķēšanas ekrāns paliek ieslēgts
+Log %lu/%lu	Žurnāls %lu/%lu
+Log full	Žurnāls pilns
+Log: %lu node(s)	Žurnāls: %lu mezgli
 Long	Garš
 Long name	Garais vārds
 Long name cannot be empty	Garais vārds nevar būt tukšs
@@ -455,6 +464,7 @@ My Message Color: %s - rebooting...	Manu ziņu krāsa: %s - restartē...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Izvēlēties WiFi   Enter=Pabeigt   Bksp=Atpakaļ
 NO LINE OF SIGHT	NAV REDZAMĪBAS LĪNIJAS
 NODEINFO + telemetry queued.	NODEINFO + telemetrija rindā.
+No GPS fix	Nav GPS fiksācijas
 Send NODEINFO and telemetry to the mesh now?	Sūtīt NODEINFO un telemetriju uz tīklu tagad?
 NODES	MEZGLI
 NODES (%d%s)	MEZGLI (%d%s)
@@ -793,6 +803,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Pārmeklēt   P = Pri
 Wait %lus before sending again	Pirms atkārtotas sūtīšanas pagaidiet %lus
 Wait %lus between sweeps	Starp pārmeklēšanām pagaidiet %lus
 Waiting for Wi-Fi...	Gaida Wi-Fi...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Vēro %s/2/e/#\n\nVēl nav ziņu. Kanāli šeit parādās, kad tie tiek publicēti, jaunākie apakšā, ar katrā redzēto ziņu skaitu.
 Weather	Laikapstākļi
 Weather - %s	Laikapstākļi - %s

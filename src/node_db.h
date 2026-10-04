@@ -70,9 +70,11 @@ struct NodeEntry {
     // is the best single estimate of where the node actually is; a relayed
     // sighting is kept only until a direct one turns up.
     //
-    // Stamped only while our GPS has a fix. RAM only, like everything above: it
-    // describes this session's drive, not a fact worth carrying across a reboot.
-    // 12 bytes per entry, ~3 KB across MAX_NODES.
+    // Stamped only while wardriving is on (wardriveLogIsEnabled()) and our GPS
+    // has a fix, and exported (/nodes.csv, the eviction archive) only while it
+    // is on: this is the owner's own position history. Not saved to NVS: it
+    // describes this session's drive, not a fact worth carrying across a
+    // reboot. 12 bytes per entry, ~3 KB across MAX_NODES.
     int32_t  heardLatI, heardLonI;   // degrees * 1e7
     int16_t  heardRssi;              // dBm of the winning sighting
     bool     hasHeardPosition;

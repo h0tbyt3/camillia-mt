@@ -5141,11 +5141,11 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
                 "&#11015; Export Node List (CSV)</a></p>"
                 "<p style='font-size:.82em;color:#888;margin:-.6em 0 1em'>"
                 "Downloads every node currently known to the device, plus any "
-                "previously archived nodes if an archive exists. The "
-                "<code>mapLat</code>/<code>mapLon</code> columns hold the node's "
-                "own position when it reports one, else where this device was "
-                "when it heard the node strongest (<code>mapSource</code> says "
-                "which).</p>";
+                "previously archived nodes if an archive exists. While wardriving "
+                "is on, the <code>mapLat</code>/<code>mapLon</code> columns also "
+                "fall back to where this device was when it heard a node best "
+                "(<code>mapSource</code> says which); otherwise they hold only "
+                "positions nodes report themselves.</p>";
 
         // ── Wardrive log ────────────────────────────────────────────────────
         {
@@ -5155,7 +5155,7 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
             if (gCfg->wardriveLogEnabled) html += " checked";
             if (!wdOk) html += " disabled";
             html += " style='width:auto;margin:0'>"
-                    "<span>Wardrive log (every sighting + GPS fix)</span></label>";
+                    "<span>Wardriving (log sightings with this device's GPS position)</span></label>";
             html += "<p style='font-size:.82em;color:#888;margin:.3em 0 .6em'>";
             if (!wardriveLogFilePath()) {
                 html += "Unavailable: this board has no file storage.";
@@ -5166,16 +5166,25 @@ static void sendConfigPage(const char *msg = "", bool lite = false) {
                         "moved) to <code>";
                 html += wardriveLogFilePath();
                 html += "</code>: time, RSSI/SNR, hops and your own GPS position. "
-                        "Radio only, and only with a GPS fix.";
-                char st[200];
+                        "Radio only, and only with a GPS fix. While on, the node "
+                        "export (and the node archive, if enabled) also records "
+                        "where you were when you heard each node &mdash; your own "
+                        "location history, so mind who you share those files with. "
+                        "The log stops at an eighth of the storage (64&nbsp;MB at "
+                        "most); clear it to start again.";
+                char st[384];
                 snprintf(st, sizeof(st),
                          "<br><b>This session:</b> %lu line(s), %lu node(s), "
-                         "%lu skipped without GPS fix, %lu dropped. GPS: %s",
+                         "%lu missed for want of a GPS fix, %lu dropped. GPS: %s%s",
                          (unsigned long)wardriveLogLines(),
                          (unsigned long)wardriveLogNodes(),
                          (unsigned long)wardriveLogSkippedNoFix(),
                          (unsigned long)wardriveLogDropped(),
-                         gpsHasFix() ? "fix" : "<b style='color:#c0392b'>NO FIX</b>");
+                         gpsHasFix() ? "fix" : "<b style='color:#c0392b'>NO FIX</b>",
+                         wardriveLogIsFull()
+                             ? "<br><b style='color:#c0392b'>Log full: nothing more is "
+                               "being written. Download it, then clear it.</b>"
+                             : "");
                 html += st;
             }
             html += "</p>";
@@ -9246,6 +9255,17 @@ static void handlePostFactoryReset() {
 
 // ── Export / Import ───────────────────────────────────────────
 
+// Fields in one CSV line, honouring quotes (a long name may hold commas).
+static int csvFieldCount(const char *line) {
+    int n = 1;
+    bool q = false;
+    for (const char *p = line; *p; p++) {
+        if (*p == '"') q = !q;
+        else if (*p == ',' && !q) n++;
+    }
+    return n;
+}
+
 // Export every node the device knows about as CSV: the live table first, then
 // any previously archived (evicted) nodes from the SD file. Both share the
 // column schema from node_db (nodeCsvHeader/nodeCsvFormatEntry) so the two
@@ -9294,6 +9314,12 @@ static void handleGetNodesCsv() {
     // Archived rows are streamed through verbatim: each already begins with its
     // archivedEpoch followed by the shared columns, so only "archived," is
     // prepended. The file's own header line is skipped.
+    //
+    // An archive outlives firmware updates, so it can hold rows written before
+    // columns were appended to the schema. Those are padded with empty fields
+    // to the current width, so every row of the export has as many columns as
+    // its header and a spreadsheet does not have to guess.
+    const int archFields = 1 + csvFieldCount(nodeCsvHeader());   // + archivedEpoch
     const char *archPath = nodeArchiveFilePath();
     if (archPath && sdBegin() && storageFs().exists(archPath)) {
         File af = storageFs().open(archPath, FILE_READ);
@@ -9309,6 +9335,7 @@ static void handleGetNodesCsv() {
                 }
                 out += "archived,";
                 out += line;
+                for (int n = csvFieldCount(line.c_str()); n < archFields; n++) out += ',';
                 out += "\n";
                 if (out.length() > 1024) { sendChunk(out); }
             }

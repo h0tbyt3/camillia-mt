@@ -18,7 +18,10 @@
   lock	  zaštićena
   open	  otvorena
  (English only)	 (samo engleski)
+ (log full)	 (zapis pun)
+ (no GPS fix)	 (nema GPS fiksa)
  (no card)	 (nema kartice)
+ (no storage)	 (nema pohrane)
  (not sharing location)	 (lokacija se ne dijeli)
  (unchanged)	 (bez promjene)
  - %s available	 - dostupna %s
@@ -318,8 +321,11 @@ Freq: %.3f MHz	Frekv: %.3f MHz
 Fri	pet
 From: %s	Od: %s
 Full node name when known	Puno ime čvora, ako je poznato
+GPS %u sat	GPS %u sat
 GPS disabled (using default coordinates)	GPS isključen (zadane koordinate)
 GPS enabled (hardware)	GPS uključen (hardver)
+GPS fix	GPS fiks
+GPS off	GPS isključen
 GPS: Disabled (Default Coords)	GPS: Isključen (zadane koord.)
 GPS: Enabled (Hardware)	GPS: Uključen (hardver)
 Gateway: not known	Pristupnik: nepoznat
@@ -399,6 +405,9 @@ Lock Screen Off: %s	Isključi zaslon na zaključavanju: %s
 Lock Screen: %s	Zaključani zaslon: %s
 Lock screen	Zaključani zaslon
 Lock screen stays on	Zaključani zaslon ostaje uključen
+Log %lu/%lu	Zapis %lu/%lu
+Log full	Zapis pun
+Log: %lu node(s)	Zapis: %lu čvorova
 Long	Dugo
 Long name	Dugo ime
 Long name cannot be empty	Dugo ime ne smije biti prazno
@@ -456,6 +465,7 @@ My Message Color: %s - rebooting...	Boja mojih poruka: %s - ponovno pokretanje..
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Odaberi WiFi   Enter=Završi   Bksp=Natrag
 NO LINE OF SIGHT	NEMA LINIJE VIDLJIVOSTI
 NODEINFO + telemetry queued.	NODEINFO + telemetrija u redu čekanja.
+No GPS fix	Nema GPS fiksa
 Send NODEINFO and telemetry to the mesh now?	Poslati sada NODEINFO i telemetriju u mrežu?
 NODES	ČVOROVI
 NODES (%d%s)	ČVOROVI (%d%s)
@@ -793,6 +803,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Pretraga   P = Predlo
 Wait %lus before sending again	Pričekajte %lus prije ponovnog slanja
 Wait %lus between sweeps	Pričekajte %lus između pretraga
 Waiting for Wi-Fi...	Čekam Wi-Fi...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Pratim %s/2/e/#\n\nJoš nema poruka. Kanali se ovdje pojavljuju kako se objavljuju, najnoviji na dnu, s brojem poruka viđenih na svakom.
 Weather	Vrijeme
 Weather - %s	Vrijeme - %s

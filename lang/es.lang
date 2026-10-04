@@ -17,7 +17,10 @@
   lock	  cerrada
   open	  abierta
  (English only)	 (solo inglés)
+ (log full)	 (registro lleno)
+ (no GPS fix)	 (sin señal GPS)
  (no card)	 (sin tarjeta)
+ (no storage)	 (sin almacenamiento)
  (not sharing location)	 (sin compartir ubicación)
  (unchanged)	 (sin cambios)
  - %s available	 - %s disponible
@@ -328,8 +331,11 @@ Freq: %.3f MHz	Frec: %.3f MHz
 Fri	vie
 From: %s	De: %s
 Full node name when known	Nombre completo del nodo si se conoce
+GPS %u sat	GPS %u sat
 GPS disabled (using default coordinates)	GPS desactivado (usando coordenadas predeterminadas)
 GPS enabled (hardware)	GPS activado (hardware)
+GPS fix	Señal GPS
+GPS off	GPS apagado
 GPS: Disabled (Default Coords)	GPS: Desactivado (coords. predet.)
 GPS: Enabled (Hardware)	GPS: Activado (hardware)
 Gateway: not known	Pasarela: desconocida
@@ -413,6 +419,9 @@ Lock Screen Off: %s	Apagado en bloqueo: %s
 Lock Screen: %s	Pantalla de bloqueo: %s
 Lock screen	Pantalla de bloqueo
 Lock screen stays on	La pantalla de bloqueo sigue encendida
+Log %lu/%lu	Registro %lu/%lu
+Log full	Registro lleno
+Log: %lu node(s)	Registro: %lu nodo(s)
 Long	Largo
 Long name	Nombre largo
 Long name cannot be empty	El nombre largo no puede estar vacío
@@ -471,6 +480,7 @@ My Message Color: %s - rebooting...	Color de mis mensajes: %s - reiniciando...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Elegir WiFi   Enter=Terminar   Bksp=Atrás
 NO LINE OF SIGHT	SIN LÍNEA DE VISIÓN
 NODEINFO + telemetry queued.	NODEINFO + telemetría en cola.
+No GPS fix	Sin señal GPS
 Send NODEINFO and telemetry to the mesh now?	¿Enviar NODEINFO y telemetría a la malla ahora?
 NODES	NODOS
 NODES (%d%s)	NODOS (%d%s)
@@ -816,6 +826,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Barrer   P = Preajust
 Wait %lus before sending again	Espera %lus antes de volver a enviar
 Wait %lus between sweeps	Espera %lus entre barridos
 Waiting for Wi-Fi...	Esperando Wi-Fi...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Observando %s/2/e/#\n\nAún no hay mensajes. Los canales aparecen aquí según se publican, los más nuevos abajo, con el número de mensajes vistos en cada uno.
 Weather	Tiempo
 Weather - %s	Tiempo - %s

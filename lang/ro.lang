@@ -14,7 +14,10 @@
   lock	  securizată
   open	  deschisă
  (English only)	 (doar engleză)
+ (log full)	 (jurnal plin)
+ (no GPS fix)	 (fără fix GPS)
  (no card)	 (fără card)
+ (no storage)	 (fără stocare)
  (not sharing location)	 (locația nu e partajată)
  (unchanged)	 (neschimbat)
  - %s available	 - %s disponibil
@@ -315,8 +318,11 @@ Freq: %.3f MHz	Frecv: %.3f MHz
 Fri	vin
 From: %s	De la: %s
 Full node name when known	Numele complet al nodului, dacă e cunoscut
+GPS %u sat	GPS %u sat
 GPS disabled (using default coordinates)	GPS dezactivat (coordonate implicite)
 GPS enabled (hardware)	GPS activat (hardware)
+GPS fix	Fix GPS
+GPS off	GPS oprit
 GPS: Disabled (Default Coords)	GPS: Dezactivat (coord. implicite)
 GPS: Enabled (Hardware)	GPS: Activat (hardware)
 Gateway: not known	Gateway: necunoscut
@@ -393,6 +399,9 @@ Lock Screen Off: %s	Oprire la blocare: %s
 Lock Screen: %s	Ecran de blocare: %s
 Lock screen	Ecran de blocare
 Lock screen stays on	Ecranul de blocare rămâne aprins
+Log %lu/%lu	Jurnal %lu/%lu
+Log full	Jurnal plin
+Log: %lu node(s)	Jurnal: %lu nod(uri)
 Long	Lung
 Long name	Nume lung
 Long name cannot be empty	Numele lung nu poate fi gol
@@ -449,6 +458,7 @@ My Message Color: %s - rebooting...	Culoarea mesajelor mele: %s - repornire...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Alege WiFi   Enter=Termină   Bksp=Înapoi
 NO LINE OF SIGHT	FĂRĂ LINIE DE VEDERE
 NODEINFO + telemetry queued.	NODEINFO + telemetrie în coadă.
+No GPS fix	Fără fix GPS
 Send NODEINFO and telemetry to the mesh now?	Trimiți acum NODEINFO și telemetria în rețea?
 NODES	NODURI
 NODES (%d%s)	NODURI (%d%s)
@@ -788,6 +798,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Baleiază   P = Prese
 Wait %lus before sending again	Așteaptă %lus înainte de a retrimite
 Wait %lus between sweeps	Așteaptă %lus între baleieri
 Waiting for Wi-Fi...	Se așteaptă Wi-Fi...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Se urmărește %s/2/e/#\n\nNiciun mesaj încă. Canalele apar aici pe măsură ce sunt publicate, cele mai noi jos, cu numărul de mesaje văzute pe fiecare.
 Weather	Vremea
 Weather - %s	Vremea - %s

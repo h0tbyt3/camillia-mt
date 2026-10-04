@@ -18,7 +18,10 @@
   lock	  kaitstud
   open	  avatud
  (English only)	 (ainult inglise)
+ (log full)	 (logi täis)
+ (no GPS fix)	 (GPS-fiks puudub)
  (no card)	 (kaarti pole)
+ (no storage)	 (salvestusruum puudub)
  (not sharing location)	 (asukohta ei jagata)
  (unchanged)	 (muutmata)
  - %s available	 - saadaval %s
@@ -315,8 +318,11 @@ Freq: %.3f MHz	Sag: %.3f MHz
 Fri	R
 From: %s	Saatja: %s
 Full node name when known	Sõlme täisnimi, kui teada
+GPS %u sat	GPS %u sat
 GPS disabled (using default coordinates)	GPS väljas (vaikekoordinaadid)
 GPS enabled (hardware)	GPS sees (riistvara)
+GPS fix	GPS-fiks
+GPS off	GPS väljas
 GPS: Disabled (Default Coords)	GPS: Väljas (vaikekoord.)
 GPS: Enabled (Hardware)	GPS: Sees (riistvara)
 Gateway: not known	Lüüs: teadmata
@@ -396,6 +402,9 @@ Lock Screen Off: %s	Ekraan välja lukustamisel: %s
 Lock Screen: %s	Lukustuskuva: %s
 Lock screen	Lukustuskuva
 Lock screen stays on	Lukustuskuva jääb sisse
+Log %lu/%lu	Logi %lu/%lu
+Log full	Logi täis
+Log: %lu node(s)	Logi: %lu sõlme
 Long	Pikk
 Long name	Pikk nimi
 Long name cannot be empty	Pikk nimi ei tohi olla tühi
@@ -453,6 +462,7 @@ My Message Color: %s - rebooting...	Minu sõnumite värv: %s - taaskäivitan...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Vali WiFi   Enter=Lõpeta   Bksp=Tagasi
 NO LINE OF SIGHT	OTSENÄHTAVUST POLE
 NODEINFO + telemetry queued.	NODEINFO + telemeetria järjekorras.
+No GPS fix	GPS-fiks puudub
 Send NODEINFO and telemetry to the mesh now?	Kas saata NODEINFO ja telemeetria kohe võrku?
 NODES	SÕLMED
 NODES (%d%s)	SÕLMED (%d%s)
@@ -791,6 +801,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Läbikamm   P = Eelse
 Wait %lus before sending again	Oodake %lus enne uuesti saatmist
 Wait %lus between sweeps	Oodake läbikammide vahel %lus
 Waiting for Wi-Fi...	Ootan Wi-Fi-t...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Jälgin %s/2/e/#\n\nSõnumeid pole veel. Kanalid ilmuvad siia avaldamise järjekorras, uusimad all, igaühe juures nähtud sõnumite arv.
 Weather	Ilm
 Weather - %s	Ilm - %s

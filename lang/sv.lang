@@ -17,7 +17,10 @@
   lock	  skyddat
   open	  öppet
  (English only)	 (endast engelska)
+ (log full)	 (logg full)
+ (no GPS fix)	 (ingen GPS-fix)
  (no card)	 (inget kort)
+ (no storage)	 (ingen lagring)
  (not sharing location)	 (plats delas inte)
  (unchanged)	 (oförändrad)
  - %s available	 - %s tillgänglig
@@ -311,8 +314,11 @@ Freq: %.3f MHz	Frekv: %.3f MHz
 Fri	fre
 From: %s	Från: %s
 Full node name when known	Fullständigt nodnamn när det är känt
+GPS %u sat	GPS %u sat
 GPS disabled (using default coordinates)	GPS av (standardkoordinater)
 GPS enabled (hardware)	GPS på (hårdvara)
+GPS fix	GPS-fix
+GPS off	GPS av
 GPS: Disabled (Default Coords)	GPS: Av (standardkoord.)
 GPS: Enabled (Hardware)	GPS: På (hårdvara)
 Gateway: not known	Gateway: okänd
@@ -389,6 +395,9 @@ Lock Screen Off: %s	Skärm av vid lås: %s
 Lock Screen: %s	Låsskärm: %s
 Lock screen	Låsskärm
 Lock screen stays on	Låsskärmen förblir på
+Log %lu/%lu	Logg %lu/%lu
+Log full	Logg full
+Log: %lu node(s)	Logg: %lu nod(er)
 Long	Lång
 Long name	Långt namn
 Long name cannot be empty	Långt namn får inte vara tomt
@@ -446,6 +455,7 @@ My Message Color: %s - rebooting...	Färg på mina meddelanden: %s - startar om.
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Välj WiFi   Enter=Slutför   Bksp=Tillbaka
 NO LINE OF SIGHT	INGEN FRI SIKT
 NODEINFO + telemetry queued.	NODEINFO + telemetri köade.
+No GPS fix	Ingen GPS-fix
 Send NODEINFO and telemetry to the mesh now?	Skicka NODEINFO och telemetri till nätet nu?
 NODES	NODER
 NODES (%d%s)	NODER (%d%s)
@@ -778,6 +788,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Svep   P = Förinst. 
 Wait %lus before sending again	Vänta %lus innan du skickar igen
 Wait %lus between sweeps	Vänta %lus mellan svep
 Waiting for Wi-Fi...	Väntar på Wi-Fi...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Bevakar %s/2/e/#\n\nInga meddelanden än. Kanaler visas här när de publiceras, nyaste längst ner, med antalet meddelanden sedda på var och en.
 Weather	Väder
 Weather - %s	Väder - %s

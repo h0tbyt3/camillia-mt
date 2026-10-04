@@ -18,7 +18,10 @@
   lock	  védett
   open	  nyílt
  (English only)	 (csak angol)
+ (log full)	 (napló megtelt)
+ (no GPS fix)	 (nincs GPS-fix)
  (no card)	 (nincs kártya)
+ (no storage)	 (nincs tárhely)
  (not sharing location)	 (hely nincs megosztva)
  (unchanged)	 (változatlan)
  - %s available	 - %s elérhető
@@ -317,8 +320,11 @@ Freq: %.3f MHz	Frekv: %.3f MHz
 Fri	P
 From: %s	Feladó: %s
 Full node name when known	Teljes csomópontnév, ha ismert
+GPS %u sat	GPS %u műh.
 GPS disabled (using default coordinates)	GPS kikapcsolva (alapértelmezett koordináták)
 GPS enabled (hardware)	GPS bekapcsolva (hardver)
+GPS fix	GPS-fix
+GPS off	GPS ki
 GPS: Disabled (Default Coords)	GPS: Ki (alap koord.)
 GPS: Enabled (Hardware)	GPS: Be (hardver)
 Gateway: not known	Átjáró: ismeretlen
@@ -399,6 +405,9 @@ Lock Screen Off: %s	Kijelző ki záráskor: %s
 Lock Screen: %s	Zárolási képernyő: %s
 Lock screen	Zárolási képernyő
 Lock screen stays on	A zárolási képernyő bekapcsolva marad
+Log %lu/%lu	Napló %lu/%lu
+Log full	Napló megtelt
+Log: %lu node(s)	Napló: %lu csomópont
 Long	Hosszú
 Long name	Hosszú név
 Long name cannot be empty	A hosszú név nem lehet üres
@@ -456,6 +465,7 @@ My Message Color: %s - rebooting...	Üzeneteim színe: %s - újraindítás...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=WiFi kiválasztása   Enter=Befejezés   Bksp=Vissza
 NO LINE OF SIGHT	NINCS RÁLÁTÁS
 NODEINFO + telemetry queued.	NODEINFO + telemetria sorba állítva.
+No GPS fix	Nincs GPS-fix
 Send NODEINFO and telemetry to the mesh now?	Elküldöd most a NODEINFO-t és a telemetriát a hálózatra?
 NODES	CSOMÓPONTOK
 NODES (%d%s)	CSOMÓPONTOK (%d%s)
@@ -794,6 +804,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Pásztázás   P = El
 Wait %lus before sending again	Várj %lus-et az újabb küldés előtt
 Wait %lus between sweeps	Várj %lus-et a pásztázások között
 Waiting for Wi-Fi...	Várakozás a Wi-Fire...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Figyelés: %s/2/e/#\n\nMég nincsenek üzenetek. A csatornák megjelenésük sorrendjében jelennek meg itt, a legújabb alul, mindegyiknél a látott üzenetek számával.
 Weather	Időjárás
 Weather - %s	Időjárás - %s

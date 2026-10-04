@@ -57,6 +57,28 @@ struct NodeEntry {
     // RAM only, like everything else down here — a claim about what we saw this
     // session, not a fact worth carrying across a reboot on someone's say-so.
     bool     xeddsaVerified;
+
+    // ── Wardriving: where WE were when we heard this node ────────────────────
+    // Most Meshtastic nodes never broadcast a POSITION packet, so latI/lonI stay
+    // empty and the node is useless for mapping. This records our own GPS fix at
+    // a sighting instead -- the same convention Wi-Fi wardriving uses for an
+    // AP's logged position. It does not claim to be the node's real location.
+    //
+    // Which sighting wins: a direct one (hop count known and zero, so the RSSI
+    // is the node's own transmitter rather than a relay's) beats a relayed one,
+    // and between two of the same kind the stronger RSSI wins. Strongest-direct
+    // is the best single estimate of where the node actually is; a relayed
+    // sighting is kept only until a direct one turns up.
+    //
+    // Stamped only while wardriving is on (wardriveLogIsEnabled()) and our GPS
+    // has a fix, and exported (/nodes.csv, the eviction archive) only while it
+    // is on: this is the owner's own position history. Not saved to NVS: it
+    // describes this session's drive, not a fact worth carrying across a
+    // reboot. 12 bytes per entry, ~3 KB across MAX_NODES.
+    int32_t  heardLatI, heardLonI;   // degrees * 1e7
+    int16_t  heardRssi;              // dBm of the winning sighting
+    bool     hasHeardPosition;
+    bool     heardDirect;            // winning sighting was a direct (0-hop) packet
 };
 
 #if FEATURE_DISCOVERY

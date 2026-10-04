@@ -18,7 +18,10 @@
   lock	  zabezpečená
   open	  otvorená
  (English only)	 (len angličtina)
+ (log full)	 (záznam plný)
+ (no GPS fix)	 (bez fixu GPS)
  (no card)	 (bez karty)
+ (no storage)	 (bez úložiska)
  (not sharing location)	 (poloha sa nezdieľa)
  (unchanged)	 (bez zmeny)
  - %s available	 - dostupná %s
@@ -316,8 +319,11 @@ Freq: %.3f MHz	Frekv: %.3f MHz
 Fri	pi
 From: %s	Od: %s
 Full node name when known	Celé meno uzla, ak je známe
+GPS %u sat	GPS %u sat.
 GPS disabled (using default coordinates)	GPS vypnuté (predvolené súradnice)
 GPS enabled (hardware)	GPS zapnuté (hardvér)
+GPS fix	Fix GPS
+GPS off	GPS vyp.
 GPS: Disabled (Default Coords)	GPS: Vypnuté (predv. súr.)
 GPS: Enabled (Hardware)	GPS: Zapnuté (hardvér)
 Gateway: not known	Brána: neznáma
@@ -398,6 +404,9 @@ Lock Screen Off: %s	Vypnúť displej na zámku: %s
 Lock Screen: %s	Uzamknutá obrazovka: %s
 Lock screen	Uzamknutá obrazovka
 Lock screen stays on	Uzamknutá obrazovka zostáva zapnutá
+Log %lu/%lu	Záznam %lu/%lu
+Log full	Záznam plný
+Log: %lu node(s)	Záznam: %lu uzlov
 Long	Dlhé
 Long name	Dlhé meno
 Long name cannot be empty	Dlhé meno nesmie byť prázdne
@@ -455,6 +464,7 @@ My Message Color: %s - rebooting...	Farba mojich správ: %s - reštartujem...
 N=Choose WiFi   Enter=Finish   Bksp=Back	N=Vybrať WiFi   Enter=Dokončiť   Bksp=Späť
 NO LINE OF SIGHT	BEZ PRIAMEJ VIDITEĽNOSTI
 NODEINFO + telemetry queued.	NODEINFO + telemetria vo fronte.
+No GPS fix	Bez fixu GPS
 Send NODEINFO and telemetry to the mesh now?	Odoslať teraz NODEINFO a telemetriu do siete?
 NODES	UZLY
 NODES (%d%s)	UZLY (%d%s)
@@ -789,6 +799,8 @@ W = Sweep   P = Preset   C = %s   S = Save   %s = Back	W = Prieskum   P = Preset
 Wait %lus before sending again	Pred ďalším odoslaním počkajte %lus
 Wait %lus between sweeps	Medzi prieskumami počkajte %lus
 Waiting for Wi-Fi...	Čakám na Wi-Fi...
+Wardriving: %s	Wardriving: %s
+Wardriving: %s%s	Wardriving: %s%s
 Watching %s/2/e/#\n\nNo messages yet. Channels appear here as they are published, newest at the bottom, with the number of messages seen on each.	Sledujem %s/2/e/#\n\nZatiaľ žiadne správy. Kanály sa tu objavujú, ako sú publikované, najnovšie dole, s počtom správ zachytených na každom.
 Weather	Počasie
 Weather - %s	Počasie - %s

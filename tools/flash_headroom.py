@@ -16,6 +16,11 @@ than re-deriving anything.
 --min-free is the lever for CI: set it to the point where a board is too tight
 to absorb an ordinary feature, and the build starts failing there instead of in
 a release.
+
+--require-all makes a missing image an error instead of silence. Without it,
+an environment whose build output was deleted after it built (PlatformIO's
+auto-clean, see .github/workflows/build.yml) simply drops out of the table,
+and the board it covers stops being checked without anyone noticing.
 """
 
 import argparse
@@ -54,19 +59,23 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--min-free", type=int, default=0,
                     help="fail if any built environment has less free than this")
+    ap.add_argument("--require-all", action="store_true",
+                    help="fail if any environment in platformio.ini has no firmware.bin")
     args = ap.parse_args()
 
     ini = configparser.ConfigParser(inline_comment_prefixes=(";",))
     ini.read(os.path.join(ROOT, "platformio.ini"))
 
     rows = []
+    missing = []
     for section in ini.sections():
         if not section.startswith("env:"):
             continue
         env = section[4:]
         binary = os.path.join(ROOT, ".pio", "build", env, "firmware.bin")
         if not os.path.isfile(binary):
-            continue    # not built in this job; silence is correct, not an error
+            missing.append(env)
+            continue    # not built in this job; silent unless --require-all
 
         # extends= environments inherit the partition table from their parent.
         table, hop = None, section
@@ -80,6 +89,10 @@ def main() -> int:
         slot = app_slot_bytes(table)
         used = os.path.getsize(binary)
         rows.append((env, used, slot, slot - used, 100.0 * used / slot))
+
+    if args.require_all and missing:
+        print(f"No firmware.bin for: {', '.join(missing)}", file=sys.stderr)
+        return 1
 
     if not rows:
         print("No built environments found under .pio/build.")

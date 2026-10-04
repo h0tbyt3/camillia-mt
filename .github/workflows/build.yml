@@ -83,22 +83,29 @@ jobs:
       - name: Audit UI translations
         run: python3 tools/i18n_audit.py
 
+      # --disable-auto-clean, as in scripts/release.sh: at the start of every
+      # `pio run`, PlatformIO hashes the project's config and the NAMES of every
+      # file under src/, and deletes the whole .pio/build directory -- every
+      # environment's output -- when the hash differs from the stored one. The
+      # first build on a fresh checkout generates src/i18n_builtin.h,
+      # src/release_notes.h and src/spell_dict_en.h, so the second `pio run`
+      # used to wipe tdeck's image, and the headroom step below never saw it.
       - name: Build firmware (verify all environments compile)
         run: |
-          pio run -e tdeck
-          pio run -e tdeck-pro
-          pio run -e tlora-pager-tft
-          pio run -e cardputer-cap
-          pio run -e heltec-v4
-          pio run -e heltec-v4-vertical
-          pio run -e heltec-r8
-          pio run -e heltec-r8-vertical
-          pio run -e mesh-deck
-          pio run -e m9
-          pio run -e wio-tracker-l2
-          pio run -e crowpanel-35
-          PLATFORMIO_CORE_DIR="$HOME/.platformio-p4" pio run -e p4-amoled-sx1262
-          PLATFORMIO_CORE_DIR="$HOME/.platformio-p4" pio run -e p4-amoled-lr2021
+          pio run -e tdeck --disable-auto-clean
+          pio run -e tdeck-pro --disable-auto-clean
+          pio run -e tlora-pager-tft --disable-auto-clean
+          pio run -e cardputer-cap --disable-auto-clean
+          pio run -e heltec-v4 --disable-auto-clean
+          pio run -e heltec-v4-vertical --disable-auto-clean
+          pio run -e heltec-r8 --disable-auto-clean
+          pio run -e heltec-r8-vertical --disable-auto-clean
+          pio run -e mesh-deck --disable-auto-clean
+          pio run -e m9 --disable-auto-clean
+          pio run -e wio-tracker-l2 --disable-auto-clean
+          pio run -e crowpanel-35 --disable-auto-clean
+          PLATFORMIO_CORE_DIR="$HOME/.platformio-p4" pio run -e p4-amoled-sx1262 --disable-auto-clean
+          PLATFORMIO_CORE_DIR="$HOME/.platformio-p4" pio run -e p4-amoled-lr2021 --disable-auto-clean
 
       # Flash headroom, printed tightest-first, so the next board to approach
       # its ceiling is visible here rather than in a failed release. This has
@@ -113,7 +120,7 @@ jobs:
       # recovered — it started at 32 KB when wio-tracker-l2 was at 47 KB, and
       # that board is now at 2.9 MB after getting its own partition table.
       - name: Flash headroom
-        run: python3 tools/flash_headroom.py --min-free 65536
+        run: python3 tools/flash_headroom.py --min-free 65536 --require-all
 
       # Debug symbols are deliberately not archived here. This build is not
       # byte-identical to the signed binaries that actually ship, so its

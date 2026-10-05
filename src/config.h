@@ -507,10 +507,16 @@
 #define MY_SPLASH_LOGO      1
 #endif
 #ifndef MY_SPLASH_BRAND
-#define MY_SPLASH_BRAND     "HotByte"
+#define MY_SPLASH_BRAND     "WDGwars"
+#endif
+#ifndef MY_SPLASH_BRAND2
+#define MY_SPLASH_BRAND2    "EDITION"   // second title line under the brand (empty = none)
 #endif
 #ifndef MY_SPLASH_EDITION
-#define MY_SPLASH_EDITION   "WDGwars EDITION"   // shown under the logo instead of the node name
+#define MY_SPLASH_EDITION   "WDGwars EDITION"   // home screen title
+#endif
+#ifndef MY_SPLASH_FOOTER
+#define MY_SPLASH_FOOTER    "by HotByte"        // splash footer line instead of the node name
 #endif
 #ifndef MY_WARDRIVE_LOG_EN
 #define MY_WARDRIVE_LOG_EN  1   // h0tbyt3 fork: on by default. Log every radio sighting + own GPS fix to /camillia/wardrive.csv

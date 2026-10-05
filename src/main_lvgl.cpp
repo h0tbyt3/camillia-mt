@@ -47443,10 +47443,10 @@ static void drawBootSplash() {
     char nodeLine[72];
     const char *nodeLong = s_cfg.nodeLong[0] ? s_cfg.nodeLong : "unknown node";
     const char *nodeShort = s_cfg.nodeShort[0] ? s_cfg.nodeShort : "----";
-#if MY_SPLASH_LOGO && defined(MY_SPLASH_EDITION)
-    // h0tbyt3 fork: edition tag instead of the node name on the boot splash.
+#if MY_SPLASH_LOGO && defined(MY_SPLASH_FOOTER)
+    // h0tbyt3 fork: footer tag instead of the node name on the boot splash.
     (void)nodeLong; (void)nodeShort;
-    snprintf(nodeLine, sizeof(nodeLine), "%s", MY_SPLASH_EDITION);
+    snprintf(nodeLine, sizeof(nodeLine), "%s", MY_SPLASH_FOOTER);
 #else
     snprintf(nodeLine, sizeof(nodeLine), "%s (%s)", nodeLong, nodeShort);
 #endif
@@ -47489,14 +47489,30 @@ static void drawBootSplash() {
         const int subH = splashDev().fontHeight();
         splashDev().setFont(&fonts::DejaVu9);
         const int verH = splashDev().fontHeight();
-        const int blockH = brandH + 4 + subH + 2 + verH;
+#if defined(MY_SPLASH_BRAND2)
+        const bool hasBrand2 = MY_SPLASH_BRAND2[0] != 0;
+#else
+        const bool hasBrand2 = false;
+#endif
+        splashDev().setFont(&Roboto_Medium14pt7b);
+        const int brand2H = hasBrand2 ? (int)splashDev().fontHeight() + 2 : 0;
+        const int blockH = brandH + brand2H + 4 + subH + 2 + verH;
         int ty = ly + (d - blockH) / 2;
 
         splashDev().setFont(&Roboto_Bold26pt7b);
         if (splashDev().textWidth(MY_SPLASH_BRAND) > tw) splashDev().setFont(&Roboto_Medium14pt7b);
         splashDev().setTextColor(titleCol, cardBg);
         drawInText(MY_SPLASH_BRAND, ty);
-        ty += brandH + 4;
+        ty += brandH;
+#if defined(MY_SPLASH_BRAND2)
+        if (hasBrand2) {
+            splashDev().setFont(&Roboto_Medium14pt7b);
+            ty += 2;
+            drawInText(MY_SPLASH_BRAND2, ty);
+            ty += brand2H - 2;
+        }
+#endif
+        ty += 4;
         splashDev().setFont(&fonts::DejaVu12);
         splashDev().setTextColor(subCol, cardBg);
         drawInText("for Meshtastic", ty);

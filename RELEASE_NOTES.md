@@ -9,3 +9,8 @@
 - Blinking new-message marks in a channel or DM now clear after you've had that conversation open for 15 seconds, not only when you leave it. A new message restarts the 15 seconds.
 - T-Deck Pro: when weather is shown, the at-a-glance header centres the node name and time in the left half and the weather in the right half.
 - Node exports that include archived nodes now pad older archive rows with empty fields, so every row has as many columns as the header.
+
+
+### Update (v5.7.6)
+### Fixed
+- Checking for firmware updates over Wi-Fi no longer fails on the first attempt and then works on a retry; the latest stable and pre-release versions are now found on the first try.

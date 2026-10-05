@@ -63,104 +63,6 @@ static void copyStringToBuf(char *dst, size_t dstLen, const char *src) {
     dst[dstLen - 1] = '\0';
 }
 
-static bool extractJsonStringField(const String &json, const char *field, String &valueOut) {
-    valueOut = "";
-    if (!field || !field[0]) return false;
-
-    String key = String("\"") + field + "\"";
-    int keyPos = json.indexOf(key);
-    if (keyPos < 0) return false;
-
-    int colonPos = json.indexOf(':', keyPos + key.length());
-    if (colonPos < 0) return false;
-
-    int q1 = json.indexOf('"', colonPos + 1);
-    if (q1 < 0) return false;
-
-    String out = "";
-    bool esc = false;
-    for (int i = q1 + 1; i < (int)json.length(); i++) {
-        char c = json[i];
-        if (esc) {
-            switch (c) {
-                case '"': out += '"'; break;
-                case '\\': out += '\\'; break;
-                case '/': out += '/'; break;
-                case 'b': out += '\b'; break;
-                case 'f': out += '\f'; break;
-                case 'n': out += '\n'; break;
-                case 'r': out += '\r'; break;
-                case 't': out += '\t'; break;
-                default: out += c; break;
-            }
-            esc = false;
-            continue;
-        }
-        if (c == '\\') {
-            esc = true;
-            continue;
-        }
-        if (c == '"') {
-            valueOut = out;
-            return true;
-        }
-        out += c;
-    }
-
-    return false;
-}
-
-static bool httpGetString(const char *url,
-                          String &bodyOut,
-                          String &errOut,
-                          bool followRedirects,
-                          int *statusOut = nullptr,
-                          String *locationOut = nullptr,
-                          const char *acceptHeader = nullptr) {
-    preferExternalHeapForOta();
-
-    bodyOut = "";
-    errOut = "";
-    if (statusOut) *statusOut = 0;
-    if (locationOut) *locationOut = "";
-
-    // Plain HTTP only — this firmware has no TLS client.
-    WiFiClient plainClient;
-    HTTPClient http;
-    if (!http.begin(plainClient, url)) {
-        errOut = "Failed to start request";
-        return false;
-    }
-
-    http.setTimeout((uint16_t)kReleaseCheckTimeoutMs);
-    http.addHeader("User-Agent", "camillia-mt-ota");
-    if (acceptHeader && acceptHeader[0]) {
-        http.addHeader("Accept", acceptHeader);
-    }
-    http.setFollowRedirects(followRedirects ? HTTPC_STRICT_FOLLOW_REDIRECTS
-                                            : HTTPC_DISABLE_FOLLOW_REDIRECTS);
-
-    int code = http.GET();
-    if (statusOut) *statusOut = code;
-    if (locationOut) *locationOut = http.getLocation();
-
-    if (code <= 0) {
-        errOut = String("Network error (") + String(code) + ")";
-        http.end();
-        return false;
-    }
-
-    if (code != HTTP_CODE_OK) {
-        errOut = String("HTTP ") + String(code);
-        http.end();
-        return false;
-    }
-
-    bodyOut = http.getString();
-    http.end();
-    return true;
-}
-
 static int parseNextVersionNumber(const char *s, int &idx) {
     if (!s) return -1;
     while (s[idx] && !isdigit((unsigned char)s[idx])) idx++;
@@ -271,14 +173,99 @@ static bool fetchLatestReleaseTag(String &tagOut, String &errOut) {
     snprintf(url, sizeof(url), "%s/firmware/%s", s_otaBaseUrl,
              (otaResolveChannel(g_otaChannel) == OTA_CHANNEL_ALPHA) ? "latest-alpha"
                                                                     : "latest");
-    String body, err;
-    if (httpGetString(url, body, err, true, nullptr, nullptr,
-                      "application/vnd.github+json")
-        && extractJsonStringField(body, "tag_name", tagOut)
-        && tagOut.length() > 0) {
-        return true;
+
+    preferExternalHeapForOta();
+    WiFiClient plainClient;
+    HTTPClient http;
+    if (!http.begin(plainClient, url)) {
+        errOut = "Failed to start request";
+        return false;
     }
-    errOut = err.length() ? err : String("Release tag not found (proxy)");
+    http.setTimeout((uint16_t)kReleaseCheckTimeoutMs);
+    http.addHeader("User-Agent", "camillia-mt-ota");
+    http.addHeader("Accept", "application/vnd.github+json");
+    http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
+    // HTTP/1.0 so the reply can never be chunked: the scan below reads the raw
+    // socket, where chunk-size lines would land in the middle of the JSON. A
+    // GitHub cache miss -- the first request after a while -- is relayed
+    // chunked to a 1.1 client; a 1.0 client gets the plain body and a close.
+    http.useHTTP10(true);
+
+    const int code = http.GET();
+    if (code <= 0) {
+        errOut = String("Network error (") + String(code) + ")";
+        http.end();
+        return false;
+    }
+    if (code != HTTP_CODE_OK) {
+        errOut = String("HTTP ") + String(code);
+        http.end();
+        return false;
+    }
+
+    WiFiClient *stream = http.getStreamPtr();
+    if (!stream) {
+        errOut = "release stream unavailable";
+        http.end();
+        return false;
+    }
+
+    // Streamed, never buffered. The release JSON carries an assets array that
+    // grows with every board (two entries each: .bin and .sig) and is ~70 KB
+    // now, but tag_name sits ~1.5 KB in, ahead of assets, so the scan stops
+    // there. This used to be getString(), which came back without a tag
+    // whenever the reply was chunked -- i.e. on a GitHub cache miss -- so the
+    // first check after a while failed and an immediate retry, served from
+    // cache with a Content-Length, worked.
+    static const char kTagKey[] = "\"tag_name\":\"";
+    // Long enough to span the literal plus a whole tag value across a split.
+    constexpr size_t kCarry = 96;
+    // tag_name precedes the assets array; past this it is not coming.
+    constexpr size_t kMaxScanBytes = 16UL * 1024UL;
+
+    String window;
+    size_t scanned = 0;
+    uint32_t lastDataMs = millis();
+
+    while (http.connected() && scanned < kMaxScanBytes) {
+        const size_t avail = stream->available();
+        if (avail == 0) {
+            if (millis() - lastDataMs > kReleaseCheckTimeoutMs) break;
+            delay(5);
+            continue;
+        }
+        char buf[256];
+        const size_t want = (avail > sizeof(buf)) ? sizeof(buf) : avail;
+        const int n = stream->readBytes((uint8_t *)buf, want);
+        if (n <= 0) continue;
+        lastDataMs = millis();
+        scanned += (size_t)n;
+        window.concat(buf, (size_t)n);
+
+        const int tagPos = window.indexOf(kTagKey);
+        if (tagPos >= 0) {
+            const int valStart = tagPos + (int)strlen(kTagKey);
+            const int valEnd = window.indexOf('"', valStart);
+            if (valEnd >= 0) {
+                tagOut = window.substring(valStart, valEnd);
+                break;
+            }
+            continue;   // value still incomplete; keep the window whole
+        }
+        if (window.length() > kCarry) {
+            window.remove(0, window.length() - kCarry);
+        }
+    }
+
+    if (!tagOut.length()) {
+        Serial.printf("[ota] release scan: %u bytes read, no tag_name (connected=%d)\n",
+                      (unsigned)scanned, http.connected() ? 1 : 0);
+    }
+    http.end();
+
+    if (tagOut.length()) return true;
+    errOut = scanned ? String("Release tag not found (proxy)")
+                     : String("No release response (proxy)");
     return false;
 }
 
@@ -322,6 +309,11 @@ static bool fetchLatestPrereleaseTag(String &tagOut, String &errOut) {
     http.addHeader("User-Agent", "camillia-mt-ota");
     http.addHeader("Accept", "application/vnd.github+json");
     http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
+    // HTTP/1.0 so the reply can never be chunked: the scan below reads the raw
+    // socket, where chunk-size lines would land in the middle of the JSON. A
+    // GitHub cache miss -- the first request after a while -- is relayed
+    // chunked to a 1.1 client; a 1.0 client gets the plain body and a close.
+    http.useHTTP10(true);
 
     const int code = http.GET();
     if (code != HTTP_CODE_OK) {

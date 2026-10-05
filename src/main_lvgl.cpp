@@ -4456,8 +4456,111 @@ static void playVolumePreviewTone() {
 }
 #endif
 
+#if defined(DEVICE_TDECK)
+// h0tbyt3 fork: custom boot sound from the SD card. If /camillia/boot.wav exists
+// (PCM 16-bit, mono or stereo, ideally 44.1 kHz) it is played instead of the
+// built-in riff. Capped at kBootWavMaxMs so a long file cannot hold up boot.
+// Nothing audio-specific lives in the repo: the file is the user's own.
+static constexpr const char *kBootWavPath = "/camillia/boot.wav";
+static constexpr uint32_t kBootWavMaxMs = 6000;
+
+static bool tdeckPlayBootWavFromSd() {
+    if (!sdCardMounted()) return false;
+    fs::FS &fs = storageFs();
+    if (!fs.exists(kBootWavPath)) return false;
+    File f = fs.open(kBootWavPath, FILE_READ);
+    if (!f) return false;
+
+    auto rd32 = [](const uint8_t *b) { return (uint32_t)b[0] | ((uint32_t)b[1] << 8) | ((uint32_t)b[2] << 16) | ((uint32_t)b[3] << 24); };
+    auto rd16 = [](const uint8_t *b) { return (uint16_t)(b[0] | (b[1] << 8)); };
+
+    uint8_t hdr[12];
+    if (f.read(hdr, 12) != 12 || memcmp(hdr, "RIFF", 4) || memcmp(hdr + 8, "WAVE", 4)) {
+        Serial.println("[audio] boot.wav: not a RIFF/WAVE file");
+        f.close(); return false;
+    }
+    uint16_t fmtTag = 0, channels = 0, bits = 0;
+    uint32_t rate = 0, dataLen = 0;
+    bool haveFmt = false, haveData = false;
+    while (!haveData) {
+        uint8_t ch[8];
+        if (f.read(ch, 8) != 8) break;
+        const uint32_t len = rd32(ch + 4);
+        if (!memcmp(ch, "fmt ", 4)) {
+            uint8_t fmt[16];
+            if (len < 16 || f.read(fmt, 16) != 16) break;
+            fmtTag = rd16(fmt); channels = rd16(fmt + 2); rate = rd32(fmt + 4); bits = rd16(fmt + 14);
+            haveFmt = true;
+            if (len > 16) f.seek(f.position() + (len - 16) + (len & 1));
+        } else if (!memcmp(ch, "data", 4)) {
+            dataLen = len; haveData = true;
+        } else {
+            f.seek(f.position() + len + (len & 1));
+        }
+    }
+    if (!haveFmt || !haveData || fmtTag != 1 || bits != 16 || channels < 1 || channels > 2
+        || rate < 8000 || rate > 48000) {
+        Serial.printf("[audio] boot.wav: unsupported (fmt=%u ch=%u bits=%u rate=%lu)\n",
+                      fmtTag, channels, bits, (unsigned long)rate);
+        f.close(); return false;
+    }
+    if (!tdeckAudioEnsureReady()) { f.close(); return false; }
+
+    static constexpr uint32_t kOutRate = 44100;          // the T-Deck I2S rate
+    uint32_t inFrames = dataLen / (2u * channels);
+    const uint32_t maxIn = (uint32_t)((uint64_t)rate * kBootWavMaxMs / 1000u);
+    if (inFrames > maxIn) inFrames = maxIn;
+    // ~0.3 of full scale at the default volume: about as loud as the tone riff
+    // once a compressed music clip is weighed by its RMS, not its peaks.
+    const float gain = 0.3f * notifyVolumeScale();
+
+    static constexpr int kInChunk = 256;
+    int16_t in[kInChunk * 2];
+    int16_t out[kInChunk * 2 * 2 + 8];
+    // Nearest-neighbour resample to 44.1 kHz; a 44.1 kHz file goes straight through.
+    const uint32_t step16 = (uint32_t)(((uint64_t)rate << 16) / kOutRate);
+    uint64_t pos16 = 0;                       // output position in input frames (16.16)
+    uint32_t base = 0;                        // first input frame held in `in`
+    int have = 0;
+
+    tdeckAudioStartPlayback();
+    while (true) {
+        int n = 0;
+        while (n < kInChunk * 2) {
+            uint32_t src = (uint32_t)(pos16 >> 16);
+            if (src >= inFrames) break;
+            if (src >= base + (uint32_t)have) {
+                base += (uint32_t)have;
+                int want = kInChunk;
+                if (base + (uint32_t)want > inFrames) want = (int)(inFrames - base);
+                int got = f.read((uint8_t *)in, (size_t)want * 2 * channels);
+                have = got / (2 * channels);
+                if (have <= 0) { inFrames = base; break; }
+                continue;
+            }
+            const int i = (int)(src - base);
+            int32_t v = (channels == 2) ? (((int32_t)in[i * 2] + in[i * 2 + 1]) / 2) : in[i];
+            v = (int32_t)(v * gain);
+            const int16_t sv = (int16_t)(v > 32767 ? 32767 : (v < -32768 ? -32768 : v));
+            out[n * 2] = sv; out[n * 2 + 1] = sv;
+            n++;
+            pos16 += step16;
+        }
+        if (n == 0) break;
+        size_t written = 0;
+        if (i2s_write(kTdeckI2SPort, out, (size_t)n * 2 * sizeof(int16_t), &written, portMAX_DELAY) != ESP_OK) break;
+    }
+    tdeckAudioStopPlayback();
+    f.close();
+    return true;
+}
+#endif
+
 static void playSplashStartupRiff() {
     if (!s_cfg.splashMelodyEnabled) return;
+#if defined(DEVICE_TDECK)
+    if (tdeckPlayBootWavFromSd()) return;
+#endif
 
     // h0tbyt3 fork: WDGwars boot riff. E-minor metal gallop (E, G, A with a
     // Bb blue note), then a rising E-G-B scream. 0 Hz = rest. Each note is

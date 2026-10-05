@@ -513,7 +513,7 @@
 #define MY_SPLASH_EDITION   "WDGwars EDITION"   // shown under the logo instead of the node name
 #endif
 #ifndef MY_WARDRIVE_LOG_EN
-#define MY_WARDRIVE_LOG_EN  0   // opt-in: log every radio sighting + own GPS fix to /camillia/wardrive.csv
+#define MY_WARDRIVE_LOG_EN  1   // h0tbyt3 fork: on by default. Log every radio sighting + own GPS fix to /camillia/wardrive.csv
 #endif
 #define MY_AUTOFAV_ENABLED  0      // opt-in: auto-favorite nodes within range
 // Auto-favorite threshold, in meters. One round unit in whichever system the

@@ -3896,6 +3896,10 @@ static void pagerAudioPlayTone(uint16_t freqHz, uint16_t durationMs) {
     const float gain = kPagerToneAmplitude * notifyVolumeScale();
     const float phaseStep = 2.0f * (float)M_PI * (float)freqHz / (float)kSampleRate;
     float phase = 0.0f;
+    float phase5 = 0.0f, phaseSub = 0.0f;              // grit mode: fifth, sub-octave
+    const float phaseStep5 = phaseStep * 1.5f;
+    const float phaseStepSub = phaseStep * 0.5f;
+    const float kTwoPi = 2.0f * (float)M_PI;
 
     while (framesRemaining > 0) {
         int framesNow = (framesRemaining > (uint32_t)kChunkFrames)
@@ -3905,6 +3909,15 @@ static void pagerAudioPlayTone(uint16_t freqHz, uint16_t durationMs) {
             float s = sinf(phase);
             phase += phaseStep;
             if (phase >= 2.0f * (float)M_PI) phase -= 2.0f * (float)M_PI;
+            if (s_tdeckToneGrit) {
+                // Power chord through a fuzz pedal: mix, overdrive, hard clip.
+                float mix = s + 0.7f * sinf(phase5) + 0.5f * sinf(phaseSub);
+                phase5 += phaseStep5;     if (phase5 >= kTwoPi) phase5 -= kTwoPi;
+                phaseSub += phaseStepSub; if (phaseSub >= kTwoPi) phaseSub -= kTwoPi;
+                mix *= 2.2f;
+                if (mix > 1.0f) mix = 1.0f; else if (mix < -1.0f) mix = -1.0f;
+                s = mix * 0.75f;          // clipped wave is denser; keep the level sane
+            }
 
             float env = 1.0f;
             if (frameIndex < attackFrames) {
@@ -4062,6 +4075,11 @@ static inline void tdeckAudioStopPlayback() {
     (void)i2s_write(kTdeckI2SPort, tail, sizeof(tail), &tailWritten, 20 / portTICK_PERIOD_MS);
     i2s_zero_dma_buffer(kTdeckI2SPort);
 }
+
+// h0tbyt3 fork: when set, tdeckAudioPlayTone() plays a distorted power chord
+// (root + fifth + sub-octave, hard-clipped) instead of a clean sine. Only the
+// boot riff turns it on; alerts keep the clean tone.
+static bool s_tdeckToneGrit = false;
 
 static void tdeckAudioPlayTone(uint16_t freqHz, uint16_t durationMs) {
     if (!tdeckAudioEnsureReady()) return;
@@ -4441,12 +4459,17 @@ static void playVolumePreviewTone() {
 static void playSplashStartupRiff() {
     if (!s_cfg.splashMelodyEnabled) return;
 
-    // Middle-octave riff: E, F, F#, F, E, D#, E
-    static const uint16_t kNotesHz[] = {330, 349, 370, 349, 330, 311, 330};
-    static const uint16_t kQuarterMs = 220;
-    static const uint16_t kPause16thMs = 55;
+    // h0tbyt3 fork: WDGwars boot riff. E-minor metal gallop (E, G, A with a
+    // Bb blue note), then a rising E-G-B scream. 0 Hz = rest. Each note is
+    // followed by its own gap so the gallop stays tight.
+    static const uint16_t kNotesHz[] = {
+        330, 330, 330,   392, 392, 392,   440, 440, 466, 440,   0,   659, 784, 988
+    };
     static const uint16_t kDurMs[] = {
-        kQuarterMs, kQuarterMs, kQuarterMs, kQuarterMs, kQuarterMs, kQuarterMs, kQuarterMs
+         70,  70, 150,    70,  70, 150,    70,  70, 110, 110,  60,   90,  90, 420
+    };
+    static const uint16_t kGapMs[] = {
+         20,  20,  40,    20,  20,  40,    20,  20,  25,  25,   0,   20,  20,   0
     };
     static const size_t kCount = sizeof(kNotesHz) / sizeof(kNotesHz[0]);
 
@@ -4455,24 +4478,32 @@ static void playSplashStartupRiff() {
     if (!pagerAudioEnsureReady()) return;
     pagerAudioStartPlayback();
     for (size_t i = 0; i < kCount; i++) {
-        pagerAudioPlayTone(kNotesHz[i], kDurMs[i]);
-        if (i + 1 < kCount) pagerAudioWriteSilence(kPause16thMs);
+        if (kNotesHz[i]) pagerAudioPlayTone(kNotesHz[i], kDurMs[i]);
+        else pagerAudioWriteSilence(kDurMs[i]);
+        if (kGapMs[i]) pagerAudioWriteSilence(kGapMs[i]);
     }
     pagerAudioStopPlayback();
 #elif defined(DEVICE_TDECK)
     if (!tdeckAudioEnsureReady()) return;
     tdeckAudioStartPlayback();
+    s_tdeckToneGrit = true;
     for (size_t i = 0; i < kCount; i++) {
-        tdeckAudioPlayTone(kNotesHz[i], kDurMs[i]);
-        if (i + 1 < kCount) delay(kPause16thMs);
+        if (kNotesHz[i]) tdeckAudioPlayTone(kNotesHz[i], kDurMs[i]);
+        else delay(kDurMs[i]);
+        if (kGapMs[i]) delay(kGapMs[i]);
     }
+    s_tdeckToneGrit = false;
     tdeckAudioStopPlayback();
 #elif defined(DEVICE_CARDPUTER_LORA_HAT)
-    cardputerPlayTonePattern(kNotesHz, kDurMs, kCount, kPause16thMs);
+    cardputerAudioEnsureReady();
+    for (size_t i = 0; i < kCount; i++) {
+        if (kNotesHz[i]) (void)cardputerSpeakerTone((float)kNotesHz[i], kDurMs[i], 0, true);
+        delay((uint32_t)kDurMs[i] + kGapMs[i]);
+    }
 #elif (BOARD_BUZZER >= 0)
     for (size_t i = 0; i < kCount; i++) {
-        tone(BOARD_BUZZER, kNotesHz[i], kDurMs[i]);
-        delay((uint32_t)kDurMs[i] + (i + 1 < kCount ? kPause16thMs : 0));
+        if (kNotesHz[i]) tone(BOARD_BUZZER, kNotesHz[i], kDurMs[i]);
+        delay((uint32_t)kDurMs[i] + kGapMs[i]);
     }
 #endif
 }
